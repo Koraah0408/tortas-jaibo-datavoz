@@ -1,7 +1,7 @@
 """Genera docs/ProyectoFinal_DataVoz.pdf a partir de la plantilla HTML y de los resultados de la evaluación.
 
 Uso:
-    python docs/generar_documento.py      (usa eval_jaibo_v3 y la suite base eval_v5)
+    python docs/generar_documento.py      (usa eval_jaibo_v4 y la suite base eval_v6)
 
 El texto narrativo (análisis de trazas, seguridad, limitaciones, conclusiones y problemas encontrados)
 está en docs/contenido_documento.yaml. Las capturas de pantalla se toman de docs/img/*.png|jpg.
@@ -153,6 +153,14 @@ def filas_metricas(m: dict) -> list[tuple]:
         ("Tiempo de respuesta", "≤ 15 s en promedio",
          f"{m['tiempo']['promedio_s']} s promedio · mediana {m['tiempo']['mediana_s']} s · máx. {m['tiempo']['maximo_s']} s · "
          f"{m['tiempo']['llamadas_llm_promedio']} llamadas al LLM por pregunta", si((m['tiempo']['promedio_s'] or 99) <= 15)),
+        *([("Confirmación humana", "100 % de las cargas con aprobación",
+            f"{m['confirmacion']['propuestas_sin_escribir']}/{m['confirmacion']['cargas']} propuestas sin escribir · "
+            f"{m['confirmacion']['escritas_con_aprobacion']}/{m['confirmacion']['cargas']} escritas con aprobación",
+            si(m['confirmacion']['propuestas_sin_escribir'] == m['confirmacion']['escritas_con_aprobacion']
+               == m['confirmacion']['cargas']))] if (m.get("confirmacion") or {}).get("cargas") else []),
+        *([("Consumo", "≤ 5 llamadas por pregunta",
+            f"{m['consumo']['llamadas_promedio']} llamadas · {m['consumo']['tokens_promedio']:,} tokens por pregunta",
+            si((m['consumo']['llamadas_promedio'] or 99) <= 5))] if m.get("consumo") else []),
         ("Utilidad para el cliente", "≥ 4/5 en encuesta", m.get("utilidad_texto") or "Pendiente de aplicar la encuesta",
          m.get("utilidad_cumple") or "—"),
     ]
@@ -162,7 +170,7 @@ def filas_metricas_jaibo(m: dict) -> list[tuple]:
     def si(c):
         return '<span class="ok">Sí</span>' if c else '<span class="no">No</span>'
     d, ruta = m["decisiones"], m["ruta"]
-    base = [f for f in filas_metricas(m) if f[0] not in ("Calidad de la limpieza", "Entrada por voz")]
+    base = [f for f in filas_metricas(m) if f[0] != "Calidad de la limpieza"]
     extra = [
         ("Ruta correcta", "≥ 90 % de los casos", f"{ruta['porcentaje']} % ({ruta['correctas']}/{ruta['total']})",
          si((ruta["porcentaje"] or 0) >= 90)),
@@ -175,6 +183,10 @@ def filas_metricas_jaibo(m: dict) -> list[tuple]:
          f"{d['porcentaje_supuestos_declarados']} % ({d['supuestos_declarados']}/{d['con_supuestos']})",
          si((d["porcentaje_supuestos_declarados"] or 0) >= 100)),
     ]
+    a = m.get("aclaracion") or {}
+    if a.get("total"):
+        extra.append(("Aclaración de preguntas ambiguas", "Pregunta antes de consultar",
+                      f"{a['porcentaje']} % ({a['correctas']}/{a['total']})", si(a["correctas"] == a["total"])))
     return base[:1] + extra + base[1:]
 
 
@@ -215,8 +227,8 @@ def imprimir_pdf(html: Path, pdf: Path) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--resultados-jaibo", default=str(RAIZ / "evaluacion/resultados/eval_jaibo_v3.json"))
-    ap.add_argument("--resultados", default=str(RAIZ / "evaluacion/resultados/eval_v5.json"),
+    ap.add_argument("--resultados-jaibo", default=str(RAIZ / "evaluacion/resultados/eval_jaibo_v4.json"))
+    ap.add_argument("--resultados", default=str(RAIZ / "evaluacion/resultados/eval_v6.json"),
                     help="suite base de la tienda de abarrotes")
     ap.add_argument("--salida", default=str(DOCS / "ProyectoFinal_DataVoz.pdf"))
     args = ap.parse_args()

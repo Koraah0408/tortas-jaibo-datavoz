@@ -38,6 +38,7 @@
 - **Prompts documentados (R4):** docs/PROMPTS.md con las 11 versiones, el texto descartado y el motivo de cada cambio (`python docs/generar_prompts.py`).
 - **Voz con 10 notas reales de WhatsApp** (casos JV01–JV10, `eval_jaibo_voz_v1`): 10/10, similitud 0.992. Whisper ahora tiene el vocabulario de Jaibo (antes escribía «Rapid» y «Liddy»). Los audios están en `evaluacion/audio/jaibo/`, fuera de git.
 - Los 10 audios los grabó José Ramiro (una sola voz); así se quedan.
+- **Lo que prometía la ficha corregida, ya implementado:** aclaración de preguntas ambiguas («¿en piezas o en dinero?»), Visualizador solo cuando hace falta, datos entre `<datos>` en los prompts, inyección directa e indirecta desde el POS (JX6, JX7). Corridas finales: `eval_jaibo_v4` (51 casos) y `eval_v6` (26 casos, todo cumple); `eval_jaibo_v4_correccion` comprueba la corrección de JH2 y del verificador.
 - Falta: las 10 preguntas del dueño.
 
 ## Falta

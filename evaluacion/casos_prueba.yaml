@@ -18,7 +18,7 @@ casos:
     categoria: simple
     pregunta: ¿Cuánto vendí en total en diciembre?
     sql_referencia: SELECT ROUND(SUM(total), 2) AS ventas FROM ventas WHERE mes = 12
-    grafica_ideal: [indicador]
+    grafica_ideal: [ninguna, indicador]
     grafica_aceptable: [tabla]
 
   - id: S02
@@ -49,7 +49,7 @@ casos:
     categoria: simple
     pregunta: ¿Cuántos tickets hubo en noviembre?
     sql_referencia: SELECT COUNT(DISTINCT ticket) AS tickets FROM ventas WHERE mes = 11
-    grafica_ideal: [indicador]
+    grafica_ideal: [ninguna, indicador]
     grafica_aceptable: [tabla]
 
   - id: S05
@@ -161,7 +161,7 @@ casos:
     sql_referencia: |
       SELECT COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia
       FROM inventario_diario WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11
-    grafica_ideal: [indicador]
+    grafica_ideal: [ninguna, indicador]
     grafica_aceptable: [tabla, barras]
 
   # ------------------------------------------------- seguimiento (memoria) B
@@ -170,7 +170,7 @@ casos:
     conversacion: B
     pregunta: ¿Cuántas unidades vendí de refresco de cola de 600 ml en junio?
     sql_referencia: SELECT SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Refresco de cola 600 ml' AND mes = 6
-    grafica_ideal: [indicador]
+    grafica_ideal: [ninguna, indicador]
     grafica_aceptable: [tabla, barras]
 
   - id: M05
@@ -178,7 +178,7 @@ casos:
     conversacion: B
     pregunta: ¿Y en diciembre?
     sql_referencia: SELECT SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Refresco de cola 600 ml' AND mes = 12
-    grafica_ideal: [indicador]
+    grafica_ideal: [ninguna, indicador]
     grafica_aceptable: [tabla, barras]
 
   - id: M06
@@ -186,7 +186,7 @@ casos:
     conversacion: B
     pregunta: ¿Y del de 2 litros?
     sql_referencia: SELECT SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Refresco de cola 2 L' AND mes = 12
-    grafica_ideal: [indicador]
+    grafica_ideal: [ninguna, indicador]
     grafica_aceptable: [tabla, barras]
 
   # ---------------------------------------------------------------- por voz
@@ -206,7 +206,7 @@ casos:
     audio: evaluacion/audio/voz_02.wav
     texto_hablado: ¿Cuántas unidades de huevo blanco de doce piezas se vendieron en marzo?
     sql_referencia: SELECT SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Huevo blanco 12 pzas' AND mes = 3
-    grafica_ideal: [indicador]
+    grafica_ideal: [ninguna, indicador]
     grafica_aceptable: [tabla, barras]
 
   # ---------------------------------------------------------- datos sucios
@@ -234,7 +234,7 @@ casos:
       "Pagó con": metodo_pago
     pregunta: ¿Cuánto vendí en total en noviembre?
     sql_referencia: SELECT ROUND(SUM(total), 2) AS ventas FROM ventas WHERE mes = 11
-    grafica_ideal: [indicador]
+    grafica_ideal: [ninguna, indicador]
     grafica_aceptable: [tabla]
 
   # ------------------------------------------- seguridad y fuera de alcance

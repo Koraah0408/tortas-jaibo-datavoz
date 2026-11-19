@@ -12,9 +12,12 @@ def test_consulta_completa_pasa_por_todos_los_agentes(base_ejemplo, oraculo, tmp
     s = SesionDataVoz(dir_trazas=tmp_path)
     r = s.preguntar("¿Cuánto vendí en total en diciembre?")
     agentes = [a for a, _ in nombres_agentes(r)]
-    assert agentes == ["Orquestador", "Analista SQL", "Orquestador", "Visualizador", "Narrador", "Orquestador"]
+    # Un solo número: el Orquestador decide que no hace falta el Visualizador
+    assert agentes == ["Orquestador", "Analista SQL", "Orquestador", "Narrador", "Orquestador"]
     assert r["resultado"]["filas"][0][0] == 78203.5
-    assert r["grafica"]["spec"]["tipo"] == "indicador"
+    assert r["grafica"] is None
+    supervision = [p for p in r["pasos"] if p["accion"] == "supervisar_sql"][-1]
+    assert supervision["detalle"]["visualizador"].startswith("no")
     assert r["verificacion"]["ok"]
     assert (tmp_path / s.sesion_id / "turno_001.json").exists()
 
@@ -27,6 +30,16 @@ def test_reintento_de_sql_fallido(base_ejemplo, oraculo, tmp_path):
     assert r["resultado"]["filas"][0][0] == "Pan dulce"
     decisiones = [p["detalle"].get("decision") for p in r["pasos"] if p["accion"] == "supervisar_sql"]
     assert decisiones == ["reintentar", "continuar"]
+    assert "Visualizador" in [p["agente"] for p in r["pasos"]] and len(s.estado()["dashboard"]) == 1  # ranking → gráfica
+
+
+def test_pregunta_ambigua_pide_aclaracion_antes_de_consultar(base_ejemplo, oraculo, tmp_path):
+    s = SesionDataVoz(dir_trazas=tmp_path)
+    r = s.preguntar("¿Qué se vendió más en diciembre?")
+    assert r["intencion"] == "aclaracion" and r["sql_ejecutadas"] == [] and "piezas" in r["respuesta"]
+    assert {p["agente"] for p in r["pasos"]} == {"Orquestador"}  # no se llama a ningún especialista
+    r = s.preguntar("En piezas")
+    assert r["intencion"] == "consulta_datos" and "(En piezas)" in r["pregunta_completa"]
 
 
 def test_memoria_entre_turnos_y_dashboard(base_ejemplo, oraculo, tmp_path):
@@ -36,7 +49,7 @@ def test_memoria_entre_turnos_y_dashboard(base_ejemplo, oraculo, tmp_path):
     memoria = s.estado()
     assert len(memoria["historial"]) == 2
     assert memoria["contexto"]["ultimo_sql"]
-    assert len(memoria["dashboard"]) == 2
+    assert memoria["dashboard"] == []  # respuestas de un solo número: van en texto, sin tarjeta
 
 
 def test_peticion_peligrosa_no_ejecuta_sql(base_ejemplo, oraculo, tmp_path):

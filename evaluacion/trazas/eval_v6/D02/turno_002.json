@@ -1,0 +1,151 @@
+{
+ "sesion": "D02",
+ "turno": 2,
+ "fecha": "2026-11-19T14:25:56",
+ "entrada": {
+  "pregunta": "",
+  "audio": null,
+  "archivo": "C:\\proyectos\\DataVoz\\data\\ventas_formato_distinto.xlsx"
+ },
+ "pregunta": "",
+ "pregunta_completa": "",
+ "intencion": "limpieza_datos",
+ "es_seguimiento": false,
+ "respuesta": "He revisado su archivo y logré dejar listas las 4,333 filas de ventas para su análisis. Corregí el formato de las fechas, eliminé los signos de pesos en los precios para que sean números y completé la categoría de cada producto usando su catálogo. Afortunadamente, no fue necesario eliminar ninguna fila, por lo que toda su información está disponible. Todo el archivo quedó correctamente estructurado y listo para usar. ¿Tiene alguna pregunta sobre el desempeño de sus ventas?",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": {
+  "resumen": {
+   "filas_entrada": 4333,
+   "filas_limpias": 4333,
+   "filas_eliminadas": 0,
+   "problemas_detectados": 0,
+   "por_tipo": {},
+   "mapeo_columnas": {
+    "Hora": "hora",
+    "Folio": "ticket",
+    "Pzas": "cantidad",
+    "Promo": "promocion",
+    "Día de venta": "fecha",
+    "Artículo vendido": "producto",
+    "Precio c/u": "precio_unitario",
+    "Cobrado": "total",
+    "Pagó con": "metodo_pago"
+   },
+   "columnas_ignoradas": [
+    "Notas"
+   ],
+   "notas": [
+    "Las fechas venían en formato dd/mm/aaaa; se convirtieron a AAAA-MM-DD.",
+    "Los precios venían con signo de pesos; se convirtieron a número.",
+    "El archivo no traía categoría; se completó con el catálogo de productos."
+   ],
+   "textos_que_parecen_instrucciones": []
+  },
+  "problemas_muestra": []
+ },
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Limpiador",
+   "accion": "limpiar_y_cargar",
+   "hora": "14:25:56",
+   "duracion_s": 4.326,
+   "llamadas_llm": [
+    {
+     "rol": "limpiador_resumen",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.619,
+     "tokens_entrada": 457,
+     "tokens_salida": 101,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "archivo": "ventas_formato_distinto.xlsx",
+    "mapeo": {
+     "Hora": "hora",
+     "Folio": "ticket",
+     "Pzas": "cantidad",
+     "Promo": "promocion",
+     "Día de venta": "fecha",
+     "Artículo vendido": "producto",
+     "Precio c/u": "precio_unitario",
+     "Cobrado": "total",
+     "Pagó con": "metodo_pago"
+    },
+    "origen_mapeo": "usuario",
+    "herramienta": "limpiar_datos",
+    "resumen": {
+     "filas_entrada": 4333,
+     "filas_limpias": 4333,
+     "filas_eliminadas": 0,
+     "problemas_detectados": 0,
+     "por_tipo": {},
+     "mapeo_columnas": {
+      "Hora": "hora",
+      "Folio": "ticket",
+      "Pzas": "cantidad",
+      "Promo": "promocion",
+      "Día de venta": "fecha",
+      "Artículo vendido": "producto",
+      "Precio c/u": "precio_unitario",
+      "Cobrado": "total",
+      "Pagó con": "metodo_pago"
+     },
+     "columnas_ignoradas": [
+      "Notas"
+     ],
+     "notas": [
+      "Las fechas venían en formato dd/mm/aaaa; se convirtieron a AAAA-MM-DD.",
+      "Los precios venían con signo de pesos; se convirtieron a número.",
+      "El archivo no traía categoría; se completó con el catálogo de productos."
+     ],
+     "textos_que_parecen_instrucciones": []
+    },
+    "escritura": "aplicada con la aprobación del dueño",
+    "aprobado_por_el_dueno": true
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "14:25:56",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 2,
+    "contexto": {},
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 4.33,
+ "llamadas_llm": [
+  {
+   "rol": "limpiador_resumen",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.619,
+   "tokens_entrada": 457,
+   "tokens_salida": 101,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 558,
+ "grafica": null
+}

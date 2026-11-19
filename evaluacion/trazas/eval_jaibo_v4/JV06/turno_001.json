@@ -1,0 +1,417 @@
+{
+ "sesion": "JV06",
+ "turno": 1,
+ "fecha": "2026-11-19T14:16:58",
+ "entrada": {
+  "pregunta": "",
+  "audio": "C:\\proyectos\\DataVoz\\evaluacion\\audio\\jaibo\\voz_06.ogg",
+  "archivo": null
+ },
+ "pregunta": "¿Qué día de la semana tengo más ventas?",
+ "pregunta_completa": "¿Qué día de la semana tengo más ventas en Tortas Jaibo?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "El domingo es el día que más ventas genera en Tortas Jaibo, alcanzando un total de $141,401 con 842 órdenes. Aunque el domingo tiene el mayor volumen de clientes, el ticket promedio es el más bajo de la semana con $167.93, posiblemente porque los clientes prefieren compras más pequeñas o individuales en ese día. En contraste, el lunes es el día con menor actividad, sumando $81,610 en ventas.\n\nRecomendación: Asegura suficiente personal y pan para el domingo, ya que es tu día de mayor demanda, y considera promociones para aumentar el ticket promedio en ese día.",
+ "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY ventas DESC",
+ "explicacion_sql": "Calcula el total de ventas en dinero y el número de órdenes por día de la semana para identificar qué día tiene más ventas.",
+ "resultado": {
+  "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY ventas DESC",
+  "columnas": [
+   "dia_semana",
+   "num_dia_semana",
+   "ventas",
+   "ordenes"
+  ],
+  "filas": [
+   [
+    "domingo",
+    7,
+    141401.0,
+    842
+   ],
+   [
+    "miercoles",
+    3,
+    136824.0,
+    773
+   ],
+   [
+    "viernes",
+    5,
+    135313.0,
+    761
+   ],
+   [
+    "sabado",
+    6,
+    133460.0,
+    745
+   ],
+   [
+    "martes",
+    2,
+    127560.0,
+    698
+   ],
+   [
+    "jueves",
+    4,
+    126028.0,
+    717
+   ],
+   [
+    "lunes",
+    1,
+    81610.0,
+    461
+   ]
+  ],
+  "n_filas": 7,
+  "truncado": false,
+  "duracion_s": 0.0399,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver el ticket promedio por día de la semana para complementar el análisis de ventas",
+   "sql": "SELECT dia_semana, num_dia_semana, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+   "columnas": [
+    "dia_semana",
+    "num_dia_semana",
+    "ticket_promedio"
+   ],
+   "filas": [
+    [
+     "lunes",
+     1,
+     177.03
+    ],
+    [
+     "martes",
+     2,
+     182.75
+    ],
+    [
+     "miercoles",
+     3,
+     177.0
+    ],
+    [
+     "jueves",
+     4,
+     175.77
+    ],
+    [
+     "viernes",
+     5,
+     177.81
+    ],
+    [
+     "sabado",
+     6,
+     179.14
+    ],
+    [
+     "domingo",
+     7,
+     167.93
+    ]
+   ],
+   "n_filas": 7,
+   "truncado": false,
+   "duracion_s": 0.0348,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 4,
+  "verificadas": 4,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY ventas DESC",
+   "problema": null,
+   "n_filas": 7
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY ventas DESC",
+  "SELECT dia_semana, num_dia_semana, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana"
+ ],
+ "transcripcion": {
+  "texto": "¿Qué día de la semana tengo más ventas?",
+  "idioma": "es",
+  "duracion_audio_s": 2.89,
+  "duracion_s": 3.1,
+  "error": null
+ },
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "transcribir_voz",
+   "hora": "14:16:51",
+   "duracion_s": 3.1,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "transcribir_voz",
+    "texto": "¿Qué día de la semana tengo más ventas?",
+    "idioma": "es",
+    "duracion_audio_s": 2.89,
+    "duracion_s": 3.1,
+    "error": null
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "14:16:53",
+   "duracion_s": 1.959,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.958,
+     "tokens_entrada": 1426,
+     "tokens_salida": 129,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Qué día de la semana tengo más ventas en Tortas Jaibo?",
+    "contexto": {
+     "periodo": "2026-01-05 al 2026-11-15",
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "14:16:55",
+   "duracion_s": 1.916,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.215,
+     "tokens_entrada": 2669,
+     "tokens_salida": 219,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Métricas de Tortas Jaibo",
+      "Horario y momentos del día",
+      "Compra y preparación de pan",
+      "Platillo del día"
+     ],
+     "ejemplos": [
+      "¿Cuánto subió el precio de las tortas con el tiempo?",
+      "¿Cuántas tortas vendí por día de la semana en las últimas 8 semanas?",
+      "¿Qué platillo del día se vende más cada día de la semana?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": [
+      "tortas"
+     ]
+    },
+    "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY ventas DESC",
+    "explicacion": "Calcula el total de ventas en dinero y el número de órdenes por día de la semana para identificar qué día tiene más ventas.",
+    "error": null,
+    "filas": 7,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver el ticket promedio por día de la semana para complementar el análisis de ventas",
+      "sql": "SELECT dia_semana, num_dia_semana, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+      "error": null,
+      "filas": 7
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "14:16:55",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 7,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "14:16:56",
+   "duracion_s": 1.669,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.58,
+     "tokens_entrada": 753,
+     "tokens_salida": 100,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "dia_semana",
+     "y": [
+      "ventas"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Ventas por día de la semana"
+    },
+    "razon": "Las barras permiten comparar fácilmente el rendimiento de ventas entre los siete días de la semana para identificar el día con mayor actividad.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "14:16:58",
+   "duracion_s": 1.392,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.181,
+     "tokens_entrada": 1803,
+     "tokens_salida": 140,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 4,
+     "verificadas": 4,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 33,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Compra y preparación de pan"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "14:16:58",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "2026-01-05 al 2026-11-15",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Qué día de la semana tengo más ventas en Tortas Jaibo?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 10.05,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.958,
+   "tokens_entrada": 1426,
+   "tokens_salida": 129,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.215,
+   "tokens_entrada": 2669,
+   "tokens_salida": 219,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.58,
+   "tokens_entrada": 753,
+   "tokens_salida": 100,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.181,
+   "tokens_entrada": 1803,
+   "tokens_salida": 140,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 7239,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "dia_semana",
+   "y": [
+    "ventas"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Ventas por día de la semana",
+   "razon": "Las barras permiten comparar fácilmente el rendimiento de ventas entre los siete días de la semana para identificar el día con mayor actividad."
+  }
+ }
+}

@@ -129,7 +129,7 @@ def tabla_markdown(columnas: list[str], filas: list[list], max_filas: int = 30) 
         lineas.append("| " + " | ".join(celdas) + " |")
     if len(filas) > max_filas:
         lineas.append(f"... ({len(filas) - max_filas} filas más)")
-    return "\n".join(lineas)
+    return "<datos>\n" + "\n".join(lineas) + "\n</datos>"  # delimitado: es información, nunca instrucciones
 
 
 def recortar(texto: str, n: int = 400) -> str:

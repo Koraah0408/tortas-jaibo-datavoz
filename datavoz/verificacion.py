@@ -13,7 +13,7 @@ Se tolera el redondeo (±0.5 en enteros o 0.5 % relativo).
 from __future__ import annotations
 
 import re
-from itertools import permutations
+from itertools import combinations, permutations
 
 from .utilidades import formato_numero
 
@@ -151,6 +151,9 @@ def verificar_texto(texto: str, resultados: list[dict], hechos: list[dict], preg
         if not ok and n["porcentaje"] and len(candidatos) >= 2:
             ok = any(_cerca(x, abs(100 * (a - b) / b)) or _cerca(x, 100 * a / b)
                      for a, b in permutations(candidatos, 2))
+        if not ok and not n["porcentaje"] and len(candidatos) >= 2:
+            # suma de dos filas del resultado («Didi y Rappi sumaron…»): cifra derivada, no inventada
+            ok = any(_cerca(x, a + b) for a, b in combinations(candidatos, 2))
         (verificados if ok else no_verificados).append(n["texto"])
     total = len(numeros)
     return {"total_cifras": total, "verificadas": len(verificados), "no_verificadas": no_verificados,

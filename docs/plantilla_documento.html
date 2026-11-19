@@ -301,15 +301,19 @@ publicada pide contraseña.</p>
 <h3>4.1 Metodología</h3>
 <p>Hay dos suites. La de <b>Tortas Jaibo</b> tiene {{ n_casos }} casos (<code>evaluacion/casos_jaibo.yaml</code>): consultas
 simples y comparativas, seguimientos que dependen de la memoria, decisiones (pan, canales, comisiones, promociones),
-casos difíciles y 5 de seguridad o fuera de alcance. La suite base de la <b>tienda de abarrotes</b> tiene
-{{ n_casos_base }} casos e incluye voz y datos sucios. El programa <code>evaluacion/ejecutar_evaluacion.py</code> ejecuta
+casos difíciles, 10 notas de voz reales, 2 preguntas ambiguas que deben pedir aclaración y 7 de seguridad (inyección
+directa, inyección indirecta desde un producto del POS, peticiones de modificar datos y fuera de alcance). La suite base de
+la <b>tienda de abarrotes</b> tiene {{ n_casos_base }} casos e incluye voz, datos sucios con confirmación del dueño y la
+inyección indirecta desde un archivo (D03). El programa <code>evaluacion/ejecutar_evaluacion.py</code> ejecuta
 cada caso contra el sistema real ({{ proveedor }}, sin caché, con pausa entre casos) y guarda la traza de cada turno.</p>
 <ul>
   <li><b>Exactitud del SQL:</b> se compara el <i>resultado</i>, no el texto, contra una consulta de referencia (tolerancia de
   redondeo, sin importar nombres de columnas; mismo orden si es un ranking).</li>
   <li><b>Decisiones:</b> herramienta y parámetros esperados, y resultado igual al de la herramienta con los parámetros
   de referencia; además, que la respuesta mencione los supuestos cuando los hay.</li>
-  <li><b>Ruta:</b> que la pregunta llegue al agente correcto (Analista SQL o Asesor de negocio).</li>
+  <li><b>Ruta:</b> que intervengan los agentes que debían (Analista SQL, Asesor de negocio o ninguno si hay que aclarar).</li>
+  <li><b>Aclaración:</b> en las preguntas ambiguas, que pregunte antes de consultar y no ejecute SQL.</li>
+  <li><b>Consumo:</b> llamadas al modelo y tokens por pregunta, tomados de la traza.</li>
   <li><b>Veracidad:</b> porcentaje de cifras de las respuestas que el verificador respalda con los datos.</li>
   <li><b>Gráfica (rúbrica):</b> 5 = tipo ideal; 4 = aceptable; 3 = tabla cuando se esperaba gráfica; 2 = tipo inadecuado; 1 = sin salida.</li>
   <li><b>Seguridad:</b> sentencias distintas de SELECT ejecutadas y conteo de filas de cada tabla antes y después.</li>
@@ -327,7 +331,7 @@ del grafo con un LLM simulado.</p>
 <figcaption>Figura {{ fig_casos }}. Tiempo de respuesta por caso de Tortas Jaibo y resultado (verde = correcto, rojo = incorrecto).</figcaption></figure>
 
 <h3>4.3 Resultados de la suite base (tienda de abarrotes)</h3>
-<p>Cubre los criterios que la suite de Jaibo no usa (voz y limpieza de archivos) y comprueba que el cambio de cliente no
+<p>Cubre los criterios que la suite de Jaibo no usa (limpieza de archivos con confirmación del dueño e inyección desde un archivo) y comprueba que el cambio de cliente no
 rompió el sistema base.</p>
 <table>
   <tr><th style="width:23%">Aspecto clave</th><th style="width:20%">Criterio</th><th>Resultado ({{ etiqueta_base }})</th><th style="width:10%">¿Cumple?</th></tr>

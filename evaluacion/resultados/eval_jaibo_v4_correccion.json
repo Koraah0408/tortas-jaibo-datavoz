@@ -1,0 +1,274 @@
+{
+ "etiqueta": "eval_jaibo_v4_correccion",
+ "fecha": "2026-11-19T14:33:16",
+ "negocio": "jaibo",
+ "base": "sintetica",
+ "hoy": "2026-11-16",
+ "proveedores": [
+  "gemini"
+ ],
+ "metricas": {
+  "exactitud_sql": {
+   "correctos": 4,
+   "total": 4,
+   "porcentaje": 100.0
+  },
+  "decisiones": {
+   "total": 0,
+   "resultado_correcto": 0,
+   "herramienta_correcta": 0,
+   "parametros_correctos": 0,
+   "porcentaje_resultado": null,
+   "porcentaje_herramienta_y_parametros": null,
+   "con_supuestos": 0,
+   "supuestos_declarados": 0,
+   "porcentaje_supuestos_declarados": null
+  },
+  "ruta": {
+   "correctas": 4,
+   "total": 4,
+   "porcentaje": 100.0
+  },
+  "veracidad": {
+   "cifras_verificadas": 19,
+   "cifras_total": 19,
+   "porcentaje": 100.0
+  },
+  "limpieza": null,
+  "mapeo_columnas": null,
+  "grafica": {
+   "promedio": 3.5,
+   "casos": 4
+  },
+  "memoria": {
+   "correctos": 0,
+   "total": 0,
+   "porcentaje": null
+  },
+  "voz": {
+   "bien_interpretadas": 1,
+   "total": 1,
+   "similitud_promedio": 1.0,
+   "porcentaje": 100.0
+  },
+  "seguridad": {
+   "sentencias_no_select_ejecutadas": 0,
+   "casos_correctos": 0,
+   "casos": 0,
+   "filas_sin_cambios": true,
+   "filas_antes": {
+    "ingredientes": 13,
+    "ordenes": 5302,
+    "producto_ingredientes": 20,
+    "productos": 37,
+    "promociones": 7,
+    "ventas": 11073
+   },
+   "filas_despues": {
+    "ingredientes": 13,
+    "ordenes": 5302,
+    "producto_ingredientes": 20,
+    "productos": 37,
+    "promociones": 7,
+    "ventas": 11073
+   }
+  },
+  "tiempo": {
+   "promedio_s": 11.59,
+   "mediana_s": 8.66,
+   "maximo_s": 24.07,
+   "llamadas_llm_promedio": 3.75
+  },
+  "respaldo_modelos": {
+   "fallos_recuperados": 2,
+   "casos_sin_modelo": 0,
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ]
+  },
+  "aclaracion": {
+   "correctas": 0,
+   "total": 0,
+   "porcentaje": null
+  },
+  "confirmacion": {
+   "cargas": 0,
+   "propuestas_sin_escribir": 0,
+   "escritas_con_aprobacion": 0
+  },
+  "consumo": {
+   "llamadas_promedio": 3.75,
+   "tokens_promedio": 5968
+  },
+  "reintentos_sql": {
+   "casos_con_reintento": 1,
+   "total": 1
+  }
+ },
+ "casos": [
+  {
+   "id": "J01",
+   "categoria": "simple",
+   "pregunta": "¿Cuánto dinero cobré en octubre de 2026?",
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 2,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuánto dinero cobré en octubre de 2026?",
+   "sql": "SELECT ROUND(SUM(monto_total), 2) AS total_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "Hola, en octubre de 2026 cobraste un total de $88,585 a través de 506 órdenes, lo que representa un aumento frente a los $76,875 que registraste en septiembre. Este buen resultado se debió principalmente a las ventas en el mostrador del Local, que sumaron $42,657, seguidas por las plataformas a domicilio como Didi con $23,224. Las ventas a crédito para los empleados de Legacy y Automatas fueron menores, aportando $9,686 y $2,509 respectivamente. \nRecomendación: Impulsa promociones especiales en el Local durante las horas más tranquilas de la mañana para seguir incrementando tus ingresos de mostrador.",
+   "duracion_s": 24.07,
+   "llamadas_llm": 5,
+   "tokens": 5590,
+   "proveedores": [
+    "error",
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT ROUND(SUM(monto_total), 2) AS total_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+    "SELECT ROUND(SUM(monto_total), 2) AS total_septiembre FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 9",
+    "SELECT canal, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_v4_correccion\\J01\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": "barras",
+   "puntaje_grafica": 2,
+   "cifras_total": 8,
+   "cifras_verificadas": 8,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 0,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 24.19
+  },
+  {
+   "id": "J04",
+   "categoria": "simple",
+   "pregunta": "¿Cuántos pedidos se tuvieron que corregir en septiembre de 2026?",
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuántos pedidos se tuvieron que corregir en septiembre de 2026?",
+   "sql": "SELECT COUNT(*) AS pedidos_corregidos FROM ordenes WHERE mes = 9 AND anio = 2026 AND cancelada",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "En septiembre de 2026 se tuvieron que corregir 23 pedidos en total. Esta cifra representa las órdenes que fueron canceladas durante el mes. Es importante vigilar este número para entender si se debe a errores en la captura, problemas con las plataformas de entrega o falta de disponibilidad de algún producto. Mantener este registro bajo ayuda a cuidar la rentabilidad y la satisfacción de tus clientes.\n\nRecomendación: Revisa si las cancelaciones ocurren principalmente en alguna plataforma específica o con algún producto en particular para ajustar tu operación.",
+   "duracion_s": 6.6,
+   "llamadas_llm": 3,
+   "tokens": 4935,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT COUNT(*) AS pedidos_corregidos FROM ordenes WHERE mes = 9 AND anio = 2026 AND cancelada"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_v4_correccion\\J04\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": null,
+   "puntaje_grafica": 5,
+   "cifras_total": 2,
+   "cifras_verificadas": 2,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 0,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 6.7
+  },
+  {
+   "id": "JH2",
+   "categoria": "simple",
+   "pregunta": "¿Cuántos pedidos hubo que rehacer en agosto de 2026?",
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuántos pedidos hubo que rehacer en agosto de 2026?",
+   "sql": "SELECT COUNT(*) AS pedidos_rehechos FROM ordenes WHERE anio = 2026 AND mes = 8 AND cancelada",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "En agosto de 2026 se tuvieron que rehacer 30 pedidos en total. Esta cifra corresponde a las órdenes que fueron canceladas debido a alguna modificación solicitada. Posiblemente, esto se deba a confusiones en la toma de pedidos o cambios de último momento por parte de los clientes.\n\nRecomendación: Revisa con el equipo de cocina y mostrador si los errores ocurren más en pedidos de plataformas digitales o en los de mostrador para ajustar el proceso de captura.",
+   "duracion_s": 4.97,
+   "llamadas_llm": 4,
+   "tokens": 7596,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT COUNT(*) AS pedidos_rehechos FROM ordenes WHERE anio = 2026 AND mes = 8 AND NOT cancelada AND estado ILIKE '%rehacer%'",
+    "SELECT COUNT(*) AS pedidos_rehechos FROM ordenes WHERE anio = 2026 AND mes = 8 AND cancelada"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_v4_correccion\\JH2\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": null,
+   "puntaje_grafica": 5,
+   "cifras_total": 2,
+   "cifras_verificadas": 2,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 1,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 5.07
+  },
+  {
+   "id": "JV01",
+   "categoria": "voz",
+   "pregunta": "¿Cuánto dinero cobré en octubre de 2026?",
+   "transcripcion": "¿Cuánto dinero cobré en octubre de 2026?",
+   "similitud_transcripcion": 1.0,
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuánto dinero cobré en octubre de 2026?",
+   "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "En octubre de 2026, Tortas Jaibo registró ingresos por un total de $88,585, derivados de 506 órdenes atendidas. La mayor parte de tus ventas provino del servicio en local, que sumó $42,657, seguido por las plataformas de entrega como Didi con $23,224 y Rappi con $10,509. Las ventas a crédito para las empresas Legacy y Automatas aportaron en conjunto $12,195 al total del mes. Este buen desempeño en el local sugiere que la preferencia de tus clientes sigue siendo acudir directamente a la tortería.\n\nRecomendación: Considera implementar una promoción especial para los clientes de Automatas, ya que es el canal con menor volumen de ventas y podría crecer con un incentivo.",
+   "duracion_s": 10.72,
+   "llamadas_llm": 3,
+   "tokens": 5750,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+    "SELECT canal, ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY dinero_cobrado DESC"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_v4_correccion\\JV01\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": "barras",
+   "puntaje_grafica": 2,
+   "cifras_total": 7,
+   "cifras_verificadas": 7,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 0,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 10.82
+  }
+ ]
+}

@@ -31,6 +31,37 @@ _PATRON_CONVERSACION = re.compile(r"\b(conversacion|sesion|chat|platica|pregunta
 _PATRON_REPORTE_VENTAS = re.compile(r"\b(reporte|informe|resumen|corte|pdf)\b")
 
 
+# Preguntas ambiguas: «¿qué se vendió más?» no dice si en piezas o en dinero → se pregunta antes de consultar
+_SUJETO_AMBIGUO = re.compile(r"^\s*(que|cual|cuales)\s+(cosa\s+|cosas\s+)?(se\s+)?(vend\w*)\s+(mas|menos)\b")
+_SUJETO_CANAL = re.compile(r"^\s*(que|cual|en que)\s+(canal|app|aplicacion|dia|mes|hora|sucursal)\s+(se\s+)?(vend\w*)\s+(mas|menos)\b")
+_METRICA_DICHA = re.compile(r"\b(pieza|piezas|unidades|cantidad|dinero|pesos|cobr\w*|ingreso\w*|ganancia\w*|monto|"
+                            r"orden|ordenes|pedido|pedidos|ticket|tickets|tortas)\b|\$")
+ACLARACIONES = {
+    "producto": "¿Lo quieres en **piezas vendidas** o en **dinero**? Respóndeme «en piezas» o «en dinero».",
+    "canal": "¿Lo quieres en **dinero** o en **número de órdenes**? Respóndeme «en dinero» o «en órdenes».",
+}
+
+
+def pregunta_ambigua(pregunta: str, contexto: dict | None = None) -> str | None:
+    """Tipo de aclaración que hace falta (producto/canal) o None si la pregunta ya dice qué medir."""
+    t = normalizar(pregunta).strip(" ¿?¡!.")
+    if _METRICA_DICHA.search(t) or (contexto or {}).get("metrica") in ("unidades", "dinero", "tickets"):
+        return None
+    if _SUJETO_CANAL.search(t):
+        return "canal"
+    if _SUJETO_AMBIGUO.search(t):
+        return "producto"
+    return None
+
+
+def necesita_grafica(resultado: dict | None) -> bool:
+    """Un solo número se dice en texto: no hace falta llamar al Visualizador."""
+    filas, columnas = (resultado or {}).get("filas") or [], (resultado or {}).get("columnas") or []
+    if not filas:
+        return False
+    return not (len(filas) == 1 and len(columnas) == 1)
+
+
 @nodo("Orquestador", "transcribir_voz")
 def transcribir(estado: EstadoDataVoz) -> dict:
     resultado = transcribir_voz_tool.invoke({"ruta_audio": str(estado["audio"])})
@@ -72,6 +103,14 @@ def orquestar(estado: EstadoDataVoz) -> dict:
     if es_intencion_peligrosa(pregunta):
         return {"intencion": "peligrosa", "pregunta_completa": pregunta, "respuesta_directa": RESPUESTA_PELIGROSA,
                 "_detalle": {"motivo": "patrón de intención peligrosa detectado antes del LLM"}}
+    # Respuesta a una aclaración pendiente («en dinero») → se completa la pregunta anterior
+    historial = estado.get("historial") or []
+    if historial and historial[-1].get("intencion") == "aclaracion" and len(pregunta.split()) <= 6:
+        pregunta = f"{historial[-1].get('pregunta')} ({pregunta.strip(' .¿?')})"
+    elif (tipo := pregunta_ambigua(pregunta, estado.get("contexto"))):
+        return {"intencion": "aclaracion", "pregunta_completa": pregunta, "respuesta_directa": ACLARACIONES[tipo],
+                "_detalle": {"motivo": f"pregunta ambigua ({tipo}): no dice qué medir; se pide aclaración antes de consultar",
+                             "decision": "aclarar"}}
     t = normalizar(pregunta)
     es_jaibo = (estado.get("datos") or {}).get("dominio") == "jaibo"
     if es_jaibo and _PATRON_REPORTE_VENTAS.search(t) and not _PATRON_CONVERSACION.search(t):
@@ -190,13 +229,17 @@ def supervisar(estado: EstadoDataVoz) -> dict:
         intentos[-1]["problema"] = f"revisión del Orquestador: {problema}"
         return {"decision_supervisor": "reintentar", "retroalimentacion": problema, "intentos_sql": intentos,
                 "_detalle": {"decision": "reintentar", "intento": n, "motivo": "revisión semántica", "problema": problema}}
+    grafica = necesita_grafica(resultado)
     return {"decision_supervisor": "continuar",
-            "_detalle": {"decision": "continuar", "filas": resultado.get("n_filas"), "intentos": n}}
+            "_detalle": {"decision": "continuar", "filas": resultado.get("n_filas"), "intentos": n,
+                         "visualizador": "sí" if grafica else "no: la respuesta es un solo número"}}
 
 
 def ruta_supervisor(estado: EstadoDataVoz) -> str:
     decision = estado.get("decision_supervisor")
-    return {"reintentar": "analista_sql", "aclarar": "responder"}.get(decision, "visualizador")
+    if decision in ("reintentar", "aclarar"):
+        return {"reintentar": "analista_sql", "aclarar": "responder"}[decision]
+    return "visualizador" if necesita_grafica(estado.get("resultado")) else "narrador"
 
 
 @nodo("Orquestador", "responder_directo")

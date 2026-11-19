@@ -1,0 +1,270 @@
+{
+ "sesion": "JH3",
+ "turno": 1,
+ "fecha": "2026-11-19T14:11:31",
+ "entrada": {
+  "pregunta": "¿En qué mes de 2026 cobré más dinero?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿En qué mes de 2026 cobré más dinero?",
+ "pregunta_completa": "¿En qué mes del año 2026 obtuve la mayor cantidad de ingresos por ventas?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "El mes de 2026 en el que obtuviste mayores ingresos fue julio, con un total de $95,194. Este resultado refleja un buen desempeño en tus ventas totales durante ese periodo. Posiblemente, este incremento se deba a una mayor afluencia de clientes o a una demanda constante en tus distintos canales de venta.\n\nRecomendación: Analiza qué promociones o platillos tuvieron más éxito en julio para replicar esas estrategias en los meses con ventas más bajas.",
+ "sql": "SELECT anio, mes, nombre_mes, ROUND(SUM(monto_total), 2) AS ingresos FROM ordenes WHERE NOT cancelada AND anio = 2026 GROUP BY anio, mes, nombre_mes ORDER BY ingresos DESC LIMIT 1",
+ "explicacion_sql": "Calcula el mes del año 2026 con mayores ingresos totales basados en las órdenes no canceladas.",
+ "resultado": {
+  "sql": "SELECT anio, mes, nombre_mes, ROUND(SUM(monto_total), 2) AS ingresos FROM ordenes WHERE NOT cancelada AND anio = 2026 GROUP BY anio, mes, nombre_mes ORDER BY ingresos DESC LIMIT 1",
+  "columnas": [
+   "anio",
+   "mes",
+   "nombre_mes",
+   "ingresos"
+  ],
+  "filas": [
+   [
+    2026,
+    7,
+    "julio",
+    95194.0
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.035,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 2,
+  "verificadas": 2,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT anio, mes, nombre_mes, ROUND(SUM(monto_total), 2) AS ingresos FROM ordenes WHERE NOT cancelada AND anio = 2026 GROUP BY anio, mes, nombre_mes ORDER BY ingresos DESC LIMIT 1",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT anio, mes, nombre_mes, ROUND(SUM(monto_total), 2) AS ingresos FROM ordenes WHERE NOT cancelada AND anio = 2026 GROUP BY anio, mes, nombre_mes ORDER BY ingresos DESC LIMIT 1"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "14:11:27",
+   "duracion_s": 2.104,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.104,
+     "tokens_entrada": 1431,
+     "tokens_salida": 118,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿En qué mes del año 2026 obtuve la mayor cantidad de ingresos por ventas?",
+    "contexto": {
+     "periodo": "2026",
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "14:11:29",
+   "duracion_s": 1.671,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.064,
+     "tokens_entrada": 2457,
+     "tokens_salida": 118,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Canales de venta y comisiones",
+      "Canales y formas de pago",
+      "Horario y momentos del día",
+      "Rentabilidad"
+     ],
+     "ejemplos": [
+      "¿Cuántos kilos de barbacoa por peso se venden al mes?",
+      "¿Qué productos se venden más en Rappi?",
+      "¿Cuántas órdenes se corrigieron (canceladas por modificación) cada mes?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT anio, mes, nombre_mes, ROUND(SUM(monto_total), 2) AS ingresos FROM ordenes WHERE NOT cancelada AND anio = 2026 GROUP BY anio, mes, nombre_mes ORDER BY ingresos DESC LIMIT 1",
+    "explicacion": "Calcula el mes del año 2026 con mayores ingresos totales basados en las órdenes no canceladas.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "14:11:29",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "14:11:29",
+   "duracion_s": 0.011,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "indicador",
+    "spec": {
+     "tipo": "indicador",
+     "y": [
+      "ingresos"
+     ],
+     "titulo": "Ingresos",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "14:11:31",
+   "duracion_s": 2.209,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.926,
+     "tokens_entrada": 988,
+     "tokens_salida": 105,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 2,
+     "verificadas": 2,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Canales de venta y comisiones",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "14:11:31",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "2026",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿En qué mes del año 2026 obtuve la mayor cantidad de ingresos por ventas?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 6.01,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.104,
+   "tokens_entrada": 1431,
+   "tokens_salida": 118,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.064,
+   "tokens_entrada": 2457,
+   "tokens_salida": 118,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.926,
+   "tokens_entrada": 988,
+   "tokens_salida": 105,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5217,
+ "grafica": {
+  "spec": {
+   "tipo": "indicador",
+   "y": [
+    "ingresos"
+   ],
+   "titulo": "Ingresos",
+   "confianza": "alta"
+  }
+ }
+}

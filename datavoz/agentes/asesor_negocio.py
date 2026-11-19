@@ -163,7 +163,7 @@ def asesor_negocio(estado: EstadoDataVoz) -> dict:
     resumen = datos.get("resumen") or {}
     usuario = (f"Hoy es {hoy.isoformat()} ({DIAS_SEMANA[hoy.weekday()]}). Datos del {resumen.get('desde')} al "
                f"{resumen.get('hasta')}.\nAnálisis que eligió el Orquestador: {analisis}\n"
-               f"Productos del menú (nombres exactos): {', '.join(str(neutralizar(p)) for p in productos)}\n\nPregunta del dueño: {pregunta}")
+               f"Productos del menú (nombres exactos): <datos>{', '.join(str(neutralizar(p)) for p in productos)}</datos>\n\nPregunta del dueño: {pregunta}")
     error_llm = None
     try:
         propuesta = {} if analisis == "reporte_ventas" else invocar_llm("asesor", prompts.ASESOR, usuario)
@@ -205,4 +205,7 @@ def asesor_negocio(estado: EstadoDataVoz) -> dict:
 
 
 def ruta_asesor(estado: EstadoDataVoz) -> str:
-    return "responder" if estado.get("decision_supervisor") == "aclarar" else "visualizador"
+    if estado.get("decision_supervisor") == "aclarar":
+        return "responder"
+    from .orquestador import necesita_grafica
+    return "visualizador" if necesita_grafica(estado.get("resultado")) else "narrador"

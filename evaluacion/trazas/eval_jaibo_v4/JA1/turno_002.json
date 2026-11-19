@@ -1,0 +1,284 @@
+{
+ "sesion": "JA1",
+ "turno": 2,
+ "fecha": "2026-11-19T14:13:43",
+ "entrada": {
+  "pregunta": "En piezas",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "En piezas",
+ "pregunta_completa": "¿Qué producto se vendió más en piezas durante octubre de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": true,
+ "respuesta": "El producto más vendido durante octubre de 2026 fue la Mega barda, con 191 piezas. Le siguieron muy de cerca la Barda normal con 183 piezas y los tacos de barbacoa con 156 piezas. Este resultado refleja que las tortas estilo barda siguen siendo el pilar de las ventas en el negocio. Es probable que la preferencia por la versión \"Mega\" se deba a que los clientes buscan una porción más completa durante la hora fuerte de comida.\n\nRecomendación: Asegúrate de tener siempre listos los ingredientes para las bardas antes de las 14:00 horas para evitar retrasos en el servicio durante el pico de demanda.",
+ "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE mes = 10 AND anio = 2026 AND categoria <> 'Interno' GROUP BY producto ORDER BY unidades DESC LIMIT 5",
+ "explicacion_sql": "Muestra los productos más vendidos en piezas durante octubre de 2026.",
+ "resultado": {
+  "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE mes = 10 AND anio = 2026 AND categoria <> 'Interno' GROUP BY producto ORDER BY unidades DESC LIMIT 5",
+  "columnas": [
+   "producto",
+   "unidades"
+  ],
+  "filas": [
+   [
+    "Mega barda",
+    191
+   ],
+   [
+    "Barda normal",
+    183
+   ],
+   [
+    "Tacos de barbacoa",
+    156
+   ],
+   [
+    "Bocoles",
+    146
+   ],
+   [
+    "Gordita",
+    133
+   ]
+  ],
+  "n_filas": 5,
+  "truncado": false,
+  "duracion_s": 0.0361,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 4,
+  "verificadas": 4,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE mes = 10 AND anio = 2026 AND categoria <> 'Interno' GROUP BY producto ORDER BY unidades DESC LIMIT 5",
+   "problema": null,
+   "n_filas": 5
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE mes = 10 AND anio = 2026 AND categoria <> 'Interno' GROUP BY producto ORDER BY unidades DESC LIMIT 5"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "14:13:38",
+   "duracion_s": 2.613,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.613,
+     "tokens_entrada": 1483,
+     "tokens_salida": 117,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": true,
+    "pregunta_completa": "¿Qué producto se vendió más en piezas durante octubre de 2026?",
+    "contexto": {
+     "periodo": "octubre 2026",
+     "producto": null,
+     "categoria": null,
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "14:13:40",
+   "duracion_s": 1.706,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.105,
+     "tokens_entrada": 2291,
+     "tokens_salida": 98,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Tabla promociones",
+      "Barbacoa",
+      "Horario y momentos del día",
+      "Promociones"
+     ],
+     "ejemplos": [
+      "¿Qué platillo del día se vende más cada día de la semana?",
+      "¿Qué productos se venden más en Rappi?",
+      "¿Cuánto subió el precio de las tortas con el tiempo?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE mes = 10 AND anio = 2026 AND categoria <> 'Interno' GROUP BY producto ORDER BY unidades DESC LIMIT 5",
+    "explicacion": "Muestra los productos más vendidos en piezas durante octubre de 2026.",
+    "error": null,
+    "filas": 5,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "14:13:40",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 5,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "14:13:40",
+   "duracion_s": 0.074,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "producto",
+     "y": [
+      "unidades"
+     ],
+     "titulo": "Unidades por producto",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "14:13:43",
+   "duracion_s": 2.704,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.481,
+     "tokens_entrada": 1035,
+     "tokens_salida": 149,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 4,
+     "verificadas": 4,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 9,
+    "reglas_rag": [
+     "Barbacoa",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "14:13:43",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 2,
+    "contexto": {
+     "periodo": "octubre 2026",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Qué producto se vendió más en piezas durante octubre de 2026?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 7.11,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.613,
+   "tokens_entrada": 1483,
+   "tokens_salida": 117,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.105,
+   "tokens_entrada": 2291,
+   "tokens_salida": 98,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.481,
+   "tokens_entrada": 1035,
+   "tokens_salida": 149,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5173,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "producto",
+   "y": [
+    "unidades"
+   ],
+   "titulo": "Unidades por producto",
+   "confianza": "alta"
+  }
+ }
+}

@@ -1,0 +1,305 @@
+{
+ "sesion": "J06",
+ "turno": 1,
+ "fecha": "2026-11-19T14:03:19",
+ "entrada": {
+  "pregunta": "¿Cuántos panes mega se gastaron en los últimos 7 días?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuántos panes mega se gastaron en los últimos 7 días?",
+ "pregunta_completa": "¿Cuántos panes mega se gastaron en los últimos 7 días?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En los últimos 7 días se utilizaron 72 panes mega para la preparación de tus tortas. El consumo diario promedio fue de 10 panes, alcanzando un máximo de 15 piezas el miércoles y bajando a un mínimo de 7 piezas tanto el jueves como el sábado. Ten en cuenta que este cálculo es una estimación basada en las ventas registradas, por lo que te sugiero confirmar físicamente el inventario para ajustar tus compras.\n\nRecomendación: Considera comprar 11 panes mega para los días de mayor demanda y ajustar a 8 para los días más bajos, manteniendo siempre un pequeño margen de seguridad.",
+ "sql": "SELECT fecha, dia_semana, SUM(cantidad) AS pan_mega FROM ventas WHERE producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY GROUP BY fecha, dia_semana ORDER BY fecha",
+ "explicacion_sql": "Cantidad de panes mega gastados por día en los últimos 7 días con base en las tortas Mega vendidas.",
+ "resultado": {
+  "sql": "SELECT fecha, dia_semana, SUM(cantidad) AS pan_mega FROM ventas WHERE producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY GROUP BY fecha, dia_semana ORDER BY fecha",
+  "columnas": [
+   "fecha",
+   "dia_semana",
+   "pan_mega"
+  ],
+  "filas": [
+   [
+    "2026-11-09",
+    "lunes",
+    10
+   ],
+   [
+    "2026-11-10",
+    "martes",
+    11
+   ],
+   [
+    "2026-11-11",
+    "miercoles",
+    15
+   ],
+   [
+    "2026-11-12",
+    "jueves",
+    7
+   ],
+   [
+    "2026-11-13",
+    "viernes",
+    14
+   ],
+   [
+    "2026-11-14",
+    "sabado",
+    7
+   ],
+   [
+    "2026-11-15",
+    "domingo",
+    8
+   ]
+  ],
+  "n_filas": 7,
+  "truncado": false,
+  "duracion_s": 0.0406,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 7,
+  "verificadas": 7,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT fecha, dia_semana, SUM(cantidad) AS pan_mega FROM ventas WHERE producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY GROUP BY fecha, dia_semana ORDER BY fecha",
+   "problema": null,
+   "n_filas": 7
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT fecha, dia_semana, SUM(cantidad) AS pan_mega FROM ventas WHERE producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY GROUP BY fecha, dia_semana ORDER BY fecha"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "14:03:13",
+   "duracion_s": 3.152,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 3.152,
+     "tokens_entrada": 1431,
+     "tokens_salida": 114,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántos panes mega se gastaron en los últimos 7 días?",
+    "contexto": {
+     "periodo": "últimos 7 días",
+     "producto": "pan mega",
+     "categoria": null,
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "14:03:15",
+   "duracion_s": 1.476,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.874,
+     "tokens_entrada": 2466,
+     "tokens_salida": 132,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Compra y preparación de pan",
+      "Horario y momentos del día",
+      "Recomendaciones típicas para el dueño",
+      "Tortas y pan"
+     ],
+     "ejemplos": [
+      "¿Cuántos panes normales y mega se usaron cada día la última semana?",
+      "¿Cuánto vendí en dinero la última semana?",
+      "¿Cuánto subió el precio de las tortas con el tiempo?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": [
+      "pan mega"
+     ]
+    },
+    "sql": "SELECT fecha, dia_semana, SUM(cantidad) AS pan_mega FROM ventas WHERE producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY GROUP BY fecha, dia_semana ORDER BY fecha",
+    "explicacion": "Cantidad de panes mega gastados por día en los últimos 7 días con base en las tortas Mega vendidas.",
+    "error": null,
+    "filas": 7,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "14:03:15",
+   "duracion_s": 0.002,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 7,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "14:03:15",
+   "duracion_s": 0.079,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "lineas",
+    "spec": {
+     "tipo": "lineas",
+     "x": "fecha",
+     "y": [
+      "pan_mega"
+     ],
+     "color": null,
+     "titulo": "Pan mega por fecha",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "14:03:19",
+   "duracion_s": 4.551,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.317,
+     "tokens_entrada": 1353,
+     "tokens_salida": 133,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 7,
+     "verificadas": 7,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 12,
+    "reglas_rag": [
+     "Compra y preparación de pan",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "14:03:19",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "últimos 7 días",
+     "producto": "pan mega",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Cuántos panes mega se gastaron en los últimos 7 días?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 9.27,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 3.152,
+   "tokens_entrada": 1431,
+   "tokens_salida": 114,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.874,
+   "tokens_entrada": 2466,
+   "tokens_salida": 132,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.317,
+   "tokens_entrada": 1353,
+   "tokens_salida": 133,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5629,
+ "grafica": {
+  "spec": {
+   "tipo": "lineas",
+   "x": "fecha",
+   "y": [
+    "pan_mega"
+   ],
+   "color": null,
+   "titulo": "Pan mega por fecha",
+   "confianza": "alta"
+  }
+ }
+}

@@ -47,7 +47,29 @@ def revisar_semantica(sql: str | None, tablas: list[str] | None = None) -> str |
                 "por renglón, no por orden. Para dinero cobrado, órdenes y ticket promedio usa la tabla ordenes: "
                 "SUM(monto_total), COUNT(*) y AVG(monto_total) con WHERE NOT cancelada (tiene las mismas columnas de "
                 "calendario y canal). ventas.total solo sirve para comparar productos o categorías.")
+
+    # 4) Tortas Jaibo: valores de estado que no existen ('Rehecho', '%rehacer%'…): siempre da 0
+    if tablas and "ordenes" in tablas and _estado_inexistente(s):
+        return ("La consulta busca palabras como 'rehacer' o 'corregido' dentro de la columna estado, pero estado solo "
+                "vale 'Completada' o 'Cancelada por Modificación'. Los pedidos que se corrigieron o se tuvieron que "
+                "rehacer son las órdenes canceladas por modificación: cuéntalos con COUNT(*) FROM ordenes WHERE "
+                "cancelada (sin NOT cancelada).")
     return None
+
+
+_ESTADOS_JAIBO = ("completada", "cancelada por modificacion", "cancelada por modificación")
+
+
+def _estado_inexistente(s: str) -> bool:
+    """¿La consulta compara estado con un valor que no existe en el POS de Tortas Jaibo?"""
+    for operador, valor in re.findall(r"\bestado\s*(=|<>|!=|not\s+i?like|i?like)\s*'([^']*)'", s):
+        if "like" in operador:
+            patron = "^" + re.escape(valor).replace("%", ".*").replace("_", ".") + "$"
+            if not any(re.search(patron, e) for e in _ESTADOS_JAIBO):
+                return True
+        elif valor not in _ESTADOS_JAIBO:
+            return True
+    return False
 
 
 def _dinero_desde_renglones(sql: str, solo_por_canal: bool = True) -> bool:

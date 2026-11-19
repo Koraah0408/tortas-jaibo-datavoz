@@ -82,7 +82,8 @@ def construir_prompt_usuario(estado: EstadoDataVoz, rag: dict, ruta_db: str) -> 
         ("; ".join(f"{g['grupo']} = " + ", ".join(f"'{p}'" for p in g["productos"]) +
                    (f" ({g['nota']})" if g.get("nota") else "") for g in rag.get("grupos") or []) or "ninguno"),
         "Productos que podría mencionar la pregunta (nombres exactos; úsalos solo si la pregunta habla de ese "
-        "producto en particular, no si habla de una categoría): " + (", ".join(str(neutralizar(p)) for p in rag["productos"]) or "ninguno identificado"),
+        "producto en particular, no si habla de una categoría): " + ("<datos>" + ", ".join(str(neutralizar(p)) for p in rag["productos"]) + "</datos>" if rag["productos"]
+         else "ninguno identificado"),
         f"Contexto de la conversación: {contexto_para_prompt(estado.get('contexto') or {})}",
     ]
     ultimo_sql = (estado.get("contexto") or {}).get("ultimo_sql")

@@ -33,7 +33,7 @@ def test_sesion_se_guarda_y_se_reabre(base_ejemplo, oraculo, carpeta_sesiones, t
     reabierta = SesionDataVoz(sesion_id=sesion_id, persistente=True, dir_trazas=tmp_path / "trazas")
     memoria = reabierta.estado()
     assert len(memoria["historial"]) == 2
-    assert len(memoria["dashboard"]) == 2
+    assert memoria["dashboard"] == []  # un solo número no genera tarjeta
     assert memoria["contexto"]["ultimo_sql"]
     r = reabierta.preguntar("¿Y del de 2 litros?")          # la memoria sigue funcionando
     assert r["resultado"]["filas"][0][0] == 47

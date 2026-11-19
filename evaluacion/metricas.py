@@ -101,6 +101,8 @@ def comparar_resultados(gen: dict | None, ref: dict, comparar: list[str] | None 
 # ---------------------------------------------------------------------------
 def puntuar_grafica(tipo: str | None, ideal: list[str], aceptable: list[str], hubo_resultado: bool) -> int:
     """5 = tipo ideal · 4 = aceptable · 3 = tabla cuando se esperaba gráfica · 2 = tipo inadecuado · 1 = sin salida."""
+    if hubo_resultado and not tipo and "ninguna" in ideal:
+        return 5  # un solo número: el Orquestador decidió bien no llamar al Visualizador
     if not hubo_resultado or not tipo:
         return 1
     if tipo in ideal:

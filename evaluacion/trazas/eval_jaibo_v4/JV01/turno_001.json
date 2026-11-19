@@ -1,0 +1,367 @@
+{
+ "sesion": "JV01",
+ "turno": 1,
+ "fecha": "2026-11-19T14:14:57",
+ "entrada": {
+  "pregunta": "",
+  "audio": "C:\\proyectos\\DataVoz\\evaluacion\\audio\\jaibo\\voz_01.ogg",
+  "archivo": null
+ },
+ "pregunta": "¿Cuánto dinero cobré en octubre de 2026?",
+ "pregunta_completa": "¿Cuánto dinero cobré en octubre de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En octubre de 2026, las ventas totales de Tortas Jaibo sumaron $88,585, repartidos en 506 órdenes. La mayor parte de este ingreso provino de las ventas en el local, que generaron $42,657 con 254 órdenes. Las plataformas de entrega como Didi y Rappi también tuvieron un peso importante, sumando en conjunto $33,733. Por otro lado, las ventas a crédito para las empresas Legacy y Automatas representaron $12,195 del total.\n\nRecomendación: Enfócate en fortalecer la atención en el local, ya que representa casi la mitad de tus ingresos totales.\n\n_Nota: algunas cifras de esta explicación no se pudieron verificar contra los datos; revisa la tabla de resultados._",
+ "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+ "explicacion_sql": "Calcula el dinero total cobrado y el número de órdenes no canceladas durante octubre de 2026.",
+ "resultado": {
+  "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+  "columnas": [
+   "dinero_cobrado",
+   "total_ordenes"
+  ],
+  "filas": [
+   [
+    88585.0,
+    506
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0367,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver desglose del dinero cobrado por canal de venta en octubre de 2026",
+   "sql": "SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS dinero_cobrado FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY dinero_cobrado DESC",
+   "columnas": [
+    "canal",
+    "ordenes",
+    "dinero_cobrado"
+   ],
+   "filas": [
+    [
+     "Local",
+     254,
+     42657.0
+    ],
+    [
+     "Didi",
+     132,
+     23224.0
+    ],
+    [
+     "Rappi",
+     51,
+     10509.0
+    ],
+    [
+     "Legacy",
+     52,
+     9686.0
+    ],
+    [
+     "Automatas",
+     17,
+     2509.0
+    ]
+   ],
+   "n_filas": 5,
+   "truncado": false,
+   "duracion_s": 0.0369,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 7,
+  "verificadas": 5,
+  "no_verificadas": [
+   "$33,733",
+   "$12,195"
+  ],
+  "porcentaje": 71.4,
+  "ok": false
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+  "SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS dinero_cobrado FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY dinero_cobrado DESC"
+ ],
+ "transcripcion": {
+  "texto": "¿Cuánto dinero cobré en octubre de 2026?",
+  "idioma": "es",
+  "duracion_audio_s": 4.57,
+  "duracion_s": 7.74,
+  "error": null
+ },
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "transcribir_voz",
+   "hora": "14:14:36",
+   "duracion_s": 7.737,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "transcribir_voz",
+    "texto": "¿Cuánto dinero cobré en octubre de 2026?",
+    "idioma": "es",
+    "duracion_audio_s": 4.57,
+    "duracion_s": 7.74,
+    "error": null
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "14:14:47",
+   "duracion_s": 10.821,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 10.821,
+     "tokens_entrada": 1430,
+     "tokens_salida": 113,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuánto dinero cobré en octubre de 2026?",
+    "contexto": {
+     "periodo": "octubre 2026",
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "14:14:49",
+   "duracion_s": 2.098,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.214,
+     "tokens_entrada": 2410,
+     "tokens_salida": 213,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Tabla promociones",
+      "Barbacoa",
+      "Horario y momentos del día",
+      "Convenciones de SQL (DuckDB)"
+     ],
+     "ejemplos": [
+      "¿Cuánto vendí en dinero la última semana?",
+      "¿Cuánto se vende a crédito a las empresas cada mes?",
+      "¿Cuántas órdenes se corrigieron (canceladas por modificación) cada mes?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+    "explicacion": "Calcula el dinero total cobrado y el número de órdenes no canceladas durante octubre de 2026.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver desglose del dinero cobrado por canal de venta en octubre de 2026",
+      "sql": "SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS dinero_cobrado FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY dinero_cobrado DESC",
+      "error": null,
+      "filas": 5
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "14:14:49",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "14:14:49",
+   "duracion_s": 0.074,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "dinero_cobrado",
+      "total_ordenes"
+     ],
+     "titulo": "Dinero cobrado",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "14:14:57",
+   "duracion_s": 7.366,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 6.092,
+     "tokens_entrada": 1403,
+     "tokens_salida": 192,
+     "ok": true,
+     "error": null
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.029,
+     "tokens_entrada": 1452,
+     "tokens_salida": 150,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 2,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 7,
+     "verificadas": 5,
+     "no_verificadas": [
+      "$33,733",
+      "$12,195"
+     ],
+     "porcentaje": 71.4,
+     "ok": false
+    },
+    "hechos_calculados": 18,
+    "reglas_rag": [
+     "Barbacoa",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "14:14:57",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "octubre 2026",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Cuánto dinero cobré en octubre de 2026?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 28.11,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 10.821,
+   "tokens_entrada": 1430,
+   "tokens_salida": 113,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.214,
+   "tokens_entrada": 2410,
+   "tokens_salida": 213,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 6.092,
+   "tokens_entrada": 1403,
+   "tokens_salida": 192,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.029,
+   "tokens_entrada": 1452,
+   "tokens_salida": 150,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 7363,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "dinero_cobrado",
+    "total_ordenes"
+   ],
+   "titulo": "Dinero cobrado",
+   "confianza": "alta"
+  }
+ }
+}

@@ -1,0 +1,237 @@
+{
+ "sesion": "JM1",
+ "turno": 1,
+ "fecha": "2026-11-19T14:05:21",
+ "entrada": {
+  "pregunta": "¿Cuántas Mega barda vendí en octubre de 2026?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuántas Mega barda vendí en octubre de 2026?",
+ "pregunta_completa": "¿Cuántas unidades de torta Mega barda se vendieron en octubre de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En octubre de 2026 se vendieron 191 unidades de torta Mega barda. Este volumen refleja una demanda constante para este producto estrella en el mostrador y las plataformas de entrega. Es un buen número que nos ayuda a planear mejor la compra diaria de pan mega para evitar desperdicios.\n\nRecomendación: Mantén el inventario de pan mega ajustado a este promedio de ventas diarias para asegurar que siempre tengas producto fresco sin generar excedentes.",
+ "sql": "SELECT SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Mega barda' AND anio = 2026 AND mes = 10",
+ "explicacion_sql": "Calcula el total de unidades vendidas del producto 'Mega barda' durante el mes de octubre de 2026.",
+ "resultado": {
+  "sql": "SELECT SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Mega barda' AND anio = 2026 AND mes = 10",
+  "columnas": [
+   "unidades"
+  ],
+  "filas": [
+   [
+    191
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0396,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 2,
+  "verificadas": 2,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Mega barda' AND anio = 2026 AND mes = 10",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Mega barda' AND anio = 2026 AND mes = 10"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "14:05:16",
+   "duracion_s": 1.969,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.969,
+     "tokens_entrada": 1433,
+     "tokens_salida": 126,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántas unidades de torta Mega barda se vendieron en octubre de 2026?",
+    "contexto": {
+     "periodo": "octubre 2026",
+     "producto": "Mega barda",
+     "categoria": "tortas",
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "14:05:18",
+   "duracion_s": 1.781,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.204,
+     "tokens_entrada": 2584,
+     "tokens_salida": 97,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Barbacoa",
+      "Tortas y pan",
+      "Compra y preparación de pan",
+      "Promociones"
+     ],
+     "ejemplos": [
+      "¿Cuánto subió el precio de las tortas con el tiempo?",
+      "¿Qué bebida se pide más junto con las tortas?",
+      "¿Cuántos panes normales y mega se usaron cada día la última semana?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": [
+      "pan mega"
+     ]
+    },
+    "sql": "SELECT SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Mega barda' AND anio = 2026 AND mes = 10",
+    "explicacion": "Calcula el total de unidades vendidas del producto 'Mega barda' durante el mes de octubre de 2026.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "14:05:18",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "no: la respuesta es un solo número"
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "14:05:21",
+   "duracion_s": 3.165,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.947,
+     "tokens_entrada": 868,
+     "tokens_salida": 99,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 2,
+     "verificadas": 2,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Barbacoa",
+     "Compra y preparación de pan"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "14:05:21",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "octubre 2026",
+     "producto": "Mega barda",
+     "categoria": "tortas",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Cuántas unidades de torta Mega barda se vendieron en octubre de 2026?"
+    },
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 6.93,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.969,
+   "tokens_entrada": 1433,
+   "tokens_salida": 126,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.204,
+   "tokens_entrada": 2584,
+   "tokens_salida": 97,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.947,
+   "tokens_entrada": 868,
+   "tokens_salida": 99,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5207,
+ "grafica": null
+}

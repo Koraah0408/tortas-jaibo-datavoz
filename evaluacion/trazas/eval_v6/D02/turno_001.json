@@ -1,0 +1,192 @@
+{
+ "sesion": "D02",
+ "turno": 1,
+ "fecha": "2026-11-19T14:25:52",
+ "entrada": {
+  "pregunta": "",
+  "audio": null,
+  "archivo": "C:\\proyectos\\DataVoz\\data\\ventas_formato_distinto.xlsx"
+ },
+ "pregunta": "",
+ "pregunta_completa": "",
+ "intencion": "confirmar_carga",
+ "es_seguimiento": false,
+ "respuesta": "Revisé «ventas_formato_distinto.xlsx» (4333 filas) y **todavía no he cargado nada**. Esto es lo que voy a cambiar:\n\n- nada: el archivo no tiene errores\n\nQuedarían 4333 filas.\n\n¿Apruebas estos cambios? Responde «sí, cárgalo» o «no».",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": {
+  "resumen": {
+   "filas_entrada": 4333,
+   "filas_limpias": 4333,
+   "filas_eliminadas": 0,
+   "problemas_detectados": 0,
+   "por_tipo": {},
+   "mapeo_columnas": {
+    "Hora": "hora",
+    "Folio": "ticket",
+    "Pzas": "cantidad",
+    "Promo": "promocion",
+    "Día de venta": "fecha",
+    "Artículo vendido": "producto",
+    "Precio c/u": "precio_unitario",
+    "Cobrado": "total",
+    "Pagó con": "metodo_pago"
+   },
+   "columnas_ignoradas": [
+    "Notas"
+   ],
+   "notas": [
+    "Las fechas venían en formato dd/mm/aaaa; se convirtieron a AAAA-MM-DD.",
+    "Los precios venían con signo de pesos; se convirtieron a número.",
+    "El archivo no traía categoría; se completó con el catálogo de productos."
+   ],
+   "textos_que_parecen_instrucciones": []
+  },
+  "problemas_muestra": []
+ },
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Limpiador",
+   "accion": "limpiar_y_cargar",
+   "hora": "14:25:52",
+   "duracion_s": 9.461,
+   "llamadas_llm": [
+    {
+     "rol": "limpiador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.855,
+     "tokens_entrada": 988,
+     "tokens_salida": 153,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "archivo": "ventas_formato_distinto.xlsx",
+    "comentario_llm": "Se mapearon todas las columnas relevantes. La columna 'Notas' fue ignorada por contener observaciones no estructuradas.",
+    "mapeo": {
+     "Hora": "hora",
+     "Folio": "ticket",
+     "Pzas": "cantidad",
+     "Promo": "promocion",
+     "Día de venta": "fecha",
+     "Artículo vendido": "producto",
+     "Precio c/u": "precio_unitario",
+     "Cobrado": "total",
+     "Pagó con": "metodo_pago"
+    },
+    "origen_mapeo": "reglas + LLM",
+    "herramienta": "limpiar_datos",
+    "resumen": {
+     "filas_entrada": 4333,
+     "filas_limpias": 4333,
+     "filas_eliminadas": 0,
+     "problemas_detectados": 0,
+     "por_tipo": {},
+     "mapeo_columnas": {
+      "Hora": "hora",
+      "Folio": "ticket",
+      "Pzas": "cantidad",
+      "Promo": "promocion",
+      "Día de venta": "fecha",
+      "Artículo vendido": "producto",
+      "Precio c/u": "precio_unitario",
+      "Cobrado": "total",
+      "Pagó con": "metodo_pago"
+     },
+     "columnas_ignoradas": [
+      "Notas"
+     ],
+     "notas": [
+      "Las fechas venían en formato dd/mm/aaaa; se convirtieron a AAAA-MM-DD.",
+      "Los precios venían con signo de pesos; se convirtieron a número.",
+      "El archivo no traía categoría; se completó con el catálogo de productos."
+     ],
+     "textos_que_parecen_instrucciones": []
+    },
+    "escritura": "pendiente: esperando la aprobación del dueño"
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "14:25:52",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {},
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": {
+  "archivo": "C:\\proyectos\\DataVoz\\data\\ventas_formato_distinto.xlsx",
+  "mapeo": {
+   "Hora": "hora",
+   "Folio": "ticket",
+   "Pzas": "cantidad",
+   "Promo": "promocion",
+   "Día de venta": "fecha",
+   "Artículo vendido": "producto",
+   "Precio c/u": "precio_unitario",
+   "Cobrado": "total",
+   "Pagó con": "metodo_pago"
+  },
+  "nombre": "ventas_formato_distinto.xlsx",
+  "resumen": {
+   "filas_entrada": 4333,
+   "filas_limpias": 4333,
+   "filas_eliminadas": 0,
+   "problemas_detectados": 0,
+   "por_tipo": {},
+   "mapeo_columnas": {
+    "Hora": "hora",
+    "Folio": "ticket",
+    "Pzas": "cantidad",
+    "Promo": "promocion",
+    "Día de venta": "fecha",
+    "Artículo vendido": "producto",
+    "Precio c/u": "precio_unitario",
+    "Cobrado": "total",
+    "Pagó con": "metodo_pago"
+   },
+   "columnas_ignoradas": [
+    "Notas"
+   ],
+   "notas": [
+    "Las fechas venían en formato dd/mm/aaaa; se convirtieron a AAAA-MM-DD.",
+    "Los precios venían con signo de pesos; se convirtieron a número.",
+    "El archivo no traía categoría; se completó con el catálogo de productos."
+   ],
+   "textos_que_parecen_instrucciones": []
+  }
+ },
+ "duracion_s": 9.47,
+ "llamadas_llm": [
+  {
+   "rol": "limpiador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.855,
+   "tokens_entrada": 988,
+   "tokens_salida": 153,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 1141,
+ "grafica": null
+}

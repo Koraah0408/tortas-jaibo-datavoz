@@ -1,0 +1,455 @@
+{
+ "sesion": "D01",
+ "turno": 2,
+ "fecha": "2026-11-19T14:25:09",
+ "entrada": {
+  "pregunta": "",
+  "audio": null,
+  "archivo": "C:\\proyectos\\DataVoz\\data\\ventas_sucias.csv"
+ },
+ "pregunta": "",
+ "pregunta_completa": "",
+ "intencion": "limpieza_datos",
+ "es_seguimiento": false,
+ "respuesta": "He revisado su archivo de ventas y logré dejar 15,819 filas listas para su análisis. Los problemas más importantes fueron errores en los formatos de fecha, precios escritos como texto y cantidades negativas, los cuales logré corregir exitosamente. Lamentablemente, tuve que eliminar 68 filas debido a registros duplicados y datos nulos que no pudieron recuperarse. Su base de datos ahora es mucho más confiable y precisa. ¿Tiene alguna pregunta sobre el desempeño de sus ventas?",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": {
+  "resumen": {
+   "filas_entrada": 15887,
+   "filas_limpias": 15819,
+   "filas_eliminadas": 68,
+   "problemas_detectados": 325,
+   "por_tipo": {
+    "duplicado": {
+     "detectados": 50,
+     "corregidos": 0,
+     "eliminados": 50
+    },
+    "nulo": {
+     "detectados": 60,
+     "corregidos": 42,
+     "eliminados": 18
+    },
+    "producto_formato": {
+     "detectados": 40,
+     "corregidos": 40,
+     "eliminados": 0
+    },
+    "fecha_formato": {
+     "detectados": 80,
+     "corregidos": 80,
+     "eliminados": 0
+    },
+    "total_inconsistente": {
+     "detectados": 20,
+     "corregidos": 20,
+     "eliminados": 0
+    },
+    "precio_texto": {
+     "detectados": 60,
+     "corregidos": 60,
+     "eliminados": 0
+    },
+    "cantidad_negativa": {
+     "detectados": 15,
+     "corregidos": 15,
+     "eliminados": 0
+    }
+   },
+   "mapeo_columnas": {
+    "fecha": "fecha",
+    "hora": "hora",
+    "ticket": "ticket",
+    "producto": "producto",
+    "categoria": "categoria",
+    "cantidad": "cantidad",
+    "precio_unitario": "precio_unitario",
+    "total": "total",
+    "metodo_pago": "metodo_pago",
+    "promocion": "promocion"
+   },
+   "columnas_ignoradas": [],
+   "notas": [],
+   "textos_que_parecen_instrucciones": []
+  },
+  "problemas_muestra": [
+   {
+    "fila": 272,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 475,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 1032,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 1139,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 1179,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 1741,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 2320,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 2370,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 2891,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 3489,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 3517,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 3672,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 4152,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 4451,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 4477,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 4682,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 4688,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 4789,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 4829,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 4872,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 5396,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 6787,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 9099,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 9114,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 9362,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 9601,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 9699,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 9735,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 10319,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   },
+   {
+    "fila": 11451,
+    "tipo": "duplicado",
+    "columna": "*",
+    "valor_original": null,
+    "valor_corregido": null,
+    "accion": "eliminado"
+   }
+  ]
+ },
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Limpiador",
+   "accion": "limpiar_y_cargar",
+   "hora": "14:25:09",
+   "duracion_s": 6.8,
+   "llamadas_llm": [
+    {
+     "rol": "limpiador_resumen",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.709,
+     "tokens_entrada": 612,
+     "tokens_salida": 102,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "archivo": "ventas_sucias.csv",
+    "mapeo": {
+     "fecha": "fecha",
+     "hora": "hora",
+     "ticket": "ticket",
+     "producto": "producto",
+     "categoria": "categoria",
+     "cantidad": "cantidad",
+     "precio_unitario": "precio_unitario",
+     "total": "total",
+     "metodo_pago": "metodo_pago",
+     "promocion": "promocion"
+    },
+    "origen_mapeo": "usuario",
+    "herramienta": "limpiar_datos",
+    "resumen": {
+     "filas_entrada": 15887,
+     "filas_limpias": 15819,
+     "filas_eliminadas": 68,
+     "problemas_detectados": 325,
+     "por_tipo": {
+      "duplicado": {
+       "detectados": 50,
+       "corregidos": 0,
+       "eliminados": 50
+      },
+      "nulo": {
+       "detectados": 60,
+       "corregidos": 42,
+       "eliminados": 18
+      },
+      "producto_formato": {
+       "detectados": 40,
+       "corregidos": 40,
+       "eliminados": 0
+      },
+      "fecha_formato": {
+       "detectados": 80,
+       "corregidos": 80,
+       "eliminados": 0
+      },
+      "total_inconsistente": {
+       "detectados": 20,
+       "corregidos": 20,
+       "eliminados": 0
+      },
+      "precio_texto": {
+       "detectados": 60,
+       "corregidos": 60,
+       "eliminados": 0
+      },
+      "cantidad_negativa": {
+       "detectados": 15,
+       "corregidos": 15,
+       "eliminados": 0
+      }
+     },
+     "mapeo_columnas": {
+      "fecha": "fecha",
+      "hora": "hora",
+      "ticket": "ticket",
+      "producto": "producto",
+      "categoria": "categoria",
+      "cantidad": "cantidad",
+      "precio_unitario": "precio_unitario",
+      "total": "total",
+      "metodo_pago": "metodo_pago",
+      "promocion": "promocion"
+     },
+     "columnas_ignoradas": [],
+     "notas": [],
+     "textos_que_parecen_instrucciones": []
+    },
+    "escritura": "aplicada con la aprobación del dueño",
+    "aprobado_por_el_dueno": true
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "14:25:09",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 2,
+    "contexto": {},
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 6.81,
+ "llamadas_llm": [
+  {
+   "rol": "limpiador_resumen",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.709,
+   "tokens_entrada": 612,
+   "tokens_salida": 102,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 714,
+ "grafica": null
+}

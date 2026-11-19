@@ -1,0 +1,305 @@
+{
+ "sesion": "S05",
+ "turno": 1,
+ "fecha": "2026-11-19T14:20:17",
+ "entrada": {
+  "pregunta": "¿Cuánto dinero dejó cada categoría en el año?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuánto dinero dejó cada categoría en el año?",
+ "pregunta_completa": "¿Cuánto dinero dejó cada categoría en el año 2025?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Durante el 2025, la categoría que más dinero dejó fue Cervezas y vinos con $147,584.50, seguida de Abarrotes con $96,806 y Lácteos y huevo con $82,404. En contraste, la categoría con menores ingresos fue Dulces y galletas con $26,665. Este comportamiento posiblemente se debe a que las bebidas y los productos básicos son los que tienen mayor rotación constante en la tienda. Las ventas totales del año sumaron $670,195, con un promedio de $67,019.50 por categoría.\n\nRecomendación: Asegura un inventario suficiente de cervezas y bebidas antes de las temporadas de calor y diciembre, ya que son tus productos estrella.",
+ "sql": "SELECT categoria, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE anio = 2025 GROUP BY categoria ORDER BY ventas DESC",
+ "explicacion_sql": "Muestra los ingresos totales en pesos generados por cada categoría de producto durante el año 2025, ordenados de mayor a menor.",
+ "resultado": {
+  "sql": "SELECT categoria, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE anio = 2025 GROUP BY categoria ORDER BY ventas DESC",
+  "columnas": [
+   "categoria",
+   "ventas"
+  ],
+  "filas": [
+   [
+    "Cervezas y vinos",
+    147584.5
+   ],
+   [
+    "Abarrotes",
+    96806.0
+   ],
+   [
+    "Lácteos y huevo",
+    82404.0
+   ],
+   [
+    "Bebidas",
+    78268.0
+   ],
+   [
+    "Panadería y tortillas",
+    62706.0
+   ],
+   [
+    "Higiene personal",
+    48260.0
+   ],
+   [
+    "Limpieza del hogar",
+    44819.5
+   ],
+   [
+    "Botanas",
+    43820.0
+   ],
+   [
+    "Enlatados y conservas",
+    38862.0
+   ],
+   [
+    "Dulces y galletas",
+    26665.0
+   ]
+  ],
+  "n_filas": 10,
+  "truncado": false,
+  "duracion_s": 0.0329,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 7,
+  "verificadas": 7,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT categoria, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE anio = 2025 GROUP BY categoria ORDER BY ventas DESC",
+   "problema": null,
+   "n_filas": 10
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT categoria, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE anio = 2025 GROUP BY categoria ORDER BY ventas DESC"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "14:20:14",
+   "duracion_s": 1.086,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.085,
+     "tokens_entrada": 1338,
+     "tokens_salida": 113,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuánto dinero dejó cada categoría en el año 2025?",
+    "contexto": {
+     "periodo": "2025",
+     "producto": null,
+     "categoria": "todas",
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "14:20:15",
+   "duracion_s": 1.507,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.958,
+     "tokens_entrada": 2171,
+     "tokens_salida": 100,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Categorías de productos",
+      "Temporadas del año",
+      "Métodos de pago",
+      "Tabla promociones"
+     ],
+     "ejemplos": [
+      "¿Qué categoría deja más dinero?",
+      "¿Cuál es la ganancia estimada por categoría?",
+      "Compara las ventas en pesos de bebidas entre julio y agosto"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT categoria, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE anio = 2025 GROUP BY categoria ORDER BY ventas DESC",
+    "explicacion": "Muestra los ingresos totales en pesos generados por cada categoría de producto durante el año 2025, ordenados de mayor a menor.",
+    "error": null,
+    "filas": 10,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "14:20:15",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 10,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "14:20:15",
+   "duracion_s": 0.088,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras_horizontales",
+    "spec": {
+     "tipo": "barras_horizontales",
+     "x": "categoria",
+     "y": [
+      "ventas"
+     ],
+     "titulo": "Ventas por categoria",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "14:20:17",
+   "duracion_s": 1.842,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.601,
+     "tokens_entrada": 1144,
+     "tokens_salida": 175,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 7,
+     "verificadas": 7,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 14,
+    "reglas_rag": [
+     "Temporadas del año",
+     "Métodos de pago"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "14:20:17",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "2025",
+     "categoria": "todas",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Cuánto dinero dejó cada categoría en el año 2025?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 4.54,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.085,
+   "tokens_entrada": 1338,
+   "tokens_salida": 113,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.958,
+   "tokens_entrada": 2171,
+   "tokens_salida": 100,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.601,
+   "tokens_entrada": 1144,
+   "tokens_salida": 175,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5041,
+ "grafica": {
+  "spec": {
+   "tipo": "barras_horizontales",
+   "x": "categoria",
+   "y": [
+    "ventas"
+   ],
+   "titulo": "Ventas por categoria",
+   "confianza": "alta"
+  }
+ }
+}

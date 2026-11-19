@@ -55,3 +55,13 @@ def test_detecta_errores_de_logica(sql):
 @pytest.mark.parametrize("sql", BUENAS)
 def test_no_marca_consultas_correctas(sql):
     assert revisar_semantica(sql) is None
+
+
+def test_detecta_valores_de_estado_que_no_existen_en_jaibo():
+    from datavoz.agentes.revision_sql import revisar_semantica
+    tablas = ["ordenes", "ventas"]
+    assert revisar_semantica("SELECT COUNT(*) FROM ordenes WHERE NOT cancelada AND estado = 'Rehecho'", tablas)
+    assert revisar_semantica("SELECT COUNT(*) FROM ordenes WHERE estado ILIKE '%rehacer%'", tablas)
+    assert revisar_semantica("SELECT COUNT(*) FROM ordenes WHERE estado = 'Cancelada por Modificación'", tablas) is None
+    assert revisar_semantica("SELECT COUNT(*) FROM ordenes WHERE estado ILIKE '%cancel%'", tablas) is None
+    assert revisar_semantica("SELECT COUNT(*) FROM ordenes WHERE cancelada AND mes = 8", tablas) is None

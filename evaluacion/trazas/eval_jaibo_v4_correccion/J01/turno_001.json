@@ -1,0 +1,378 @@
+{
+ "sesion": "J01",
+ "turno": 1,
+ "fecha": "2026-11-19T14:32:22",
+ "entrada": {
+  "pregunta": "¿Cuánto dinero cobré en octubre de 2026?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuánto dinero cobré en octubre de 2026?",
+ "pregunta_completa": "¿Cuánto dinero cobré en octubre de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Hola, en octubre de 2026 cobraste un total de $88,585 a través de 506 órdenes, lo que representa un aumento frente a los $76,875 que registraste en septiembre. Este buen resultado se debió principalmente a las ventas en el mostrador del Local, que sumaron $42,657, seguidas por las plataformas a domicilio como Didi con $23,224. Las ventas a crédito para los empleados de Legacy y Automatas fueron menores, aportando $9,686 y $2,509 respectivamente. \nRecomendación: Impulsa promociones especiales en el Local durante las horas más tranquilas de la mañana para seguir incrementando tus ingresos de mostrador.",
+ "sql": "SELECT ROUND(SUM(monto_total), 2) AS total_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+ "explicacion_sql": "Calcula el monto total de las órdenes no canceladas durante el mes de octubre de 2026.",
+ "resultado": {
+  "sql": "SELECT ROUND(SUM(monto_total), 2) AS total_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+  "columnas": [
+   "total_cobrado",
+   "total_ordenes"
+  ],
+  "filas": [
+   [
+    88585.0,
+    506
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0355,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Comparar con el mes anterior (septiembre 2026)",
+   "sql": "SELECT ROUND(SUM(monto_total), 2) AS total_septiembre FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 9",
+   "columnas": [
+    "total_septiembre"
+   ],
+   "filas": [
+    [
+     76875.0
+    ]
+   ],
+   "n_filas": 1,
+   "truncado": false,
+   "duracion_s": 0.0334,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "Desglose por canal de venta en octubre 2026",
+   "sql": "SELECT canal, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal",
+   "columnas": [
+    "canal",
+    "ventas"
+   ],
+   "filas": [
+    [
+     "Legacy",
+     9686.0
+    ],
+    [
+     "Automatas",
+     2509.0
+    ],
+    [
+     "Didi",
+     23224.0
+    ],
+    [
+     "Rappi",
+     10509.0
+    ],
+    [
+     "Local",
+     42657.0
+    ]
+   ],
+   "n_filas": 5,
+   "truncado": false,
+   "duracion_s": 0.0438,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 8,
+  "verificadas": 8,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT ROUND(SUM(monto_total), 2) AS total_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT ROUND(SUM(monto_total), 2) AS total_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+  "SELECT ROUND(SUM(monto_total), 2) AS total_septiembre FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 9",
+  "SELECT canal, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "14:32:08",
+   "duracion_s": 9.377,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.815,
+     "tokens_entrada": 1430,
+     "tokens_salida": 113,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuánto dinero cobré en octubre de 2026?",
+    "contexto": {
+     "periodo": "octubre 2026",
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "14:32:16",
+   "duracion_s": 8.019,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "error",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.567,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+    },
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.611,
+     "tokens_entrada": 2410,
+     "tokens_salida": 265,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Tabla promociones",
+      "Barbacoa",
+      "Horario y momentos del día",
+      "Convenciones de SQL (DuckDB)"
+     ],
+     "ejemplos": [
+      "¿Cuánto vendí en dinero la última semana?",
+      "¿Cuánto se vende a crédito a las empresas cada mes?",
+      "¿Cuántas órdenes se corrigieron (canceladas por modificación) cada mes?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT ROUND(SUM(monto_total), 2) AS total_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+    "explicacion": "Calcula el monto total de las órdenes no canceladas durante el mes de octubre de 2026.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Comparar con el mes anterior (septiembre 2026)",
+      "sql": "SELECT ROUND(SUM(monto_total), 2) AS total_septiembre FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 9",
+      "error": null,
+      "filas": 1
+     },
+     {
+      "proposito": "Desglose por canal de venta en octubre 2026",
+      "sql": "SELECT canal, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal",
+      "error": null,
+      "filas": 5
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "14:32:16",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "14:32:16",
+   "duracion_s": 0.598,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "total_cobrado",
+      "total_ordenes"
+     ],
+     "titulo": "Total cobrado",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "14:32:22",
+   "duracion_s": 6.057,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.81,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.935,
+     "tokens_entrada": 1205,
+     "tokens_salida": 167,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 8,
+     "verificadas": 8,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 9,
+    "reglas_rag": [
+     "Barbacoa",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "14:32:22",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "octubre 2026",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Cuánto dinero cobré en octubre de 2026?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 24.07,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.815,
+   "tokens_entrada": 1430,
+   "tokens_salida": 113,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "error",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.567,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.611,
+   "tokens_entrada": 2410,
+   "tokens_salida": 265,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.81,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.935,
+   "tokens_entrada": 1205,
+   "tokens_salida": 167,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5590,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "total_cobrado",
+    "total_ordenes"
+   ],
+   "titulo": "Total cobrado",
+   "confianza": "alta"
+  }
+ }
+}
