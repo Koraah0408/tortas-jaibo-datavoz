@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import time
 from pathlib import Path
 
@@ -63,8 +64,8 @@ def transcribir_voz(ruta_audio: str | Path, idioma: str = "es") -> dict:
     ruta_audio = Path(ruta_audio)
     if not ruta_audio.exists():
         return {"texto": "", "error": f"No existe el archivo de audio {ruta_audio.name}"}
-    if not whisper_disponible():
-        return {"texto": "", "error": "La entrada por voz requiere faster-whisper (pip install -r requirements-voz.txt)."}
+    if not whisper_disponible():  # p. ej. en la nube: Gemini también entiende audio y no pesa nada
+        return transcribir_con_gemini(ruta_audio, inicio)
     try:
         entrada = None
         if ruta_audio.suffix.lower() == ".wav":
@@ -81,4 +82,34 @@ def transcribir_voz(ruta_audio: str | Path, idioma: str = "es") -> dict:
                 "duracion_s": round(time.perf_counter() - inicio, 2), "error": None}
     except Exception as e:
         return {"texto": "", "error": f"No se pudo transcribir el audio: {e}",
+                "duracion_s": round(time.perf_counter() - inicio, 2)}
+
+
+def transcribir_con_gemini(ruta_audio: Path, inicio: float | None = None) -> dict:
+    """Respaldo sin Whisper: le pide a Gemini la transcripción literal del audio."""
+    import base64
+    import mimetypes
+    inicio = inicio or time.perf_counter()
+    try:
+        from langchain_core.messages import HumanMessage
+        from langchain_google_genai import ChatGoogleGenerativeAI
+
+        from ..config import obtener_config
+        cfg = obtener_config()
+        if not os.getenv("GOOGLE_API_KEY"):
+            return {"texto": "", "error": "Para usar la voz sin Whisper hace falta GOOGLE_API_KEY."}
+        tipo = mimetypes.guess_type(str(ruta_audio))[0] or "audio/wav"
+        datos = base64.b64encode(Path(ruta_audio).read_bytes()).decode()
+        llm = ChatGoogleGenerativeAI(model=cfg.modelo_gemini, temperature=0, timeout=cfg.timeout_llm)
+        respuesta = llm.invoke([HumanMessage(content=[
+            {"type": "text", "text": "Transcribe literalmente lo que se dice en este audio en español de México. "
+                                     "Es una pregunta del dueño de Tortas Jaibo sobre sus ventas (tortas, pan, Didi, "
+                                     "Rappi, barbacoa, promociones). Responde solo con el texto transcrito."},
+            {"type": "media", "data": datos, "mime_type": tipo}])])
+        texto = respuesta.content if isinstance(respuesta.content, str) else " ".join(
+            p.get("text", "") if isinstance(p, dict) else str(p) for p in respuesta.content)
+        return {"texto": texto.strip().strip('"'), "idioma": "es", "motor": "gemini",
+                "duracion_s": round(time.perf_counter() - inicio, 2), "error": None}
+    except Exception as e:
+        return {"texto": "", "error": f"No se pudo transcribir el audio con Gemini: {type(e).__name__}",
                 "duracion_s": round(time.perf_counter() - inicio, 2)}

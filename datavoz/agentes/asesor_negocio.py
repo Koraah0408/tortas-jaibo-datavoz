@@ -17,7 +17,8 @@ from zoneinfo import ZoneInfo
 from ..config import obtener_config
 from ..herramientas import HERRAMIENTAS_NEGOCIO
 from ..herramientas.limpiar_datos import DIAS_SEMANA
-from ..herramientas.negocio_jaibo import ErrorAnalisis, fechas_de_pregunta, productos_de, resolver_producto
+from ..herramientas.negocio_jaibo import ErrorAnalisis, _consulta, fechas_de_pregunta, productos_de, resolver_producto
+from ..herramientas.reporte_ventas import periodo_de_pregunta
 from ..llm import ErrorLLM, invocar_llm
 from ..utilidades import normalizar
 from . import prompts
@@ -25,7 +26,8 @@ from .base import EstadoDataVoz, nodo
 
 # análisis que decide el Orquestador → herramientas que puede usar el Asesor
 ANALISIS = {"pronostico_pan": ("pronosticar_pan",), "rentabilidad_canales": ("rentabilidad_canales",),
-            "promociones": ("combinaciones_frecuentes", "simular_promocion"), "compras": ("lista_de_compras",)}
+            "promociones": ("combinaciones_frecuentes", "simular_promocion"), "compras": ("lista_de_compras",),
+            "reporte_ventas": ("reporte_de_ventas",)}
 ZONA = ZoneInfo("America/Monterrey")
 
 
@@ -87,8 +89,12 @@ def _combo_de_pregunta(pregunta: str, productos: list[str]) -> dict[str, int]:
     return combo
 
 
-def elegir(analisis: str, pregunta: str, propuesta: dict, productos: list[str], hoy: date) -> tuple[str, dict]:
+def elegir(analisis: str, pregunta: str, propuesta: dict, productos: list[str], hoy: date,
+           ultimo: date | None = None) -> tuple[str, dict]:
     """Valida la herramienta y los parámetros que propuso el LLM y completa lo que falte con reglas."""
+    if analisis == "reporte_ventas":  # el periodo se saca de la pregunta con reglas («del 18», «de ayer»…)
+        desde, hasta = periodo_de_pregunta(pregunta, ultimo or hoy, hoy)
+        return "reporte_de_ventas", {"desde": desde.isoformat(), "hasta": hasta.isoformat()}
     p = propuesta.get("parametros") if isinstance(propuesta.get("parametros"), dict) else {}
     herramienta = propuesta.get("herramienta") if propuesta.get("herramienta") in ANALISIS[analisis] else None
     # Comisiones y márgenes son datos del DUEÑO: solo se aceptan si su pregunta menciona un porcentaje
@@ -159,11 +165,18 @@ def asesor_negocio(estado: EstadoDataVoz) -> dict:
                f"Productos del menú (nombres exactos): {', '.join(productos)}\n\nPregunta del dueño: {pregunta}")
     error_llm = None
     try:
-        propuesta = invocar_llm("asesor", prompts.ASESOR, usuario)
+        propuesta = {} if analisis == "reporte_ventas" else invocar_llm("asesor", prompts.ASESOR, usuario)
     except ErrorLLM as e:  # sin LLM se eligen herramienta y parámetros solo con reglas
         propuesta, error_llm = {}, str(e)
     propuesta = propuesta if isinstance(propuesta, dict) else {}
-    herramienta, parametros = elegir(analisis, pregunta, propuesta, productos, hoy)
+    ultimo = None
+    if analisis == "reporte_ventas":
+        try:
+            ultimo = _consulta("SELECT MAX(fecha) AS f FROM ordenes", ruta_db, []).iloc[0]["f"]
+            ultimo = date.fromisoformat(str(ultimo)[:10])
+        except Exception:
+            ultimo = None
+    herramienta, parametros = elegir(analisis, pregunta, propuesta, productos, hoy, ultimo)
     try:
         res = HERRAMIENTAS_NEGOCIO[herramienta].invoke(
             {"ruta_db": ruta_db, **{k: v for k, v in parametros.items() if v is not None}})
@@ -180,6 +193,7 @@ def asesor_negocio(estado: EstadoDataVoz) -> dict:
         "consultas_apoyo": apoyo,
         "explicacion_sql": res["explicacion"],
         "sql": None,
+        "reporte_pdf": res.get("pdf"),
         "decision_supervisor": "continuar",
         "herramienta_negocio": {"nombre": herramienta, "titulo": res["titulo"], "parametros": res["parametros"],
                                 "supuestos": res["supuestos"]},

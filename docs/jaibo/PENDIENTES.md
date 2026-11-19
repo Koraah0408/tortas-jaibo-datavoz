@@ -21,6 +21,15 @@
 - **Mensajes diferenciados con animaciones**, **contraseña** para la versión publicada.
 - **Código en GitHub (privado):** https://github.com/Koraah0408/tortas-jaibo-datavoz — falta publicarlo en Streamlit Cloud (docs/PUBLICAR.md).
 
+## Nuevo (19/11/2026, noche)
+- **Reporte de ventas de un día o periodo con PDF**, hecho con la copia del POS, sin Gmail: «reporte de ventas del 18»,
+  «de ayer», «del 10 al 15 de noviembre», «de la semana pasada». Trae lo cobrado, órdenes, ticket, formas de pago,
+  canales, lo más vendido y ventas por hora. El PDF de la conversación solo sale si se pide «de la conversación».
+- **Mis PDF:** lista de todos los PDF (ventas y conversaciones) para descargar, en la barra lateral y en «Reportes».
+- **Micrófono en la caja de texto**; en la nube transcribe Gemini.
+- Gmail queda opcional: el reporte diario ya no lo necesita.
+- 163 pruebas automáticas pasan.
+
 ## Falta
 1. **Tú:**
    - confirmar qué pan usas (¿telera y telera doble?) y cuánto te cuesta con tu panadero;

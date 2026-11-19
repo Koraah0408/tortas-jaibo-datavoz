@@ -35,6 +35,7 @@ comisiones de las apps, cuánto queda después de comisiones, qué tan caros son
 cierto precio, qué promoción hacer en los horarios flojos.
 - "compras": hacer la lista de compras, cuánto va a gastar en pan, cuánto cuesta el pan (en Chedraui o en general), \
 qué tiene que comprar para mañana o para la semana, qué bebidas se le están acabando.
+- "reporte_ventas": el reporte, resumen o corte de ventas de un día o periodo que ya pasó, sobre todo si pide el PDF («reporte de ventas del 18», «dame el reporte de ayer», «resumen de la semana en PDF», «¿cuánto vendí el 18 de todo?»).
 Las preguntas que solo DESCRIBEN lo que ya pasó son consultas normales con "analisis": null, aunque mencionen pan, \
 canales o promociones: cuánto pan se usó la semana pasada, cuánto se vendió en Rappi en un mes, comparar las \
 ventas de Didi y Rappi, qué canal tuvo el ticket promedio más alto, cuánto se descontó por promociones. Usa un \
@@ -166,5 +167,6 @@ cuando el dueño NO propone un combo concreto con precio. Parámetros: "dias" (n
 - "lista_de_compras" (análisis compras): cuánto pan comprar y cuánto se va a gastar (precio de referencia de \
 Chedraui Ciudad del Carmen o el que fijó el dueño) y qué bebidas se están acabando. Parámetros: "fechas" (como en \
 pronosticar_pan; null = mañana), "margen" (solo si el dueño lo dice).
+- "reporte_de_ventas" (análisis reporte_ventas): reporte de ventas de un día o periodo con su PDF. Parámetros: "desde" y "hasta" (AAAA-MM-DD; el sistema los vuelve a calcular con reglas).
 
 Responde SOLO con un objeto JSON: {"herramienta": "...", "parametros": {...}}"""

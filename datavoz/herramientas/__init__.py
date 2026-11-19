@@ -120,9 +120,19 @@ def _lista_de_compras(ruta_db: str, fechas: list[str] | None = None, margen: flo
 
 
 lista_de_compras_tool = StructuredTool.from_function(_lista_de_compras, name="lista_de_compras")
+
+
+def _reporte_de_ventas(ruta_db: str, desde: str, hasta: str | None = None) -> dict:
+    """Reporte de ventas de un día o periodo (cobrado, órdenes, ticket, pagos, canales, lo más vendido) y su PDF."""
+    from .reporte_ventas import reporte_de_ventas
+    return reporte_de_ventas(ruta_db, desde, hasta)
+
+
+reporte_de_ventas_tool = StructuredTool.from_function(_reporte_de_ventas, name="reporte_de_ventas")
 HERRAMIENTAS_NEGOCIO = {"pronosticar_pan": pronosticar_pan_tool, "rentabilidad_canales": rentabilidad_canales_tool,
                         "combinaciones_frecuentes": combinaciones_frecuentes_tool,
-                        "simular_promocion": simular_promocion_tool, "lista_de_compras": lista_de_compras_tool}
+                        "simular_promocion": simular_promocion_tool, "lista_de_compras": lista_de_compras_tool,
+                        "reporte_de_ventas": reporte_de_ventas_tool}
 
 HERRAMIENTAS = [limpiar_datos_tool, ejecutar_sql_tool, buscar_diccionario_tool, generar_grafica_tool,
                 transcribir_voz_tool, exportar_reporte_tool, detectar_alertas_tool, *HERRAMIENTAS_NEGOCIO.values()]

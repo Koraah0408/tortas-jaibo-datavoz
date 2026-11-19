@@ -25,7 +25,7 @@ MAPEO_FORMATO_DISTINTO = {"Día de venta": "fecha", "Hora": "hora", "Folio": "ti
 
 ANALISIS_DE_HERRAMIENTA = {"pronosticar_pan": "pronostico_pan", "rentabilidad_canales": "rentabilidad_canales",
                            "combinaciones_frecuentes": "promociones", "simular_promocion": "promociones",
-                           "lista_de_compras": "compras"}
+                           "lista_de_compras": "compras", "reporte_de_ventas": "reporte_ventas"}
 
 
 def _casos() -> list[dict]:

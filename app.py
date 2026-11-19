@@ -24,9 +24,7 @@ from datavoz.basedatos import ejecutar_select, tablas_y_columnas
 from datavoz.conectores import jaibo
 from datavoz.config import obtener_config
 from datavoz.datos import construir_base_ejemplo
-from datavoz.herramientas import transcribir_voz
 from datavoz.herramientas.generar_grafica import figura_desde_json, generar_grafica
-from datavoz.herramientas.transcribir_voz import whisper_disponible
 from datavoz.llm import proveedores_disponibles
 from datavoz.sistema import SesionDataVoz
 from datavoz.utilidades import formato_numero
@@ -209,10 +207,40 @@ def _combo_sugerido(ruta_db: str, p1: str, p2: str) -> str | None:
     return f"¿Conviene un combo de {p1} + {p2} a ${int(normal * 0.9 // 5 * 5)}?"
 
 
+def mis_pdfs() -> list[tuple[Path, str]]:
+    """Todos los PDF que se han hecho (reportes de ventas y de conversación), del más nuevo al más viejo."""
+    carpeta = obtener_config().dir_reportes
+    archivos = sorted(carpeta.glob("*.pdf"), key=lambda a: a.stat().st_mtime, reverse=True) if carpeta.exists() else []
+    lista = []
+    for a in archivos:
+        m = re.fullmatch(r"reporte_ventas_(\d{8})(?:_(\d{8}))?", a.stem)
+        if m:
+            d1 = datetime.strptime(m.group(1), "%Y%m%d").date()
+            d2 = datetime.strptime(m.group(2), "%Y%m%d").date() if m.group(2) else None
+            nombre = (f"Ventas del {d1:%d/%m/%Y}" if not d2 else f"Ventas del {d1:%d/%m} al {d2:%d/%m/%Y}")
+        else:
+            nombre = f"Conversación · {datetime.fromtimestamp(a.stat().st_mtime):%d/%m %H:%M}"
+        lista.append((a, nombre))
+    return lista
+
+
+def lista_pdfs(clave: str) -> None:
+    pdfs = mis_pdfs()
+    if not pdfs:
+        st.caption("Aún no hay PDF. Pide, por ejemplo: «Reporte de ventas de ayer».")
+        return
+    for i, (archivo, nombre) in enumerate(pdfs):
+        st.download_button(nombre, archivo.read_bytes(), file_name=archivo.name, mime="application/pdf",
+                           icon=":material/download:", width="stretch", key=f"{clave}_{i}_{archivo.name}")
+
+
 def sugerencias_para(r: dict, ruta_db: str) -> list[str]:
     """Siguientes preguntas lógicas según lo que se acaba de responder (el dueño solo las toca)."""
     hn = r.get("herramienta_negocio") or {}
     nombre, par = hn.get("nombre"), hn.get("parametros") or {}
+    if nombre == "reporte_de_ventas":
+        return ["Reporte de ventas de la semana pasada", "¿Qué producto se vendió más ese día?",
+                "¿Cuánto pan compro para mañana?"]
     if nombre == "pronosticar_pan":
         return ["¿Cuánto me voy a gastar en pan esta semana?", "¿Y para el fin de semana?",
                 "¿Qué pasa si compro con 20% de margen?"]
@@ -402,6 +430,10 @@ def mostrar_mensaje(m: dict, indice: int, ultimo: bool = False, ruta_db: str = "
             st.markdown(estilos.recomendacion(reco), unsafe_allow_html=True)
         if nota:
             st.caption(sin_latex(nota))
+        pdf = r.get("reporte_pdf")
+        if pdf and Path(pdf).exists():
+            st.download_button("Descargar el PDF", Path(pdf).read_bytes(), file_name=Path(pdf).name,
+                               mime="application/pdf", icon=":material/picture_as_pdf:", key=f"pdf_{indice}")
         verif = r.get("verificacion")
         if verif and verif.get("total_cifras"):
             texto = ("Cifras verificadas contra tus ventas" if verif.get("ok")
@@ -419,6 +451,12 @@ def pestana_reportes(ruta_db: str) -> None:
     import plotly.express as px
     from datavoz.conectores import gmail_reportes
     from datavoz.herramientas.generar_grafica import PALETA, estilizar
+    st.markdown(estilos.titulo_tarjeta("reporte", "Tus PDF"), unsafe_allow_html=True)
+    st.caption("Reportes de ventas y de conversaciones que has pedido. Pide uno nuevo en «Preguntar», "
+               "por ejemplo: «Reporte de ventas del 18».")
+    with st.container(height=260 if len(mis_pdfs()) > 5 else None, border=False):
+        lista_pdfs("pestana")
+    st.divider()
     almacen = gmail_reportes.guardados()
     df = gmail_reportes.tabla_reportes(almacen)
     c1, c2 = st.columns([3, 1])
@@ -550,41 +588,14 @@ with st.sidebar:
                          icon=":material/check_circle:")
                 st.rerun()
 
-    # Voz
-    st.markdown(estilos.seccion("voz", "Pregunta con tu voz"), unsafe_allow_html=True)
-    if whisper_disponible():
-        audio = st.audio_input("Graba tu pregunta", label_visibility="collapsed")
-        confirmar_voz = st.toggle("Revisar lo que entendí antes de enviar", value=True)
-        if audio is not None:
-            firma = hash(audio.getvalue())
-            if st.session_state.get("audio_firma") != firma:
-                st.session_state.audio_firma = firma
-                ruta_audio = Path(tempfile.gettempdir()) / f"datavoz_{sesion.sesion_id}_voz.wav"
-                ruta_audio.write_bytes(audio.getvalue())
-                if confirmar_voz:
-                    with st.spinner("Escuchando…"):
-                        st.session_state.audio_texto = transcribir_voz(ruta_audio).get("texto", "")
-                else:
-                    st.session_state.pendiente_audio = str(ruta_audio)
-            if confirmar_voz and st.session_state.get("audio_texto") is not None:
-                texto_voz = st.text_area("Esto entendí (puedes corregirlo)", st.session_state.audio_texto)
-                if st.button("Enviar pregunta", icon=":material/send:", width="stretch", type="primary"):
-                    st.session_state.pendiente = texto_voz
-                    st.session_state.pendiente_es_voz = True
-                    st.session_state.audio_texto = None
-    else:
-        st.markdown('<div class="jb-nota">Para usar voz instala <code>requirements-voz.txt</code>.</div>',
-                    unsafe_allow_html=True)
-
     # Reporte
     st.markdown(estilos.seccion("reporte", "Reporte"), unsafe_allow_html=True)
     if st.button("Crear reporte PDF de la conversación", icon=":material/picture_as_pdf:", width="stretch"):
         r = ejecutar(sesion.preguntar, "Genera el reporte PDF de la sesión", etiqueta="Armando tu reporte…")
         registrar_respuesta(r, "Genera el reporte PDF de la conversación")
         st.rerun()
-    if st.session_state.get("reporte") and Path(st.session_state.reporte).exists():
-        st.download_button("Descargar PDF", Path(st.session_state.reporte).read_bytes(), icon=":material/download:",
-                           file_name=Path(st.session_state.reporte).name, mime="application/pdf", width="stretch")
+    with st.expander(f"Mis PDF ({len(mis_pdfs())})", icon=":material/folder:"):
+        lista_pdfs("lateral")
 
     # Detalles técnicos (para la evaluación del proyecto; el dueño no los necesita)
     with st.expander("Detalles técnicos", icon=":material/settings:"):
@@ -601,8 +612,16 @@ with st.sidebar:
                 'Proyecto académico ITCM.<br>Solo lee tus ventas: nunca modifica el POS.</div>', unsafe_allow_html=True)
 
 # ----------------------------- Entrada del usuario -------------------------
-pregunta = st.chat_input("Escribe tu pregunta… por ejemplo: ¿cuánto pan compro para el sábado?")
-por_voz = False
+entrada = st.chat_input("Escribe o toca el micrófono… por ejemplo: ¿cuánto pan compro para el sábado?",
+                        accept_audio=True)
+pregunta, por_voz = None, False
+if entrada is not None:
+    pregunta = (getattr(entrada, "text", None) if not isinstance(entrada, str) else entrada) or None
+    audio = None if isinstance(entrada, str) else getattr(entrada, "audio", None)
+    if audio is not None and not pregunta:  # nota de voz desde la misma caja: se transcribe y se pregunta
+        ruta_audio = Path(tempfile.gettempdir()) / f"datavoz_{sesion.sesion_id}_voz.wav"
+        ruta_audio.write_bytes(audio.getvalue())
+        st.session_state.pendiente_audio = str(ruta_audio)
 if st.session_state.get("pendiente"):
     pregunta = st.session_state.pop("pendiente")
     por_voz = st.session_state.pop("pendiente_es_voz", False)

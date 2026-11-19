@@ -47,7 +47,9 @@ JAIBO_COSTOS_YAML = '''
 
 ## 3. Qué cambia en la nube
 
-- **Voz:** no hay entrada por voz. El modelo Whisper es pesado para el plan gratuito; en tu computadora sí funciona.
+- **Voz:** el micrófono está en la misma caja donde escribes. En la nube no hay Whisper (es pesado para el plan
+  gratuito), así que la nota de voz la transcribe Gemini; en tu computadora usa Whisper.
+- **PDF:** los reportes que pidas se guardan en «Mis PDF» mientras la app esté encendida.
 - **Conversaciones:** las guardadas en la nube se pierden cuando Streamlit reinicia la app (por inactividad o
   actualización). La copia del POS y los reportes se vuelven a descargar solos.
 - **Actualizaciones:** cada vez que se suban cambios a GitHub, la app publicada se actualiza sola.

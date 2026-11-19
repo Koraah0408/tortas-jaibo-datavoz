@@ -26,6 +26,9 @@ RESPUESTA_PELIGROSA = ("No puedo hacer eso: DataVoz solo tiene permiso para **le
 
 _PATRON_REPORTE = re.compile(r"\b(genera|generar|exporta|exportar|descarga|descargar|crea|crear|hazme|haz|dame|"
                              r"quiero)\b.*\b(reporte|informe|pdf)\b|\b(reporte|informe)\s+(pdf|de la sesion)\b")
+# El PDF de la CONVERSACIÓN solo si la nombra; «reporte de ventas del 18» es el reporte de ventas de ese día
+_PATRON_CONVERSACION = re.compile(r"\b(conversacion|sesion|chat|platica|preguntas que (te )?hice)\b")
+_PATRON_REPORTE_VENTAS = re.compile(r"\b(reporte|informe|resumen|corte|pdf)\b")
 
 
 @nodo("Orquestador", "transcribir_voz")
@@ -52,7 +55,7 @@ def _estado_datos(estado: EstadoDataVoz) -> str:
             f"{resumen.get('hasta')}, {resumen.get('renglones')} renglones, {resumen.get('productos')} productos. "
             f"Tablas: {', '.join(datos.get('tablas') or ['ventas'])}. Limpieza aplicada: "
             f"{'sí' if datos.get('limpio') else 'no'}."
-            + (" Análisis especializados disponibles: pronostico_pan, rentabilidad_canales, promociones, compras."
+            + (" Análisis especializados disponibles: pronostico_pan, rentabilidad_canales, promociones, compras, reporte_ventas."
                if datos.get("dominio") == "jaibo" else ""))
 
 
@@ -69,7 +72,13 @@ def orquestar(estado: EstadoDataVoz) -> dict:
     if es_intencion_peligrosa(pregunta):
         return {"intencion": "peligrosa", "pregunta_completa": pregunta, "respuesta_directa": RESPUESTA_PELIGROSA,
                 "_detalle": {"motivo": "patrón de intención peligrosa detectado antes del LLM"}}
-    if _PATRON_REPORTE.search(normalizar(pregunta)):
+    t = normalizar(pregunta)
+    es_jaibo = (estado.get("datos") or {}).get("dominio") == "jaibo"
+    if es_jaibo and _PATRON_REPORTE_VENTAS.search(t) and not _PATRON_CONVERSACION.search(t):
+        return {"intencion": "consulta_datos", "pregunta_completa": pregunta, "analisis": "reporte_ventas",
+                "_detalle": {"motivo": "reporte de ventas de un día o periodo detectado por patrón",
+                             "analisis": "reporte_ventas"}}
+    if _PATRON_REPORTE.search(t) and (not es_jaibo or _PATRON_CONVERSACION.search(t)):
         return {"intencion": "reporte", "pregunta_completa": pregunta,
                 "_detalle": {"motivo": "petición de reporte detectada por patrón"}}
 
