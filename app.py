@@ -454,7 +454,10 @@ def pestana_reportes(ruta_db: str) -> None:
     st.markdown(estilos.titulo_tarjeta("reporte", "Tus PDF"), unsafe_allow_html=True)
     st.caption("Reportes de ventas y de conversaciones que has pedido. Pide uno nuevo en «Preguntar», "
                "por ejemplo: «Reporte de ventas del 18».")
-    with st.container(height=260 if len(mis_pdfs()) > 5 else None, border=False):
+    if len(mis_pdfs()) > 5:  # con muchos PDF, una caja con su propia barra para no alargar la página
+        with st.container(height=260, border=False):
+            lista_pdfs("pestana")
+    else:
         lista_pdfs("pestana")
     st.divider()
     almacen = gmail_reportes.guardados()
