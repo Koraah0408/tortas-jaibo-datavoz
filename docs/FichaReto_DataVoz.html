@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Ficha de reto · DataVoz para Tortas Jaibo</title>
+<style>
+  @page { size: Letter; margin: 15mm 16mm 16mm 16mm;
+          @bottom-left { content: "Ficha de reto · Equipo DataVoz · ITCM"; font: 8pt "DejaVu Sans", Arial; color: #6b7280; }
+          @bottom-right { content: "Página " counter(page); font: 8pt "DejaVu Sans", Arial; color: #6b7280; } }
+  :root { --azul: #2F80ED; --marino: #1B2A4A; --gris: #5B6472; --claro: #EAF2FD; --borde: #C9D6EA; }
+  * { box-sizing: border-box; }
+  body { font-family: "DejaVu Sans", "Segoe UI", Arial, sans-serif; font-size: 9.4pt; line-height: 1.4; color: #1b1f27; margin: 0; }
+  .franja { height: 3px; background: var(--azul); margin-bottom: 10px; }
+  .eyebrow { color: var(--azul); font-weight: 700; font-size: 9.5pt; letter-spacing: .02em; }
+  h1 { color: var(--marino); font-size: 23pt; margin: 0; }
+  .sub { color: var(--gris); font-size: 11pt; margin: 0 0 8px; }
+  h2 { color: var(--marino); font-size: 13pt; margin: 12px 0 5px; padding-bottom: 2px; border-bottom: 1.5px solid var(--azul); break-after: avoid; }
+  h2 .num { display: inline-block; background: var(--azul); color: #fff; padding: 0 9px; margin-right: 8px; font-size: 11pt; }
+  p { margin: 4px 0 6px; text-align: justify; }
+  table { width: 100%; border-collapse: collapse; margin: 4px 0 8px; font-size: 8.6pt; }
+  tr { break-inside: avoid; }
+  th { background: var(--marino); color: #fff; text-align: left; padding: 4px 6px; font-weight: 700; }
+  td { border: 1px solid var(--borde); padding: 3px 6px; vertical-align: top; }
+  tr:nth-child(even) td { background: #F4F8FE; }
+  td.k { width: 20%; }
+  code { font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: 7.9pt; }
+  ul { margin: 3px 0 6px 16px; padding: 0; } li { margin: 1px 0; }
+  .diag { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px 12px; margin: 8px 0 2px; }
+  .caja { border: 1.4px solid var(--azul); border-radius: 8px; background: var(--claro); padding: 6px 6px; text-align: center; font-size: 7.8pt; color: var(--gris); }
+  .caja b { display: block; color: var(--marino); font-size: 8.8pt; margin-bottom: 1px; }
+  .caja.osc { background: var(--marino); color: #dfe6f3; } .caja.osc b { color: #fff; }
+  .caja.az { background: var(--azul); color: #eaf2fd; } .caja.az b { color: #fff; }
+  .caja.nar { background: #FFF1DD; border-color: #E8A33D; }
+  .ancho2 { grid-column: span 2; }
+  .flecha { text-align: center; color: var(--marino); font-size: 9pt; margin: 0; }
+  figcaption { text-align: center; font-size: 8pt; color: var(--gris); font-style: italic; margin: 3px 0 6px; }
+  .nota { font-size: 8.4pt; color: var(--gris); }
+</style>
+</head>
+<body>
+<div class="franja"></div>
+<div class="eyebrow">FICHA DE RETO · PROYECTO FINAL</div>
+<h1>Háblale a tus datos</h1>
+<p class="sub">Sistema multiagente que responde en lenguaje natural (texto o voz) las preguntas del dueño de un negocio de
+tortas sobre sus ventas y le ayuda a decidir cuánto pan comprar, qué canal le deja más y qué promoción conviene</p>
+
+<h2><span class="num">1</span>Datos generales</h2>
+<table>
+  <tr><td class="k">Título del reto</td><td>Háblale a tus datos: asistente conversacional de ventas y decisiones para Tortas Jaibo</td></tr>
+  <tr><td class="k">Nombre del equipo</td><td>DataVoz</td></tr>
+  <tr><td class="k">Integrantes</td><td>Katerine Leticia Vega Rodríguez · No. de control 23070556<br>José Ramiro Márquez Aguayo · No. de control 23070466</td></tr>
+  <tr><td class="k">Institución</td><td>Instituto Tecnológico de Ciudad Madero (TecNM) · Ingeniería en Sistemas Computacionales</td></tr>
+</table>
+
+<h2><span class="num">2</span>Cliente</h2>
+<p><b>Cliente:</b> Tortas Jaibo, negocio familiar de tortas estilo Tampico en Ciudad del Carmen, Campeche, propiedad de
+la familia de uno de los integrantes del equipo. <b>Actividad:</b> venta de tortas (barda, pierna, mega), gorditas,
+bocoles, tacos de barbacoa, platillo del día y bebidas, en mostrador, por <b>Didi Food</b> y <b>Rappi</b>, y a crédito para
+los empleados de dos empresas cercanas; alrededor de 36 productos. Cada venta se registra en un <b>punto de venta (POS)
+propio</b> con base de datos PostgreSQL en Supabase, que manda cada noche un reporte del día por correo.
+<b>Relación:</b> familiar directo. <b>Contacto:</b> el dueño explicó que solo revisa el corte de cada día y que las compras
+de pan y las promociones las decide por costumbre. Se validarán con él las preguntas que más le interesan.</p>
+<p class="nota"><b>Cambio respecto a la primera ficha:</b> el cliente propuesto era una tienda de abarrotes con ventas en
+una hoja de cálculo. Se cambió a Tortas Jaibo porque tiene datos reales en un sistema en producción y decisiones
+diarias concretas. La tienda de abarrotes se conserva con datos sintéticos como caso base de evaluación.</p>
+
+<h2><span class="num">3</span>Problemática</h2>
+<p><b>¿Qué se quiere resolver?</b> El dueño necesita decidir cada día <b>cuánto pan pedir</b> al panadero (si falta se
+pierden ventas y si sobra se tira), <b>si le conviene vender en Didi y Rappi</b> con sus comisiones, <b>qué promociones
+lanzar</b> en las horas flojas y cuánto va a gastar en insumos, además de responder preguntas como cuánto vendió un día,
+qué se vende más o qué día cobra más. La información existe en el POS, pero nadie la analiza.</p>
+<p><b>¿Cómo se hace hoy?</b> Con el corte del día y la intuición. Cruzar órdenes, productos, canales, comisiones y precios
+a mano toma tiempo y casi nunca se hace. Las herramientas de inteligencia de negocios (Power BI, Tableau) requieren
+conocimientos técnicos, y el POS está en producción: cualquier herramienta debe leerlo <b>sin poder modificarlo</b>.</p>
+<p><b>¿Por qué un agente?</b> Cada pregunta requiere pasos distintos: entender la intención y el contexto, decidir si es una
+consulta del pasado o una decisión a futuro, construir una consulta o elegir una herramienta de análisis con sus
+parámetros, elegir una gráfica e interpretar el resultado. Un sistema multiagente reparte estos pasos entre
+especialistas, se corrige a sí mismo (reintenta un SQL que falló o que calcula mal), deja los cálculos de decisión a
+código determinista y recuerda el contexto para preguntas como «¿y para el sábado?».</p>
+
+<h2><span class="num">4</span>Temática</h2>
+<p><b>Análisis de datos para la toma de decisiones</b>, con apoyo de ingeniería del lenguaje (traducción de lenguaje
+natural a SQL, uso de herramientas y generación de explicaciones) y entrada por voz.</p>
+
+<h2><span class="num">5</span>Descripción del agente</h2>
+<table>
+  <tr><th style="width:24%">Recibe</th><th style="width:26%">Decide</th><th style="width:26%">Acciones</th><th>Entrega</th></tr>
+  <tr><td>Preguntas por texto o nota de voz; preguntas de seguimiento; ventas del POS (copia de solo lectura) y, opcionalmente, un archivo CSV/Excel.</td>
+      <td>Si es una consulta o una decisión; qué tablas consultar; si el SQL es correcto o debe reintentarse; qué herramienta de análisis usar y con qué parámetros; qué gráfica comunica mejor; si falta información.</td>
+      <td>Leer el POS sin modificarlo; transcribir la voz; generar y ejecutar SQL de solo lectura; consultar el diccionario (RAG); pronosticar, comparar canales y simular promociones; graficar; exportar reportes.</td>
+      <td>Respuesta en lenguaje sencillo con cifras verificadas, gráfica, recomendación, aviso de supuestos, sugerencias para seguir y reporte PDF.</td></tr>
+</table>
+<p style="margin-top:6px"><b>Ejemplo de interacción</b></p>
+<table>
+  <tr><td class="k">Dueño (voz)</td><td>«¿Cuánto pan compro para este fin de semana?»</td></tr>
+  <tr><td class="k">Orquestador</td><td>Transcribe el audio y clasifica la pregunta como decisión de compra de pan (no como consulta del pasado).</td></tr>
+  <tr><td class="k">Asesor de negocio</td><td>Elige <code>pronosticar_pan</code>; las fechas «sábado y domingo» se calculan con reglas, no con el LLM. La herramienta promedia el mismo día de la semana en las últimas 8 semanas, ajusta por quincena y mide su propio error.</td></tr>
+  <tr><td class="k">Visualizador</td><td>Barras agrupadas de pan normal y pan mega por día.</td></tr>
+  <tr><td class="k">Narrador</td><td>«Compra 11 piezas de pan normal y 12 de mega para el sábado, y 12 y 11 para el domingo. Incluye un margen de 10 % (SUPUESTO: confírmalo). El método se equivoca en promedio 3 piezas por día.»</td></tr>
+  <tr><td class="k">Dueño</td><td>«¿Y cuánto me voy a gastar?» → el sistema usa la memoria y arma la lista de compras con precios de referencia.</td></tr>
+</table>
+
+<h2><span class="num">6</span>Diseño preliminar</h2>
+<p><b>Patrón de orquestación:</b> supervisor (orquestador central) con ciclos de corrección. Las consultas van al Analista
+SQL; si falla, devuelve un resultado vacío o una revisión semántica encuentra un error de lógica, el Orquestador lo
+regresa con el problema hasta 2 veces. Las decisiones van al Asesor de negocio, que solo elige herramienta y
+parámetros; los cálculos los hace código determinista.</p>
+<div class="diag">
+  <div class="caja"><b>Dueño</b>texto · voz · celular</div>
+  <div class="caja osc"><b>Interfaz web</b>Streamlit · chat, semana y PDF</div>
+  <div class="caja az"><b>Orquestador</b>(supervisor) decide el flujo y valida cada paso</div>
+  <div class="caja"><b>Memoria</b>historial + resumen de contexto</div>
+  <div class="caja"><b>Analista SQL</b>pregunta → SQL, ejecuta y verifica</div>
+  <div class="caja nar"><b>Asesor de negocio</b>elige herramienta y parámetros validados</div>
+  <div class="caja"><b>Visualizador</b>elige y genera la gráfica</div>
+  <div class="caja"><b>Narrador</b>explica, recomienda y verifica cifras</div>
+  <div class="caja ancho2"><b>Herramientas</b>ejecutar_sql (solo SELECT) · buscar_diccionario · generar_grafica · transcribir_voz · exportar_reporte · pronosticar_pan · rentabilidad_canales · simular_promocion · lista_de_compras</div>
+  <div class="caja"><b>POS (Supabase)</b>usuario de solo lectura → copia en DuckDB</div>
+  <div class="caja"><b>RAG</b>ChromaDB: diccionario del POS, reglas del negocio y ejemplos SQL</div>
+</div>
+<figcaption>Figura 1. Diagrama de módulos del sistema. Un agente Limpiador se conserva para archivos CSV/Excel.</figcaption>
+<table>
+  <tr><th style="width:22%">Herramienta</th><th style="width:18%">Agente que la usa</th><th>Función</th></tr>
+  <tr><td>ejecutar_sql</td><td>Analista SQL</td><td>Ejecuta solo SELECT en una conexión de solo lectura, con límite de tiempo y de filas.</td></tr>
+  <tr><td>buscar_diccionario (RAG)</td><td>Analista SQL, Narrador</td><td>Recupera el significado de las tablas del POS, las reglas del negocio y ejemplos pregunta–SQL.</td></tr>
+  <tr><td>generar_grafica</td><td>Visualizador</td><td>Gráficas Plotly (barras, líneas, pastel, mapa de calor).</td></tr>
+  <tr><td>transcribir_voz</td><td>Orquestador</td><td>Nota de voz a texto con Whisper local (o Gemini en la nube).</td></tr>
+  <tr><td>exportar_reporte</td><td>Narrador</td><td>PDF con las preguntas, gráficas y conclusiones de la conversación.</td></tr>
+  <tr><td>pronosticar_pan</td><td>Asesor de negocio</td><td>Pan normal y mega a comprar por día, con margen de seguridad y error medido.</td></tr>
+  <tr><td>rentabilidad_canales</td><td>Asesor de negocio</td><td>Lo que deja cada canal (mostrador, Didi, Rappi) después de comisiones.</td></tr>
+  <tr><td>simular_promocion</td><td>Asesor de negocio</td><td>Productos que se piden juntos y cuántos combos extra hacen falta para que una promoción convenga.</td></tr>
+  <tr><td>lista_de_compras</td><td>Asesor de negocio</td><td>Pan e ingredientes a comprar con precios de referencia de una tienda local (o los del dueño).</td></tr>
+</table>
+<p><b>Memoria:</b> memoria de corto plazo con el historial de la conversación, más un resumen de contexto (periodo, producto,
+canal y métrica consultados) para resolver preguntas de seguimiento; las conversaciones se guardan para reabrirlas.
+<b>RAG:</b> base vectorial ChromaDB con el diccionario de datos del POS, las reglas del negocio (compra de pan,
+comisiones, créditos, horarios, órdenes corregidas) y ejemplos de pares pregunta–SQL validados (<i>few-shot</i>).</p>
+
+<h2><span class="num">7</span>Datos</h2>
+<ul>
+  <li><b>Datos reales del POS, solo lectura:</b> se creará en Supabase un usuario de base de datos que solo pueda leer
+  vistas preparadas (órdenes, renglones de venta, productos, ingredientes y promociones). La app trabajará sobre una
+  copia local en DuckDB y nunca escribirá en el POS.</li>
+  <li><b>Datos personales excluidos:</b> las vistas no incluyen empleados, créditos de empleados, pagos de deuda ni las notas
+  de las órdenes. La copia, los costos y las credenciales no se suben al repositorio.</li>
+  <li><b>Datos sintéticos para evaluar:</b> se generará con Python (NumPy) una base con el mismo menú y estructura del POS
+  (~5,000 órdenes en 2026, fines de semana, quincenas, canales, créditos, promociones y órdenes corregidas) para que la
+  evaluación sea reproducible y no publique ventas reales. Se usará también para la demostración.</li>
+  <li><b>Caso base:</b> la tienda de abarrotes con datos sintéticos y 325 errores inyectados para evaluar la limpieza de
+  archivos y la entrada por voz.</li>
+  <li><b>Diccionario de datos y reglas del negocio:</b> redactados por el equipo a partir del POS y de la plática con el dueño.
+  Los datos que el dueño no ha confirmado (comisiones, margen de pan, costos) se marcarán como SUPUESTO.</li>
+</ul>
+
+<h2><span class="num">8</span>Criterios de éxito</h2>
+<table>
+  <tr><th style="width:21%">Aspecto clave</th><th>Descripción</th><th style="width:25%">Criterio de éxito medible</th></tr>
+  <tr><td>Exactitud del SQL</td><td>La consulta generada devuelve el resultado correcto comparado con un SQL de referencia.</td><td>≥ 85 % de los casos correctos</td></tr>
+  <tr><td>Ruta correcta</td><td>Las consultas llegan al Analista SQL y las decisiones al Asesor de negocio.</td><td>≥ 90 % de los casos</td></tr>
+  <tr><td>Decisiones correctas</td><td>El Asesor elige la herramienta y los parámetros correctos y el resultado coincide con la referencia.</td><td>≥ 85 % de los casos</td></tr>
+  <tr><td>Aviso de supuestos</td><td>Si el cálculo usa un dato no confirmado, la respuesta lo dice.</td><td>100 % de los casos con supuestos</td></tr>
+  <tr><td>Veracidad de la respuesta</td><td>Las cifras que menciona el Narrador coinciden con los datos (sin alucinaciones).</td><td>100 % de cifras verificadas</td></tr>
+  <tr><td>Calidad de la limpieza</td><td>El Limpiador detecta y corrige los errores inyectados en un archivo (caso base).</td><td>≥ 90 % de errores detectados</td></tr>
+  <tr><td>Pertinencia de la gráfica</td><td>El tipo de gráfica es adecuado para la pregunta (rúbrica de 1 a 5).</td><td>Promedio ≥ 4/5</td></tr>
+  <tr><td>Memoria y seguimiento</td><td>Responde bien preguntas que dependen del contexto anterior.</td><td>≥ 80 % correctas</td></tr>
+  <tr><td>Entrada por voz</td><td>La transcripción conserva el sentido de la pregunta.</td><td>≥ 90 % bien interpretadas</td></tr>
+  <tr><td>Seguridad</td><td>El sistema rechaza instrucciones que modifiquen o borren datos y nunca escribe en el POS.</td><td>0 consultas distintas de SELECT ejecutadas</td></tr>
+  <tr><td>Tiempo de respuesta</td><td>Desde la pregunta hasta la gráfica y la explicación.</td><td>≤ 15 s en promedio</td></tr>
+  <tr><td>Utilidad para el cliente</td><td>El dueño evalúa si las respuestas le sirven para decidir.</td><td>≥ 4/5 en encuesta</td></tr>
+</table>
+<p>Se diseñarán <b>al menos 30 casos de prueba</b> para Tortas Jaibo (consultas simples y comparativas, seguimientos,
+decisiones de pan, canales y promociones, y 5 de seguridad o fuera de alcance), además de la suite base de la tienda
+de abarrotes (20 casos, con voz y datos sucios).</p>
+
+<h2><span class="num">9</span>Alcance</h2>
+<table>
+  <tr><th style="width:13%">Nivel</th><th>Qué incluye</th></tr>
+  <tr><td>Mínimo<br>(sí o sí)</td><td>Preguntas por texto sobre las ventas; agentes Analista SQL, Visualizador y Narrador orquestados; RAG con diccionario de datos; memoria de conversación; 4 herramientas; 15 casos de prueba evaluados.</td></tr>
+  <tr><td>Esperado</td><td>Todo lo anterior más conexión de solo lectura al POS, agente Asesor de negocio con pronóstico de pan, rentabilidad por canal y promociones, entrada por voz, Limpiador, reintento automático de SQL, 30 casos de prueba y validación con el dueño.</td></tr>
+  <tr><td>Ideal</td><td>Reporte PDF (de la conversación y de ventas de un día), lista de compras con precios de referencia, alertas automáticas, uso desde el celular (app publicada con contraseña), respuesta por voz y aviso diario del pan a comprar.</td></tr>
+</table>
+
+<h2><span class="num">10</span>Tecnologías</h2>
+<table>
+  <tr><th style="width:28%">Componente</th><th>Tecnología</th></tr>
+  <tr><td>Modelo de lenguaje</td><td>Google Gemini (capa gratuita), un modelo por rol con respaldo automático; respaldo final: Llama 3.x vía Groq u Ollama local</td></tr>
+  <tr><td>Framework de agentes</td><td>LangGraph (LangChain) para el grafo de agentes y el orquestador</td></tr>
+  <tr><td>Datos</td><td>PostgreSQL en Supabase (POS, solo lectura) → DuckDB (copia local) · ChromaDB (RAG vectorial)</td></tr>
+  <tr><td>Análisis, gráficas y reportes</td><td>Python, pandas, NumPy, Plotly, fpdf2</td></tr>
+  <tr><td>Voz</td><td>Whisper (faster-whisper, local); Gemini en la versión en la nube</td></tr>
+  <tr><td>Interfaz y publicación</td><td>Streamlit (chat, resumen de la semana y reportes); Streamlit Community Cloud</td></tr>
+  <tr><td>Control de versiones y evaluación</td><td>GitHub (repositorio privado) · pytest y script propio de evaluación con trazas por turno</td></tr>
+</table>
+
+<h2><span class="num">11</span>Plan de trabajo</h2>
+<table>
+  <tr><th style="width:12%">Semana</th><th>Actividades</th><th style="width:27%">Katerine Vega</th><th style="width:27%">José Ramiro Márquez</th></tr>
+  <tr><td>S1<br>16–22 nov</td><td>Estructura del proyecto, agentes base, RAG, memoria y caso base; plática con el dueño y conexión de solo lectura al POS.</td><td>Interfaz base; diccionario de datos y reglas del negocio.</td><td>Orquestador en LangGraph; Analista SQL; usuario de solo lectura y conector al POS.</td></tr>
+  <tr><td>S2<br>23–29 nov</td><td>Asesor de negocio y sus herramientas, conocimiento de Tortas Jaibo, interfaz para el dueño y primeros casos de prueba.</td><td>Interfaz de Tortas Jaibo; casos de prueba del negocio.</td><td>Herramientas de decisión; datos sintéticos de Jaibo; publicación.</td></tr>
+  <tr><td>S3<br>30 nov–5 dic</td><td>Voz, 30 casos de prueba, métricas, ajustes y validación con el dueño.</td><td>Encuesta y pruebas de usabilidad con el dueño.</td><td>Script de evaluación; revisión semántica del SQL; seguridad.</td></tr>
+  <tr><td>S4<br>6–11 dic</td><td>Presentación del prototipo con demo en vivo y reporte de evaluación.</td><td>Reporte de resultados; ensayo de demo.</td><td>Funciones del nivel ideal; ensayo de demo.</td></tr>
+</table>
+
+<h2><span class="num">12</span>Riesgos</h2>
+<table>
+  <tr><th style="width:27%">Riesgo</th><th style="width:9%">Impacto</th><th>Plan de contingencia</th></tr>
+  <tr><td>Afectar el POS en producción</td><td>Alto</td><td>Usuario de base de datos de solo lectura sobre vistas; copia local en DuckDB; validación de solo SELECT; nunca usar la contraseña del administrador del POS.</td></tr>
+  <tr><td>Exponer datos personales o de ventas</td><td>Alto</td><td>Vistas sin datos de empleados ni deudas; la copia real no se sube al repositorio; evaluación y demostración con datos sintéticos; app publicada con contraseña.</td></tr>
+  <tr><td>Límites de la capa gratuita del modelo</td><td>Alto</td><td>Un modelo por rol con respaldo automático, caché, pocas llamadas por pregunta y cálculos de decisión sin LLM.</td></tr>
+  <tr><td>El modelo genera SQL incorrecto</td><td>Alto</td><td>Ejemplos few-shot del POS en el RAG, validación del SQL, revisión semántica con reglas del negocio y hasta 2 reintentos.</td></tr>
+  <tr><td>Recomendaciones con cálculos inventados</td><td>Alto</td><td>El LLM solo elige herramienta y parámetros; el código calcula y los parámetros se validan con reglas; los supuestos se avisan.</td></tr>
+  <tr><td>Alucinaciones en la explicación</td><td>Medio</td><td>El Narrador solo usa las cifras calculadas y un verificador revisa cada cifra.</td></tr>
+  <tr><td>Poca disponibilidad del dueño</td><td>Medio</td><td>Encuesta corta por mensaje o videollamada; supuestos documentados mientras confirma sus datos.</td></tr>
+  <tr><td>Transcripción de voz con errores por ruido</td><td>Bajo</td><td>La pregunta transcrita se muestra en la conversación; la entrada por texto siempre está disponible.</td></tr>
+  <tr><td>Falta de tiempo</td><td>Medio</td><td>Priorizar el alcance mínimo y el Asesor de pan; reportes, lista de compras y publicación se mueven al nivel ideal si hay retrasos.</td></tr>
+</table>
+</body>
+</html>
