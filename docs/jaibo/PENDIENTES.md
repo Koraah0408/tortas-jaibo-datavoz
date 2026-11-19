@@ -17,6 +17,10 @@
 - **Gráficas más claras:** valores sobre las barras, `$` en el dinero y títulos a la izquierda.
 - 146 pruebas automáticas pasan.
 
+- **Reportes de Gmail:** pestaña «Reportes» y tabla `reportes_diarios` (7 días ya importados; falta autorizar la app: docs/jaibo/GMAIL.md).
+- **Mensajes diferenciados con animaciones**, **contraseña** para la versión publicada.
+- **Código en GitHub (privado):** https://github.com/Koraah0408/tortas-jaibo-datavoz — falta publicarlo en Streamlit Cloud (docs/PUBLICAR.md).
+
 ## Falta
 1. **Tú:**
    - confirmar qué pan usas (¿telera y telera doble?) y cuánto te cuesta con tu panadero;
@@ -30,7 +34,7 @@
    - una exitosa: JD02 (pan del fin de semana, con error medido);
    - una fallida y corregida: J09 en v1 («qué día cobro más»: sumó renglones), contra v3, donde la revisión semántica lo detectó y reintentó.
 6. **Agregar casos de evaluación** de la lista de compras (con precios fijos, sin red).
-7. **Crear el repositorio en GitHub** (necesita tu permiso).
+7. **Publicar en Streamlit Cloud** y autorizar Gmail (pasos en docs/PUBLICAR.md y docs/jaibo/GMAIL.md).
 8. **Límites conocidos:**
    - «¿Cuánto más cobro en Didi?» se puede entender como «cuánto más vendo»;
    - en JH2 el SQL detecta las órdenes rehechas con `ILIKE '%canc%'`: funciona, pero es frágil.
