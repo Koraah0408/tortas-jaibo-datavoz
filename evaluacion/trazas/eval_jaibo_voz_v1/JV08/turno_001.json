@@ -1,0 +1,352 @@
+{
+ "sesion": "JV08",
+ "turno": 1,
+ "fecha": "2026-11-19T13:37:54",
+ "entrada": {
+  "pregunta": "",
+  "audio": "C:\\proyectos\\DataVoz\\evaluacion\\audio\\jaibo\\voz_08.ogg",
+  "archivo": null
+ },
+ "pregunta": "¿En qué canal fue más alto el ticket promedio en octubre de 2026?",
+ "pregunta_completa": "¿En qué canal de venta (Local, Didi, Rappi o Crédito) fue más alto el ticket promedio durante el mes de octubre de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "El canal con el ticket promedio más alto durante octubre fue Rappi, con $206.06 por pedido. Aunque este ticket es el mayor, recuerda que las plataformas cobran comisiones de entre el 25% y 30%, por lo que esta cifra es una estimación que conviene confirmar con tus costos reales. En comparación, el canal Local tuvo un ticket promedio de $167.94, pero generó un volumen de ventas mucho mayor. Es posible que el ticket en Rappi sea más elevado debido a los precios ajustados para cubrir las comisiones de la aplicación.\n\nRecomendación: Analiza si el margen real en Rappi es superior al del Local tras descontar la comisión, para decidir si te conviene impulsar más ventas por esa plataforma.",
+ "sql": "SELECT canal, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY ticket_promedio DESC LIMIT 1",
+ "explicacion_sql": "Obtiene el canal de venta con el ticket promedio más alto durante el mes de octubre de 2026.",
+ "resultado": {
+  "sql": "SELECT canal, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY ticket_promedio DESC LIMIT 1",
+  "columnas": [
+   "canal",
+   "ordenes",
+   "ticket_promedio",
+   "total_vendido"
+  ],
+  "filas": [
+   [
+    "Rappi",
+    51,
+    206.06,
+    10509.0
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0438,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver el ticket promedio de todos los canales en octubre de 2026 para comparar",
+   "sql": "SELECT canal, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY ticket_promedio DESC",
+   "columnas": [
+    "canal",
+    "ordenes",
+    "ticket_promedio",
+    "total_vendido"
+   ],
+   "filas": [
+    [
+     "Rappi",
+     51,
+     206.06,
+     10509.0
+    ],
+    [
+     "Legacy",
+     52,
+     186.27,
+     9686.0
+    ],
+    [
+     "Didi",
+     132,
+     175.94,
+     23224.0
+    ],
+    [
+     "Local",
+     254,
+     167.94,
+     42657.0
+    ],
+    [
+     "Automatas",
+     17,
+     147.59,
+     2509.0
+    ]
+   ],
+   "n_filas": 5,
+   "truncado": false,
+   "duracion_s": 0.0439,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 4,
+  "verificadas": 4,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT canal, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY ticket_promedio DESC LIMIT 1",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT canal, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY ticket_promedio DESC LIMIT 1",
+  "SELECT canal, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY ticket_promedio DESC"
+ ],
+ "transcripcion": {
+  "texto": "¿En qué canal fue más alto el ticket promedio en octubre de 2026?",
+  "idioma": "es",
+  "duracion_audio_s": 5.47,
+  "duracion_s": 4.69,
+  "error": null
+ },
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "transcribir_voz",
+   "hora": "13:37:46",
+   "duracion_s": 4.695,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "transcribir_voz",
+    "texto": "¿En qué canal fue más alto el ticket promedio en octubre de 2026?",
+    "idioma": "es",
+    "duracion_audio_s": 5.47,
+    "duracion_s": 4.69,
+    "error": null
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "13:37:48",
+   "duracion_s": 2.731,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.731,
+     "tokens_entrada": 1424,
+     "tokens_salida": 134,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿En qué canal de venta (Local, Didi, Rappi o Crédito) fue más alto el ticket promedio durante el mes de octubre de 2026?",
+    "contexto": {
+     "periodo": "octubre 2026",
+     "producto": null,
+     "categoria": null,
+     "metrica": "tickets"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "13:37:50",
+   "duracion_s": 1.879,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.094,
+     "tokens_entrada": 2765,
+     "tokens_salida": 260,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Canales de venta y comisiones",
+      "Canales y formas de pago",
+      "Tabla ordenes (una fila por orden o ticket, incluye canceladas)",
+      "Tabla ventas (una fila por producto vendido en una orden completada)"
+     ],
+     "ejemplos": [
+      "¿Cuánto vendí por canal este mes y cuál es el ticket promedio?",
+      "¿Cuánto más caro cobro en Didi y Rappi que en el mostrador? (sobreprecio de las apps)",
+      "¿Cuánto se vende a crédito a las empresas cada mes?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT canal, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY ticket_promedio DESC LIMIT 1",
+    "explicacion": "Obtiene el canal de venta con el ticket promedio más alto durante el mes de octubre de 2026.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver el ticket promedio de todos los canales en octubre de 2026 para comparar",
+      "sql": "SELECT canal, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY ticket_promedio DESC",
+      "error": null,
+      "filas": 5
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "13:37:50",
+   "duracion_s": 0.003,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "13:37:50",
+   "duracion_s": 0.081,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "ordenes",
+      "ticket_promedio",
+      "total_vendido"
+     ],
+     "titulo": "Ordenes",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "13:37:54",
+   "duracion_s": 3.961,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 3.677,
+     "tokens_entrada": 1772,
+     "tokens_salida": 160,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 4,
+     "verificadas": 4,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 27,
+    "reglas_rag": [
+     "Canales de venta y comisiones",
+     "Promociones"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "13:37:54",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "octubre 2026",
+     "metrica": "tickets",
+     "ultima_pregunta": "¿En qué canal de venta (Local, Didi, Rappi o Crédito) fue más alto el ticket promedio durante el mes de octubre de 2026?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 13.36,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.731,
+   "tokens_entrada": 1424,
+   "tokens_salida": 134,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.094,
+   "tokens_entrada": 2765,
+   "tokens_salida": 260,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 3.677,
+   "tokens_entrada": 1772,
+   "tokens_salida": 160,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 6515,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "ordenes",
+    "ticket_promedio",
+    "total_vendido"
+   ],
+   "titulo": "Ordenes",
+   "confianza": "alta"
+  }
+ }
+}

@@ -277,6 +277,16 @@ def main() -> None:
     sesiones: dict[str, SesionDataVoz] = {}
     resultados = []
     print(f"Evaluando {len(casos)} casos · proveedores: {', '.join(proveedores_disponibles())}\n")
+    def preguntar_caso(sesion, caso: dict, fila: dict) -> dict:
+        """Pregunta por texto o, si el caso trae audio, por nota de voz (y mide la transcripción)."""
+        if not caso.get("audio"):
+            return sesion.preguntar(caso["pregunta"])
+        r = sesion.preguntar(audio=RAIZ / caso["audio"])
+        transcrito = (r.get("transcripcion") or {}).get("texto", "")
+        fila["transcripcion"] = transcrito
+        fila["similitud_transcripcion"] = similitud_transcripcion(caso["texto_hablado"], transcrito)
+        return r
+
     for n, caso in enumerate(casos, 1):
         conv = caso.get("conversacion")
         if conv and conv in sesiones:
@@ -330,18 +340,12 @@ def main() -> None:
                 else:  # un error del LLM NO cuenta como rechazo correcto
                     fila["correcto"] = (r.get("intencion") == "fuera_de_alcance" or falta_info) and not fila["fallo_cuota"]
                 fila["sql_no_lectura_ejecutadas"] = no_lectura
-            elif caso.get("herramienta"):  # pregunta de decisión (Asesor de negocio)
-                r = sesion.preguntar(caso["pregunta"])
+            elif caso.get("herramienta"):  # pregunta de decisión (Asesor de negocio), por texto o por voz
+                r = preguntar_caso(sesion, caso, fila)
                 fila.update(resumen_respuesta(r))
                 fila.update(evaluar_decision(caso, r, sesion.estado()["datos"]["ruta_db"], hoy))
             else:
-                if caso.get("audio"):
-                    r = sesion.preguntar(audio=RAIZ / caso["audio"])
-                    transcrito = (r.get("transcripcion") or {}).get("texto", "")
-                    fila["transcripcion"] = transcrito
-                    fila["similitud_transcripcion"] = similitud_transcripcion(caso["texto_hablado"], transcrito)
-                else:
-                    r = sesion.preguntar(caso["pregunta"])
+                r = preguntar_caso(sesion, caso, fila)
                 fila.update(resumen_respuesta(r))
                 fila.update(evaluar_consulta(caso, r, sesion.estado()["datos"]["ruta_db"]))
             if caso.get("agente_esperado"):
@@ -429,11 +433,11 @@ def calcular_metricas(res: list[dict], filas_antes: dict, filas_despues: dict) -
         "memoria": {"correctos": sum(correcto(r) for r in seguimiento), "total": len(seguimiento),
                     "porcentaje": pct(sum(correcto(r) for r in seguimiento), len(seguimiento))},
         "voz": {"bien_interpretadas": sum(1 for r in voz if (r.get("similitud_transcripcion") or 0) >= 0.8
-                                          and r.get("sql_correcto")),
+                                          and (r.get("sql_correcto") or r.get("resultado_correcto"))),
                 "total": len(voz), "similitud_promedio": round(statistics.mean(r.get("similitud_transcripcion") or 0
                                                                                for r in voz), 3) if voz else None,
                 "porcentaje": pct(sum(1 for r in voz if (r.get("similitud_transcripcion") or 0) >= 0.8
-                                      and r.get("sql_correcto")), len(voz))},
+                                      and (r.get("sql_correcto") or r.get("resultado_correcto"))), len(voz))},
         "seguridad": {"sentencias_no_select_ejecutadas": no_lectura,
                       "casos_correctos": sum(1 for r in seguridad if r.get("correcto")), "casos": len(seguridad),
                       "filas_sin_cambios": filas_antes == filas_despues, "filas_antes": filas_antes,

@@ -11,9 +11,10 @@ from ..config import obtener_config
 _modelo = None
 
 # Vocabulario del negocio para orientar a Whisper (mejora nombres de productos y meses)
-PROMPT_DOMINIO = ("Preguntas sobre las ventas de una tienda de abarrotes: productos, refresco, cerveza, tortillas, "
-                  "huevo, leche, botanas, categorías, enero, febrero, noviembre, diciembre, quincena, promoción, "
-                  "existencias, ¿cuánto vendí?, ¿qué producto se vendió más?")
+PROMPT_DOMINIO = ("Preguntas sobre las ventas del negocio: Tortas Jaibo (tortas, Barda, Mega barda, pierna, gorditas, "
+                  "bocoles, tacos de barbacoa, pan, Didi, Rappi, mostrador, ticket promedio, combo, Jamaica) o una "
+                  "tienda de abarrotes (refresco, cerveza, tortillas, botanas, existencias). Meses, quincena, "
+                  "promoción, ¿cuánto vendí?, ¿cuánto cobré?, ¿qué producto se vendió más?")
 
 
 def whisper_disponible() -> bool:

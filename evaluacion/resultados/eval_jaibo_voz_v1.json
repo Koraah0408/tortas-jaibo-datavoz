@@ -1,0 +1,564 @@
+{
+ "etiqueta": "eval_jaibo_voz_v1",
+ "fecha": "2026-11-19T13:38:50",
+ "negocio": "jaibo",
+ "base": "sintetica",
+ "hoy": "2026-11-16",
+ "proveedores": [
+  "gemini"
+ ],
+ "metricas": {
+  "exactitud_sql": {
+   "correctos": 7,
+   "total": 7,
+   "porcentaje": 100.0
+  },
+  "decisiones": {
+   "total": 3,
+   "resultado_correcto": 3,
+   "herramienta_correcta": 3,
+   "parametros_correctos": 3,
+   "porcentaje_resultado": 100.0,
+   "porcentaje_herramienta_y_parametros": 100.0,
+   "con_supuestos": 2,
+   "supuestos_declarados": 2,
+   "porcentaje_supuestos_declarados": 100.0
+  },
+  "ruta": {
+   "correctas": 10,
+   "total": 10,
+   "porcentaje": 100.0
+  },
+  "veracidad": {
+   "cifras_verificadas": 40,
+   "cifras_total": 40,
+   "porcentaje": 100.0
+  },
+  "limpieza": null,
+  "mapeo_columnas": null,
+  "grafica": {
+   "promedio": 4.4,
+   "casos": 10
+  },
+  "memoria": {
+   "correctos": 0,
+   "total": 0,
+   "porcentaje": null
+  },
+  "voz": {
+   "bien_interpretadas": 10,
+   "total": 10,
+   "similitud_promedio": 0.992,
+   "porcentaje": 100.0
+  },
+  "seguridad": {
+   "sentencias_no_select_ejecutadas": 0,
+   "casos_correctos": 0,
+   "casos": 0,
+   "filas_sin_cambios": true,
+   "filas_antes": {
+    "ingredientes": 13,
+    "ordenes": 5301,
+    "producto_ingredientes": 20,
+    "productos": 36,
+    "promociones": 7,
+    "ventas": 11072
+   },
+   "filas_despues": {
+    "ingredientes": 13,
+    "ordenes": 5301,
+    "producto_ingredientes": 20,
+    "productos": 36,
+    "promociones": 7,
+    "ventas": 11072
+   }
+  },
+  "tiempo": {
+   "promedio_s": 22.21,
+   "mediana_s": 22.23,
+   "maximo_s": 37.76,
+   "llamadas_llm_promedio": 3.9
+  },
+  "respaldo_modelos": {
+   "fallos_recuperados": 4,
+   "casos_sin_modelo": 0,
+   "modelos": [
+    "gemini-2.5-flash",
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ]
+  },
+  "reintentos_sql": {
+   "casos_con_reintento": 1,
+   "total": 1
+  }
+ },
+ "casos": [
+  {
+   "id": "JV01",
+   "categoria": "voz",
+   "pregunta": "¿Cuánto dinero cobré en octubre de 2026?",
+   "transcripcion": "¿Cuánto dinero cobré en octubre de 2026?",
+   "similitud_transcripcion": 1.0,
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuánto dinero cobré en octubre de 2026?",
+   "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "En octubre de 2026, tus ventas totales fueron de $88,585.00, logrando concretar 506 órdenes en el mes. Este resultado refleja un buen movimiento en el local y las plataformas, considerando que no hubo cancelaciones registradas en este periodo. Es un volumen constante que nos permite mantener el ritmo de operación actual.\n\nRecomendación: Revisa qué días de la semana tuvieron mayor flujo de órdenes para ajustar la cantidad de insumos y evitar desperdicios en los días más tranquilos.",
+   "duracion_s": 29.13,
+   "llamadas_llm": 3,
+   "tokens": 5010,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_voz_v1\\JV01\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": "barras",
+   "puntaje_grafica": 2,
+   "cifras_total": 3,
+   "cifras_verificadas": 3,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 0,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 29.22
+  },
+  {
+   "id": "JV02",
+   "categoria": "voz",
+   "pregunta": "¿Cuáles son mis 5 productos más vendidos?",
+   "transcripcion": "¿Cuáles son mis 5 productos más vendidos?",
+   "similitud_transcripcion": 1.0,
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 1,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuáles son mis 5 productos más vendidos en el periodo disponible?",
+   "sql": "SELECT producto, categoria, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE categoria <> 'Interno' AND producto NOT IN ('--', 'Cargo Extra', 'Prueba4', 'Pruebanumero3') GROUP BY producto, categoria ORDER BY unidades DESC LIMIT 5",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "Tus 5 productos más vendidos son la Mega barda con 1,926 unidades, seguida por los Tacos de barbacoa con 1,677, los Bocoles con 1,671, la Barda normal con 1,606 y las Gorditas con 1,600 unidades. Estos artículos representan un total de 8,480 unidades vendidas y generan $469,777 en ingresos. La Mega barda destaca especialmente, ya que por sí sola aporta $197,835 a tus ventas totales. Posiblemente, la preferencia por las tortas tipo barda se deba a que son el sello distintivo de tu negocio.\n\nRecomendación: Asegúrate de tener siempre suficiente insumo para las Mega bardas y Barda normal, ya que son tus productos estrella y los que más dinero generan.",
+   "duracion_s": 37.76,
+   "llamadas_llm": 6,
+   "tokens": 7802,
+   "proveedores": [
+    "error",
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT producto, categoria, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE categoria <> 'Interno' AND producto NOT IN ('--', 'Cargo Extra', 'Prueba4', 'Pruebanumero3') GROUP BY producto, categoria ORDER BY unidades DESC LIMIT 5"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_voz_v1\\JV02\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": "barras_horizontales",
+   "puntaje_grafica": 5,
+   "cifras_total": 9,
+   "cifras_verificadas": 9,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 0,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 37.88
+  },
+  {
+   "id": "JV03",
+   "categoria": "voz",
+   "pregunta": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?",
+   "transcripcion": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?",
+   "similitud_transcripcion": 1.0,
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuántos tacos de barbacoa se vendieron en agosto de 2026?",
+   "sql": "SELECT ROUND(SUM(cantidad), 2) AS unidades FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "En agosto de 2026 se vendieron 168 tacos de barbacoa en Tortas Jaibo. Esta cifra refleja la demanda directa de este producto durante el mes. Es un buen volumen que nos ayuda a mantener el movimiento constante de la barbacoa.\n\nRecomendación: Considera ofrecer una promoción de paquete con bebida en los días de menor venta para aumentar el ticket promedio de quienes piden tacos.",
+   "duracion_s": 27.49,
+   "llamadas_llm": 3,
+   "tokens": 4994,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT ROUND(SUM(cantidad), 2) AS unidades FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_voz_v1\\JV03\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": "indicador",
+   "puntaje_grafica": 5,
+   "cifras_total": 2,
+   "cifras_verificadas": 2,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 0,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 27.59
+  },
+  {
+   "id": "JV04",
+   "categoria": "voz",
+   "pregunta": "¿Cuánto vendí en Rappi en agosto de 2026?",
+   "transcripcion": "¿Cuánto vendí en Rappi?, en agosto de 2026.",
+   "similitud_transcripcion": 1.0,
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuánto vendí en Rappi en agosto de 2026?",
+   "sql": "SELECT ROUND(SUM(monto_total), 2) AS ventas, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND canal = 'Rappi' AND anio = 2026 AND mes = 8",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "En agosto de 2026, tus ventas a través de Rappi sumaron $9,029 con un total de 48 órdenes. Este resultado refleja el movimiento que tuviste en esa plataforma durante el mes. Posiblemente, el volumen de pedidos se vio influenciado por la demanda constante de tus tortas y platillos en el servicio a domicilio.\n\nRecomendación: Revisa qué productos fueron los más pedidos en Rappi durante este mes para crear una promoción especial que impulse las ventas en tus horas más tranquilas.",
+   "duracion_s": 12.55,
+   "llamadas_llm": 3,
+   "tokens": 4961,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT ROUND(SUM(monto_total), 2) AS ventas, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND canal = 'Rappi' AND anio = 2026 AND mes = 8"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_voz_v1\\JV04\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": "barras",
+   "puntaje_grafica": 2,
+   "cifras_total": 3,
+   "cifras_verificadas": 3,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 0,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 12.67
+  },
+  {
+   "id": "JV05",
+   "categoria": "voz",
+   "pregunta": "¿Cuánto pan debo comprar para mañana recomendablemente?",
+   "transcripcion": "¿Cuánto pan debo comprar para mañana recomendablemente?",
+   "similitud_transcripcion": 1.0,
+   "modelos": [
+    "gemini-3.1-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuánto pan debo comprar para mañana recomendablemente?",
+   "sql": null,
+   "analisis": "pronostico_pan",
+   "herramienta_negocio": "pronosticar_pan",
+   "respuesta": "Para mañana martes, te recomiendo comprar 7 piezas de pan normal y 10 piezas de pan mega. Este cálculo considera el promedio de ventas de los martes recientes y un ajuste por ser quincena. Ten en cuenta que este pronóstico incluye un margen de seguridad del 10% (SUPUESTO: falta confirmarlo contigo), el cual es una estimación para evitar faltantes. Históricamente, este método tiene un error promedio de 3 piezas por día, por lo que es una guía útil pero no exacta.\n\nRecomendación: Monitorea si te sobra pan con esta cantidad para ajustar el margen de seguridad en futuras compras.",
+   "duracion_s": 23.52,
+   "llamadas_llm": 3,
+   "tokens": 5179,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "WITH d AS (SELECT DISTINCT fecha FROM ordenes) SELECT d.fecha, COALESCE(SUM(v.cantidad) FILTER (WHERE v.producto IN ('Barbacoa normal', 'Barda normal', 'Mixta normal', 'Pierna normal')), 0) AS normal, COALESCE(SUM(v.cantidad) FILTER (WHERE v.producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna')), 0) AS mega FROM d LEFT JOIN ventas v ON v.fecha = d.fecha GROUP BY d.fecha ORDER BY d.fecha"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_voz_v1\\JV05\\turno_001.json",
+   "resultado_correcto": true,
+   "herramienta_correcta": true,
+   "parametros_correctos": true,
+   "parametros_incorrectos": [],
+   "parametros_esperados": {
+    "fechas": [
+     "2026-11-17"
+    ]
+   },
+   "parametros_obtenidos": {
+    "fechas": [
+     "2026-11-17"
+    ],
+    "semanas": 8,
+    "margen": 0.1
+   },
+   "motivo": "coincide con la referencia",
+   "grafica": "barras",
+   "puntaje_grafica": 5,
+   "cifras_total": 4,
+   "cifras_verificadas": 4,
+   "cifras_no_verificadas": [],
+   "supuestos": [
+    "margen de seguridad de 10% (SUPUESTO: falta confirmarlo con el dueño)"
+   ],
+   "supuestos_declarados": true,
+   "agente_usado": "asesor",
+   "ruta_correcta": true,
+   "tiempo_total_s": 23.84
+  },
+  {
+   "id": "JV06",
+   "categoria": "voz",
+   "pregunta": "¿Qué día de la semana tengo más ventas?",
+   "transcripcion": "¿Qué día de la semana tengo más ventas?",
+   "similitud_transcripcion": 1.0,
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Qué día de la semana tengo más ventas en Tortas Jaibo?",
+   "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY ventas DESC",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "El domingo es el día que más ventas genera en Tortas Jaibo, alcanzando un total de $141,400 con 841 órdenes. Aunque es el día con mayor volumen de clientes, el ticket promedio es el más bajo de la semana con $168.13, posiblemente porque los clientes buscan opciones más sencillas o económicas. Por el contrario, el lunes es el día con menor actividad, sumando apenas $81,610 en ventas.\n\nRecomendación: Refuerza el personal y la preparación de insumos para los domingos, ya que es cuando recibes la mayor cantidad de órdenes.",
+   "duracion_s": 28.06,
+   "llamadas_llm": 4,
+   "tokens": 7002,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY ventas DESC"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_voz_v1\\JV06\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": "barras",
+   "puntaje_grafica": 5,
+   "cifras_total": 4,
+   "cifras_verificadas": 4,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 0,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 28.23
+  },
+  {
+   "id": "JV07",
+   "categoria": "voz",
+   "pregunta": "Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026",
+   "transcripcion": "¿Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026?",
+   "similitud_transcripcion": 1.0,
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 1,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026?",
+   "sql": "SELECT nombre_mes, canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas_totales, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY mes, nombre_mes, canal ORDER BY mes, canal",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "En septiembre y octubre, Didi superó a Rappi tanto en volumen de órdenes como en ventas totales, alcanzando un máximo de $23,224 en octubre con 132 órdenes. Aunque Rappi tuvo menos pedidos, su ticket promedio fue mayor, llegando a $206.06 en octubre frente a los $175.94 de Didi. Posiblemente, la alta demanda de la \"Mega barda\" en Didi, que sumó $9,790, es lo que impulsa el mayor volumen de órdenes en esa plataforma. Rappi parece atraer clientes que gastan un poco más por pedido, a pesar de tener un flujo menor de transacciones.\n\nRecomendación: Crea una promoción exclusiva para Rappi que incentive a los clientes a pedir más unidades por orden, aprovechando que su ticket promedio ya es más alto que el de Didi.",
+   "duracion_s": 18.62,
+   "llamadas_llm": 6,
+   "tokens": 10237,
+   "proveedores": [
+    "error",
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT nombre_mes, canal, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas, COUNT(DISTINCT ticket) AS tickets FROM ventas WHERE canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) AND categoria <> 'Interno' GROUP BY mes, nombre_mes, canal ORDER BY mes, canal",
+    "SELECT nombre_mes, canal, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(AVG(monto_total - subtotal), 2) AS extras_promedio FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY mes, nombre_mes, canal ORDER BY mes, canal",
+    "SELECT nombre_mes, canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas_totales, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY mes, nombre_mes, canal ORDER BY mes, canal",
+    "SELECT canal, producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas_renglones FROM ventas WHERE canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) AND categoria <> 'Interno' GROUP BY canal, producto ORDER BY canal, unidades DESC"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_voz_v1\\JV07\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": "barras",
+   "puntaje_grafica": 5,
+   "cifras_total": 5,
+   "cifras_verificadas": 5,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 1,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 18.75
+  },
+  {
+   "id": "JV08",
+   "categoria": "voz",
+   "pregunta": "¿En qué canal fue más alto el ticket promedio en octubre de 2026?",
+   "transcripcion": "¿En qué canal fue más alto el ticket promedio en octubre de 2026?",
+   "similitud_transcripcion": 1.0,
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿En qué canal de venta (Local, Didi, Rappi o Crédito) fue más alto el ticket promedio durante el mes de octubre de 2026?",
+   "sql": "SELECT canal, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY ticket_promedio DESC LIMIT 1",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "El canal con el ticket promedio más alto durante octubre fue Rappi, con $206.06 por pedido. Aunque este ticket es el mayor, recuerda que las plataformas cobran comisiones de entre el 25% y 30%, por lo que esta cifra es una estimación que conviene confirmar con tus costos reales. En comparación, el canal Local tuvo un ticket promedio de $167.94, pero generó un volumen de ventas mucho mayor. Es posible que el ticket en Rappi sea más elevado debido a los precios ajustados para cubrir las comisiones de la aplicación.\n\nRecomendación: Analiza si el margen real en Rappi es superior al del Local tras descontar la comisión, para decidir si te conviene impulsar más ventas por esa plataforma.",
+   "duracion_s": 13.36,
+   "llamadas_llm": 3,
+   "tokens": 6515,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT canal, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY ticket_promedio DESC LIMIT 1",
+    "SELECT canal, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY ticket_promedio DESC"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_voz_v1\\JV08\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": "barras",
+   "puntaje_grafica": 5,
+   "cifras_total": 4,
+   "cifras_verificadas": 4,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 0,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 13.52
+  },
+  {
+   "id": "JV09",
+   "categoria": "voz",
+   "pregunta": "¿Me conviene vender en Rappi y Didi o solo en el mostrador?",
+   "transcripcion": "¿Me conviene vender en Rappi y Didi o solo en al mostrador?",
+   "similitud_transcripcion": 0.917,
+   "modelos": [
+    "gemini-3.1-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Me conviene vender en Rappi y Didi o solo en el mostrador?",
+   "sql": null,
+   "analisis": "rentabilidad_canales",
+   "herramienta_negocio": "rentabilidad_canales",
+   "respuesta": "Actualmente, vender a través de Didi y Rappi te deja menos dinero por pedido que vender en el mostrador. Aunque los clientes en las apps suelen comprar más productos por orden, el sobreprecio que aplicas no alcanza a cubrir la comisión del 25% (cifra estimada que debes confirmar en tu contrato). Por cada pedido en Didi pierdes $37.18 y en Rappi pierdes $28.12 en comparación con lo que ganarías vendiendo lo mismo en tu local. Ten en cuenta que estos cálculos de comisiones son una estimación basada en el supuesto del 25%.\n\nRecomendación: Ajusta tus precios en las plataformas de entrega para que el sobreprecio sea mayor o busca reducir costos operativos en esos canales para que no afecten tu margen.",
+   "duracion_s": 20.95,
+   "llamadas_llm": 3,
+   "tokens": 5326,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT canal, COUNT(*) AS ordenes, SUM(monto_total) AS venta, SUM(subtotal) AS subtotal, MIN(fecha) AS desde, MAX(fecha) AS hasta FROM ordenes WHERE NOT cancelada AND fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 90 DAY GROUP BY canal ORDER BY venta DESC",
+    "SELECT canal, producto, SUM(cantidad) AS unidades FROM ventas WHERE fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 90 DAY AND categoria <> 'Interno' AND canal IN ('Local', 'Didi', 'Rappi') GROUP BY canal, producto"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_voz_v1\\JV09\\turno_001.json",
+   "resultado_correcto": true,
+   "herramienta_correcta": true,
+   "parametros_correctos": true,
+   "parametros_incorrectos": [],
+   "parametros_esperados": {
+    "dias": 90
+   },
+   "parametros_obtenidos": {
+    "dias": 90,
+    "mes": null,
+    "anio": null,
+    "comisiones": {
+     "Didi": 0.25,
+     "Rappi": 0.25
+    }
+   },
+   "motivo": "coincide con la referencia",
+   "grafica": "barras",
+   "puntaje_grafica": 5,
+   "cifras_total": 4,
+   "cifras_verificadas": 4,
+   "cifras_no_verificadas": [],
+   "supuestos": [
+    "comisión de Didi de 25% (SUPUESTO: confírmala en tu contrato con la app)",
+    "comisión de Rappi de 25% (SUPUESTO: confírmala en tu contrato con la app)"
+   ],
+   "supuestos_declarados": true,
+   "agente_usado": "asesor",
+   "ruta_correcta": true,
+   "tiempo_total_s": 21.36
+  },
+  {
+   "id": "JV10",
+   "categoria": "voz",
+   "pregunta": "¿Qué tan conveniente es poner una nueva oferta?",
+   "transcripcion": "¿Qué tan conveniente es poner una nueva oferta?",
+   "similitud_transcripcion": 1.0,
+   "modelos": [
+    "gemini-2.5-flash",
+    "gemini-3.1-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 2,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Qué tan conveniente es poner una nueva oferta en Tortas Jaibo?",
+   "sql": null,
+   "analisis": "promociones",
+   "herramienta_negocio": "combinaciones_frecuentes",
+   "respuesta": "Es muy conveniente lanzar una promoción, ya que existen combinaciones populares que aún no tienen descuento y podrían atraer clientes en tus horarios más flojos. Por ejemplo, la combinación de Coca Cola con Mega Barda es la que más se pide, con 238 órdenes, mientras que la pareja de Horchata con Mixta Normal tiene una afinidad alta de 2.28, lo que significa que los clientes suelen buscarlas juntas. Como tus mañanas de lunes a jueves son los momentos con menos movimiento, podrías aprovechar estos productos para incentivar las ventas. Ten en cuenta que los cálculos de afinidad son una estimación basada en el comportamiento histórico y conviene probar la oferta para confirmar su impacto.\n\nRecomendación: Lanza una promoción de \"Combo Mañanero\" que incluya una Mega Barda con Coca Cola o una Mixta Normal con Horchata, válida exclusivamente de lunes a jueves antes de las 12:00.",
+   "duracion_s": 10.64,
+   "llamadas_llm": 5,
+   "tokens": 5575,
+   "proveedores": [
+    "error",
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "WITH l AS (SELECT DISTINCT id_orden, producto FROM ventas WHERE categoria <> 'Interno' AND producto <> '--' AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 180 DAY), n AS (SELECT COUNT(DISTINCT id_orden) AS total FROM l), p AS (SELECT producto, COUNT(*) AS ordenes FROM l GROUP BY producto) SELECT a.producto AS producto_1, b.producto AS producto_2, COUNT(*) AS juntos, MAX(pa.ordenes) AS ordenes_1, MAX(pb.ordenes) AS ordenes_2, MAX(n.total) AS total FROM l a JOIN l b ON a.id_orden = b.id_orden AND a.producto < b.producto JOIN p pa ON pa.producto = a.producto JOIN p pb ON pb.producto = b.producto CROSS JOIN n GROUP BY a.producto, b.producto HAVING COUNT(*) >= 10 ORDER BY juntos DESC LIMIT 80",
+    "SELECT promocion, producto FROM promociones WHERE activa AND producto IS NOT NULL",
+    "WITH d AS (SELECT dia_semana, num_dia_semana, COUNT(DISTINCT fecha) AS dias FROM ordenes WHERE fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 180 DAY GROUP BY dia_semana, num_dia_semana) SELECT o.dia_semana, o.num_dia_semana, CASE WHEN o.hora_del_dia < 12 THEN 'mañana (antes de las 12)' WHEN o.hora_del_dia < 17 THEN 'comida (12 a 17)' ELSE 'tarde (17 en adelante)' END AS franja, ROUND(COUNT(*) * 1.0 / MAX(d.dias), 1) AS ordenes_por_dia FROM ordenes o JOIN d ON o.num_dia_semana = d.num_dia_semana WHERE NOT o.cancelada AND o.fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 180 DAY GROUP BY o.dia_semana, o.num_dia_semana, franja ORDER BY ordenes_por_dia ASC LIMIT 6"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_voz_v1\\JV10\\turno_001.json",
+   "resultado_correcto": true,
+   "herramienta_correcta": true,
+   "parametros_correctos": true,
+   "parametros_incorrectos": [],
+   "parametros_esperados": {
+    "dias": 180
+   },
+   "parametros_obtenidos": {
+    "dias": 180,
+    "min_ordenes": 10
+   },
+   "motivo": "coincide con la referencia",
+   "grafica": "barras_horizontales",
+   "puntaje_grafica": 5,
+   "cifras_total": 2,
+   "cifras_verificadas": 2,
+   "cifras_no_verificadas": [],
+   "supuestos": [],
+   "supuestos_declarados": null,
+   "agente_usado": "asesor",
+   "ruta_correcta": true,
+   "tiempo_total_s": 11.5
+  }
+ ]
+}

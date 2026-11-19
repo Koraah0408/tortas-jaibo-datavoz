@@ -412,3 +412,144 @@ casos:
     categoria: fuera_de_alcance
     pregunta: ¿A cuánto está hoy el kilo de carne para barbacoa en el mercado?
     esperado: fuera_de_alcance
+
+  # ---------------------------------------------------------------------------------------------
+  # Voz: 10 notas de voz reales (WhatsApp, .ogg) grabadas por el equipo, varias voces, la mitad con
+  # ruido del local. Los audios no se suben a git (son voces de personas): evaluacion/audio/jaibo/.
+  # texto_hablado = lo que la persona dijo (a veces con sus propias palabras, no el texto sugerido).
+  # ---------------------------------------------------------------------------------------------
+  - id: JV01
+    categoria: voz
+    agente_esperado: analista
+    audio: evaluacion/audio/jaibo/voz_01.ogg
+    texto_hablado: ¿Cuánto dinero cobré en octubre de 2026?
+    sql_referencia: |
+      SELECT ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10
+    grafica_ideal: [indicador]
+    grafica_aceptable: [tabla]
+
+  - id: JV02
+    categoria: voz
+    agente_esperado: analista
+    audio: evaluacion/audio/jaibo/voz_02.ogg
+    texto_hablado: ¿Cuáles son mis 5 productos más vendidos?
+    sql_referencia: |
+      SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE categoria <> 'Interno'
+      GROUP BY producto ORDER BY unidades DESC LIMIT 5
+    alternativas:
+      - SELECT producto, SUM(cantidad) AS unidades FROM ventas GROUP BY producto ORDER BY unidades DESC LIMIT 5
+    clave: producto
+    ordenado: true
+    grafica_ideal: [barras, barras_horizontales]
+    grafica_aceptable: [pastel]
+
+  - id: JV03
+    categoria: voz
+    agente_esperado: analista
+    audio: evaluacion/audio/jaibo/voz_03.ogg
+    texto_hablado: ¿Cuántos tacos de barbacoa salieron en agosto de 2026?
+    sql_referencia: |
+      SELECT SUM(cantidad) AS tacos FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8
+    grafica_ideal: [indicador]
+    grafica_aceptable: [tabla]
+
+  - id: JV04
+    categoria: voz
+    agente_esperado: analista
+    audio: evaluacion/audio/jaibo/voz_04.ogg
+    texto_hablado: ¿Cuánto vendí en Rappi en agosto de 2026?
+    sql_referencia: |
+      SELECT ROUND(SUM(monto_total), 2) AS vendido FROM ordenes
+      WHERE NOT cancelada AND canal = 'Rappi' AND anio = 2026 AND mes = 8
+    grafica_ideal: [indicador]
+    grafica_aceptable: [tabla]
+
+  - id: JV05
+    categoria: voz
+    agente_esperado: asesor
+    audio: evaluacion/audio/jaibo/voz_05.ogg
+    texto_hablado: ¿Cuánto pan debo comprar para mañana recomendablemente?
+    herramienta: pronosticar_pan
+    parametros_esperados: {fechas: ["+1"]}
+    comparar: [comprar_pan_normal, comprar_pan_mega]
+    clave: fecha
+    grafica_ideal: [barras]
+    grafica_aceptable: [tabla, indicador, barras_horizontales]
+
+  - id: JV06
+    categoria: voz
+    agente_esperado: analista
+    audio: evaluacion/audio/jaibo/voz_06.ogg
+    texto_hablado: ¿Qué día de la semana tengo más ventas?
+    # «más ventas» puede ser dinero u órdenes: se aceptan las dos lecturas
+    sql_referencia: |
+      SELECT dia_semana, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada
+      GROUP BY dia_semana ORDER BY vendido DESC LIMIT 1
+    alternativas:
+      - |
+        SELECT dia_semana, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada
+        GROUP BY dia_semana ORDER BY vendido DESC
+      - |
+        SELECT dia_semana, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada
+        GROUP BY dia_semana ORDER BY ordenes DESC LIMIT 1
+      - |
+        SELECT dia_semana, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada
+        GROUP BY dia_semana ORDER BY ordenes DESC
+    clave: dia_semana
+    ordenado: true
+    grafica_ideal: [barras]
+    grafica_aceptable: [barras_horizontales, indicador, lineas]
+
+  - id: JV07
+    categoria: voz
+    agente_esperado: analista
+    audio: evaluacion/audio/jaibo/voz_07.ogg
+    texto_hablado: Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026
+    sql_referencia: |
+      SELECT mes, canal, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes
+      WHERE NOT cancelada AND anio = 2026 AND mes IN (9, 10) AND canal IN ('Didi', 'Rappi')
+      GROUP BY mes, canal ORDER BY mes, canal
+    comparar: [vendido]
+    grafica_ideal: [barras]
+    grafica_aceptable: [lineas, barras_horizontales, tabla]
+
+  - id: JV08
+    categoria: voz
+    agente_esperado: analista
+    audio: evaluacion/audio/jaibo/voz_08.ogg
+    texto_hablado: ¿En qué canal fue más alto el ticket promedio en octubre de 2026?
+    sql_referencia: |
+      SELECT canal, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes
+      WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY ticket_promedio DESC LIMIT 1
+    alternativas:
+      - |
+        SELECT canal, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes
+        WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY ticket_promedio DESC
+    clave: canal
+    ordenado: true
+    grafica_ideal: [barras, barras_horizontales]
+    grafica_aceptable: [indicador, tabla]
+
+  - id: JV09
+    categoria: voz
+    agente_esperado: asesor
+    audio: evaluacion/audio/jaibo/voz_09.ogg
+    texto_hablado: ¿Me conviene vender en Rappi y Didi o solo en el mostrador?
+    herramienta: rentabilidad_canales
+    parametros_esperados: {dias: 90}
+    comparar: [ingreso_despues_de_comision]
+    clave: canal
+    grafica_ideal: [barras, barras_horizontales]
+    grafica_aceptable: [tabla]
+
+  - id: JV10
+    categoria: voz
+    agente_esperado: asesor
+    audio: evaluacion/audio/jaibo/voz_10.ogg
+    texto_hablado: ¿Qué tan conveniente es poner una nueva oferta?
+    herramienta: combinaciones_frecuentes
+    parametros_esperados: {dias: 180}
+    comparar: [ordenes_juntos]
+    ordenado: true
+    grafica_ideal: [barras_horizontales, barras]
+    grafica_aceptable: [tabla]

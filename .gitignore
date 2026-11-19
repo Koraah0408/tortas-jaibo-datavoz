@@ -35,3 +35,6 @@ Thumbs.db
 
 # Secretos de Streamlit (solo en la nube)
 .streamlit/secrets.toml
+
+# Notas de voz reales del equipo (voces de personas): solo en la computadora
+/evaluacion/audio/jaibo/

@@ -45,7 +45,7 @@ class OraculoLLM:
         for c in self.casos:
             texto = c.get("pregunta") or c.get("texto_hablado")
             if texto:
-                self.textos[normalizar(texto)] = c
+                self.textos.setdefault(normalizar(texto), c)  # si dos casos repiten la pregunta, manda el primero
         # casos en los que el primer SQL viene con un error (para probar el ciclo de reintento)
         self.sql_erroneo_primero = sql_erroneo_primero or set()
         # casos en los que el primer SQL corre pero tiene un error de lógica (para probar la revisión semántica)
