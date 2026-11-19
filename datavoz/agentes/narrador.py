@@ -64,6 +64,8 @@ def narrador(estado: EstadoDataVoz) -> dict:
     usuario = "\n\n".join(bloques)
 
     ignorar = _textos_a_ignorar(resultados)
+    from ..seguridad import valores_sospechosos
+    sospechosos = valores_sospechosos(*resultados)
     intentos = []
     texto = None
     try:
@@ -85,5 +87,5 @@ def narrador(estado: EstadoDataVoz) -> dict:
         verif = verificar_texto(texto, resultados, hechos, pregunta, ignorar)
         intentos.append({"texto": texto, "verificacion": verif, "error_llm": str(e)})
     return {"respuesta": texto, "verificacion": verif,
-            "_detalle": {"intentos_redaccion": len(intentos), "verificacion": verif, "hechos_calculados": len(hechos),
+            "_detalle": {"intentos_redaccion": len(intentos), "datos_que_parecen_instruccion": sospechosos, "verificacion": verif, "hechos_calculados": len(hechos),
                          "reglas_rag": [r["titulo"] for r in reglas]}}

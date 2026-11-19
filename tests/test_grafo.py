@@ -53,10 +53,28 @@ def test_carga_de_archivo_con_mapeo_por_llm(base_ejemplo, oraculo, tmp_path):
     resumen = r["limpieza"]["resumen"]
     assert resumen["mapeo_columnas"]["Artículo vendido"] == "producto"
     assert "Notas" in resumen["columnas_ignoradas"]
+    # Confirmación humana: primero solo propone los cambios, sin escribir nada
+    assert r["intencion"] == "confirmar_carga" and "Apruebas" in r["respuesta"]
+    assert s.estado()["datos"]["ruta_db"] == base_ejemplo and s.carga_pendiente()
+    r = s.preguntar("Sí, cárgalo")
+    assert r["intencion"] == "limpieza_datos" and not s.carga_pendiente()
+    paso = [p for p in r["pasos"] if p["agente"] == "Limpiador"][-1]
+    assert paso["detalle"]["aprobado_por_el_dueno"] is True
     datos = s.estado()["datos"]
     assert datos["ruta_db"] != base_ejemplo and datos["tablas"] == ["ventas"]
     r = s.preguntar("¿Cuánto vendí en total en noviembre?")
     assert r["resultado"]["filas"][0][0] == 53467.0
+
+
+def test_sin_aprobacion_el_limpiador_no_escribe(base_ejemplo, oraculo, tmp_path, monkeypatch):
+    import datavoz.agentes.limpiador as lim
+    escrituras = []
+    monkeypatch.setattr(lim, "escribir_limpieza", lambda *a, **k: escrituras.append(1))
+    s = SesionDataVoz(dir_trazas=tmp_path)
+    s.cargar_archivo(RAIZ / "data" / "ventas_sucias.csv")
+    r = s.preguntar("No")
+    assert escrituras == [] and not s.carga_pendiente() and "no cargué nada" in r["respuesta"]
+    assert s.estado()["datos"]["ruta_db"] == base_ejemplo
 
 
 def test_reporte_pdf(base_ejemplo, oraculo, tmp_path):

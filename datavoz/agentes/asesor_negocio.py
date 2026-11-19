@@ -20,6 +20,7 @@ from ..herramientas.limpiar_datos import DIAS_SEMANA
 from ..herramientas.negocio_jaibo import ErrorAnalisis, _consulta, fechas_de_pregunta, productos_de, resolver_producto
 from ..herramientas.reporte_ventas import periodo_de_pregunta
 from ..llm import ErrorLLM, invocar_llm
+from ..seguridad import neutralizar
 from ..utilidades import normalizar
 from . import prompts
 from .base import EstadoDataVoz, nodo
@@ -162,7 +163,7 @@ def asesor_negocio(estado: EstadoDataVoz) -> dict:
     resumen = datos.get("resumen") or {}
     usuario = (f"Hoy es {hoy.isoformat()} ({DIAS_SEMANA[hoy.weekday()]}). Datos del {resumen.get('desde')} al "
                f"{resumen.get('hasta')}.\nAnálisis que eligió el Orquestador: {analisis}\n"
-               f"Productos del menú (nombres exactos): {', '.join(productos)}\n\nPregunta del dueño: {pregunta}")
+               f"Productos del menú (nombres exactos): {', '.join(str(neutralizar(p)) for p in productos)}\n\nPregunta del dueño: {pregunta}")
     error_llm = None
     try:
         propuesta = {} if analisis == "reporte_ventas" else invocar_llm("asesor", prompts.ASESOR, usuario)

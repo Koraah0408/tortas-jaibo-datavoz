@@ -124,7 +124,8 @@ def tabla_markdown(columnas: list[str], filas: list[list], max_filas: int = 30) 
             if isinstance(v, float):
                 celdas.append(formato_numero(v))
             else:
-                celdas.append("NULL" if v is None else str(v))
+                from .seguridad import neutralizar  # evita importación circular
+                celdas.append("NULL" if v is None else str(neutralizar(v)))
         lineas.append("| " + " | ".join(celdas) + " |")
     if len(filas) > max_filas:
         lineas.append(f"... ({len(filas) - max_filas} filas más)")

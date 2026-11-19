@@ -205,6 +205,8 @@ def _texto_respuesta(respuesta) -> str:
 def invocar_llm(rol: str, sistema: str, usuario: str, json_salida: bool | None = None) -> dict | str:
     """Invoca al modelo para un rol. Devuelve dict (roles JSON) o texto (Narrador)."""
     json_salida = rol in ROLES_JSON if json_salida is None else json_salida
+    from .seguridad import REGLA_DATOS
+    sistema = sistema + REGLA_DATOS
     intentos = 2 if json_salida else 1
     ultimo_error = None
     for intento in range(intentos):

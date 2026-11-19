@@ -16,6 +16,7 @@ class EstadoDataVoz(TypedDict, total=False):
     audio: str | None
     archivo: str | None
     mapeo_columnas: dict | None
+    carga_aprobada: bool  # el dueño ya aprobó los cambios del Limpiador (única escritura del sistema)
     # --- Resultado del turno ---
     transcripcion: dict | None
     intencion: str
@@ -46,10 +47,11 @@ class EstadoDataVoz(TypedDict, total=False):
     contexto: dict
     datos: dict
     dashboard: list[dict]
+    carga_pendiente: dict | None  # cambios propuestos por el Limpiador esperando la aprobación del dueño
 
 
 CAMPOS_TURNO = {
-    "audio": None, "archivo": None, "mapeo_columnas": None, "transcripcion": None, "intencion": "",
+    "audio": None, "archivo": None, "mapeo_columnas": None, "carga_aprobada": False, "transcripcion": None, "intencion": "",
     "pregunta_completa": "", "es_seguimiento": False, "contexto_turno": {}, "respuesta_directa": None, "analisis": None, "herramienta_negocio": None,
     "contexto_rag": {}, "sql": None, "explicacion_sql": "", "intentos_sql": [], "resultado": None,
     "consultas_apoyo": [], "retroalimentacion": None, "decision_supervisor": "", "grafica": None,

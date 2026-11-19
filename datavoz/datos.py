@@ -78,10 +78,17 @@ def cargar_archivo_usuario(ruta_archivo: str | Path, mapeo: dict | None = None,
     Solo se crea la tabla ``ventas``; el catálogo de ejemplo se usa como referencia
     para normalizar nombres y completar categorías cuando los productos coinciden.
     """
-    cfg = obtener_config()
-    catalogo = catalogo_ejemplo()
-    limpieza = limpiar_datos(ruta_archivo, mapeo=mapeo, catalogo=catalogo)
-    sesion_id = sesion_id or uuid.uuid4().hex[:8]
-    ruta_db = cfg.dir_sesiones / f"sesion_{sesion_id}.duckdb"
+    limpieza = limpiar_archivo_usuario(ruta_archivo, mapeo)
+    return escribir_limpieza(limpieza, sesion_id), limpieza
+
+
+def limpiar_archivo_usuario(ruta_archivo: str | Path, mapeo: dict | None = None) -> ResultadoLimpieza:
+    """Limpia el archivo EN MEMORIA, sin escribir nada: sirve para mostrarle al dueño qué va a cambiar."""
+    return limpiar_datos(ruta_archivo, mapeo=mapeo, catalogo=catalogo_ejemplo())
+
+
+def escribir_limpieza(limpieza: ResultadoLimpieza, sesion_id: str | None = None) -> Path:
+    """ÚNICA escritura de DataVoz: se llama solo después de que el dueño aprueba los cambios."""
+    ruta_db = obtener_config().dir_sesiones / f"sesion_{sesion_id or uuid.uuid4().hex[:8]}.duckdb"
     escribir_tablas(ruta_db, {"ventas": limpieza.datos.drop(columns=["fila_origen"])}, reemplazar_archivo=True)
-    return ruta_db, limpieza
+    return ruta_db

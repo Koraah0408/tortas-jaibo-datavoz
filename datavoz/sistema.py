@@ -11,6 +11,7 @@ Ejemplo:
 from __future__ import annotations
 
 import json
+import re
 import time
 import uuid
 from datetime import datetime
@@ -21,12 +22,15 @@ from .agentes.orquestador import datos_iniciales
 from .config import obtener_config
 from .grafo import construir_grafo
 from .llm import llamadas_a_dict, registrar_llamadas
-from .utilidades import a_json_serializable
+from .utilidades import a_json_serializable, normalizar
+
+_APRUEBA = re.compile(r"^\s*(si|sí|ok|va|dale|claro|de acuerdo|apruebo|aprobado|cargalo|carga(lo)?|adelante)\b")
+_RECHAZA = re.compile(r"^\s*(no|cancela|cancelar|mejor no|detente|alto)\b")
 
 CLAVES_RESPUESTA = ["pregunta", "pregunta_completa", "intencion", "es_seguimiento", "respuesta", "sql",
                     "explicacion_sql", "resultado", "consultas_apoyo", "grafica", "verificacion", "intentos_sql",
                     "sql_ejecutadas", "transcripcion", "limpieza", "reporte_pdf", "pasos", "error",
-                    "decision_supervisor", "analisis", "herramienta_negocio"]
+                    "decision_supervisor", "analisis", "herramienta_negocio", "carga_pendiente"]
 
 
 class SesionDataVoz:
@@ -125,11 +129,38 @@ class SesionDataVoz:
     # ------------------------------------------------------------------
     def preguntar(self, texto: str | None = None, audio: str | Path | None = None, al_avanzar=None) -> dict:
         """Hace una pregunta por texto o por nota de voz (ruta a un archivo de audio)."""
+        if texto and self.carga_pendiente():  # «sí, cárgalo» / «no» responde a los cambios propuestos
+            t = normalizar(texto)
+            if _APRUEBA.search(t):
+                return self.aprobar_carga(al_avanzar)
+            if _RECHAZA.search(t):
+                return self.cancelar_carga()
         return self._invocar({"pregunta": texto or "", "audio": str(audio) if audio else None}, al_avanzar)
 
     def cargar_archivo(self, ruta: str | Path, mapeo: dict | None = None, al_avanzar=None) -> dict:
-        """Sube un CSV/Excel de ventas: el agente Limpiador lo revisa, corrige y carga."""
+        """Sube un CSV/Excel de ventas. El Limpiador lo revisa y PROPONE los cambios; no escribe nada hasta que
+        el dueño los apruebe con ``aprobar_carga()`` (o respondiendo «sí, cárgalo»)."""
         return self._invocar({"pregunta": "", "archivo": str(ruta), "mapeo_columnas": mapeo}, al_avanzar)
+
+    def carga_pendiente(self) -> dict | None:
+        return self.estado().get("carga_pendiente") if self._iniciado else None
+
+    def aprobar_carga(self, al_avanzar=None) -> dict:
+        """El dueño aprueba los cambios propuestos: el Limpiador los aplica y carga los datos."""
+        pendiente = self.carga_pendiente()
+        if not pendiente:
+            return {"respuesta": "No hay ningún archivo esperando tu aprobación.", "intencion": "conversacion"}
+        return self._invocar({"pregunta": "", "archivo": pendiente["archivo"], "mapeo_columnas": pendiente["mapeo"],
+                              "carga_aprobada": True}, al_avanzar)
+
+    def cancelar_carga(self) -> dict:
+        """El dueño no aprueba: se descartan los cambios propuestos y no se escribe nada."""
+        pendiente = self.carga_pendiente()
+        if pendiente:
+            self.grafo.update_state(self.config, {"carga_pendiente": None})
+        return {"respuesta": ("Listo, no cargué nada: tus datos siguen como estaban." if pendiente
+                              else "No hay ningún archivo esperando tu aprobación."), "intencion": "conversacion",
+                "carga_pendiente": None}
 
     def exportar_reporte(self) -> dict:
         return self._invocar({"pregunta": "Genera el reporte PDF de la sesión"})
@@ -139,7 +170,7 @@ class SesionDataVoz:
         if not self._iniciado:
             return dict(self._iniciales)
         valores = self.grafo.get_state(self.config).values
-        return {k: valores.get(k) for k in ("historial", "contexto", "datos", "dashboard")}
+        return {k: valores.get(k) for k in ("historial", "contexto", "datos", "dashboard", "carga_pendiente")}
 
     def quitar_del_dashboard(self, id_tarjeta: str) -> None:
         if not self._iniciado:

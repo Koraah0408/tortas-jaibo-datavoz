@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from ..basedatos import describir_esquema, ejecutar_select
+from ..seguridad import neutralizar
 from ..config import obtener_config
 from ..herramientas import buscar_diccionario_tool, ejecutar_sql_tool
 from ..llm import ErrorLLM, invocar_llm
@@ -81,7 +82,7 @@ def construir_prompt_usuario(estado: EstadoDataVoz, rag: dict, ruta_db: str) -> 
         ("; ".join(f"{g['grupo']} = " + ", ".join(f"'{p}'" for p in g["productos"]) +
                    (f" ({g['nota']})" if g.get("nota") else "") for g in rag.get("grupos") or []) or "ninguno"),
         "Productos que podría mencionar la pregunta (nombres exactos; úsalos solo si la pregunta habla de ese "
-        "producto en particular, no si habla de una categoría): " + (", ".join(rag["productos"]) or "ninguno identificado"),
+        "producto en particular, no si habla de una categoría): " + (", ".join(str(neutralizar(p)) for p in rag["productos"]) or "ninguno identificado"),
         f"Contexto de la conversación: {contexto_para_prompt(estado.get('contexto') or {})}",
     ]
     ultimo_sql = (estado.get("contexto") or {}).get("ultimo_sql")
