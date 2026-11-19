@@ -2,10 +2,10 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Proyecto final · DataVoz</title>
+<title>Proyecto final · DataVoz para Tortas Jaibo</title>
 <style>
   @page { size: Letter; margin: 16mm 16mm 18mm 16mm; }
-  :root { --azul: #0E7C86; --marino: #0B1F3A; --gris: #5B6472; --claro: #EEF4FE; --borde: #C9D6EA; }
+  :root { --azul: #C8102E; --marino: #2B2320; --gris: #6E5F4E; --claro: #FCEFCB; --borde: #E8D6A8; }
   * { box-sizing: border-box; }
   body { font-family: "Segoe UI", "DejaVu Sans", Arial, sans-serif; font-size: 10.2pt; line-height: 1.42; color: #1b1f27; margin: 0; }
   h1 { color: var(--marino); font-size: 25pt; margin: 0 0 2px; }
@@ -22,7 +22,7 @@
   h3 + table, h3 + p + table { break-before: avoid; }
   th { background: var(--marino); color: #fff; text-align: left; padding: 5px 6px; font-weight: 600; }
   td { border: 1px solid var(--borde); padding: 4px 6px; vertical-align: top; }
-  tr:nth-child(even) td { background: #F6F9FE; }
+  tr:nth-child(even) td { background: #FFF9EC; }
   code, pre { font-family: Consolas, "DejaVu Sans Mono", monospace; font-size: 8.3pt; }
   pre { background: #F3F5F9; border-left: 3px solid var(--azul); padding: 6px 8px; white-space: pre-wrap; word-break: break-word; margin: 5px 0 8px; }
   .portada { height: 245mm; display: flex; flex-direction: column; justify-content: center; }
@@ -45,25 +45,29 @@
 <section class="portada">
   <div class="fase-titulo">Proyecto final · Agentes basados en modelos de lenguaje</div>
   <h1>Háblale a tus datos</h1>
-  <div class="sub">DataVoz: sistema multiagente que convierte preguntas en lenguaje natural (texto o voz) en análisis,
-    gráficas y recomendaciones para una tienda de abarrotes</div>
+  <div class="sub">DataVoz para Tortas Jaibo: sistema multiagente que responde en lenguaje natural (texto o voz) las
+    preguntas del dueño sobre sus ventas y le ayuda a decidir cuánto pan comprar, qué canal le deja más y qué
+    promoción conviene</div>
   <table>
     <tr><td>Equipo</td><td>DataVoz</td></tr>
     <tr><td>Integrantes</td><td>Katerine Leticia Vega Rodríguez · No. de control 23070556<br>
       José Ramiro Márquez Aguayo · No. de control 23070466</td></tr>
     <tr><td>Institución</td><td>Instituto Tecnológico de Ciudad Madero (TecNM) · Ingeniería en Sistemas Computacionales</td></tr>
-    <tr><td>Cliente</td><td>Tienda de abarrotes familiar en Ciudad Madero, Tamaulipas</td></tr>
+    <tr><td>Cliente</td><td>Tortas Jaibo, negocio de tortas estilo Tampico en Ciudad del Carmen, Campeche</td></tr>
     <tr><td>Repositorio</td><td>{{ repositorio }}</td></tr>
     <tr><td>Fecha</td><td>{{ fecha }}</td></tr>
   </table>
   <div class="caja" style="margin-top:22px">
-    <b>Resumen.</b> DataVoz es un prototipo funcional de cinco agentes (Orquestador, Limpiador, Analista SQL,
-    Visualizador y Narrador) orquestados con LangGraph bajo un patrón supervisor con ciclos de corrección. Usa modelos Gemini de la capa
-    gratuita (un modelo por rol, con respaldo automático), siete herramientas, memoria de conversación, RAG con ChromaDB, entrada por voz con Whisper local y una
-    interfaz Streamlit con dashboard en vivo. En una suite de {{ n_casos }} casos de prueba obtuvo
-    <b>{{ m.exactitud_sql.porcentaje }} % de exactitud del SQL</b>, <b>{{ m.veracidad.porcentaje }} % de cifras
-    verificadas</b>, <b>{{ m.limpieza.tasa_deteccion }} % de errores de datos detectados</b> y
-    <b>{{ m.seguridad.sentencias_no_select_ejecutadas }} sentencias distintas de SELECT ejecutadas</b>.
+    <b>Resumen.</b> DataVoz es un prototipo funcional de seis agentes (Orquestador, Limpiador, Analista SQL, Asesor de
+    negocio, Visualizador y Narrador) orquestados con LangGraph bajo un patrón supervisor con ciclos de corrección. Se
+    conecta en <b>modo de solo lectura</b> al punto de venta (POS) del negocio, usa modelos Gemini de la capa gratuita
+    (un modelo por rol, con respaldo automático), {{ n_herramientas }} herramientas, memoria de conversación, RAG con
+    ChromaDB, entrada por voz y una interfaz Streamlit publicada en internet para usarse desde el celular. En la suite de
+    Tortas Jaibo ({{ n_casos }} casos) obtuvo <b>{{ m.exactitud_sql.porcentaje }} % de exactitud del SQL</b>,
+    <b>{{ m.decisiones.porcentaje_resultado }} % de decisiones iguales a la referencia</b>, <b>{{ m.veracidad.porcentaje }} %
+    de cifras verificadas</b> y <b>{{ m.seguridad.sentencias_no_select_ejecutadas }} sentencias distintas de SELECT
+    ejecutadas</b>; en la suite base de una tienda de abarrotes ({{ n_casos_base }} casos), {{ mb.exactitud_sql.porcentaje }} %
+    de exactitud del SQL y {{ mb.limpieza.tasa_deteccion }} % de errores de datos detectados.
   </div>
 </section>
 
@@ -73,38 +77,48 @@
 <h2><span class="num">1</span>Fundamentación</h2>
 
 <h3>1.1 Cliente</h3>
-<p>El cliente es una <b>tienda de abarrotes familiar ubicada en Ciudad Madero, Tamaulipas</b>, propiedad de un familiar
-directo de uno de los integrantes. Vende abarrotes, bebidas, productos de limpieza, botanas y otros artículos
-(alrededor de 150 productos) y registra sus ventas diarias en una hoja de cálculo. En la plática inicial el dueño
-comentó que registra sus ventas pero no tiene tiempo ni conocimientos para analizarlas.</p>
+<p>El cliente es <b>Tortas Jaibo</b>, un negocio familiar de tortas estilo Tampico («un pedacito de Tampico en Carmen»)
+en Ciudad del Carmen, Campeche, que pertenece a uno de los integrantes del equipo. Vende tortas (barda, pierna,
+mega), gorditas, bocoles, tacos de barbacoa, platillo del día y bebidas en mostrador, por <b>Didi Food</b> y por
+<b>Rappi</b>, y fía a los empleados de dos empresas cercanas. Cada venta queda en un sistema de punto de venta (POS)
+propio, con base de datos PostgreSQL en Supabase, que cada noche manda por correo un reporte financiero en PDF.</p>
+<p class="pequeno"><b>Cambio de cliente.</b> La propuesta original era una tienda de abarrotes en Ciudad Madero con ventas en
+una hoja de cálculo. A mitad del proyecto se cambió a Tortas Jaibo porque es un negocio real con datos reales y
+decisiones diarias que tomar. Toda la base del sistema (agentes, RAG, limpieza, voz, seguridad y evaluación) se
+conservó y se sigue evaluando con la tienda de abarrotes; sobre ella se agregaron el conector al POS, el Asesor de
+negocio y la interfaz de Tortas Jaibo.</p>
 
 <h3>1.2 Problemática</h3>
-<p>El dueño necesita responder preguntas como qué productos se venden más, cuáles ya no conviene resurtir, qué días
-hay más ventas o si una promoción funcionó. Esa información existe, pero está dispersa en hojas de cálculo que nadie
-analiza. Hoy las decisiones de compra y resurtido se toman por intuición o revisando manualmente el cuaderno o el
-Excel, lo que toma tiempo, es propenso a errores y casi nunca se hace. Las herramientas de inteligencia de negocios
-(Power BI, Tableau) requieren conocimientos técnicos y configuración que el cliente no tiene.</p>
+<p>El dueño registra todo en el POS, pero solo ve el corte de cada día. Las decisiones importantes se toman por
+intuición: <b>cuánto pan pedir</b> al panadero para mañana o el fin de semana (si falta se pierden ventas; si sobra se
+tira), <b>si conviene vender en Didi y Rappi</b> con sus comisiones, <b>qué promociones lanzar</b> en las horas flojas y
+cuánto se va a gastar en insumos. Responderlo exige cruzar órdenes, productos, canales, comisiones y precios, algo
+que no hace nadie en el negocio. Las herramientas de inteligencia de negocios (Power BI, Tableau) requieren
+conocimientos técnicos, y el POS no se debe modificar porque está en producción.</p>
 
 <h3>1.3 ¿Por qué un sistema multiagente?</h3>
-<p>Responder una pregunta en lenguaje natural requiere varios pasos encadenados y de naturaleza distinta: entender la
-intención y el contexto de la conversación, revisar la calidad de los datos, traducir la pregunta a una consulta
-correcta, elegir una gráfica que comunique el resultado e interpretarlo para alguien sin formación técnica. Repartir
-estos pasos entre agentes especializados permite que cada uno tenga instrucciones cortas y verificables, que el
-sistema <b>se corrija a sí mismo</b> (por ejemplo, reintentar un SQL que falló con el mensaje de error) y que
-<b>recuerde el contexto</b> para preguntas de seguimiento como «¿y en noviembre?».</p>
+<p>Una pregunta del dueño requiere pasos de naturaleza distinta: entender la intención y el contexto, decidir si es una
+consulta («¿cuánto vendí en Rappi en agosto?») o una decisión («¿cuánto pan compro para el sábado?»), traducirla a SQL
+o elegir la herramienta de análisis adecuada, elegir una gráfica e interpretarla para alguien sin formación técnica.
+Repartir esos pasos entre agentes especializados permite instrucciones cortas y verificables, que el sistema <b>se
+corrija a sí mismo</b> (el Orquestador revisa el SQL y lo regresa con el problema), que los <b>cálculos de decisión los
+haga código determinista</b> (el LLM solo elige herramienta y parámetros) y que <b>recuerde el contexto</b> para
+preguntas como «¿y para el sábado?».</p>
 
 <h3>1.4 Temática y conceptos</h3>
-<p><b>Análisis de datos para la toma de decisiones</b>, con apoyo de ingeniería del lenguaje (traducción de lenguaje
-natural a SQL y generación de explicaciones) y entrada por voz. Conceptos aplicados:</p>
+<p><b>Análisis de datos para la toma de decisiones</b>, con apoyo de ingeniería del lenguaje (texto a SQL y generación
+de explicaciones) y entrada por voz. Conceptos aplicados:</p>
 <ul>
   <li><b>Agente basado en LLM:</b> un modelo de lenguaje que, dentro de un ciclo, decide qué hacer y usa herramientas
-  (funciones del sistema) para actuar sobre el entorno; aquí, consultar la base de datos, graficar o generar reportes.</li>
+  para actuar sobre el entorno: consultar la base, pronosticar, graficar o generar reportes.</li>
   <li><b>Patrón supervisor:</b> un agente central (Orquestador) recibe la petición, delega en especialistas, valida cada
   resultado y decide el siguiente paso, incluidos ciclos de corrección.</li>
   <li><b>Texto a SQL:</b> el LLM genera una consulta a partir de la pregunta, del esquema y de ejemplos validados
   (<i>few-shot</i>); la exactitud se mide comparando el resultado contra una consulta de referencia.</li>
-  <li><b>RAG (generación aumentada por recuperación):</b> antes de generar, se recuperan del índice vectorial los
-  fragmentos relevantes del diccionario de datos, reglas del negocio y ejemplos.</li>
+  <li><b>Uso de herramientas (<i>tool calling</i>):</b> el Asesor de negocio elige entre herramientas de análisis y propone
+  sus parámetros; el sistema los valida con reglas antes de ejecutarlas.</li>
+  <li><b>RAG:</b> antes de generar, se recuperan del índice vectorial los fragmentos relevantes del diccionario de datos,
+  las reglas del negocio y los ejemplos del dominio activo.</li>
   <li><b>Memoria de corto plazo:</b> el estado de la conversación (historial y resumen de contexto) persiste entre turnos.</li>
 </ul>
 </section>
@@ -115,35 +129,43 @@ natural a SQL y generación de explicaciones) y entrada por voz. Conceptos aplic
 <h2><span class="num">2</span>Planeación</h2>
 
 <h3>2.1 Objetivos</h3>
-<p><b>General:</b> construir un prototipo funcional de sistema multiagente que permita al dueño de una tienda de
-abarrotes consultar sus ventas en lenguaje natural, por texto o voz, y recibir respuestas con cifras verificadas,
-gráficas y recomendaciones.</p>
+<p><b>General:</b> construir un prototipo funcional de sistema multiagente que permita al dueño de Tortas Jaibo
+consultar sus ventas en lenguaje natural, por texto o voz, y recibir respuestas con cifras verificadas, gráficas y
+recomendaciones para decidir compras, canales y promociones, sin modificar nunca su punto de venta.</p>
 <ul>
-  <li>Limpiar y cargar automáticamente un archivo CSV/Excel de ventas, reportando los problemas encontrados.</li>
+  <li>Leer las ventas del POS con un usuario de <b>solo lectura</b>, sin datos personales, y mantener una copia local.</li>
   <li>Traducir preguntas a SQL de solo lectura con ≥ 85 % de exactitud y reintentar automáticamente cuando falle.</li>
-  <li>Elegir una gráfica pertinente y explicar el resultado sin inventar cifras.</li>
-  <li>Recordar el contexto de la conversación y aceptar preguntas por voz.</li>
+  <li>Responder preguntas de decisión con herramientas deterministas: pronóstico de pan, rentabilidad por canal,
+  promociones, lista de compras y reporte de ventas.</li>
+  <li>Elegir una gráfica pertinente, explicar el resultado sin inventar cifras y avisar cuando se usan supuestos.</li>
+  <li>Recordar el contexto de la conversación, aceptar preguntas por voz y poder usarse desde el celular.</li>
   <li>Evaluar el sistema con al menos 20 casos de prueba y métricas medibles.</li>
 </ul>
 
 <h3>2.2 Alcance comprometido y logrado</h3>
 <table>
-  <tr><th style="width:12%">Nivel</th><th>Qué incluye</th><th style="width:15%">Estado</th></tr>
-  <tr><td>Mínimo</td><td>Carga y limpieza de un CSV; preguntas por texto; agentes Analista SQL, Visualizador y Narrador
+  <tr><th style="width:12%">Nivel</th><th>Qué incluye</th><th style="width:22%">Estado</th></tr>
+  <tr><td>Mínimo</td><td>Carga y limpieza de datos; preguntas por texto; Analista SQL, Visualizador y Narrador
     orquestados; RAG con diccionario de datos; memoria; 4 herramientas; 15 casos de prueba.</td><td class="ok">Logrado</td></tr>
-  <tr><td>Esperado</td><td>Entrada por voz, agente Limpiador completo, dashboard que se arma en vivo, 6 herramientas,
-    reintento automático de SQL, 20 casos de prueba y validación con el cliente.</td>
+  <tr><td>Esperado</td><td>Entrada por voz, Limpiador completo, dashboard en vivo, 6 herramientas, reintento automático de
+    SQL, 20 casos de prueba y validación con el cliente.</td>
     <td><span class="ok">Logrado</span> (validación con el cliente: {{ estado_cliente }})</td></tr>
-  <tr><td>Ideal</td><td>Reporte PDF de la sesión, alertas automáticas, pronóstico simple, respuesta por voz y acceso por Telegram.</td>
-    <td>Parcial: reporte PDF y alertas sí; pronóstico, respuesta por voz y Telegram no.</td></tr>
+  <tr><td>Ideal</td><td>Reporte PDF, alertas automáticas, pronóstico, respuesta por voz y acceso desde el celular.</td>
+    <td>Casi todo: reporte PDF (de la conversación y de ventas), alertas, pronóstico de pan con error medido y
+    acceso desde el celular (app publicada). Falta la respuesta por voz.</td></tr>
+  <tr><td>Agregado</td><td>Conector de solo lectura al POS real, Asesor de negocio con 6 herramientas de decisión, lista de
+    compras con precios de Chedraui Ciudad del Carmen, reportes diarios de Gmail.</td><td class="ok">Logrado</td></tr>
 </table>
 
 <h3>2.3 Criterios de éxito</h3>
 <table>
   <tr><th style="width:22%">Aspecto clave</th><th>Descripción</th><th style="width:24%">Criterio de éxito medible</th></tr>
   <tr><td>Exactitud del SQL</td><td>La consulta generada devuelve el resultado correcto comparado con un SQL de referencia.</td><td>≥ 85 % de los casos</td></tr>
-  <tr><td>Veracidad de la respuesta</td><td>Las cifras que menciona el Narrador coinciden con el resultado de la consulta.</td><td>100 % de cifras verificadas</td></tr>
-  <tr><td>Calidad de la limpieza</td><td>El Limpiador detecta y corrige los errores inyectados en los datos.</td><td>≥ 90 % de errores detectados</td></tr>
+  <tr><td>Ruta correcta</td><td>El Orquestador manda las consultas al Analista SQL y las decisiones al Asesor de negocio.</td><td>≥ 90 % de los casos</td></tr>
+  <tr><td>Decisiones correctas</td><td>El Asesor elige la herramienta y los parámetros correctos y el resultado coincide con la referencia.</td><td>≥ 85 % de los casos</td></tr>
+  <tr><td>Aviso de supuestos</td><td>Si el cálculo usa un dato supuesto (comisión, margen, costo), la respuesta lo dice.</td><td>100 % de los casos con supuestos</td></tr>
+  <tr><td>Veracidad de la respuesta</td><td>Las cifras que menciona el Narrador coinciden con los datos.</td><td>100 % de cifras verificadas</td></tr>
+  <tr><td>Calidad de la limpieza</td><td>El Limpiador detecta y corrige los errores inyectados en un archivo.</td><td>≥ 90 % de errores detectados</td></tr>
   <tr><td>Pertinencia de la gráfica</td><td>El tipo de gráfica es adecuado para la pregunta (rúbrica 1 a 5).</td><td>Promedio ≥ 4/5</td></tr>
   <tr><td>Memoria y seguimiento</td><td>Responde bien preguntas que dependen del contexto anterior.</td><td>≥ 80 % correctas</td></tr>
   <tr><td>Entrada por voz</td><td>La transcripción conserva el sentido de la pregunta.</td><td>≥ 90 % bien interpretadas</td></tr>
@@ -155,21 +177,22 @@ gráficas y recomendaciones.</p>
 <h3>2.4 Plan de trabajo</h3>
 <table>
   <tr><th style="width:13%">Semana</th><th>Actividades</th><th style="width:27%">Katerine Vega</th><th style="width:27%">José Ramiro Márquez</th></tr>
-  <tr><td>S1 · 16–22 nov</td><td>Reunión con el cliente, datos sintéticos, estructura del proyecto, primer flujo pregunta → SQL.</td><td>Interfaz base en Streamlit; diccionario de datos y reglas del negocio.</td><td>Generador de datos; carga a DuckDB; Analista SQL inicial.</td></tr>
-  <tr><td>S2 · 23–29 nov</td><td>Agentes completos, orquestador, RAG y memoria; primeros casos de prueba.</td><td>Visualizador y Narrador; dashboard en vivo.</td><td>Orquestador en LangGraph; RAG con ChromaDB; memoria; Limpiador.</td></tr>
-  <tr><td>S3 · 30 nov–5 dic</td><td>Voz, 20+ casos de prueba, métricas, ajustes y validación con el cliente.</td><td>Voz (Whisper); pruebas de usabilidad con el cliente.</td><td>Script de evaluación y métricas; reintento de SQL; seguridad.</td></tr>
-  <tr><td>S4 · 6–11 dic</td><td>Presentación del prototipo con demo en vivo y reporte de evaluación.</td><td>Reporte de resultados; ensayo de demo.</td><td>Funciones del nivel ideal; ensayo de demo.</td></tr>
+  <tr><td>S1 · 16–22 nov</td><td>Datos sintéticos, estructura del proyecto, agentes base, RAG, memoria, evaluación de la tienda de abarrotes; cambio de cliente a Tortas Jaibo.</td><td>Interfaz base; diccionario de datos y reglas del negocio.</td><td>Generador de datos; Orquestador en LangGraph; Analista SQL; conector de solo lectura al POS.</td></tr>
+  <tr><td>S2 · 23–29 nov</td><td>Asesor de negocio, conocimiento de Tortas Jaibo, evaluación de Jaibo, interfaz para el dueño y publicación.</td><td>Interfaz de Tortas Jaibo; casos de prueba del negocio.</td><td>Herramientas de decisión; precios de Chedraui; publicación en Streamlit Cloud.</td></tr>
+  <tr><td>S3 · 30 nov–5 dic</td><td>Validación con el dueño (encuesta), suite contra los datos reales, ajustes.</td><td>Encuesta y pruebas de usabilidad con el dueño.</td><td>Evaluación con la copia real; análisis de trazas.</td></tr>
+  <tr><td>S4 · 6–11 dic</td><td>Presentación del prototipo con demo en vivo y reporte de evaluación.</td><td>Reporte de resultados; ensayo de demo.</td><td>Ajustes finales; ensayo de demo.</td></tr>
 </table>
 
 <h3>2.5 Riesgos y cómo se atendieron</h3>
 <table>
   <tr><th style="width:24%">Riesgo</th><th style="width:9%">Impacto</th><th>Mitigación implementada</th></tr>
-  <tr><td>Límites de la capa gratuita del modelo <b>(ocurrió)</b></td><td>Alto</td><td>Gemini 2.5 Flash resultó tener solo 20 peticiones diarias gratis y se agotó a mitad de la primera evaluación. Se pasó a un modelo por rol (3.1 Flash-Lite y 3.5 Flash-Lite, cada uno con su cuota) con respaldo automático entre modelos de Gemini; además: caché SQLite de respuestas, un limitador de peticiones compartido por todos los agentes, 3–4 llamadas por pregunta (el Visualizador solo llama al LLM cuando la gráfica es ambigua), embeddings locales para el RAG y, al final de la cadena, Groq u Ollama. Cada fallo de un modelo queda registrado en la traza.</td></tr>
-  <tr><td>El modelo genera SQL incorrecto</td><td>Alto</td><td>18 ejemplos pregunta–SQL en el RAG, esquema real en el prompt, identificación de nombres exactos de productos y categorías, validación con sqlglot y hasta 2 reintentos con el mensaje de error.</td></tr>
-  <tr><td>Alucinaciones en la explicación</td><td>Medio</td><td>El Narrador recibe solo datos y «hechos calculados»; un verificador extrae cada cifra de la respuesta y obliga a reescribirla si alguna no está respaldada.</td></tr>
-  <tr><td>Mala calidad de los datos</td><td>Medio</td><td>Datos sintéticos con 325 errores inyectados con respuesta conocida; el Limpiador reporta lo que corrige y lo que elimina.</td></tr>
-  <tr><td>Poca disponibilidad del cliente</td><td>Medio</td><td>Encuesta breve (<code>docs/encuesta_cliente.md</code>) aplicable por videollamada; si no es posible, un compañero actúa como usuario.</td></tr>
-  <tr><td>Errores de transcripción</td><td>Bajo</td><td>La interfaz muestra el texto transcrito para corregirlo antes de enviar; la entrada por texto siempre está disponible.</td></tr>
+  <tr><td>Afectar el POS en producción</td><td>Alto</td><td>Rol de PostgreSQL <code>datavoz_lector</code> que solo puede leer vistas sin datos personales; la app trabaja sobre una copia local en DuckDB de solo lectura; nunca se usa la contraseña del POS.</td></tr>
+  <tr><td>Límites de la capa gratuita del modelo <b>(ocurrió)</b></td><td>Alto</td><td>Gemini 2.5 Flash tenía solo 20 peticiones diarias gratis. Se pasó a un modelo por rol (3.1 Flash-Lite y 3.5 Flash-Lite) con respaldo automático, caché, un limitador compartido y 3–4 llamadas por pregunta. Las herramientas del Asesor calculan sin LLM.</td></tr>
+  <tr><td>El modelo genera SQL incorrecto</td><td>Alto</td><td>Ejemplos pregunta–SQL por negocio en el RAG, esquema real en el prompt, validación con sqlglot, revisión semántica del Orquestador y hasta 2 reintentos con el problema.</td></tr>
+  <tr><td>Cálculos de decisión inventados</td><td>Alto</td><td>El LLM no calcula: elige herramienta y parámetros, y el sistema los valida (productos que existen, rangos, fechas calculadas con reglas). Los datos que no se conocen se marcan como SUPUESTO.</td></tr>
+  <tr><td>Alucinaciones en la explicación</td><td>Medio</td><td>El Narrador recibe solo datos y «hechos calculados»; un verificador revisa cada cifra y obliga a reescribir si alguna no está respaldada.</td></tr>
+  <tr><td>Exponer datos personales</td><td>Medio</td><td>Las vistas del lector excluyen empleados, créditos de empleados, pagos de deuda y notas de las órdenes; la copia y los costos no se suben al repositorio.</td></tr>
+  <tr><td>Errores de transcripción</td><td>Bajo</td><td>La pregunta transcrita se muestra en la conversación; la entrada por texto siempre está disponible.</td></tr>
 </table>
 </section>
 
@@ -180,65 +203,72 @@ gráficas y recomendaciones.</p>
 
 <h3>3.1 Arquitectura</h3>
 <p>El sistema es un grafo de estados de <b>LangGraph</b> con patrón <b>supervisor</b>. El Orquestador recibe cada
-mensaje, decide el flujo y valida el trabajo de los especialistas. Si el Analista SQL falla o devuelve un resultado
-vacío, el Orquestador se lo regresa con el error (hasta 2 veces) antes de pedir aclaración al usuario.</p>
+mensaje, decide el flujo y valida el trabajo de los especialistas. Las consultas van al Analista SQL; si falla, devuelve
+un resultado vacío o la revisión semántica encuentra un error de lógica, el Orquestador se la regresa con el problema
+(hasta 2 veces). Las preguntas de decisión van al Asesor de negocio. Ambos caminos terminan en el Visualizador y el
+Narrador.</p>
 <figure>{{ diagrama | safe }}
 <figcaption>Figura 1. Grafo de agentes de DataVoz (nodos de LangGraph) y recursos que usan.</figcaption></figure>
 
 <h3>3.2 Agentes</h3>
 <table>
-  <tr><th style="width:15%">Agente</th><th>Qué recibe y qué decide</th><th style="width:30%">Qué entrega</th></tr>
-  <tr><td><b>Orquestador</b></td><td>Mensaje del usuario (o nota de voz), historial y contexto. Clasifica la intención (consulta, reporte, limpieza, conversación, fuera de alcance, peligrosa); reescribe preguntas de seguimiento como preguntas completas; después de cada consulta decide <i>continuar</i>, <i>reintentar</i> o <i>pedir aclaración</i>, incluida una revisión semántica del SQL que detecta errores de lógica (p. ej. contar días sin existencias uniendo inventario con ventas); actualiza la memoria.</td><td>Ruta del grafo, pregunta completa, contexto actualizado.</td></tr>
-  <tr><td><b>Limpiador</b></td><td>Archivo CSV/Excel. Decide el mapeo de columnas (reglas y, si faltan columnas obligatorias, el LLM a partir del perfil de cada columna) y qué filas corregir o eliminar.</td><td>Datos limpios en DuckDB y explicación de lo corregido.</td></tr>
-  <tr><td><b>Analista SQL</b></td><td>Pregunta completa, esquema, contexto del RAG, nombres de productos y categorías detectados, intentos fallidos. Genera una consulta SELECT y hasta 2 consultas de apoyo para explicar el «por qué».</td><td>Resultado verificado de la consulta.</td></tr>
-  <tr><td><b>Visualizador</b></td><td>Resultado y pregunta. Las reglas deciden los casos obvios (un número, serie de tiempo, ranking simple); el LLM decide los ambiguos.</td><td>Gráfica Plotly que se agrega al dashboard.</td></tr>
-  <tr><td><b>Narrador</b></td><td>Resultado, consultas de apoyo, hechos calculados y reglas del negocio (RAG). Explica en español sencillo, recomienda una acción y verifica sus cifras.</td><td>Respuesta para el dueño; reporte PDF si lo pide.</td></tr>
+  <tr><th style="width:15%">Agente</th><th>Qué recibe y qué decide</th><th style="width:28%">Qué entrega</th></tr>
+  <tr><td><b>Orquestador</b></td><td>Mensaje (o nota de voz), historial y contexto. Clasifica la intención (consulta, reporte, limpieza, conversación, fuera de alcance, peligrosa) y, en Tortas Jaibo, el análisis especializado (pronóstico de pan, rentabilidad de canales, promociones, compras o reporte de ventas); reescribe preguntas de seguimiento; supervisa cada SQL (<i>continuar</i>, <i>reintentar</i> o <i>aclarar</i>) con una revisión semántica; actualiza la memoria.</td><td>Ruta del grafo, pregunta completa, contexto actualizado.</td></tr>
+  <tr><td><b>Limpiador</b></td><td>Archivo CSV/Excel. Decide el mapeo de columnas (reglas y, si faltan, el LLM con el perfil de cada columna) y qué filas corregir o eliminar.</td><td>Datos limpios en DuckDB y explicación de lo corregido.</td></tr>
+  <tr><td><b>Analista SQL</b></td><td>Pregunta completa, esquema, contexto del RAG del negocio activo, productos detectados e intentos fallidos. Genera un SELECT y hasta 2 consultas de apoyo para explicar el «por qué».</td><td>Resultado de la consulta.</td></tr>
+  <tr><td><b>Asesor de negocio</b></td><td>Pregunta de decisión y análisis elegido por el Orquestador. El LLM propone herramienta y parámetros; el agente los <b>valida con reglas</b> (fechas, productos, rangos; comisiones y márgenes solo si el dueño dijo un porcentaje) y ejecuta la herramienta determinista.</td><td>Resultado, supuestos usados y tablas de apoyo.</td></tr>
+  <tr><td><b>Visualizador</b></td><td>Resultado y pregunta. Las reglas deciden los casos obvios; el LLM decide los ambiguos.</td><td>Gráfica Plotly para la conversación y el tablero.</td></tr>
+  <tr><td><b>Narrador</b></td><td>Resultado, consultas de apoyo, hechos calculados, supuestos y reglas del negocio (RAG). Explica en español sencillo, recomienda una acción y verifica sus cifras.</td><td>Respuesta para el dueño; reporte PDF si lo pide.</td></tr>
 </table>
 
 <h3>3.3 Herramientas</h3>
 <table>
-  <tr><th style="width:20%">Herramienta</th><th style="width:17%">Agente</th><th>Función</th></tr>
-  <tr><td><code>limpiar_datos</code></td><td>Limpiador</td><td>Detecta y corrige nulos, duplicados, fechas en varios formatos, precios con texto, nombres inconsistentes, cantidades negativas y totales que no cuadran; agrega columnas de calendario y carga a DuckDB.</td></tr>
-  <tr><td><code>ejecutar_sql</code></td><td>Analista SQL</td><td>Ejecuta solo SELECT, en una conexión de solo lectura sin acceso a archivos externos, con límite de 10 s y 500 filas.</td></tr>
-  <tr><td><code>buscar_diccionario</code></td><td>Analista, Narrador</td><td>Recupera diccionario de datos, reglas del negocio, catálogo y ejemplos pregunta–SQL (RAG).</td></tr>
-  <tr><td><code>generar_grafica</code></td><td>Visualizador</td><td>Barras, barras horizontales, líneas, pastel, mapa de calor e indicador (Plotly; PNG para el PDF).</td></tr>
-  <tr><td><code>transcribir_voz</code></td><td>Orquestador</td><td>Convierte notas de voz a texto con Whisper local (faster-whisper, modelo <i>small</i>).</td></tr>
-  <tr><td><code>exportar_reporte</code></td><td>Narrador</td><td>PDF con las preguntas, gráficas, conclusiones y alertas de la sesión.</td></tr>
-  <tr><td><code>detectar_alertas</code></td><td>Orquestador</td><td>Productos que llevan 3 semanas bajando o con faltantes recientes (nivel ideal).</td></tr>
+  <tr><th style="width:23%">Herramienta</th><th style="width:15%">Agente</th><th>Función</th></tr>
+  <tr><td><code>limpiar_datos</code></td><td>Limpiador</td><td>Corrige nulos, duplicados, fechas en varios formatos, precios con texto, nombres inconsistentes, cantidades negativas y totales que no cuadran; carga a DuckDB.</td></tr>
+  <tr><td><code>ejecutar_sql</code></td><td>Analista SQL</td><td>Ejecuta solo SELECT en una conexión de solo lectura, sin acceso a archivos, con límite de 10 s y 500 filas.</td></tr>
+  <tr><td><code>buscar_diccionario</code></td><td>Analista, Narrador</td><td>RAG: diccionario de datos, reglas del negocio y ejemplos pregunta–SQL del negocio activo.</td></tr>
+  <tr><td><code>generar_grafica</code></td><td>Visualizador</td><td>Barras, barras horizontales, líneas, pastel, mapa de calor e indicador (Plotly).</td></tr>
+  <tr><td><code>transcribir_voz</code></td><td>Orquestador</td><td>Nota de voz a texto con Whisper local; en la nube, con Gemini.</td></tr>
+  <tr><td><code>exportar_reporte</code></td><td>Narrador</td><td>PDF con las preguntas, gráficas y conclusiones de la conversación.</td></tr>
+  <tr><td><code>detectar_alertas</code></td><td>Orquestador</td><td>Productos que llevan semanas bajando o con faltantes recientes.</td></tr>
+  <tr><td><code>pronosticar_pan</code></td><td>Asesor</td><td>Pan normal y mega a comprar por día: promedio del mismo día de la semana en las últimas semanas con ajuste de quincena, margen de seguridad y <b>error medido</b> contra las semanas pasadas.</td></tr>
+  <tr><td><code>rentabilidad_canales</code></td><td>Asesor</td><td>Ingreso de mostrador, Didi y Rappi después de comisiones y sobreprecio de las apps, por periodo o mes.</td></tr>
+  <tr><td><code>combinaciones_frecuentes</code></td><td>Asesor</td><td>Productos que se piden juntos y horas flojas, para proponer promociones.</td></tr>
+  <tr><td><code>simular_promocion</code></td><td>Asesor</td><td>Cuántos combos adicionales por semana hacen falta para que una promoción no cueste dinero.</td></tr>
+  <tr><td><code>lista_de_compras</code></td><td>Asesor</td><td>Pan e ingredientes a comprar con precios de Chedraui Ciudad del Carmen (catálogo en línea, caché de 7 días) o los del dueño.</td></tr>
+  <tr><td><code>reporte_de_ventas</code></td><td>Asesor</td><td>Ventas de un día o periodo («del 18», «de ayer», «de la semana pasada») con su PDF: cobrado, órdenes, ticket, formas de pago, canales, lo más vendido y ventas por hora.</td></tr>
 </table>
 
 <h3>3.4 Memoria y RAG</h3>
-<p><b>Memoria.</b> El estado del grafo se guarda por conversación con el <i>checkpointer</i> de LangGraph
-(<code>thread_id</code> por sesión). Incluye el historial de turnos (pregunta, pregunta interpretada, SQL, resultado y
-respuesta), un <b>resumen de contexto</b> (último periodo, producto, categoría, métrica y SQL), los datos activos y el
-estado del dashboard. El Orquestador usa los últimos turnos para reescribir preguntas de seguimiento y el Analista
-recibe el SQL anterior para adaptarlo. En la interfaz el <i>checkpointer</i> es <b>SQLite</b>: cada sesión se guarda al
-terminar cada turno y se puede reabrir después (con su conversación, sus gráficas regeneradas desde los datos y el
-archivo que se haya subido), renombrar o borrar desde el panel lateral.</p>
-<p><b>RAG.</b> ChromaDB con 45 documentos y embeddings locales (ONNX MiniLM), así que la búsqueda no consume cuota del
-LLM: 9 secciones del diccionario de datos, 8 reglas del negocio redactadas a partir de la plática con el cliente, 10
-fichas del catálogo y 18 pares pregunta–SQL validados. Una búsqueda léxica complementaria identifica el nombre exacto
-de los productos y las categorías que menciona la pregunta.</p>
+<p><b>Memoria.</b> El estado del grafo se guarda por conversación con el <i>checkpointer</i> de LangGraph en SQLite: historial
+de turnos, resumen de contexto (periodo, producto, métrica, SQL), datos activos y tablero. El Orquestador usa los últimos
+turnos para reescribir preguntas de seguimiento y el Analista recibe el SQL anterior para adaptarlo. Las conversaciones
+se pueden reabrir, renombrar o borrar.</p>
+<p><b>RAG.</b> ChromaDB con embeddings locales (ONNX MiniLM), así que la búsqueda no consume cuota del LLM. El índice
+tiene un paquete de conocimiento por negocio y la búsqueda filtra por el negocio activo. El de Tortas Jaibo tiene
+12 secciones del diccionario de datos del POS, 9 reglas del negocio (compra de pan, canales y comisiones, créditos,
+horarios, platillo del día, órdenes corregidas) y 16 pares pregunta–SQL validados; el de abarrotes conserva los suyos.</p>
 
 <h3>3.5 Datos</h3>
-<p>Se generaron con NumPy y Faker (semilla fija) siguiendo la estructura del registro del cliente: <b>año 2025,
-{{ datos.renglones }} renglones de venta, {{ datos.tickets }} tickets, 150 productos en 10 categorías</b>, método de
-pago, inventario diario (54,750 filas) y 7 promociones (27 filas). La simulación incluye fines de semana, quincenas,
-temporada decembrina, verano, Cuaresma, productos en declive, un producto nuevo a mitad de año y faltantes de surtido
-(por ejemplo, el refresco de 3 L sabor uva se queda sin existencias del 8 al 16 de diciembre).</p>
-<p>Para evaluar al Limpiador se creó <code>ventas_sucias.csv</code> con <b>325 errores inyectados</b> y su respuesta
-conocida: 60 nulos, 50 duplicados, 80 fechas en otros formatos, 60 precios con texto, 40 nombres de producto
-inconsistentes, 15 cantidades negativas y 20 totales que no cuadran. Además, <code>ventas_formato_distinto.xlsx</code>
-usa encabezados poco comunes («Día de venta», «Artículo vendido», «Pzas», «Cobrado») para probar el mapeo de columnas
-con el LLM. <b>Anonimización:</b> no hay nombres de clientes, teléfonos ni proveedores; si el cliente comparte su
-archivo real, solo se usa como referencia de estructura y no se carga ni se envía al modelo.</p>
+<p><b>Conexión al POS.</b> Se creó en Supabase el rol <code>datavoz_lector</code>, que solo tiene permiso de lectura sobre
+vistas preparadas sin datos personales (se excluyen empleados, créditos de empleados, pagos de deuda y las notas de las
+órdenes). El conector descarga una copia a DuckDB (<code>data/jaibo/jaibo.duckdb</code>) cuando tiene más de 30 minutos y
+la transforma en las tablas <code>ordenes</code>, <code>ventas</code>, <code>productos</code>, <code>ingredientes</code> y
+<code>promociones</code>. La copia, los costos y los reportes no se suben a GitHub.</p>
+<p><b>Datos para evaluar.</b> Para que la evaluación sea reproducible y no publique ventas reales se generó una base
+sintética con el mismo menú y la misma estructura del POS: {{ datos.ordenes }} órdenes, {{ datos.renglones }} renglones de
+venta y {{ datos.productos }} productos (enero–noviembre de 2026), con fines de semana, quincenas, canales, créditos a
+empresas, promociones y órdenes corregidas. También se usa para la demostración pública y para las capturas de este
+documento. La tienda de abarrotes conserva su base sintética de 2025 y su archivo con 325 errores inyectados para
+evaluar al Limpiador.</p>
 
 <h3>3.6 Seguridad</h3>
-<p>Defensa en profundidad de cinco capas: (1) detección de intenciones peligrosas antes del LLM; (2) clasificación del
-Orquestador (intenciones «peligrosa» y «fuera de alcance»); (3) validación con <b>sqlglot</b>: una sola sentencia, raíz
-SELECT, sin nodos de DDL/DML, sin funciones que lean archivos o variables de entorno y solo tablas existentes; (4)
-<b>DuckDB en modo de solo lectura</b> con <code>enable_external_access = false</code>; (5) el verificador de cifras del
-Narrador. Las llaves de API solo se leen del archivo <code>.env</code>, que está excluido del repositorio.</p>
+<p>Defensa en profundidad: (1) el POS solo se lee con un rol de solo lectura sobre vistas sin datos personales;
+(2) detección de intenciones peligrosas antes del LLM; (3) clasificación del Orquestador (intenciones «peligrosa» y
+«fuera de alcance»); (4) validación con <b>sqlglot</b>: una sola sentencia SELECT, sin DDL/DML, sin funciones que lean
+archivos o variables de entorno y solo tablas existentes; (5) <b>DuckDB de solo lectura</b> sin acceso externo; (6) el
+verificador de cifras. Las llaves solo se leen de <code>.env</code> o de los secretos de Streamlit Cloud, y la app
+publicada pide contraseña.</p>
 
 <h3>3.7 Interfaz</h3>
 {{ capturas | safe }}
@@ -246,19 +276,19 @@ Narrador. Las llaves de API solo se leen del archivo <code>.env</code>, que est�
 <h3>3.8 Tecnologías</h3>
 <table>
   <tr><th style="width:28%">Componente</th><th>Tecnología</th></tr>
-  <tr><td>Modelo de lenguaje</td><td>Google Gemini, capa gratuita, un modelo por rol: <code>gemini-3.1-flash-lite</code> (Orquestador, Visualizador, Narrador, Limpiador) y <code>gemini-3.5-flash-lite</code> (Analista SQL); respaldo automático entre modelos de Gemini y después a Llama 3.3 70B vía Groq u Ollama local. La ficha proponía Gemini 2.5 Flash (ver 3.9).</td></tr>
+  <tr><td>Modelo de lenguaje</td><td>Google Gemini, capa gratuita, un modelo por rol: <code>gemini-3.1-flash-lite</code> (Orquestador, Asesor, Visualizador, Narrador, Limpiador) y <code>gemini-3.5-flash-lite</code> (Analista SQL); respaldo automático entre modelos y después a Groq u Ollama.</td></tr>
   <tr><td>Framework de agentes</td><td>LangGraph 1.2 + LangChain (langchain-google-genai, langchain-groq, langchain-ollama)</td></tr>
-  <tr><td>Base de datos</td><td>DuckDB (ventas, solo lectura) · ChromaDB (RAG vectorial)</td></tr>
-  <tr><td>Análisis, gráficas y reporte</td><td>pandas, Plotly, matplotlib, fpdf2</td></tr>
-  <tr><td>Voz</td><td>Whisper local (faster-whisper 1.2, CPU int8)</td></tr>
-  <tr><td>Interfaz</td><td>Streamlit con tema propio (azul marino y verde azulado, tipografía Inter) e iconos SVG; sesiones en SQLite (langgraph-checkpoint-sqlite)</td></tr>
+  <tr><td>Datos</td><td>PostgreSQL en Supabase (POS, solo lectura) → DuckDB (copia local) · ChromaDB (RAG)</td></tr>
+  <tr><td>Análisis, gráficas y reportes</td><td>pandas, NumPy, Plotly, matplotlib, fpdf2</td></tr>
+  <tr><td>Voz</td><td>Whisper local (faster-whisper, CPU int8); Gemini en la versión publicada</td></tr>
+  <tr><td>Interfaz y publicación</td><td>Streamlit con tema de Tortas Jaibo; Streamlit Community Cloud con repositorio privado de GitHub</td></tr>
   <tr><td>Seguridad del SQL</td><td>sqlglot</td></tr>
-  <tr><td>Datos y evaluación</td><td>NumPy, Faker, pytest y script propio de métricas</td></tr>
+  <tr><td>Evaluación</td><td>pytest ({{ n_pruebas }} pruebas), script propio de métricas con trazas por turno</td></tr>
 </table>
 
 <h3>3.9 Problemas encontrados durante el desarrollo</h3>
 <table>
-  <tr><th style="width:30%">Problema</th><th>Solución</th></tr>
+  <tr><th style="width:36%">Problema</th><th>Solución</th></tr>
   {% for p in problemas %}<tr><td>{{ p.problema }}</td><td>{{ p.solucion }}</td></tr>{% endfor %}
 </table>
 </section>
@@ -269,45 +299,55 @@ Narrador. Las llaves de API solo se leen del archivo <code>.env</code>, que est�
 <h2><span class="num">4</span>Evaluación</h2>
 
 <h3>4.1 Metodología</h3>
-<p>Se diseñaron <b>{{ n_casos }} casos de prueba</b> (<code>evaluacion/casos_prueba.yaml</code>): 6 simples, 4
-comparativos, 2 de base y 4 de seguimiento que dependen de la memoria, 2 por voz (audios generados con la voz es-MX de
-Windows), 2 con datos sucios y 5 de seguridad o fuera de alcance. El programa
-<code>evaluacion/ejecutar_evaluacion.py</code> ejecuta cada caso contra el sistema real ({{ proveedor }}, sin caché) y
-guarda la traza de cada turno.</p>
+<p>Hay dos suites. La de <b>Tortas Jaibo</b> tiene {{ n_casos }} casos (<code>evaluacion/casos_jaibo.yaml</code>): consultas
+simples y comparativas, seguimientos que dependen de la memoria, decisiones (pan, canales, comisiones, promociones),
+casos difíciles y 5 de seguridad o fuera de alcance. La suite base de la <b>tienda de abarrotes</b> tiene
+{{ n_casos_base }} casos e incluye voz y datos sucios. El programa <code>evaluacion/ejecutar_evaluacion.py</code> ejecuta
+cada caso contra el sistema real ({{ proveedor }}, sin caché, con pausa entre casos) y guarda la traza de cada turno.</p>
 <ul>
-  <li><b>Exactitud del SQL:</b> se compara el <i>resultado</i>, no el texto. El resultado del agente debe contener los valores
-  de la consulta de referencia (tolerancia de redondeo, sin importar nombres de columnas ni formato largo o ancho), en el
-  mismo orden si es un ranking, y sin devolver muchas más filas que la referencia.</li>
+  <li><b>Exactitud del SQL:</b> se compara el <i>resultado</i>, no el texto, contra una consulta de referencia (tolerancia de
+  redondeo, sin importar nombres de columnas; mismo orden si es un ranking).</li>
+  <li><b>Decisiones:</b> herramienta y parámetros esperados, y resultado igual al de la herramienta con los parámetros
+  de referencia; además, que la respuesta mencione los supuestos cuando los hay.</li>
+  <li><b>Ruta:</b> que la pregunta llegue al agente correcto (Analista SQL o Asesor de negocio).</li>
   <li><b>Veracidad:</b> porcentaje de cifras de las respuestas que el verificador respalda con los datos.</li>
   <li><b>Gráfica (rúbrica):</b> 5 = tipo ideal; 4 = aceptable; 3 = tabla cuando se esperaba gráfica; 2 = tipo inadecuado; 1 = sin salida.</li>
-  <li><b>Voz:</b> similitud de la transcripción (1 − WER) ≥ 0.8 <i>y</i> SQL correcto.</li>
-  <li><b>Seguridad:</b> sentencias distintas de SELECT ejecutadas en todos los casos y conteo de filas de cada tabla antes y después.</li>
+  <li><b>Seguridad:</b> sentencias distintas de SELECT ejecutadas y conteo de filas de cada tabla antes y después.</li>
 </ul>
-<p>Además, {{ n_pruebas }} pruebas automáticas con pytest validan la guardia de seguridad, la revisión semántica del SQL,
-la limpieza, el verificador de cifras, el comparador y el flujo del grafo con un LLM simulado.</p>
+<p>Además, {{ n_pruebas }} pruebas automáticas con pytest validan la guardia de seguridad, la revisión semántica, la
+limpieza, el verificador de cifras, las herramientas del Asesor, los precios (sin red), el reporte de ventas y el flujo
+del grafo con un LLM simulado.</p>
 
-<h3>4.2 Resultados frente a los criterios de éxito</h3>
+<h3>4.2 Resultados de Tortas Jaibo frente a los criterios de éxito</h3>
 <table>
-  <tr><th style="width:21%">Aspecto clave</th><th style="width:21%">Criterio</th><th>Resultado</th><th style="width:10%">¿Cumple?</th></tr>
+  <tr><th style="width:23%">Aspecto clave</th><th style="width:20%">Criterio</th><th>Resultado ({{ etiqueta }})</th><th style="width:10%">¿Cumple?</th></tr>
   {% for f in filas_metricas %}<tr><td>{{ f[0] }}</td><td>{{ f[1] }}</td><td>{{ f[2] }}</td><td>{{ f[3] | safe }}</td></tr>{% endfor %}
 </table>
 <figure><img src="data:image/png;base64,{{ grafica_casos }}" style="width:92%">
-<figcaption>Figura {{ fig_casos }}. Tiempo de respuesta por caso y resultado (verde = correcto, rojo = incorrecto).</figcaption></figure>
+<figcaption>Figura {{ fig_casos }}. Tiempo de respuesta por caso de Tortas Jaibo y resultado (verde = correcto, rojo = incorrecto).</figcaption></figure>
+
+<h3>4.3 Resultados de la suite base (tienda de abarrotes)</h3>
+<p>Cubre los criterios que la suite de Jaibo no usa (voz y limpieza de archivos) y comprueba que el cambio de cliente no
+rompió el sistema base.</p>
+<table>
+  <tr><th style="width:23%">Aspecto clave</th><th style="width:20%">Criterio</th><th>Resultado ({{ etiqueta_base }})</th><th style="width:10%">¿Cumple?</th></tr>
+  {% for f in filas_metricas_base %}<tr><td>{{ f[0] }}</td><td>{{ f[1] }}</td><td>{{ f[2] }}</td><td>{{ f[3] | safe }}</td></tr>{% endfor %}
+</table>
 {{ evolucion | safe }}
 
-<h3>4.3 Resultados por caso</h3>
+<h3>4.4 Resultados por caso (Tortas Jaibo)</h3>
 <table>
-  <tr><th style="width:6%">Caso</th><th style="width:13%">Categoría</th><th>Pregunta</th><th style="width:7%">SQL</th><th style="width:8%">Gráfica</th><th style="width:8%">Cifras</th><th style="width:7%">Tiempo</th></tr>
+  <tr><th style="width:6%">Caso</th><th style="width:13%">Categoría</th><th>Pregunta</th><th style="width:7%">Correcto</th><th style="width:9%">Gráfica</th><th style="width:7%">Cifras</th><th style="width:7%">Tiempo</th></tr>
   {% for c in casos %}<tr><td>{{ c.id }}</td><td>{{ c.categoria }}</td><td>{{ c.pregunta }}</td><td>{{ c.ok | safe }}</td><td>{{ c.grafica }}</td><td>{{ c.cifras }}</td><td>{{ c.tiempo }}</td></tr>{% endfor %}
 </table>
 
-<h3>4.4 Análisis de trazas</h3>
+<h3>4.5 Análisis de trazas</h3>
 {{ trazas | safe }}
 
-<h3>4.5 Pruebas de seguridad</h3>
+<h3>4.6 Pruebas de seguridad</h3>
 {{ seguridad | safe }}
 
-<h3>4.6 Limitaciones y trabajo futuro</h3>
+<h3>4.7 Limitaciones y trabajo futuro</h3>
 {{ limitaciones | safe }}
 </section>
 
@@ -318,21 +358,22 @@ la limpieza, el verificador de cifras, el comparador y el flujo del grafo con un
 <h2><span class="num">6</span>Uso de herramientas de inteligencia artificial</h2>
 <table>
   <tr><th style="width:26%">Herramienta</th><th>Para qué se usó</th></tr>
-  <tr><td>Claude (Anthropic) mediante Claude Code</td><td>Apoyo en la programación del sistema (estructura del proyecto, agentes, herramientas, interfaz y generador de datos sintéticos), en la suite de pruebas y evaluación, y en la redacción de la documentación y de este documento. El equipo revisó, probó y ajustó el código y los resultados.</td></tr>
-  <tr><td>Google Gemini (3.1 Flash-Lite y 3.5 Flash-Lite)</td><td>Modelos de lenguaje que usa DataVoz en tiempo de ejecución (agentes Orquestador, Limpiador, Analista SQL, Visualizador y Narrador). No se usó para escribir el código.</td></tr>
-  <tr><td>Whisper (faster-whisper)</td><td>Transcripción local de las preguntas por voz dentro del sistema.</td></tr>
+  <tr><td>Claude (Anthropic) mediante Claude Code</td><td>Apoyo en la programación del sistema (agentes, herramientas, conector al POS, interfaz y generadores de datos sintéticos), en la suite de pruebas y evaluación, en la publicación y en la redacción de la documentación y de este documento. El equipo revisó, probó y ajustó el código y los resultados.</td></tr>
+  <tr><td>Google Gemini (3.1 Flash-Lite y 3.5 Flash-Lite)</td><td>Modelos de lenguaje que usa DataVoz en tiempo de ejecución (agentes y transcripción de voz en la nube). No se usó para escribir el código.</td></tr>
+  <tr><td>Whisper (faster-whisper)</td><td>Transcripción local de las preguntas por voz.</td></tr>
 </table>
 
 <h2><span class="num">7</span>Cómo ejecutar el prototipo</h2>
 <pre>python -m venv .venv &amp;&amp; .venv\Scripts\activate
 pip install -r requirements.txt -r requirements-voz.txt
-copy .env.example .env        (y agregar GOOGLE_API_KEY)
-python scripts/preparar_base.py
-streamlit run app.py                                  # interfaz web
+copy .env.example .env        (agregar GOOGLE_API_KEY y, para el POS, los datos del usuario de solo lectura)
+streamlit run app.py                                  # interfaz (sin POS configurado abre la demostración)
 python -m pytest                                      # {{ n_pruebas }} pruebas automáticas
-python evaluacion/ejecutar_evaluacion.py --sin-cache  # suite de evaluación</pre>
-<p class="pequeno">Repositorio: {{ repositorio }} · Los detalles de instalación están en el README.md. El repositorio no
-contiene llaves de API ni datos personales (incluye <code>.env.example</code>).</p>
+python evaluacion/ejecutar_evaluacion.py --negocio jaibo --sin-cache --pausa 10   # suite de Tortas Jaibo
+python evaluacion/ejecutar_evaluacion.py --sin-cache                              # suite base</pre>
+<p class="pequeno">Repositorio privado: {{ repositorio }} · Versión publicada en Streamlit Community Cloud (con
+contraseña). Los detalles están en README.md y docs/PUBLICAR.md. El repositorio no contiene llaves, ventas reales ni
+datos personales.</p>
 </section>
 </body>
 </html>

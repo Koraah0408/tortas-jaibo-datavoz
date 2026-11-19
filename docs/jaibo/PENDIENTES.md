@@ -29,6 +29,7 @@
 - **Micrófono en la caja de texto**; en la nube transcribe Gemini.
 - Gmail queda opcional: el reporte diario ya no lo necesita.
 - 163 pruebas automáticas pasan.
+- **Documento final actualizado** (docs/ProyectoFinal_DataVoz.pdf): Tortas Jaibo como cliente, Asesor de negocio, conexión de solo lectura, las dos suites, trazas JD02 y J09 y capturas con la demostración (`JAIBO_DEMO=1`).
 
 ## Falta
 1. **Tú:**

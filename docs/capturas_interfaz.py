@@ -3,6 +3,7 @@
 Requisitos: la app corriendo (streamlit run app.py) y `pip install selenium`.
 Uso:  python docs/capturas_interfaz.py [--url http://localhost:8501]
 Guarda las imágenes en docs/img/. Hace 2 preguntas reales (gasta ~6 llamadas al LLM).
+Para no mostrar ventas reales, la app debe correr con JAIBO_DEMO=1 (demostración con ventas simuladas).
 """
 
 from __future__ import annotations
@@ -79,24 +80,16 @@ def main() -> None:
             time.sleep(4)
             break
         captura(driver, "01_inicio.png")
-        preguntar(driver, "¿Qué bebida se vendió menos en diciembre y por qué crees que pasó?", 2)
-        driver.execute_script("window.scrollTo(0, 0)")
-        captura(driver, "02_respuesta.png", alto=1250)
-        preguntar(driver, "¿Cómo fueron las ventas mes por mes?", 4)
-        pestaña(driver, "Dashboard")
-        captura(driver, "03_dashboard.png", alto=1150)
-        pestaña(driver, "Trazas")
-        captura(driver, "04_trazas.png", alto=900)
-    finally:
-        driver.quit()
-
-    # Ventana nueva = como cerrar y volver a abrir la app: debe reabrir la sesión guardada
-    driver = webdriver.Chrome(options=opciones)
-    try:
-        driver.get(args.url)
-        WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.CSS_SELECTOR, '[data-testid="stChatInputTextArea"]')))
-        time.sleep(8)
-        captura(driver, "05_sesion_reabierta.png", alto=1000)
+        preguntar(driver, "¿Cuánto pan compro para este fin de semana?", 2)
+        captura(driver, "02_pan.png", alto=1300)
+        preguntar(driver, "Reporte de ventas del 14 de noviembre", 4)
+        captura(driver, "03_reporte_ventas.png", alto=1300)
+        pestaña(driver, "Mi semana")
+        captura(driver, "04_semana.png", alto=1250)
+        driver.set_window_size(420, 900)  # como se ve en el celular
+        pestaña(driver, "Preguntar")
+        time.sleep(3)
+        captura(driver, "05_celular.png")
     finally:
         driver.quit()
 

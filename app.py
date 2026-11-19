@@ -300,6 +300,8 @@ def sincronizar_jaibo(forzar: bool) -> dict | None:
 
 def fuente_jaibo() -> tuple[str, str | None]:
     """Copia del POS (se actualiza si tiene más de 30 min) o, sin conexión ni copia, la demostración."""
+    if os.getenv("JAIBO_DEMO"):  # para presentaciones y capturas: nunca muestra las ventas reales
+        return str(jaibo.asegurar_demo()), jaibo.ORIGEN_DEMO
     if jaibo.configuracion():
         sincronizar_jaibo(forzar=False)
     if jaibo.RUTA_DB.exists():
