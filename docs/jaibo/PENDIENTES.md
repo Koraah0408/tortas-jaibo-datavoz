@@ -37,7 +37,8 @@
 - 182 pruebas automáticas pasan.
 - **Prompts documentados (R4):** docs/PROMPTS.md con las 11 versiones, el texto descartado y el motivo de cada cambio (`python docs/generar_prompts.py`).
 - **Voz con 10 notas reales de WhatsApp** (casos JV01–JV10, `eval_jaibo_voz_v1`): 10/10, similitud 0.992. Whisper ahora tiene el vocabulario de Jaibo (antes escribía «Rapid» y «Liddy»). Los audios están en `evaluacion/audio/jaibo/`, fuera de git.
-- Falta: las 10 preguntas del dueño; confirmar quién grabó cada audio y cuáles tienen ruido.
+- Los 10 audios los grabó José Ramiro (una sola voz); así se quedan.
+- Falta: las 10 preguntas del dueño.
 
 ## Falta
 1. **Tú:**

@@ -401,7 +401,7 @@ rompió el sistema base.</p>
   <tr><td>eval_jaibo_v2</td><td>Jaibo · reglas de dinero, casos difíciles nuevos</td><td><i>no válida</i></td><td>Una corrida de pytest reconstruyó el índice del RAG a mitad de la evaluación.</td></tr>
   <tr><td>eval_v4 / v5</td><td>Abarrotes · comprobar el sistema base después del cambio</td><td>19/19 SQL</td><td>v4 tardó 17.9 s por la cola de la API; v5 repitió con 9.5 s y cumplió todo.</td></tr>
   <tr><td><b>eval_jaibo_v3</b></td><td>Jaibo · versión final</td><td><b>16/16 SQL · 15/15 decisiones</b></td><td>Cumple todos los criterios medibles; 11.3 s; 3 reintentos por revisión semántica, todos corregidos.</td></tr>
-  <tr><td><b>eval_jaibo_voz_v1</b></td><td>Jaibo · 10 notas de voz reales de WhatsApp (.ogg) grabadas por el equipo</td><td><b>10/10 voz</b> · similitud 0.992</td><td>7/7 SQL y 3/3 decisiones correctas a partir del audio; transcripción local en 3.8 s por audio. El tiempo total (22.2 s) se debió a la lentitud de la API ese día: 3 casos usaron modelos de respaldo.</td></tr>
+  <tr><td><b>eval_jaibo_voz_v1</b></td><td>Jaibo · 10 notas de voz reales de WhatsApp (.ogg), todas grabadas por José Ramiro Márquez</td><td><b>10/10 voz</b> · similitud 0.992</td><td>7/7 SQL y 3/3 decisiones correctas a partir del audio; transcripción local en 3.8 s por audio. El tiempo total (22.2 s) se debió a la lentitud de la API ese día: 3 casos usaron modelos de respaldo.</td></tr>
 </table>
 
 
@@ -490,8 +490,9 @@ rechazadas por la guardia sin llegar a DuckDB; aunque la guardia fallara, la con
   gratuitas son pequeñas y cambian sin aviso.</li>
   <li><b>Versión publicada.</b> Las conversaciones y PDF se pierden cuando Streamlit reinicia la app; la copia del POS se
   vuelve a descargar sola. La voz en la nube depende de Gemini.</li>
-  <li><b>Voz.</b> 10 audios reales son suficientes para mostrar que funciona, no para garantizar el 90 % con cualquier voz o
-  ruido; los audios no se suben al repositorio porque son voces de personas.</li>
+  <li><b>Voz.</b> Los 10 audios reales son de una sola persona (José Ramiro). Muestran que funciona con notas de voz de
+  WhatsApp, pero falta probar con otras voces (por ejemplo, la del dueño) y con el ruido del local. Los audios no se
+  suben al repositorio porque son voces de personas.</li>
   <li><b>Pendiente del nivel ideal:</b> respuesta por voz y aviso automático (por ejemplo, por WhatsApp) del pan a comprar.</li>
 </ul>
 

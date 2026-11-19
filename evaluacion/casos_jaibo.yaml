@@ -414,8 +414,8 @@ casos:
     esperado: fuera_de_alcance
 
   # ---------------------------------------------------------------------------------------------
-  # Voz: 10 notas de voz reales (WhatsApp, .ogg) grabadas por el equipo, varias voces, la mitad con
-  # ruido del local. Los audios no se suben a git (son voces de personas): evaluacion/audio/jaibo/.
+  # Voz: 10 notas de voz reales (WhatsApp, .ogg), todas grabadas por José Ramiro Márquez (una sola voz).
+  # Los audios no se suben a git (son voces de personas): evaluacion/audio/jaibo/.
   # texto_hablado = lo que la persona dijo (a veces con sus propias palabras, no el texto sugerido).
   # ---------------------------------------------------------------------------------------------
   - id: JV01
