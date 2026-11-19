@@ -1,0 +1,262 @@
+{
+ "sesion": "S06",
+ "turno": 1,
+ "fecha": "2026-11-17T15:01:47",
+ "entrada": {
+  "pregunta": "¿Qué porcentaje de las ventas se pagó con cada método de pago?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Qué porcentaje de las ventas se pagó con cada método de pago?",
+ "pregunta_completa": "¿Qué porcentaje de las ventas se pagó con cada método de pago?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Encontré 3 resultados. Los primeros son: efectivo, 431,533, 64.40 | tarjeta, 159,388, 23.80 | transferencia, 79,274, 11.80. (Explicación automática no disponible en este momento.)",
+ "sql": "SELECT metodo_pago, ROUND(SUM(total), 2) AS ventas, ROUND(100.0 * SUM(total) / SUM(SUM(total)) OVER (), 1) AS porcentaje FROM ventas GROUP BY metodo_pago ORDER BY ventas DESC",
+ "explicacion_sql": "Calcula el total de ventas y el porcentaje que representa cada método de pago sobre el total de ventas.",
+ "resultado": {
+  "sql": "SELECT metodo_pago, ROUND(SUM(total), 2) AS ventas, ROUND(100.0 * SUM(total) / SUM(SUM(total)) OVER (), 1) AS porcentaje FROM ventas GROUP BY metodo_pago ORDER BY ventas DESC",
+  "columnas": [
+   "metodo_pago",
+   "ventas",
+   "porcentaje"
+  ],
+  "filas": [
+   [
+    "efectivo",
+    431533.0,
+    64.4
+   ],
+   [
+    "tarjeta",
+    159388.0,
+    23.8
+   ],
+   [
+    "transferencia",
+    79274.0,
+    11.8
+   ]
+  ],
+  "n_filas": 3,
+  "truncado": false,
+  "duracion_s": 0.0276,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 7,
+  "verificadas": 7,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT metodo_pago, ROUND(SUM(total), 2) AS ventas, ROUND(100.0 * SUM(total) / SUM(SUM(total)) OVER (), 1) AS porcentaje FROM ventas GROUP BY metodo_pago ORDER BY ventas DESC",
+   "problema": null,
+   "n_filas": 3
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT metodo_pago, ROUND(SUM(total), 2) AS ventas, ROUND(100.0 * SUM(total) / SUM(SUM(total)) OVER (), 1) AS porcentaje FROM ventas GROUP BY metodo_pago ORDER BY ventas DESC"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "15:01:43",
+   "duracion_s": 4.591,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "-",
+     "duracion_s": 4.591,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor "
+    }
+   ],
+   "detalle": {
+    "error_llm": "Falló la llamada al modelo (GoogleRateLimitError): Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor ",
+    "respaldo": "se asume consulta_datos"
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "15:01:46",
+   "duracion_s": 2.858,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-2.5-flash",
+     "duracion_s": 2.424,
+     "tokens_entrada": 1481,
+     "tokens_salida": 411,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Resurtido y proveedores",
+      "Horario y días de la tienda",
+      "Métodos de pago",
+      "Recomendaciones típicas para el dueño"
+     ],
+     "ejemplos": [
+      "¿Qué porcentaje de las ventas se paga con tarjeta, efectivo y transferencia?",
+      "¿Qué categoría deja más dinero?",
+      "¿Cómo fueron las ventas mes por mes?"
+     ],
+     "productos": [],
+     "categorias": []
+    },
+    "sql": "SELECT metodo_pago, ROUND(SUM(total), 2) AS ventas, ROUND(100.0 * SUM(total) / SUM(SUM(total)) OVER (), 1) AS porcentaje FROM ventas GROUP BY metodo_pago ORDER BY ventas DESC",
+    "explicacion": "Calcula el total de ventas y el porcentaje que representa cada método de pago sobre el total de ventas.",
+    "error": null,
+    "filas": 3,
+    "consultas_apoyo": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "15:01:46",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 3,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "15:01:46",
+   "duracion_s": 0.03,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "pastel",
+    "spec": {
+     "tipo": "pastel",
+     "x": "metodo_pago",
+     "y": [
+      "ventas"
+     ],
+     "titulo": "¿Qué porcentaje de las ventas se pagó con cada método de pago?",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "15:01:47",
+   "duracion_s": 1.721,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "-",
+     "duracion_s": 1.544,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor "
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 7,
+     "verificadas": 7,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 20,
+    "reglas_rag": [
+     "Resurtido y proveedores",
+     "Horario y días de la tienda"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "15:01:47",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "ultima_pregunta": "¿Qué porcentaje de las ventas se pagó con cada método de pago?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": "Falló la llamada al modelo (GoogleRateLimitError): Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor ",
+ "decision_supervisor": "continuar",
+ "duracion_s": 9.21,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "-",
+   "duracion_s": 4.591,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor "
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-2.5-flash",
+   "duracion_s": 2.424,
+   "tokens_entrada": 1481,
+   "tokens_salida": 411,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "-",
+   "duracion_s": 1.544,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor "
+  }
+ ],
+ "tokens": 1892,
+ "grafica": {
+  "spec": {
+   "tipo": "pastel",
+   "x": "metodo_pago",
+   "y": [
+    "ventas"
+   ],
+   "titulo": "¿Qué porcentaje de las ventas se pagó con cada método de pago?",
+   "confianza": "alta"
+  }
+ }
+}

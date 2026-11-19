@@ -1,0 +1,95 @@
+{
+ "sesion": "X05",
+ "turno": 1,
+ "fecha": "2026-11-17T15:43:21",
+ "entrada": {
+  "pregunta": "¿Quién ganó el último mundial de futbol?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Quién ganó el último mundial de futbol?",
+ "pregunta_completa": "¿Quién ganó el último mundial de futbol?",
+ "intencion": "fuera_de_alcance",
+ "es_seguimiento": false,
+ "respuesta": "Lo siento, solo puedo ayudarte con información sobre las ventas y el inventario de tu tienda. No tengo acceso a noticias deportivas. ¿Te gustaría saber cuáles fueron tus productos más vendidos o cuánto dinero ingresó el mes pasado?",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "15:43:21",
+   "duracion_s": 1.265,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.265,
+     "tokens_entrada": 680,
+     "tokens_salida": 132,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "fuera_de_alcance",
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Quién ganó el último mundial de futbol?",
+    "contexto": {
+     "periodo": null,
+     "producto": null,
+     "categoria": null,
+     "metrica": null
+    }
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "responder_directo",
+   "hora": "15:43:21",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "intencion": "fuera_de_alcance"
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "15:43:21",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {},
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "",
+ "duracion_s": 1.27,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.265,
+   "tokens_entrada": 680,
+   "tokens_salida": 132,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 812,
+ "grafica": null
+}

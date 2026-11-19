@@ -1,0 +1,67 @@
+# Costos y supuestos de Tortas Jaibo que usan las herramientas del Asesor de negocio.
+#
+# Este archivo es la PLANTILLA (sí se sube al repositorio). Para usar los datos reales del negocio,
+# cópialo a data/jaibo/costos.yaml (esa carpeta no se sube a GitHub) y llena los valores:
+#     copy conocimiento\jaibo\costos.ejemplo.yaml data\jaibo\costos.yaml
+#
+# Mientras un valor diga "supuesto: true", DataVoz lo presenta como estimación.
+
+# Comisión que cobra cada aplicación sobre el total del pedido (0.25 = 25 %)
+comisiones:
+  Didi: {porcentaje: 0.25, supuesto: true}
+  Rappi: {porcentaje: 0.25, supuesto: true}
+
+# Margen de seguridad al comprar pan (0.10 = comprar 10 % más de lo esperado)
+margen_seguridad_pan: {porcentaje: 0.10, supuesto: true}
+
+# Lista de compras: qué pan se compra y a qué precio. Si pones «precio_por_pieza» (lo que te cobra tu panadero),
+# se usa ese; si lo dejas en null, se consulta el precio de referencia en Chedraui Ciudad del Carmen.
+compras:
+  codigo_postal: "24180"          # Ciudad del Carmen, Campeche
+  pan_normal: {buscar: "Telera", precio_por_pieza: null, supuesto: true}        # pan de las tortas «normal»
+  pan_mega: {buscar: "Telera Doble", precio_por_pieza: null, supuesto: true}    # pan de las tortas Mega
+
+# Costo de ingredientes por pieza en MXN (pan, carne, verdura, empaque). null = no se conoce.
+# Con estos costos el Asesor calcula ganancia bruta por canal y por promoción.
+costos_producto:
+  Barda normal: null
+  Mega barda: null
+  Pierna normal: null
+  Mega pierna: null
+  Mixta normal: null
+  Mega mixta: null
+  Barbacoa normal: null
+  Mega barbacoa: null
+  Tacos de barbacoa: null
+  Gordita: null
+  Bocoles: null
+  Coca cola: null
+  Horchata: null
+  Jamaica: null
+  Tamarindo: null
+
+# Ingredientes de las tortas para la lista de compras. «chedraui»: producto exacto de Chedraui (a granel por kg o
+# en paquete; se compran paquetes completos). «recetas»: gramos que lleva cada torta NORMAL; las Mega llevan
+# «factor_mega» veces más. Porciones estimadas a partir del menú y del recetario: ajústalas a lo que sirves.
+ingredientes:
+  factor_mega: 1.35
+  supuesto: true
+  productos:
+    carne_res: {nombre: "Carne de res para deshebrar", chedraui: "Carne para Deshebrar de Res kg"}
+    carne_cerdo: {nombre: "Pulpa de cerdo (pierna)", chedraui: "Pulpa de Cerdo kg"}
+    carne_barbacoa: {nombre: "Res para barbacoa", chedraui: "Chambarete con Hueso de Res kg"}
+    jamon: {nombre: "Jamón de pierna", chedraui: "Jamón de Pierna Campestre por kg"}
+    queso_fresco: {nombre: "Queso fresco", chedraui: "Queso Fresco Zwan 360g"}
+    queso_amarillo: {nombre: "Queso amarillo", chedraui: "Queso Americano La Villita 319g"}
+    chorizo: {nombre: "Chorizo", chedraui: "Chorizo Chata Ranchero 215g"}
+    frijol: {nombre: "Frijoles refritos", chedraui: "Frijoles Refritos Isadora Bayos 400g"}
+    tomate: {nombre: "Tomate", chedraui: "Tomate Saladet por kg"}
+    cebolla: {nombre: "Cebolla", chedraui: "Cebolla Blanca por kg"}
+    aguacate: {nombre: "Aguacate", chedraui: "Aguacate Hass por Kg"}
+    media_crema: {nombre: "Media crema", chedraui: "Media Crema Alpura 250ml"}
+    aderezo: {nombre: "Mayonesa (aderezo)", chedraui: "Mayonesa Hellmann's Light 355g"}
+  recetas:
+    barda: {carne_res: 140, jamon: 30, queso_fresco: 25, queso_amarillo: 20, chorizo: 20, frijol: 30, tomate: 40, cebolla: 15, aguacate: 30}
+    pierna: {carne_cerdo: 150, aderezo: 15, media_crema: 15, tomate: 40, cebolla: 15, aguacate: 30}
+    mixta: {carne_cerdo: 130, jamon: 30, queso_fresco: 25, queso_amarillo: 20, chorizo: 20, frijol: 30, tomate: 40, cebolla: 15, aguacate: 30}
+    barbacoa: {carne_barbacoa: 180, cebolla: 15, aguacate: 30}

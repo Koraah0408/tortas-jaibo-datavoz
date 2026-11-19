@@ -1,0 +1,65 @@
+{
+ "sesion": "JH5",
+ "turno": 1,
+ "fecha": "2026-11-18T21:50:57",
+ "entrada": {
+  "pregunta": "Quiero hacer una promo de 2 Mega pierna por $200, ¿me conviene?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "Quiero hacer una promo de 2 Mega pierna por $200, ¿me conviene?",
+ "pregunta_completa": "",
+ "intencion": "",
+ "es_seguimiento": false,
+ "respuesta": "Ocurrió un error inesperado al procesar tu pregunta. Intenta de nuevo o reformúlala.",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [],
+ "error": "NotFoundError: Collection [735df8c9-436e-4fc6-a503-8f9b5b9bd862] does not exist.",
+ "decision_supervisor": "",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "duracion_s": 4.97,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.313,
+   "tokens_entrada": 1125,
+   "tokens_salida": 119,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "asesor",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.442,
+   "tokens_entrada": 700,
+   "tokens_salida": 94,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.527,
+   "tokens_entrada": 655,
+   "tokens_salida": 126,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 2819,
+ "grafica": null
+}

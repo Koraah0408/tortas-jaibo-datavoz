@@ -1,0 +1,287 @@
+{
+ "sesion": "V02",
+ "turno": 1,
+ "fecha": "2026-11-18T21:57:58",
+ "entrada": {
+  "pregunta": "",
+  "audio": "C:\\proyectos\\DataVoz\\evaluacion\\audio\\voz_02.wav",
+  "archivo": null
+ },
+ "pregunta": "¿Cuántas unidades de huevo blanco de 12 piezas se vendieron en marzo?",
+ "pregunta_completa": "¿Cuántas unidades de huevo blanco de 12 piezas se vendieron en marzo de 2025?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En marzo de 2025 se vendieron 23 unidades de huevo blanco de 12 piezas. Esta cifra es constante para un producto de consumo diario en tu tienda. Posiblemente, el movimiento se mantuvo estable al no ser un artículo con promociones activas durante este mes.\n\nRecomendación: Considera revisar si el inventario actual es suficiente para cubrir la demanda de abril, ya que la temporada de Cuaresma suele influir en los hábitos de compra de tus clientes.",
+ "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Huevo blanco 12 pzas' AND mes = 3 GROUP BY producto",
+ "explicacion_sql": "Calcula el total de unidades vendidas del producto 'Huevo blanco 12 pzas' durante el mes de marzo de 2025.",
+ "resultado": {
+  "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Huevo blanco 12 pzas' AND mes = 3 GROUP BY producto",
+  "columnas": [
+   "producto",
+   "unidades"
+  ],
+  "filas": [
+   [
+    "Huevo blanco 12 pzas",
+    23
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0359,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 3,
+  "verificadas": 3,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Huevo blanco 12 pzas' AND mes = 3 GROUP BY producto",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Huevo blanco 12 pzas' AND mes = 3 GROUP BY producto"
+ ],
+ "transcripcion": {
+  "texto": "¿Cuántas unidades de huevo blanco de 12 piezas se vendieron en marzo?",
+  "idioma": "es",
+  "duracion_audio_s": 4.46,
+  "duracion_s": 3.15,
+  "error": null
+ },
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "transcribir_voz",
+   "hora": "21:57:53",
+   "duracion_s": 3.15,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "transcribir_voz",
+    "texto": "¿Cuántas unidades de huevo blanco de 12 piezas se vendieron en marzo?",
+    "idioma": "es",
+    "duracion_audio_s": 4.46,
+    "duracion_s": 3.15,
+    "error": null
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "21:57:55",
+   "duracion_s": 1.835,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.835,
+     "tokens_entrada": 1042,
+     "tokens_salida": 131,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántas unidades de huevo blanco de 12 piezas se vendieron en marzo de 2025?",
+    "contexto": {
+     "periodo": "marzo 2025",
+     "producto": "huevo blanco de 12 piezas",
+     "categoria": null,
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "21:57:56",
+   "duracion_s": 1.329,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.731,
+     "tokens_entrada": 2013,
+     "tokens_salida": 102,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Temporadas del año",
+      "Promociones",
+      "Métodos de pago",
+      "Productos que ya no conviene resurtir"
+     ],
+     "ejemplos": [
+      "¿Cuáles fueron los 10 productos más vendidos en marzo?",
+      "¿Cómo se vendieron las cervezas semana por semana en el último trimestre?",
+      "Compara las ventas en pesos de bebidas entre julio y agosto"
+     ],
+     "productos": [
+      "Huevo blanco 12 pzas"
+     ],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Huevo blanco 12 pzas' AND mes = 3 GROUP BY producto",
+    "explicacion": "Calcula el total de unidades vendidas del producto 'Huevo blanco 12 pzas' durante el mes de marzo de 2025.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "21:57:56",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "21:57:56",
+   "duracion_s": 0.01,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "indicador",
+    "spec": {
+     "tipo": "indicador",
+     "y": [
+      "unidades"
+     ],
+     "titulo": "Unidades",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "21:57:58",
+   "duracion_s": 1.599,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.382,
+     "tokens_entrada": 760,
+     "tokens_salida": 104,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 3,
+     "verificadas": 3,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Temporadas del año",
+     "Promociones"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "21:57:58",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "marzo 2025",
+     "producto": "huevo blanco de 12 piezas",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Cuántas unidades de huevo blanco de 12 piezas se vendieron en marzo de 2025?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "duracion_s": 7.93,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.835,
+   "tokens_entrada": 1042,
+   "tokens_salida": 131,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.731,
+   "tokens_entrada": 2013,
+   "tokens_salida": 102,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.382,
+   "tokens_entrada": 760,
+   "tokens_salida": 104,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 4152,
+ "grafica": {
+  "spec": {
+   "tipo": "indicador",
+   "y": [
+    "unidades"
+   ],
+   "titulo": "Unidades",
+   "confianza": "alta"
+  }
+ }
+}

@@ -1,0 +1,285 @@
+{
+ "sesion": "V01",
+ "turno": 1,
+ "fecha": "2026-11-18T21:32:49",
+ "entrada": {
+  "pregunta": "",
+  "audio": "C:\\proyectos\\DataVoz\\evaluacion\\audio\\voz_01.wav",
+  "archivo": null
+ },
+ "pregunta": "¿Cuál fue el mes con más ventas del año?",
+ "pregunta_completa": "¿Cuál fue el mes con más ventas del año 2025?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "El mes con más ventas durante 2025 fue diciembre, alcanzando un total de $78,203.50. Este resultado posiblemente se debe a que en diciembre la gente suele realizar compras más grandes por las festividades y los pagos de fin de año. Al ser un mes con alta demanda, es fundamental asegurar que los productos no se agoten antes de las visitas del proveedor los lunes y jueves.\n\nRecomendación: Aumenta el inventario de tus productos más vendidos antes de que inicie la segunda quincena de diciembre para evitar perder ventas por falta de existencias.",
+ "sql": "SELECT mes, nombre_mes, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE anio = 2025 GROUP BY mes, nombre_mes ORDER BY ventas DESC LIMIT 1",
+ "explicacion_sql": "Calcula el mes con mayores ventas totales del año 2025.",
+ "resultado": {
+  "sql": "SELECT mes, nombre_mes, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE anio = 2025 GROUP BY mes, nombre_mes ORDER BY ventas DESC LIMIT 1",
+  "columnas": [
+   "mes",
+   "nombre_mes",
+   "ventas"
+  ],
+  "filas": [
+   [
+    12,
+    "diciembre",
+    78203.5
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0423,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 2,
+  "verificadas": 2,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT mes, nombre_mes, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE anio = 2025 GROUP BY mes, nombre_mes ORDER BY ventas DESC LIMIT 1",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT mes, nombre_mes, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE anio = 2025 GROUP BY mes, nombre_mes ORDER BY ventas DESC LIMIT 1"
+ ],
+ "transcripcion": {
+  "texto": "¿Cuál fue el mes con más ventas del año?",
+  "idioma": "es",
+  "duracion_audio_s": 2.86,
+  "duracion_s": 6.85,
+  "error": null
+ },
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "transcribir_voz",
+   "hora": "21:32:42",
+   "duracion_s": 6.854,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "transcribir_voz",
+    "texto": "¿Cuál fue el mes con más ventas del año?",
+    "idioma": "es",
+    "duracion_audio_s": 2.86,
+    "duracion_s": 6.85,
+    "error": null
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "21:32:43",
+   "duracion_s": 1.15,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.149,
+     "tokens_entrada": 936,
+     "tokens_salida": 112,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuál fue el mes con más ventas del año 2025?",
+    "contexto": {
+     "periodo": "2025",
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "21:32:45",
+   "duracion_s": 1.769,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.093,
+     "tokens_entrada": 1975,
+     "tokens_salida": 97,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Resurtido y proveedores",
+      "Horario y días de la tienda",
+      "Convenciones de SQL (DuckDB)",
+      "Temporadas del año"
+     ],
+     "ejemplos": [
+      "¿Cuál fue el día con más ventas del año?",
+      "¿Cómo fueron las ventas mes por mes?",
+      "Compara las ventas en pesos de bebidas entre julio y agosto"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT mes, nombre_mes, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE anio = 2025 GROUP BY mes, nombre_mes ORDER BY ventas DESC LIMIT 1",
+    "explicacion": "Calcula el mes con mayores ventas totales del año 2025.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "21:32:45",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "21:32:45",
+   "duracion_s": 0.01,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "indicador",
+    "spec": {
+     "tipo": "indicador",
+     "y": [
+      "ventas"
+     ],
+     "titulo": "Ventas",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "21:32:49",
+   "duracion_s": 4.352,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.089,
+     "tokens_entrada": 615,
+     "tokens_salida": 125,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 2,
+     "verificadas": 2,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Resurtido y proveedores",
+     "Horario y días de la tienda"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "21:32:49",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "2025",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Cuál fue el mes con más ventas del año 2025?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "duracion_s": 14.15,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.149,
+   "tokens_entrada": 936,
+   "tokens_salida": 112,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.093,
+   "tokens_entrada": 1975,
+   "tokens_salida": 97,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.089,
+   "tokens_entrada": 615,
+   "tokens_salida": 125,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 3860,
+ "grafica": {
+  "spec": {
+   "tipo": "indicador",
+   "y": [
+    "ventas"
+   ],
+   "titulo": "Ventas",
+   "confianza": "alta"
+  }
+ }
+}

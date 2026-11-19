@@ -1,0 +1,472 @@
+{
+ "sesion": "JD09",
+ "turno": 1,
+ "fecha": "2026-11-18T21:25:25",
+ "entrada": {
+  "pregunta": "¿Qué promoción podría lanzar para las horas en que casi no hay gente?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Qué promoción podría lanzar para las horas en que casi no hay gente?",
+ "pregunta_completa": "¿Qué promoción podría lanzar para las horas en que casi no hay gente en Tortas Jaibo?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Para atraer más clientes en tus horas más flojas, que son principalmente las mañanas de lunes a jueves, te sugiero lanzar un combo de \"Mega Barda con Coca-Cola\". Este par es el más popular de tu negocio, con 238 órdenes registradas, y actualmente no cuenta con ninguna promoción activa. También podrías considerar un paquete de \"Horchata con Mixta Normal\", ya que tienen una afinidad alta de 2.28, lo que significa que los clientes suelen pedirlos juntos con mucha frecuencia. Estas combinaciones aprovechan los productos que tus clientes ya prefieren comprar en conjunto.\n\nRecomendación: Lanza el combo \"Mega Barda + Coca-Cola\" con un precio especial válido únicamente de lunes a jueves antes de las 12:00 p.m. para incentivar el tráfico en tus horarios de menor venta.",
+ "sql": null,
+ "explicacion_sql": "Pares de productos que más se piden en la misma orden en los últimos 180 días (sin cargos internos). «Afinidad» = cuántas veces más se piden juntos que si se eligieran al azar: mayor que 1 significa que sí tienden a ir juntos. «Ya es promoción» indica si existe una promoción activa con ambos productos. También se muestran los días y horarios más flojos, buenos para una promoción que atraiga clientes.",
+ "resultado": {
+  "columnas": [
+   "producto_1",
+   "producto_2",
+   "ordenes_juntos",
+   "porcentaje_de_ordenes",
+   "afinidad",
+   "ya_es_promocion"
+  ],
+  "filas": [
+   [
+    "Coca cola",
+    "Mega barda",
+    238,
+    8.5,
+    1.23,
+    "no"
+   ],
+   [
+    "Barda normal",
+    "Coca cola",
+    161,
+    5.8,
+    0.98,
+    "no"
+   ],
+   [
+    "Barda normal",
+    "Mega barda",
+    158,
+    5.6,
+    0.53,
+    "no"
+   ],
+   [
+    "Jamaica",
+    "Mega barda",
+    157,
+    5.6,
+    1.14,
+    "no"
+   ],
+   [
+    "Horchata",
+    "Mega barda",
+    139,
+    5.0,
+    0.99,
+    "no"
+   ],
+   [
+    "Barda normal",
+    "Horchata",
+    127,
+    4.5,
+    1.07,
+    "no"
+   ],
+   [
+    "Barda normal",
+    "Jamaica",
+    125,
+    4.5,
+    1.07,
+    "no"
+   ],
+   [
+    "Mega barda",
+    "Tamarindo",
+    92,
+    3.3,
+    1.13,
+    "no"
+   ],
+   [
+    "Barda normal",
+    "Tamarindo",
+    85,
+    3.0,
+    1.24,
+    "no"
+   ],
+   [
+    "Delaware punch",
+    "Mega barda",
+    76,
+    2.7,
+    1.18,
+    "no"
+   ]
+  ],
+  "n_filas": 10,
+  "error": null,
+  "ejecutada": true,
+  "herramienta": "combinaciones_frecuentes",
+  "titulo": "Productos que se piden juntos"
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "pares con más afinidad (se piden juntos más de lo normal)",
+   "columnas": [
+    "producto_1",
+    "producto_2",
+    "ordenes_juntos",
+    "afinidad",
+    "ya_es_promocion"
+   ],
+   "filas": [
+    [
+     "Horchata",
+     "Mixta normal",
+     24,
+     2.28,
+     "no"
+    ],
+    [
+     "Arizona",
+     "Bocoles",
+     22,
+     1.83,
+     "no"
+    ],
+    [
+     "Arizona",
+     "Mega mixta",
+     18,
+     1.79,
+     "no"
+    ],
+    [
+     "Coca cola",
+     "Enchiladas suizas",
+     20,
+     1.78,
+     "no"
+    ],
+    [
+     "Coca sin azucar",
+     "Pierna normal",
+     19,
+     1.75,
+     "no"
+    ],
+    [
+     "Coca sin azucar",
+     "Gordita",
+     24,
+     1.61,
+     "no"
+    ],
+    [
+     "Delaware punch",
+     "Tacos de barbacoa",
+     28,
+     1.55,
+     "no"
+    ],
+    [
+     "Coca sin azucar",
+     "Mega mixta",
+     19,
+     1.51,
+     "no"
+    ]
+   ],
+   "n_filas": 8,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "días y horarios más flojos (promedio de órdenes por día abierto)",
+   "columnas": [
+    "dia_semana",
+    "num_dia_semana",
+    "franja",
+    "ordenes_por_dia"
+   ],
+   "filas": [
+    [
+     "lunes",
+     1,
+     "mañana (antes de las 12)",
+     2.1
+    ],
+    [
+     "jueves",
+     4,
+     "mañana (antes de las 12)",
+     2.6
+    ],
+    [
+     "sabado",
+     6,
+     "mañana (antes de las 12)",
+     3.0
+    ],
+    [
+     "martes",
+     2,
+     "mañana (antes de las 12)",
+     3.0
+    ],
+    [
+     "viernes",
+     5,
+     "mañana (antes de las 12)",
+     3.3
+    ],
+    [
+     "sabado",
+     6,
+     "tarde (17 en adelante)",
+     3.4
+    ]
+   ],
+   "n_filas": 6,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 2,
+  "verificadas": 2,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [],
+ "sql_ejecutadas": [
+  "WITH l AS (SELECT DISTINCT id_orden, producto FROM ventas WHERE categoria <> 'Interno' AND producto <> '--' AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 180 DAY), n AS (SELECT COUNT(DISTINCT id_orden) AS total FROM l), p AS (SELECT producto, COUNT(*) AS ordenes FROM l GROUP BY producto) SELECT a.producto AS producto_1, b.producto AS producto_2, COUNT(*) AS juntos, MAX(pa.ordenes) AS ordenes_1, MAX(pb.ordenes) AS ordenes_2, MAX(n.total) AS total FROM l a JOIN l b ON a.id_orden = b.id_orden AND a.producto < b.producto JOIN p pa ON pa.producto = a.producto JOIN p pb ON pb.producto = b.producto CROSS JOIN n GROUP BY a.producto, b.producto HAVING COUNT(*) >= 10 ORDER BY juntos DESC LIMIT 80",
+  "SELECT promocion, producto FROM promociones WHERE activa AND producto IS NOT NULL",
+  "WITH d AS (SELECT dia_semana, num_dia_semana, COUNT(DISTINCT fecha) AS dias FROM ordenes WHERE fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 180 DAY GROUP BY dia_semana, num_dia_semana) SELECT o.dia_semana, o.num_dia_semana, CASE WHEN o.hora_del_dia < 12 THEN 'mañana (antes de las 12)' WHEN o.hora_del_dia < 17 THEN 'comida (12 a 17)' ELSE 'tarde (17 en adelante)' END AS franja, ROUND(COUNT(*) * 1.0 / MAX(d.dias), 1) AS ordenes_por_dia FROM ordenes o JOIN d ON o.num_dia_semana = d.num_dia_semana WHERE NOT o.cancelada AND o.fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 180 DAY GROUP BY o.dia_semana, o.num_dia_semana, franja ORDER BY ordenes_por_dia ASC LIMIT 6"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "21:25:06",
+   "duracion_s": 2.855,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.855,
+     "tokens_entrada": 1021,
+     "tokens_salida": 112,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "analisis": "promociones",
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Qué promoción podría lanzar para las horas en que casi no hay gente en Tortas Jaibo?",
+    "contexto": {
+     "periodo": null,
+     "producto": null,
+     "categoria": null,
+     "metrica": null
+    }
+   }
+  },
+  {
+   "agente": "Asesor de negocio",
+   "accion": "analisis_especializado",
+   "hora": "21:25:13",
+   "duracion_s": 7.215,
+   "llamadas_llm": [
+    {
+     "rol": "asesor",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 6.335,
+     "tokens_entrada": 699,
+     "tokens_salida": 39,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "combinaciones_frecuentes",
+    "propuesta_llm": {
+     "herramienta": "combinaciones_frecuentes",
+     "parametros": {
+      "dias": 180
+     }
+    },
+    "parametros": {
+     "dias": 180,
+     "min_ordenes": 10
+    },
+    "filas": 10,
+    "supuestos": [],
+    "error_llm": null
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "21:25:19",
+   "duracion_s": 5.375,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 5.282,
+     "tokens_entrada": 795,
+     "tokens_salida": 107,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras_horizontales",
+    "spec": {
+     "tipo": "barras_horizontales",
+     "x": "producto_1",
+     "y": [
+      "ordenes_juntos"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Combinaciones de productos más frecuentes"
+    },
+    "razon": "Permite visualizar fácilmente qué parejas de productos se venden más juntas para crear promociones atractivas basadas en los hábitos de compra actuales.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "21:25:25",
+   "duracion_s": 6.43,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 5.932,
+     "tokens_entrada": 2424,
+     "tokens_salida": 182,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 2,
+     "verificadas": 2,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 76,
+    "reglas_rag": [
+     "Promociones",
+     "Recomendaciones típicas para el dueño"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "21:25:25",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "ultima_pregunta": "¿Qué promoción podría lanzar para las horas en que casi no hay gente en Tortas Jaibo?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": "promociones",
+ "herramienta_negocio": {
+  "nombre": "combinaciones_frecuentes",
+  "titulo": "Productos que se piden juntos",
+  "parametros": {
+   "dias": 180,
+   "min_ordenes": 10
+  },
+  "supuestos": []
+ },
+ "duracion_s": 21.89,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.855,
+   "tokens_entrada": 1021,
+   "tokens_salida": 112,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "asesor",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 6.335,
+   "tokens_entrada": 699,
+   "tokens_salida": 39,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 5.282,
+   "tokens_entrada": 795,
+   "tokens_salida": 107,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 5.932,
+   "tokens_entrada": 2424,
+   "tokens_salida": 182,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5379,
+ "grafica": {
+  "spec": {
+   "tipo": "barras_horizontales",
+   "x": "producto_1",
+   "y": [
+    "ordenes_juntos"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Combinaciones de productos más frecuentes",
+   "razon": "Permite visualizar fácilmente qué parejas de productos se venden más juntas para crear promociones atractivas basadas en los hábitos de compra actuales."
+  }
+ }
+}

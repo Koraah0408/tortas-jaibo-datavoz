@@ -1,0 +1,90 @@
+{
+ "sesion": "D02",
+ "turno": 1,
+ "fecha": "2026-11-17T15:07:41",
+ "entrada": {
+  "pregunta": "",
+  "audio": null,
+  "archivo": "C:\\proyectos\\DataVoz\\data\\ventas_formato_distinto.xlsx"
+ },
+ "pregunta": "",
+ "pregunta_completa": "",
+ "intencion": "limpieza_datos",
+ "es_seguimiento": false,
+ "respuesta": "No pude identificar en «ventas_formato_distinto.xlsx» las columnas: fecha, producto, precio_unitario o total. Columnas encontradas: Día de venta, Hora, Folio, Artículo vendido, Pzas, Precio c/u, Cobrado, Pagó con, Promo, Notas. Renómbralas (por ejemplo «fecha», «producto», «cantidad», «precio_unitario») y vuelve a subir el archivo.",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Limpiador",
+   "accion": "limpiar_y_cargar",
+   "hora": "15:07:41",
+   "duracion_s": 4.757,
+   "llamadas_llm": [
+    {
+     "rol": "limpiador",
+     "proveedor": "error",
+     "modelo": "-",
+     "duracion_s": 4.084,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor "
+    }
+   ],
+   "detalle": {
+    "archivo": "ventas_formato_distinto.xlsx",
+    "error_llm": "Falló la llamada al modelo (GoogleRateLimitError): Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor ",
+    "mapeo": {
+     "Hora": "hora",
+     "Folio": "ticket",
+     "Pzas": "cantidad",
+     "Promo": "promocion"
+    },
+    "origen_mapeo": "reglas",
+    "faltan": [
+     "fecha",
+     "producto",
+     "precio_unitario o total"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "15:07:41",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {},
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "",
+ "duracion_s": 4.76,
+ "llamadas_llm": [
+  {
+   "rol": "limpiador",
+   "proveedor": "error",
+   "modelo": "-",
+   "duracion_s": 4.084,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor "
+  }
+ ],
+ "tokens": 0,
+ "grafica": null
+}

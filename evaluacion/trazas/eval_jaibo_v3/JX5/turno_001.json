@@ -1,0 +1,99 @@
+{
+ "sesion": "JX5",
+ "turno": 1,
+ "fecha": "2026-11-18T22:14:06",
+ "entrada": {
+  "pregunta": "¿A cuánto está hoy el kilo de carne para barbacoa en el mercado?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿A cuánto está hoy el kilo de carne para barbacoa en el mercado?",
+ "pregunta_completa": "¿A cuánto está hoy el kilo de carne para barbacoa en el mercado?",
+ "intencion": "fuera_de_alcance",
+ "es_seguimiento": false,
+ "respuesta": "Lo siento, no tengo acceso a información externa como precios de mercado o proveedores. Solo puedo ayudarte con los datos de ventas de Tortas Jaibo. ¿Te gustaría saber cuánto vendiste de barbacoa la semana pasada o cuál fue el producto más vendido?",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "22:14:06",
+   "duracion_s": 1.18,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.179,
+     "tokens_entrada": 1122,
+     "tokens_salida": 170,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "fuera_de_alcance",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿A cuánto está hoy el kilo de carne para barbacoa en el mercado?",
+    "contexto": {
+     "periodo": null,
+     "producto": "carne para barbacoa",
+     "categoria": null,
+     "metrica": "otra"
+    }
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "responder_directo",
+   "hora": "22:14:06",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "intencion": "fuera_de_alcance"
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "22:14:06",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {},
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "duracion_s": 1.19,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.179,
+   "tokens_entrada": 1122,
+   "tokens_salida": 170,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 1292,
+ "grafica": null
+}

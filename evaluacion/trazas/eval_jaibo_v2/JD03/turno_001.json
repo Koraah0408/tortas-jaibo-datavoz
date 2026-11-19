@@ -1,0 +1,350 @@
+{
+ "sesion": "JD03",
+ "turno": 1,
+ "fecha": "2026-11-18T21:45:57",
+ "entrada": {
+  "pregunta": "¿Cuántos panes mega le pido al panadero para el viernes?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuántos panes mega le pido al panadero para el viernes?",
+ "pregunta_completa": "¿Cuántos panes mega le pido al panadero para el viernes?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Para este viernes, te sugiero pedir 12 panes mega. Este número considera el promedio de ventas de los viernes anteriores más un margen de seguridad del 10%, el cual es un SUPUESTO que debemos confirmar si te funciona bien. Ten en cuenta que este método tiene un error promedio de 3 piezas por día, por lo que es una estimación basada en tu historial reciente. Con este margen, en las últimas semanas habrías tenido faltantes en el 50% de los días, así que es un punto de partida.\n\nRecomendación: Monitorea si con 12 piezas logras cubrir toda la demanda del viernes o si prefieres aumentar el margen de seguridad para evitar faltantes, aunque esto implique que sobre un poco más de pan.",
+ "sql": null,
+ "explicacion_sql": "Pronóstico de pan: promedio de tortas normales y Mega vendidas en los mismos días de la semana de las últimas 8 semanas que abrió el negocio, más el margen de seguridad. Para medir qué tan confiable es, se repitió el método en cada día abierto de las últimas 8 semanas usando solo los datos anteriores a ese día. Supuestos: margen de seguridad de 10% (SUPUESTO: falta confirmarlo con el dueño); un pan por torta: las «normal» usan pan normal y las «Mega» pan mega; en quincena se vende 1.11 veces lo normal (medido en las últimas 26 semanas).",
+ "resultado": {
+  "columnas": [
+   "fecha",
+   "dia_semana",
+   "pan_normal_esperado",
+   "pan_mega_esperado",
+   "comprar_pan_normal",
+   "comprar_pan_mega",
+   "dias_comparados",
+   "es_quincena"
+  ],
+  "filas": [
+   [
+    "2026-11-20",
+    "viernes",
+    9.4,
+    10.2,
+    11,
+    12,
+    8,
+    "no"
+   ]
+  ],
+  "n_filas": 1,
+  "error": null,
+  "ejecutada": true,
+  "herramienta": "pronosticar_pan",
+  "titulo": "Pan a comprar"
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "qué tan bien habría funcionado este método en las últimas 8 semanas (50 días abiertos)",
+   "columnas": [
+    "medida",
+    "pan_normal",
+    "pan_mega"
+   ],
+   "filas": [
+    [
+     "error promedio del pronóstico (piezas por día)",
+     3.0,
+     3.0
+    ],
+    [
+     "error si se copia el mismo día de la semana pasada (piezas por día)",
+     4.2,
+     4.4
+    ],
+    [
+     "venta promedio por día (piezas)",
+     8.4,
+     9.9
+    ]
+   ],
+   "n_filas": 3,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "qué habría pasado con distintos márgenes de seguridad en esas 8 semanas",
+   "columnas": [
+    "margen_de_seguridad_pct",
+    "dias_que_habria_faltado_pan_pct",
+    "pan_sobrante_promedio_por_dia",
+    "pan_faltante_promedio_por_dia"
+   ],
+   "filas": [
+    [
+     0,
+     60.0,
+     3.0,
+     3.0
+    ],
+    [
+     10,
+     50.0,
+     4.1,
+     2.3
+    ],
+    [
+     20,
+     44.0,
+     5.3,
+     1.9
+    ],
+    [
+     30,
+     30.0,
+     6.6,
+     1.4
+    ]
+   ],
+   "n_filas": 4,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 5,
+  "verificadas": 5,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [],
+ "sql_ejecutadas": [
+  "WITH d AS (SELECT DISTINCT fecha FROM ordenes) SELECT d.fecha, COALESCE(SUM(v.cantidad) FILTER (WHERE v.producto IN ('Barbacoa normal', 'Barda normal', 'Mixta normal', 'Pierna normal')), 0) AS normal, COALESCE(SUM(v.cantidad) FILTER (WHERE v.producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna')), 0) AS mega FROM d LEFT JOIN ventas v ON v.fecha = d.fecha GROUP BY d.fecha ORDER BY d.fecha"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "21:45:50",
+   "duracion_s": 1.105,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.104,
+     "tokens_entrada": 1120,
+     "tokens_salida": 116,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "analisis": "pronostico_pan",
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántos panes mega le pido al panadero para el viernes?",
+    "contexto": {
+     "periodo": "viernes",
+     "producto": "pan mega",
+     "categoria": null,
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Asesor de negocio",
+   "accion": "analisis_especializado",
+   "hora": "21:45:52",
+   "duracion_s": 2.078,
+   "llamadas_llm": [
+    {
+     "rol": "asesor",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.623,
+     "tokens_entrada": 697,
+     "tokens_salida": 68,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "pronosticar_pan",
+    "propuesta_llm": {
+     "herramienta": "pronosticar_pan",
+     "parametros": {
+      "fechas": [
+       "2026-11-20"
+      ],
+      "margen": null,
+      "semanas": 8
+     }
+    },
+    "parametros": {
+     "fechas": [
+      "2026-11-20"
+     ],
+     "semanas": 8,
+     "margen": 0.1
+    },
+    "filas": 1,
+    "supuestos": [
+     "margen de seguridad de 10% (SUPUESTO: falta confirmarlo con el dueño)",
+     "un pan por torta: las «normal» usan pan normal y las «Mega» pan mega",
+     "en quincena se vende 1.11 veces lo normal (medido en las últimas 26 semanas)"
+    ],
+    "error_llm": null
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "21:45:53",
+   "duracion_s": 0.067,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "pan_normal_esperado",
+      "pan_mega_esperado",
+      "comprar_pan_normal",
+      "comprar_pan_mega",
+      "dias_comparados"
+     ],
+     "titulo": "Pan normal esperado",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "21:45:57",
+   "duracion_s": 4.274,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.039,
+     "tokens_entrada": 2410,
+     "tokens_salida": 159,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 5,
+     "verificadas": 5,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 52,
+    "reglas_rag": [
+     "Compra y preparación de pan",
+     "Recomendaciones típicas para el dueño"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "21:45:57",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "viernes",
+     "producto": "pan mega",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Cuántos panes mega le pido al panadero para el viernes?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": "pronostico_pan",
+ "herramienta_negocio": {
+  "nombre": "pronosticar_pan",
+  "titulo": "Pan a comprar",
+  "parametros": {
+   "fechas": [
+    "2026-11-20"
+   ],
+   "semanas": 8,
+   "margen": 0.1
+  },
+  "supuestos": [
+   "margen de seguridad de 10% (SUPUESTO: falta confirmarlo con el dueño)",
+   "un pan por torta: las «normal» usan pan normal y las «Mega» pan mega",
+   "en quincena se vende 1.11 veces lo normal (medido en las últimas 26 semanas)"
+  ]
+ },
+ "duracion_s": 7.53,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.104,
+   "tokens_entrada": 1120,
+   "tokens_salida": 116,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "asesor",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.623,
+   "tokens_entrada": 697,
+   "tokens_salida": 68,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.039,
+   "tokens_entrada": 2410,
+   "tokens_salida": 159,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 4570,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "pan_normal_esperado",
+    "pan_mega_esperado",
+    "comprar_pan_normal",
+    "comprar_pan_mega",
+    "dias_comparados"
+   ],
+   "titulo": "Pan normal esperado",
+   "confianza": "alta"
+  }
+ }
+}

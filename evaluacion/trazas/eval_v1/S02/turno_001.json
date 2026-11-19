@@ -1,0 +1,276 @@
+{
+ "sesion": "S02",
+ "turno": 1,
+ "fecha": "2026-11-17T14:59:41",
+ "entrada": {
+  "pregunta": "¿Cuáles fueron los 5 productos más vendidos del año?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuáles fueron los 5 productos más vendidos del año?",
+ "pregunta_completa": "¿Cuáles fueron los 5 productos más vendidos del año?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Los 5 productos más vendidos del año fueron: Pan dulce con 1,344 unidades, Bolillo con 1,183 unidades, Cerveza clara lata 355 ml con 1,109 unidades, Paleta de caramelo con 951 unidades y Papas fritas sal 45 g con 651 unidades. El Pan dulce representó el 25.70% de las unidades vendidas de estos productos, siendo el más popular. En total, estos cinco productos sumaron 5,238 unidades vendidas.\n\nRecomendación: Asegúrate de tener siempre suficiente inventario de estos productos, especialmente Pan dulce y Bolillo, para no perder ventas.",
+ "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE anio = 2025 GROUP BY producto ORDER BY unidades DESC LIMIT 5",
+ "explicacion_sql": "Calcula los 5 productos con mayor número de unidades vendidas durante el año 2025.",
+ "resultado": {
+  "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE anio = 2025 GROUP BY producto ORDER BY unidades DESC LIMIT 5",
+  "columnas": [
+   "producto",
+   "unidades"
+  ],
+  "filas": [
+   [
+    "Pan dulce",
+    1344
+   ],
+   [
+    "Bolillo",
+    1183
+   ],
+   [
+    "Cerveza clara lata 355 ml",
+    1109
+   ],
+   [
+    "Paleta de caramelo",
+    951
+   ],
+   [
+    "Papas fritas sal 45 g",
+    651
+   ]
+  ],
+  "n_filas": 5,
+  "truncado": false,
+  "duracion_s": 0.0252,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 8,
+  "verificadas": 8,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE anio = 2025 GROUP BY producto ORDER BY unidades DESC LIMIT 5",
+   "problema": null,
+   "n_filas": 5
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE anio = 2025 GROUP BY producto ORDER BY unidades DESC LIMIT 5"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "14:59:35",
+   "duracion_s": 1.058,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-2.5-flash",
+     "duracion_s": 1.057,
+     "tokens_entrada": 683,
+     "tokens_salida": 106,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuáles fueron los 5 productos más vendidos del año?",
+    "contexto": {
+     "periodo": "2025",
+     "producto": "los 5 productos más vendidos",
+     "categoria": null,
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "14:59:39",
+   "duracion_s": 3.768,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-2.5-flash",
+     "duracion_s": 3.346,
+     "tokens_entrada": 1574,
+     "tokens_salida": 546,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Productos que ya no conviene resurtir",
+      "Resurtido y proveedores",
+      "Recomendaciones típicas para el dueño",
+      "Tabla productos (catálogo)"
+     ],
+     "ejemplos": [
+      "¿Cuáles fueron los 10 productos más vendidos en marzo?",
+      "¿Cuántos días estuvo agotado el garrafón de agua en julio?",
+      "¿Cuántas unidades de atún en agua se vendieron por mes?"
+     ],
+     "productos": [],
+     "categorias": []
+    },
+    "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE anio = 2025 GROUP BY producto ORDER BY unidades DESC LIMIT 5",
+    "explicacion": "Calcula los 5 productos con mayor número de unidades vendidas durante el año 2025.",
+    "error": null,
+    "filas": 5,
+    "consultas_apoyo": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "14:59:39",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 5,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "14:59:39",
+   "duracion_s": 0.319,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "producto",
+     "y": [
+      "unidades"
+     ],
+     "titulo": "¿Cuáles fueron los 5 productos más vendidos del año?",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "14:59:41",
+   "duracion_s": 1.574,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-2.5-flash",
+     "duracion_s": 1.403,
+     "tokens_entrada": 738,
+     "tokens_salida": 153,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 8,
+     "verificadas": 8,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 9,
+    "reglas_rag": [
+     "Productos que ya no conviene resurtir",
+     "Resurtido y proveedores"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "14:59:41",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "2025",
+     "producto": "los 5 productos más vendidos",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Cuáles fueron los 5 productos más vendidos del año?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "duracion_s": 6.73,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-2.5-flash",
+   "duracion_s": 1.057,
+   "tokens_entrada": 683,
+   "tokens_salida": 106,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-2.5-flash",
+   "duracion_s": 3.346,
+   "tokens_entrada": 1574,
+   "tokens_salida": 546,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-2.5-flash",
+   "duracion_s": 1.403,
+   "tokens_entrada": 738,
+   "tokens_salida": 153,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 3800,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "producto",
+   "y": [
+    "unidades"
+   ],
+   "titulo": "¿Cuáles fueron los 5 productos más vendidos del año?",
+   "confianza": "alta"
+  }
+ }
+}

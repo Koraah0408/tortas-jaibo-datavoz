@@ -1,0 +1,161 @@
+{
+ "sesion": "V02",
+ "turno": 1,
+ "fecha": "2026-11-17T15:06:51",
+ "entrada": {
+  "pregunta": "",
+  "audio": "C:\\proyectos\\DataVoz\\evaluacion\\audio\\voz_02.wav",
+  "archivo": null
+ },
+ "pregunta": "¿Cuántas unidades de huevo blanco de 12 piezas se vendieron en marzo?",
+ "pregunta_completa": "¿Cuántas unidades de huevo blanco de 12 piezas se vendieron en marzo?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "No pude consultar al modelo de lenguaje en este momento (límite de uso o conexión). Intenta de nuevo en un minuto.",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": {
+  "error": "Falló la llamada al modelo (GoogleRateLimitError): Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor "
+ },
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [
+  {
+   "sql": null,
+   "problema": "Falló la llamada al modelo (GoogleRateLimitError): Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor ",
+   "error_llm": "Falló la llamada al modelo (GoogleRateLimitError): Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor "
+  }
+ ],
+ "sql_ejecutadas": [],
+ "transcripcion": {
+  "texto": "¿Cuántas unidades de huevo blanco de 12 piezas se vendieron en marzo?",
+  "idioma": "es",
+  "duracion_audio_s": 4.46,
+  "duracion_s": 2.38,
+  "error": null
+ },
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "transcribir_voz",
+   "hora": "15:06:46",
+   "duracion_s": 2.376,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "transcribir_voz",
+    "texto": "¿Cuántas unidades de huevo blanco de 12 piezas se vendieron en marzo?",
+    "idioma": "es",
+    "duracion_audio_s": 4.46,
+    "duracion_s": 2.38,
+    "error": null
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "15:06:48",
+   "duracion_s": 2.068,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "-",
+     "duracion_s": 2.068,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor "
+    }
+   ],
+   "detalle": {
+    "error_llm": "Falló la llamada al modelo (GoogleRateLimitError): Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor ",
+    "respaldo": "se asume consulta_datos"
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "15:06:51",
+   "duracion_s": 2.355,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "error",
+     "modelo": "-",
+     "duracion_s": 2.068,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor "
+    }
+   ],
+   "detalle": {
+    "error_llm": "Falló la llamada al modelo (GoogleRateLimitError): Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor "
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "15:06:51",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "aclarar",
+    "motivo": "Falló la llamada al modelo (GoogleRateLimitError): Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor "
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "responder_directo",
+   "hora": "15:06:51",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "intencion": "consulta_datos"
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "15:06:51",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "ultima_pregunta": "¿Cuántas unidades de huevo blanco de 12 piezas se vendieron en marzo?"
+    },
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": "Falló la llamada al modelo (GoogleRateLimitError): Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor ",
+ "decision_supervisor": "aclarar",
+ "duracion_s": 6.81,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "-",
+   "duracion_s": 2.068,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor "
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "error",
+   "modelo": "-",
+   "duracion_s": 2.068,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "Error calling model 'gemini-2.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor "
+  }
+ ],
+ "tokens": 0,
+ "grafica": null
+}

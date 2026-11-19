@@ -1,0 +1,261 @@
+{
+ "sesion": "JH2",
+ "turno": 1,
+ "fecha": "2026-11-18T22:11:58",
+ "entrada": {
+  "pregunta": "¿Cuántos pedidos hubo que rehacer en agosto de 2026?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuántos pedidos hubo que rehacer en agosto de 2026?",
+ "pregunta_completa": "¿Cuántos pedidos hubo que rehacer en agosto de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En agosto de 2026 tuvimos que rehacer 30 pedidos en total. Esta cifra representa errores en la preparación o entrega que nos obligaron a corregir el servicio para el cliente. Posiblemente, estos incidentes ocurrieron durante las horas de mayor demanda, cuando el ritmo de trabajo en la cocina es más intenso. Es importante revisar qué tipo de tortas o platillos fueron los que más fallas presentaron para ajustar el proceso.\n\nRecomendación: Identifica si los errores se concentran en algún turno o plataforma específica para reforzar la capacitación del personal en esos momentos críticos.",
+ "sql": "SELECT COUNT(*) AS pedidos_rehechos FROM ordenes WHERE mes = 8 AND anio = 2026 AND (estado ILIKE '%rehacer%' OR estado ILIKE '%corregir%' OR estado ILIKE '%cancelada%')",
+ "explicacion_sql": "Calcula el número de pedidos que se tuvieron que rehacer o corregir en agosto de 2026 basándose en la columna estado.",
+ "resultado": {
+  "sql": "SELECT COUNT(*) AS pedidos_rehechos FROM ordenes WHERE mes = 8 AND anio = 2026 AND (estado ILIKE '%rehacer%' OR estado ILIKE '%corregir%' OR estado ILIKE '%cancelada%')",
+  "columnas": [
+   "pedidos_rehechos"
+  ],
+  "filas": [
+   [
+    30
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0341,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 2,
+  "verificadas": 2,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT COUNT(*) AS pedidos_rehechos FROM ordenes WHERE mes = 8 AND anio = 2026 AND (estado ILIKE '%rehacer%' OR estado ILIKE '%corregir%' OR estado ILIKE '%cancelada%')",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT COUNT(*) AS pedidos_rehechos FROM ordenes WHERE mes = 8 AND anio = 2026 AND (estado ILIKE '%rehacer%' OR estado ILIKE '%corregir%' OR estado ILIKE '%cancelada%')"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "22:11:52",
+   "duracion_s": 1.476,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.476,
+     "tokens_entrada": 1122,
+     "tokens_salida": 116,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántos pedidos hubo que rehacer en agosto de 2026?",
+    "contexto": {
+     "periodo": "agosto de 2026",
+     "producto": null,
+     "categoria": null,
+     "metrica": "otra"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "22:11:53",
+   "duracion_s": 1.548,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.035,
+     "tokens_entrada": 2188,
+     "tokens_salida": 123,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Tabla promociones",
+      "Horario y momentos del día",
+      "Promociones",
+      "Recomendaciones típicas para el dueño"
+     ],
+     "ejemplos": [
+      "¿Cuánto vendí por canal este mes y cuál es el ticket promedio?",
+      "¿Cuántos kilos de barbacoa por peso se venden al mes?",
+      "¿Cuánto vendí en dinero la última semana?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT COUNT(*) AS pedidos_rehechos FROM ordenes WHERE mes = 8 AND anio = 2026 AND (estado ILIKE '%rehacer%' OR estado ILIKE '%corregir%' OR estado ILIKE '%cancelada%')",
+    "explicacion": "Calcula el número de pedidos que se tuvieron que rehacer o corregir en agosto de 2026 basándose en la columna estado.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "22:11:53",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "22:11:53",
+   "duracion_s": 0.011,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "indicador",
+    "spec": {
+     "tipo": "indicador",
+     "y": [
+      "pedidos_rehechos"
+     ],
+     "titulo": "Pedidos rehechos",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "22:11:58",
+   "duracion_s": 4.717,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.524,
+     "tokens_entrada": 766,
+     "tokens_salida": 122,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 2,
+     "verificadas": 2,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Promociones"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "22:11:58",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "agosto de 2026",
+     "metrica": "otra",
+     "ultima_pregunta": "¿Cuántos pedidos hubo que rehacer en agosto de 2026?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "duracion_s": 7.76,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.476,
+   "tokens_entrada": 1122,
+   "tokens_salida": 116,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.035,
+   "tokens_entrada": 2188,
+   "tokens_salida": 123,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.524,
+   "tokens_entrada": 766,
+   "tokens_salida": 122,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 4437,
+ "grafica": {
+  "spec": {
+   "tipo": "indicador",
+   "y": [
+    "pedidos_rehechos"
+   ],
+   "titulo": "Pedidos rehechos",
+   "confianza": "alta"
+  }
+ }
+}

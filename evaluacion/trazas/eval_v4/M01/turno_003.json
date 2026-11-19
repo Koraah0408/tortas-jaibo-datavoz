@@ -1,0 +1,332 @@
+{
+ "sesion": "M01",
+ "turno": 3,
+ "fecha": "2026-11-18T21:31:40",
+ "entrada": {
+  "pregunta": "¿Cuántos días estuvo sin existencias el refresco de uva en ese mes?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuántos días estuvo sin existencias el refresco de uva en ese mes?",
+ "pregunta_completa": "¿Cuántos días estuvo sin existencias el refresco de uva de 3 litros en noviembre de 2025?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": true,
+ "respuesta": "El refresco de uva de 3 litros no tuvo ningún día sin existencias durante noviembre de 2025. Esto es una buena noticia, ya que lograste cubrir la demanda de las 7 unidades que se vendieron en el mes sin interrupciones. El proveedor realizó 4 entregas en el periodo, sumando un total de 7 unidades recibidas. Mantener este flujo constante ayudó a que el producto siempre estuviera disponible para tus clientes.\n\nRecomendación: Como las ventas son bajas, monitorea si el consumo aumenta en diciembre por las fiestas para decidir si mantienes este volumen de resurtido.",
+ "sql": "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto",
+ "explicacion_sql": "Calcula los días que el Refresco 3 L sabor uva estuvo sin existencias durante noviembre de 2025 consultando directamente la tabla inventario_diario.",
+ "resultado": {
+  "sql": "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto",
+  "columnas": [
+   "producto",
+   "dias_sin_existencia"
+  ],
+  "filas": [
+   [
+    "Refresco 3 L sabor uva",
+    0
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0459,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Verificar las unidades vendidas del Refresco 3 L sabor uva en noviembre para ver si los días sin existencias afectaron sus ventas",
+   "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto",
+   "columnas": [
+    "producto",
+    "unidades"
+   ],
+   "filas": [
+    [
+     "Refresco 3 L sabor uva",
+     7
+    ]
+   ],
+   "n_filas": 1,
+   "truncado": false,
+   "duracion_s": 0.0482,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "Revisar los días que recibió entradas de inventario el proveedor en noviembre",
+   "sql": "SELECT fecha, entradas FROM inventario_diario WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 AND entradas > 0",
+   "columnas": [
+    "fecha",
+    "entradas"
+   ],
+   "filas": [
+    [
+     "2025-11-10",
+     2
+    ],
+    [
+     "2025-11-17",
+     2
+    ],
+    [
+     "2025-11-20",
+     2
+    ],
+    [
+     "2025-11-24",
+     1
+    ]
+   ],
+   "n_filas": 4,
+   "truncado": false,
+   "duracion_s": 0.0378,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 5,
+  "verificadas": 5,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto",
+  "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto",
+  "SELECT fecha, entradas FROM inventario_diario WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 AND entradas > 0"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "21:31:28",
+   "duracion_s": 5.251,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 5.251,
+     "tokens_entrada": 1307,
+     "tokens_salida": 136,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "analisis": null,
+    "es_seguimiento": true,
+    "pregunta_completa": "¿Cuántos días estuvo sin existencias el refresco de uva de 3 litros en noviembre de 2025?",
+    "contexto": {
+     "periodo": "noviembre 2025",
+     "producto": "refresco de uva 3 L",
+     "categoria": "Bebidas",
+     "metrica": "otra"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "21:31:34",
+   "duracion_s": 6.506,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 5.198,
+     "tokens_entrada": 2174,
+     "tokens_salida": 281,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Temporadas del año",
+      "Productos que ya no conviene resurtir",
+      "Tabla inventario_diario (existencias por día)",
+      "Nombres de productos"
+     ],
+     "ejemplos": [
+      "¿Cuántos días estuvo sin existencias cada producto de botanas en octubre?",
+      "¿Cuántos días estuvo agotado el garrafón de agua en julio?",
+      "¿Cuáles fueron los 10 productos más vendidos en marzo?"
+     ],
+     "productos": [
+      "Refresco 3 L sabor uva"
+     ],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto",
+    "explicacion": "Calcula los días que el Refresco 3 L sabor uva estuvo sin existencias durante noviembre de 2025 consultando directamente la tabla inventario_diario.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Verificar las unidades vendidas del Refresco 3 L sabor uva en noviembre para ver si los días sin existencias afectaron sus ventas",
+      "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto",
+      "error": null,
+      "filas": 1
+     },
+     {
+      "proposito": "Revisar los días que recibió entradas de inventario el proveedor en noviembre",
+      "sql": "SELECT fecha, entradas FROM inventario_diario WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 AND entradas > 0",
+      "error": null,
+      "filas": 4
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "21:31:34",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "21:31:34",
+   "duracion_s": 0.015,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "indicador",
+    "spec": {
+     "tipo": "indicador",
+     "y": [
+      "dias_sin_existencia"
+     ],
+     "titulo": "Dias sin existencia",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "21:31:40",
+   "duracion_s": 5.55,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 5.191,
+     "tokens_entrada": 1124,
+     "tokens_salida": 132,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 5,
+     "verificadas": 5,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 9,
+    "reglas_rag": [
+     "Temporadas del año",
+     "Productos que ya no conviene resurtir"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "21:31:40",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 3,
+    "contexto": {
+     "periodo": "noviembre 2025",
+     "categoria": "Bebidas",
+     "metrica": "otra",
+     "ultima_pregunta": "¿Cuántos días estuvo sin existencias el refresco de uva de 3 litros en noviembre de 2025?",
+     "producto": "refresco de uva 3 L"
+    },
+    "tarjetas_dashboard": 3
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "duracion_s": 17.33,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 5.251,
+   "tokens_entrada": 1307,
+   "tokens_salida": 136,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 5.198,
+   "tokens_entrada": 2174,
+   "tokens_salida": 281,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 5.191,
+   "tokens_entrada": 1124,
+   "tokens_salida": 132,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5154,
+ "grafica": {
+  "spec": {
+   "tipo": "indicador",
+   "y": [
+    "dias_sin_existencia"
+   ],
+   "titulo": "Dias sin existencia",
+   "confianza": "alta"
+  }
+ }
+}

@@ -1,0 +1,49 @@
+# Grupos de productos de Tortas Jaibo: cómo habla el dueño → qué productos son.
+# "palabras": palabras de la pregunta que activan el grupo (sin acentos, en minúsculas).
+# "patrones": nombres de producto con comodín % (como ILIKE, sin distinguir mayúsculas); se
+# resuelven contra los productos que existen en la base, así funcionan aunque cambien un poco
+# los nombres. Si una palabra está dentro de otra más específica (torta ⊂ torta de barbacoa),
+# solo se usa el grupo más específico.
+
+- grupo: tortas
+  palabras: [torta, tortas]
+  patrones: ["%barda%", "%pierna%", "%mixta%", "Barbacoa normal", "Mega barbacoa"]
+  nota: Cada torta lleva un pan. No existe una categoría 'Tortas' (las tortas están en 'Principal'); filtra con producto IN (...).
+
+- grupo: tortas de barbacoa
+  palabras: [torta de barbacoa, tortas de barbacoa]
+  patrones: ["Barbacoa normal", "Mega barbacoa"]
+
+- grupo: pan normal
+  palabras: [pan normal, panes normales, torta normal, tortas normales, bolillo, bolillos]
+  patrones: ["%normal"]
+  nota: Un pan normal por cada torta normal vendida.
+
+- grupo: pan mega
+  palabras: [pan mega, panes mega, mega, megas, torta mega, tortas mega]
+  patrones: ["Mega %"]
+  nota: Un pan mega por cada torta Mega vendida.
+
+- grupo: pan (todos)
+  palabras: [pan, panes]
+  patrones: ["%barda%", "%pierna%", "%mixta%", "Barbacoa normal", "Mega barbacoa"]
+  nota: Panes usados = tortas vendidas; separa normal y Mega si la pregunta lo pide.
+
+- grupo: barbacoa por peso
+  palabras: [kilo, kilos, kg, medio kilo, por peso]
+  patrones: ["Barbacoa"]
+  excluye: [productos con barbacoa]
+  nota: "El producto 'Barbacoa' se vende por peso: kilos = precio_unitario / 550 (550 = 1 kg, 275 = 1/2 kg); los renglones en $0 no se pueden convertir."
+
+- grupo: productos con barbacoa
+  palabras: [barbacoa]
+  patrones: ["%barbacoa%"]
+  nota: Incluye tortas de barbacoa, tacos, consomé y barbacoa por peso.
+
+- grupo: refrescos
+  palabras: [refresco, refrescos, coca, cocas, soda, sodas]
+  patrones: ["Coca%", "Sprite%", "Sidral%", "Delaware%", "Fesca%", "Escuis%", "Senzao%"]
+
+- grupo: aguas frescas
+  palabras: [agua fresca, aguas frescas, aguas]
+  patrones: ["Tamarindo%", "Horchata%", "Jamaica%"]

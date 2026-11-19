@@ -1,0 +1,300 @@
+{
+ "sesion": "J08",
+ "turno": 1,
+ "fecha": "2026-11-18T22:04:54",
+ "entrada": {
+  "pregunta": "¿Se venden más gorditas en fin de semana o entre semana? Dame el promedio por día",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Se venden más gorditas en fin de semana o entre semana? Dame el promedio por día",
+ "pregunta_completa": "¿Se venden más gorditas en fin de semana o entre semana? Dame el promedio de ventas por día para este producto.",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Se venden ligeramente más gorditas durante el fin de semana, con un promedio de 5.70 piezas diarias, comparado con las 5.20 piezas que se venden entre semana. Aunque el promedio diario es mayor en sábado y domingo, el volumen total de ventas es más alto entre semana, sumando 1,087 gorditas frente a las 513 del fin de semana. Esto posiblemente se deba a que los días hábiles tienen una mayor afluencia constante de clientes. En total, se han vendido 1,600 gorditas en el periodo analizado.\n\nRecomendación: Mantén el inventario de insumos para gorditas preparado para el fin de semana, pero asegúrate de tener mayor capacidad de producción entre semana para cubrir el volumen total más alto.",
+ "sql": "WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana) SELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 2) AS promedio_gorditas_por_dia, SUM(v.cantidad) AS total_gorditas FROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana WHERE v.producto = 'Gordita' GROUP BY v.es_fin_de_semana ORDER BY promedio_gorditas_por_dia DESC",
+ "explicacion_sql": "Calcula el promedio de gorditas vendidas por día entre semana y en fin de semana usando los días reales con operación en las órdenes.",
+ "resultado": {
+  "sql": "WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana) SELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 2) AS promedio_gorditas_por_dia, SUM(v.cantidad) AS total_gorditas FROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana WHERE v.producto = 'Gordita' GROUP BY v.es_fin_de_semana ORDER BY promedio_gorditas_por_dia DESC",
+  "columnas": [
+   "es_fin_de_semana",
+   "promedio_gorditas_por_dia",
+   "total_gorditas"
+  ],
+  "filas": [
+   [
+    true,
+    5.7,
+    513
+   ],
+   [
+    false,
+    5.2,
+    1087
+   ]
+  ],
+  "n_filas": 2,
+  "truncado": false,
+  "duracion_s": 0.0463,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 5,
+  "verificadas": 5,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana) SELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 2) AS promedio_gorditas_por_dia, SUM(v.cantidad) AS total_gorditas FROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana WHERE v.producto = 'Gordita' GROUP BY v.es_fin_de_semana ORDER BY promedio_gorditas_por_dia DESC",
+   "problema": null,
+   "n_filas": 2
+  }
+ ],
+ "sql_ejecutadas": [
+  "WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana) SELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 2) AS promedio_gorditas_por_dia, SUM(v.cantidad) AS total_gorditas FROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana WHERE v.producto = 'Gordita' GROUP BY v.es_fin_de_semana ORDER BY promedio_gorditas_por_dia DESC"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "22:04:42",
+   "duracion_s": 1.459,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.459,
+     "tokens_entrada": 1124,
+     "tokens_salida": 120,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Se venden más gorditas en fin de semana o entre semana? Dame el promedio de ventas por día para este producto.",
+    "contexto": {
+     "periodo": null,
+     "producto": "gorditas",
+     "categoria": null,
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "22:04:44",
+   "duracion_s": 2.051,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.476,
+     "tokens_entrada": 2340,
+     "tokens_salida": 222,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Barbacoa, tacos, gorditas y bocoles",
+      "Platillo del día",
+      "Horario y momentos del día",
+      "Rentabilidad"
+     ],
+     "ejemplos": [
+      "¿Cuántos tacos de barbacoa se venden en promedio por día entre semana y en fin de semana?",
+      "¿Qué platillo del día se vende más cada día de la semana?",
+      "¿Cuánto subió el precio de las tortas con el tiempo?"
+     ],
+     "productos": [
+      "Gordita"
+     ],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana) SELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 2) AS promedio_gorditas_por_dia, SUM(v.cantidad) AS total_gorditas FROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana WHERE v.producto = 'Gordita' GROUP BY v.es_fin_de_semana ORDER BY promedio_gorditas_por_dia DESC",
+    "explicacion": "Calcula el promedio de gorditas vendidas por día entre semana y en fin de semana usando los días reales con operación en las órdenes.",
+    "error": null,
+    "filas": 2,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "22:04:44",
+   "duracion_s": 0.002,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 2,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "22:04:48",
+   "duracion_s": 3.926,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 3.855,
+     "tokens_entrada": 547,
+     "tokens_salida": 107,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "es_fin_de_semana",
+     "y": [
+      "promedio_gorditas_por_dia"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Promedio de ventas de gorditas por día"
+    },
+    "razon": "Las barras permiten comparar fácilmente el promedio diario entre fin de semana y días hábiles.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "22:04:54",
+   "duracion_s": 6.284,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 6.028,
+     "tokens_entrada": 1153,
+     "tokens_salida": 167,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 5,
+     "verificadas": 5,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 18,
+    "reglas_rag": [
+     "Platillo del día",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "22:04:54",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "producto": "gorditas",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Se venden más gorditas en fin de semana o entre semana? Dame el promedio de ventas por día para este producto."
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "duracion_s": 13.73,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.459,
+   "tokens_entrada": 1124,
+   "tokens_salida": 120,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.476,
+   "tokens_entrada": 2340,
+   "tokens_salida": 222,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 3.855,
+   "tokens_entrada": 547,
+   "tokens_salida": 107,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 6.028,
+   "tokens_entrada": 1153,
+   "tokens_salida": 167,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5780,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "es_fin_de_semana",
+   "y": [
+    "promedio_gorditas_por_dia"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Promedio de ventas de gorditas por día",
+   "razon": "Las barras permiten comparar fácilmente el promedio diario entre fin de semana y días hábiles."
+  }
+ }
+}

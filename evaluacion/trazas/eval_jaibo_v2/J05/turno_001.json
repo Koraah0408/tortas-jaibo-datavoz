@@ -1,0 +1,263 @@
+{
+ "sesion": "J05",
+ "turno": 1,
+ "fecha": "2026-11-18T21:42:07",
+ "entrada": {
+  "pregunta": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?",
+ "pregunta_completa": "¿Cuántos tacos de barbacoa se vendieron en agosto de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En agosto de 2026 se vendieron 168 tacos de barbacoa en Tortas Jaibo. Esta cifra refleja la demanda directa de este producto en el mostrador y a través de las plataformas de entrega. Es un buen volumen que nos ayuda a mantener el movimiento constante de la barbacoa preparada.\n\nRecomendación: Considera ofrecer una promoción de paquete con bebida en los días de menor venta para aumentar el ticket promedio de quienes piden tacos.",
+ "sql": "SELECT SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8",
+ "explicacion_sql": "Calcula el total de unidades vendidas de tacos de barbacoa en agosto de 2026.",
+ "resultado": {
+  "sql": "SELECT SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8",
+  "columnas": [
+   "unidades"
+  ],
+  "filas": [
+   [
+    168
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0373,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 2,
+  "verificadas": 2,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "21:42:04",
+   "duracion_s": 1.441,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.441,
+     "tokens_entrada": 1124,
+     "tokens_salida": 125,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántos tacos de barbacoa se vendieron en agosto de 2026?",
+    "contexto": {
+     "periodo": "agosto 2026",
+     "producto": "tacos de barbacoa",
+     "categoria": null,
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "21:42:05",
+   "duracion_s": 1.682,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.079,
+     "tokens_entrada": 2317,
+     "tokens_salida": 85,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Barbacoa",
+      "Barbacoa, tacos, gorditas y bocoles",
+      "Tabla promociones",
+      "Promociones"
+     ],
+     "ejemplos": [
+      "¿Cuántos tacos de barbacoa se venden en promedio por día entre semana y en fin de semana?",
+      "¿Cuántos kilos de barbacoa por peso se venden al mes?",
+      "¿Cuánto vendí en dinero la última semana?"
+     ],
+     "productos": [
+      "Tacos de barbacoa"
+     ],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8",
+    "explicacion": "Calcula el total de unidades vendidas de tacos de barbacoa en agosto de 2026.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "21:42:05",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "21:42:05",
+   "duracion_s": 0.021,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "indicador",
+    "spec": {
+     "tipo": "indicador",
+     "y": [
+      "unidades"
+     ],
+     "titulo": "Unidades",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "21:42:07",
+   "duracion_s": 1.991,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.767,
+     "tokens_entrada": 725,
+     "tokens_salida": 97,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 2,
+     "verificadas": 2,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Barbacoa",
+     "Promociones"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "21:42:07",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "agosto 2026",
+     "producto": "tacos de barbacoa",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Cuántos tacos de barbacoa se vendieron en agosto de 2026?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "duracion_s": 5.15,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.441,
+   "tokens_entrada": 1124,
+   "tokens_salida": 125,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.079,
+   "tokens_entrada": 2317,
+   "tokens_salida": 85,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.767,
+   "tokens_entrada": 725,
+   "tokens_salida": 97,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 4473,
+ "grafica": {
+  "spec": {
+   "tipo": "indicador",
+   "y": [
+    "unidades"
+   ],
+   "titulo": "Unidades",
+   "confianza": "alta"
+  }
+ }
+}

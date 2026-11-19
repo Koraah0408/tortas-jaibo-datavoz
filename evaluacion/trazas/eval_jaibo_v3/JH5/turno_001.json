@@ -1,0 +1,350 @@
+{
+ "sesion": "JH5",
+ "turno": 1,
+ "fecha": "2026-11-18T22:13:10",
+ "entrada": {
+  "pregunta": "Quiero hacer una promo de 2 Mega pierna por $200, ¿me conviene?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "Quiero hacer una promo de 2 Mega pierna por $200, ¿me conviene?",
+ "pregunta_completa": "¿Me conviene hacer una promoción de 2 tortas Mega de pierna por $200?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "La promoción de 2 tortas Mega de pierna por $200.00 es viable, ya que actualmente casi no se venden estos combos juntos y el descuento semanal sería de apenas $3.11. Como los costos de ingredientes son un SUPUESTO, esta estimación podría variar, por lo que te sugiero confirmar tus márgenes reales de ganancia. Para que el descuento no afecte tus ingresos, necesitarías aumentar tus ventas entre un 17.90% y un 29.40% dependiendo de tu margen. Dado que el volumen actual de este combo es muy bajo, el riesgo de perder dinero por aplicar el descuento a clientes que ya lo compraban es mínimo.\n\nRecomendación: Lanza la promoción y promuévela activamente en mostrador para atraer clientes nuevos, ya que el impacto en tus ingresos actuales es muy pequeño.",
+ "sql": null,
+ "explicacion_sql": "Simulación del combo 2 Mega pierna a $200.00 (precio normal $220.00). Se usan las órdenes de mostrador del 2026-08-18 al 2026-11-15: los clientes que YA piden esos productos juntos también recibirían el descuento, y eso cuesta dinero; la tabla dice cuántos combos ADICIONALES por semana hacen falta para recuperarlo según el margen de ganancia. Supuestos: SUPUESTO: se desconoce el costo de ingredientes, así que se prueban márgenes de 40, 50 y 60 %.",
+ "resultado": {
+  "columnas": [
+   "margen_bruto_pct",
+   "ganancia_por_combo_precio_normal",
+   "ganancia_por_combo_con_promocion",
+   "combos_extra_por_semana_para_no_perder",
+   "aumento_necesario_pct"
+  ],
+  "filas": [
+   [
+    40,
+    88.0,
+    68.0,
+    0.0,
+    29.4
+   ],
+   [
+    50,
+    110.0,
+    90.0,
+    0.0,
+    22.2
+   ],
+   [
+    60,
+    132.0,
+    112.0,
+    0.0,
+    17.9
+   ]
+  ],
+  "n_filas": 3,
+  "error": null,
+  "ejecutada": true,
+  "herramienta": "simular_promocion",
+  "titulo": "Simulación: 2 Mega pierna a $200"
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "datos base del combo",
+   "columnas": [
+    "concepto",
+    "valor"
+   ],
+   "filas": [
+    [
+     "precio normal del combo",
+     220.0
+    ],
+    [
+     "precio con la promoción",
+     200.0
+    ],
+    [
+     "descuento por combo",
+     20.0
+    ],
+    [
+     "combos que ya se venden por semana (mostrador)",
+     0.2
+    ],
+    [
+     "órdenes por semana con alguno de esos productos",
+     3.6
+    ],
+    [
+     "descuento que se daría por semana a quienes ya lo piden",
+     3.11
+    ]
+   ],
+   "n_filas": 6,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 5,
+  "verificadas": 5,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [],
+ "sql_ejecutadas": [
+  "SELECT producto, precio_unitario, COUNT(*) AS n, MAX(fecha) AS ultima FROM ventas WHERE producto IN ('Mega pierna') AND precio_unitario > 0 AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 60 DAY GROUP BY producto, precio_unitario",
+  "SELECT id_orden, producto, SUM(cantidad) AS c, MIN(fecha) AS f FROM ventas WHERE canal = 'Local' AND producto IN ('Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 90 DAY GROUP BY id_orden, producto",
+  "SELECT MIN(fecha) AS desde, MAX(fecha) AS hasta FROM ventas WHERE fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 90 DAY"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "22:12:57",
+   "duracion_s": 1.104,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.104,
+     "tokens_entrada": 1125,
+     "tokens_salida": 119,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": "promociones",
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Me conviene hacer una promoción de 2 tortas Mega de pierna por $200?",
+    "contexto": {
+     "periodo": null,
+     "producto": "Mega pierna",
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Asesor de negocio",
+   "accion": "analisis_especializado",
+   "hora": "22:12:58",
+   "duracion_s": 1.538,
+   "llamadas_llm": [
+    {
+     "rol": "asesor",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.965,
+     "tokens_entrada": 700,
+     "tokens_salida": 94,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "simular_promocion",
+    "propuesta_llm": {
+     "herramienta": "simular_promocion",
+     "parametros": {
+      "productos": [
+       {
+        "producto": "Mega pierna",
+        "cantidad": 2
+       }
+      ],
+      "precio_promocional": 200,
+      "margen_bruto": null,
+      "dias": 90
+     }
+    },
+    "parametros": {
+     "productos": {
+      "Mega pierna": 2
+     },
+     "precio_promocional": 200.0,
+     "dias": 90
+    },
+    "filas": 3,
+    "supuestos": [
+     "SUPUESTO: se desconoce el costo de ingredientes, así que se prueban márgenes de 40, 50 y 60 %"
+    ],
+    "error_llm": null
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "22:13:03",
+   "duracion_s": 4.529,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.448,
+     "tokens_entrada": 655,
+     "tokens_salida": 126,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "margen_bruto_pct",
+     "y": [
+      "ganancia_por_combo_precio_normal",
+      "ganancia_por_combo_con_promocion"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Impacto de la promoción en tu ganancia"
+    },
+    "razon": "Permite comparar visualmente cómo cambia la ganancia por combo según tu margen actual al aplicar el precio promocional.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "22:13:10",
+   "duracion_s": 6.583,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 6.348,
+     "tokens_entrada": 1919,
+     "tokens_salida": 181,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 5,
+     "verificadas": 5,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 57,
+    "reglas_rag": [
+     "Promociones",
+     "Barbacoa"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "22:13:10",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "producto": "Mega pierna",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Me conviene hacer una promoción de 2 tortas Mega de pierna por $200?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": "promociones",
+ "herramienta_negocio": {
+  "nombre": "simular_promocion",
+  "titulo": "Simulación: 2 Mega pierna a $200",
+  "parametros": {
+   "productos": {
+    "Mega pierna": 2
+   },
+   "precio_promocional": 200.0,
+   "dias": 90
+  },
+  "supuestos": [
+   "SUPUESTO: se desconoce el costo de ingredientes, así que se prueban márgenes de 40, 50 y 60 %"
+  ]
+ },
+ "duracion_s": 13.76,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.104,
+   "tokens_entrada": 1125,
+   "tokens_salida": 119,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "asesor",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.965,
+   "tokens_entrada": 700,
+   "tokens_salida": 94,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.448,
+   "tokens_entrada": 655,
+   "tokens_salida": 126,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 6.348,
+   "tokens_entrada": 1919,
+   "tokens_salida": 181,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 4919,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "margen_bruto_pct",
+   "y": [
+    "ganancia_por_combo_precio_normal",
+    "ganancia_por_combo_con_promocion"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Impacto de la promoción en tu ganancia",
+   "razon": "Permite comparar visualmente cómo cambia la ganancia por combo según tu margen actual al aplicar el precio promocional."
+  }
+ }
+}

@@ -1,0 +1,149 @@
+# Pares pregunta–SQL validados para Tortas Jaibo (few-shot del Analista SQL).
+
+- pregunta: ¿Cuánto vendí en dinero la última semana?
+  sql: |
+    SELECT ROUND(SUM(monto_total), 2) AS vendido, COUNT(*) AS ordenes
+    FROM ordenes
+    WHERE NOT cancelada AND fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 7 DAY
+
+- pregunta: ¿Cuántas tortas vendí por día de la semana en las últimas 8 semanas?
+  sql: |
+    WITH periodo AS (SELECT MAX(fecha) - INTERVAL 56 DAY AS desde FROM ordenes),
+    dias AS (
+      SELECT num_dia_semana, COUNT(DISTINCT fecha) AS n_dias
+      FROM ordenes, periodo WHERE fecha > periodo.desde GROUP BY num_dia_semana
+    )
+    SELECT v.dia_semana, v.num_dia_semana, SUM(v.cantidad) AS tortas,
+           ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n_dias), 1) AS tortas_por_dia
+    FROM ventas v JOIN dias d ON v.num_dia_semana = d.num_dia_semana, periodo
+    WHERE v.producto IN ('Barda normal', 'Mega barda', 'Pierna normal', 'Mega pierna', 'Mixta normal',
+                         'Mega mixta', 'Barbacoa normal', 'Mega barbacoa')
+      AND v.fecha > periodo.desde
+    GROUP BY v.dia_semana, v.num_dia_semana
+    ORDER BY v.num_dia_semana
+
+- pregunta: ¿Cuántos panes normales y mega se usaron cada día la última semana?
+  sql: |
+    SELECT fecha, dia_semana,
+           SUM(cantidad) FILTER (WHERE producto IN ('Barda normal', 'Pierna normal', 'Mixta normal', 'Barbacoa normal')) AS pan_normal,
+           SUM(cantidad) FILTER (WHERE producto IN ('Mega barda', 'Mega pierna', 'Mega mixta', 'Mega barbacoa')) AS pan_mega
+    FROM ventas
+    WHERE fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY
+    GROUP BY fecha, dia_semana
+    ORDER BY fecha
+
+- pregunta: ¿Cuánto vendí por canal este mes y cuál es el ticket promedio?
+  sql: |
+    SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido,
+           ROUND(AVG(monto_total), 2) AS ticket_promedio
+    FROM ordenes
+    WHERE NOT cancelada AND anio = (SELECT MAX(anio) FROM ordenes)
+      AND mes = (SELECT MAX(mes) FROM ordenes WHERE anio = (SELECT MAX(anio) FROM ordenes))
+    GROUP BY canal
+    ORDER BY vendido DESC
+
+- pregunta: ¿Cuántos kilos de barbacoa por peso se venden al mes?
+  sql: |
+    SELECT anio, mes, nombre_mes, ROUND(SUM(cantidad * precio_unitario / 550.0), 2) AS kilos,
+           SUM(cantidad) FILTER (WHERE precio_unitario = 0) AS renglones_sin_precio
+    FROM ventas
+    WHERE producto = 'Barbacoa'
+    GROUP BY anio, mes, nombre_mes
+    ORDER BY anio, mes
+
+- pregunta: ¿A qué hora se venden más órdenes?
+  sql: |
+    SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido
+    FROM ordenes
+    WHERE NOT cancelada
+    GROUP BY hora_del_dia
+    ORDER BY hora_del_dia
+
+- pregunta: ¿Qué bebida se pide más junto con las tortas?
+  sql: |
+    WITH ordenes_con_torta AS (
+      SELECT DISTINCT id_orden FROM ventas
+      WHERE producto IN ('Barda normal', 'Mega barda', 'Pierna normal', 'Mega pierna', 'Mixta normal',
+                         'Mega mixta', 'Barbacoa normal', 'Mega barbacoa')
+    )
+    SELECT v.producto AS bebida, COUNT(DISTINCT v.id_orden) AS ordenes
+    FROM ventas v JOIN ordenes_con_torta t ON v.id_orden = t.id_orden
+    WHERE v.categoria = 'Bebidas'
+    GROUP BY v.producto
+    ORDER BY ordenes DESC
+    LIMIT 10
+
+- pregunta: ¿Cuánto se ha descontado por promociones cada mes en mostrador?
+  sql: |
+    SELECT anio, mes, nombre_mes, ROUND(SUM(descuento), 2) AS descuento_promociones,
+           COUNT(*) FILTER (WHERE descuento > 0) AS ordenes_con_promocion
+    FROM ordenes
+    WHERE NOT cancelada AND canal = 'Local'
+    GROUP BY anio, mes, nombre_mes
+    ORDER BY anio, mes
+
+- pregunta: ¿Cuántas órdenes se corrigieron (canceladas por modificación) cada mes?
+  sql: |
+    SELECT anio, mes, nombre_mes, COUNT(*) FILTER (WHERE cancelada) AS corregidas,
+           ROUND(100.0 * COUNT(*) FILTER (WHERE cancelada) / COUNT(*), 1) AS porcentaje
+    FROM ordenes
+    GROUP BY anio, mes, nombre_mes
+    ORDER BY anio, mes
+
+- pregunta: ¿Qué platillo del día se vende más cada día de la semana?
+  sql: |
+    SELECT dia_semana, num_dia_semana, producto, SUM(cantidad) AS unidades
+    FROM ventas
+    WHERE categoria = 'Del Dia' AND producto <> 'Consome Barbacoa'
+    GROUP BY dia_semana, num_dia_semana, producto
+    ORDER BY num_dia_semana, unidades DESC
+
+- pregunta: ¿Cuánto más caro cobro en Didi y Rappi que en el mostrador? (sobreprecio de las apps)
+  sql: |
+    SELECT canal, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio,
+           ROUND(AVG(monto_total - subtotal), 2) AS diferencia_promedio_vs_renglones,
+           ROUND(100.0 * SUM(monto_total - subtotal) / NULLIF(SUM(subtotal), 0), 1) AS porcentaje_sobre_renglones
+    FROM ordenes
+    WHERE NOT cancelada AND canal IN ('Local', 'Didi', 'Rappi')
+    GROUP BY canal
+    ORDER BY canal
+
+- pregunta: ¿Qué bebidas tienen poco stock?
+  sql: |
+    SELECT producto, stock FROM productos
+    WHERE categoria = 'Bebidas' AND activo AND stock IS NOT NULL
+    ORDER BY stock ASC
+    LIMIT 10
+
+- pregunta: ¿Qué productos se venden más en Rappi?
+  sql: |
+    SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS venta_renglones
+    FROM ventas
+    WHERE canal = 'Rappi' AND categoria <> 'Interno'
+    GROUP BY producto
+    ORDER BY unidades DESC
+    LIMIT 10
+
+- pregunta: ¿Cuántos tacos de barbacoa se venden en promedio por día entre semana y en fin de semana?
+  sql: |
+    WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana)
+    SELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 1) AS tacos_por_dia
+    FROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana
+    WHERE v.producto = 'Tacos de barbacoa'
+    GROUP BY v.es_fin_de_semana
+
+- pregunta: ¿Cuánto se vende a crédito a las empresas cada mes?
+  sql: |
+    SELECT anio, mes, nombre_mes, canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS a_credito
+    FROM ordenes
+    WHERE NOT cancelada AND metodo_pago IN ('Crédito Empleado', 'Crédito Automatas', 'Crédito y Efectivo')
+    GROUP BY anio, mes, nombre_mes, canal
+    ORDER BY anio, mes, canal
+
+- pregunta: ¿Cuánto subió el precio de las tortas con el tiempo?
+  sql: |
+    SELECT producto, precio_unitario, MIN(fecha) AS desde, MAX(fecha) AS hasta, SUM(cantidad) AS unidades
+    FROM ventas
+    WHERE producto IN ('Barda normal', 'Mega barda', 'Pierna normal', 'Mega pierna') AND precio_unitario > 0
+    GROUP BY producto, precio_unitario
+    ORDER BY producto, desde

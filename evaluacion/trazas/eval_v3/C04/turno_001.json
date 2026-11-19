@@ -1,0 +1,304 @@
+{
+ "sesion": "C04",
+ "turno": 1,
+ "fecha": "2026-11-17T15:39:00",
+ "entrada": {
+  "pregunta": "Compara las ventas en pesos de la categoría cervezas y vinos entre julio y diciembre",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "Compara las ventas en pesos de la categoría cervezas y vinos entre julio y diciembre",
+ "pregunta_completa": "Compara las ventas en dinero de la categoría cervezas y vinos entre julio y diciembre de 2025",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Las ventas de cervezas y vinos subieron de $10,864 en julio a $21,365.50 en diciembre. Este aumento es muy positivo, especialmente considerando que en diciembre tuvimos 9 días sin mercancía, comparado con solo 1 día en julio. Posiblemente, si hubiéramos tenido el inventario completo en diciembre, las ventas habrían sido todavía mayores.\n\nRecomendación: Asegura un resurtido mayor antes de los fines de semana y quincenas de diciembre para evitar quedarte sin producto en la temporada de más demanda.",
+ "sql": "SELECT ROUND(SUM(total) FILTER (WHERE mes = 7), 2) AS julio, ROUND(SUM(total) FILTER (WHERE mes = 12), 2) AS diciembre, ROUND(100.0 * (SUM(total) FILTER (WHERE mes = 12) - SUM(total) FILTER (WHERE mes = 7)) / NULLIF(SUM(total) FILTER (WHERE mes = 7), 0), 1) AS cambio_pct FROM ventas WHERE categoria = 'Cervezas y vinos'",
+ "explicacion_sql": "Compara las ventas totales en dinero de la categoría cervezas y vinos entre julio y diciembre de 2025.",
+ "resultado": {
+  "sql": "SELECT ROUND(SUM(total) FILTER (WHERE mes = 7), 2) AS julio, ROUND(SUM(total) FILTER (WHERE mes = 12), 2) AS diciembre, ROUND(100.0 * (SUM(total) FILTER (WHERE mes = 12) - SUM(total) FILTER (WHERE mes = 7)) / NULLIF(SUM(total) FILTER (WHERE mes = 7), 0), 1) AS cambio_pct FROM ventas WHERE categoria = 'Cervezas y vinos'",
+  "columnas": [
+   "julio",
+   "diciembre",
+   "cambio_pct"
+  ],
+  "filas": [
+   [
+    10864.0,
+    21365.5,
+    96.7
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0226,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Verificar los días sin existencias en inventario para Cervezas y vinos en julio y diciembre",
+   "sql": "SELECT mes, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE categoria = 'Cervezas y vinos' AND mes IN (7, 12) GROUP BY mes",
+   "columnas": [
+    "mes",
+    "dias_sin_existencia"
+   ],
+   "filas": [
+    [
+     7,
+     1
+    ],
+    [
+     12,
+     9
+    ]
+   ],
+   "n_filas": 2,
+   "truncado": false,
+   "duracion_s": 0.0274,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 4,
+  "verificadas": 4,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT ROUND(SUM(total) FILTER (WHERE mes = 7), 2) AS julio, ROUND(SUM(total) FILTER (WHERE mes = 12), 2) AS diciembre, ROUND(100.0 * (SUM(total) FILTER (WHERE mes = 12) - SUM(total) FILTER (WHERE mes = 7)) / NULLIF(SUM(total) FILTER (WHERE mes = 7), 0), 1) AS cambio_pct FROM ventas WHERE categoria = 'Cervezas y vinos'",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT ROUND(SUM(total) FILTER (WHERE mes = 7), 2) AS julio, ROUND(SUM(total) FILTER (WHERE mes = 12), 2) AS diciembre, ROUND(100.0 * (SUM(total) FILTER (WHERE mes = 12) - SUM(total) FILTER (WHERE mes = 7)) / NULLIF(SUM(total) FILTER (WHERE mes = 7), 0), 1) AS cambio_pct FROM ventas WHERE categoria = 'Cervezas y vinos'",
+  "SELECT mes, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE categoria = 'Cervezas y vinos' AND mes IN (7, 12) GROUP BY mes"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "15:38:50",
+   "duracion_s": 1.151,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.151,
+     "tokens_entrada": 688,
+     "tokens_salida": 123,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "es_seguimiento": false,
+    "pregunta_completa": "Compara las ventas en dinero de la categoría cervezas y vinos entre julio y diciembre de 2025",
+    "contexto": {
+     "periodo": "julio a diciembre 2025",
+     "producto": null,
+     "categoria": "cervezas y vinos",
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "15:38:59",
+   "duracion_s": 8.892,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 8.454,
+     "tokens_entrada": 1793,
+     "tokens_salida": 271,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Resurtido y proveedores",
+      "Horario y días de la tienda",
+      "Promociones",
+      "Métodos de pago"
+     ],
+     "ejemplos": [
+      "Compara las ventas en pesos de bebidas entre julio y agosto",
+      "¿Qué categoría deja más dinero?",
+      "¿Qué porcentaje de las ventas se paga con tarjeta, efectivo y transferencia?"
+     ],
+     "productos": [
+      "Vino tinto 750 ml",
+      "Vino blanco 750 ml"
+     ],
+     "categorias": [
+      "Cervezas y vinos"
+     ]
+    },
+    "sql": "SELECT ROUND(SUM(total) FILTER (WHERE mes = 7), 2) AS julio, ROUND(SUM(total) FILTER (WHERE mes = 12), 2) AS diciembre, ROUND(100.0 * (SUM(total) FILTER (WHERE mes = 12) - SUM(total) FILTER (WHERE mes = 7)) / NULLIF(SUM(total) FILTER (WHERE mes = 7), 0), 1) AS cambio_pct FROM ventas WHERE categoria = 'Cervezas y vinos'",
+    "explicacion": "Compara las ventas totales en dinero de la categoría cervezas y vinos entre julio y diciembre de 2025.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Verificar los días sin existencias en inventario para Cervezas y vinos en julio y diciembre",
+      "sql": "SELECT mes, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE categoria = 'Cervezas y vinos' AND mes IN (7, 12) GROUP BY mes",
+      "error": null,
+      "filas": 2
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "15:38:59",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "15:38:59",
+   "duracion_s": 0.024,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "julio",
+      "diciembre",
+      "cambio_pct"
+     ],
+     "titulo": "Julio",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "15:39:00",
+   "duracion_s": 1.443,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.301,
+     "tokens_entrada": 800,
+     "tokens_salida": 123,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 4,
+     "verificadas": 4,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 9,
+    "reglas_rag": [
+     "Resurtido y proveedores",
+     "Horario y días de la tienda"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "15:39:00",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "julio a diciembre 2025",
+     "categoria": "cervezas y vinos",
+     "metrica": "dinero",
+     "ultima_pregunta": "Compara las ventas en dinero de la categoría cervezas y vinos entre julio y diciembre de 2025"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "duracion_s": 11.52,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.151,
+   "tokens_entrada": 688,
+   "tokens_salida": 123,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 8.454,
+   "tokens_entrada": 1793,
+   "tokens_salida": 271,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.301,
+   "tokens_entrada": 800,
+   "tokens_salida": 123,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 3798,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "julio",
+    "diciembre",
+    "cambio_pct"
+   ],
+   "titulo": "Julio",
+   "confianza": "alta"
+  }
+ }
+}

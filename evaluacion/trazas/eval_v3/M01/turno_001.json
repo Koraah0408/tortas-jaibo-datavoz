@@ -1,0 +1,485 @@
+{
+ "sesion": "M01",
+ "turno": 1,
+ "fecha": "2026-11-17T15:39:24",
+ "entrada": {
+  "pregunta": "¿Qué bebida se vendió menos en diciembre y por qué crees que pasó?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Qué bebida se vendió menos en diciembre y por qué crees que pasó?",
+ "pregunta_completa": "¿Qué producto de la categoría bebidas se vendió menos en diciembre de 2025 y cuál es la razón probable de este bajo desempeño?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "El producto de la categoría bebidas que menos se vendió en diciembre fue el refresco de 3 litros sabor uva, con solo 4 unidades. Este bajo desempeño se debe posiblemente a que el producto estuvo 10 días sin existencias durante el mes. Al no tener el producto disponible en el estante, perdimos ventas importantes.\n\nRecomendación: Asegura el resurtido constante del refresco de 3 litros sabor uva para evitar que se agote y así mejorar su volumen de venta.",
+ "sql": "SELECT v.producto, SUM(v.cantidad) AS unidades, COALESCE(i.dias_sin_existencias, 0) AS dias_sin_existencias FROM ventas v LEFT JOIN (SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencias FROM inventario_diario WHERE mes = 12 GROUP BY producto) i ON v.producto = i.producto WHERE v.categoria = 'Bebidas' AND v.mes = 12 GROUP BY v.producto, i.dias_sin_existencias ORDER BY unidades ASC LIMIT 5",
+ "explicacion_sql": "Muestra los 5 productos de bebidas menos vendidos en diciembre junto con sus días sin existencias para explicar el bajo desempeño.",
+ "resultado": {
+  "sql": "SELECT v.producto, SUM(v.cantidad) AS unidades, COALESCE(i.dias_sin_existencias, 0) AS dias_sin_existencias FROM ventas v LEFT JOIN (SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencias FROM inventario_diario WHERE mes = 12 GROUP BY producto) i ON v.producto = i.producto WHERE v.categoria = 'Bebidas' AND v.mes = 12 GROUP BY v.producto, i.dias_sin_existencias ORDER BY unidades ASC LIMIT 5",
+  "columnas": [
+   "producto",
+   "unidades",
+   "dias_sin_existencias"
+  ],
+  "filas": [
+   [
+    "Refresco 3 L sabor uva",
+    4,
+    10
+   ],
+   [
+    "Refresco sabor limón 2 L",
+    6,
+    0
+   ],
+   [
+    "Agua mineral 600 ml",
+    6,
+    0
+   ],
+   [
+    "Jugo de naranja 1 L",
+    9,
+    0
+   ],
+   [
+    "Bebida isotónica 600 ml",
+    10,
+    1
+   ]
+  ],
+  "n_filas": 5,
+  "truncado": false,
+  "duracion_s": 0.0285,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Verificar los días sin existencias de todos los productos de bebidas en diciembre",
+   "sql": "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencias FROM inventario_diario WHERE categoria = 'Bebidas' AND mes = 12 GROUP BY producto ORDER BY dias_sin_existencias DESC",
+   "columnas": [
+    "producto",
+    "dias_sin_existencias"
+   ],
+   "filas": [
+    [
+     "Refresco 3 L sabor uva",
+     10
+    ],
+    [
+     "Té helado 600 ml",
+     3
+    ],
+    [
+     "Bebida energética 473 ml",
+     2
+    ],
+    [
+     "Bebida isotónica 600 ml",
+     1
+    ],
+    [
+     "Refresco de cola 3 L",
+     0
+    ],
+    [
+     "Jugo de mango 250 ml",
+     0
+    ],
+    [
+     "Agua natural 1 L",
+     0
+    ],
+    [
+     "Agua mineral 600 ml",
+     0
+    ],
+    [
+     "Refresco sabor naranja 2 L",
+     0
+    ],
+    [
+     "Refresco de manzana 600 ml",
+     0
+    ],
+    [
+     "Garrafón de agua 20 L",
+     0
+    ],
+    [
+     "Refresco sabor limón 2 L",
+     0
+    ],
+    [
+     "Jugo de naranja 1 L",
+     0
+    ],
+    [
+     "Refresco de cola 600 ml",
+     0
+    ],
+    [
+     "Refresco de cola 2 L",
+     0
+    ]
+   ],
+   "n_filas": 15,
+   "truncado": false,
+   "duracion_s": 0.031,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 4,
+  "verificadas": 4,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT v.producto, SUM(v.cantidad) AS unidades, COUNT(DISTINCT i.fecha) FILTER (WHERE i.sin_existencia) AS dias_sin_existencias FROM ventas v LEFT JOIN inventario_diario i ON v.producto = i.producto AND v.fecha = i.fecha WHERE v.categoria = 'Bebidas' AND v.mes = 12 GROUP BY v.producto ORDER BY unidades ASC LIMIT 5",
+   "problema": "revisión del Orquestador: La consulta cuenta días sin existencias uniendo inventario_diario con ventas por fecha. Los días agotados no tienen ventas, así que esa unión siempre da 0. Cuenta los días sin existencias en inventario_diario directamente (COUNT(*) FILTER (WHERE sin_existencia)) en una consulta aparte o en una subconsulta sin unir por fecha.",
+   "n_filas": 5
+  },
+  {
+   "sql": "SELECT v.producto, SUM(v.cantidad) AS unidades, COALESCE(i.dias_sin_existencias, 0) AS dias_sin_existencias FROM ventas v LEFT JOIN (SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencias FROM inventario_diario WHERE mes = 12 GROUP BY producto) i ON v.producto = i.producto WHERE v.categoria = 'Bebidas' AND v.mes = 12 GROUP BY v.producto, i.dias_sin_existencias ORDER BY unidades ASC LIMIT 5",
+   "problema": null,
+   "n_filas": 5
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT v.producto, SUM(v.cantidad) AS unidades, COUNT(DISTINCT i.fecha) FILTER (WHERE i.sin_existencia) AS dias_sin_existencias FROM ventas v LEFT JOIN inventario_diario i ON v.producto = i.producto AND v.fecha = i.fecha WHERE v.categoria = 'Bebidas' AND v.mes = 12 GROUP BY v.producto ORDER BY unidades ASC LIMIT 5",
+  "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE categoria = 'Bebidas' AND mes = 12 GROUP BY producto ORDER BY dias_sin_existencia DESC LIMIT 5",
+  "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE categoria = 'Bebidas' AND mes = 11 GROUP BY producto ORDER BY unidades ASC LIMIT 5",
+  "SELECT v.producto, SUM(v.cantidad) AS unidades, COALESCE(i.dias_sin_existencias, 0) AS dias_sin_existencias FROM ventas v LEFT JOIN (SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencias FROM inventario_diario WHERE mes = 12 GROUP BY producto) i ON v.producto = i.producto WHERE v.categoria = 'Bebidas' AND v.mes = 12 GROUP BY v.producto, i.dias_sin_existencias ORDER BY unidades ASC LIMIT 5",
+  "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencias FROM inventario_diario WHERE categoria = 'Bebidas' AND mes = 12 GROUP BY producto ORDER BY dias_sin_existencias DESC"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "15:39:12",
+   "duracion_s": 1.169,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.169,
+     "tokens_entrada": 688,
+     "tokens_salida": 123,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Qué producto de la categoría bebidas se vendió menos en diciembre de 2025 y cuál es la razón probable de este bajo desempeño?",
+    "contexto": {
+     "periodo": "diciembre 2025",
+     "producto": null,
+     "categoria": "bebidas",
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "15:39:17",
+   "duracion_s": 5.254,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 4.737,
+     "tokens_entrada": 1928,
+     "tokens_salida": 304,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Productos que ya no conviene resurtir",
+      "Categorías de productos",
+      "Tabla promociones",
+      "Promociones"
+     ],
+     "ejemplos": [
+      "¿Cuáles fueron los 10 productos más vendidos en marzo?",
+      "¿Cuál es la ganancia estimada por categoría?",
+      "¿Cuántos días estuvo sin existencias cada producto de botanas en octubre?"
+     ],
+     "productos": [],
+     "categorias": [
+      "Bebidas"
+     ]
+    },
+    "sql": "SELECT v.producto, SUM(v.cantidad) AS unidades, COUNT(DISTINCT i.fecha) FILTER (WHERE i.sin_existencia) AS dias_sin_existencias FROM ventas v LEFT JOIN inventario_diario i ON v.producto = i.producto AND v.fecha = i.fecha WHERE v.categoria = 'Bebidas' AND v.mes = 12 GROUP BY v.producto ORDER BY unidades ASC LIMIT 5",
+    "explicacion": "Muestra los 5 productos de la categoría bebidas menos vendidos en diciembre de 2025 junto con sus días sin existencias para explicar la razón probable.",
+    "error": null,
+    "filas": 5,
+    "consultas_apoyo": [
+     {
+      "proposito": "Verificar si el producto tuvo días sin existencia durante diciembre en la tabla de inventario diario",
+      "sql": "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE categoria = 'Bebidas' AND mes = 12 GROUP BY producto ORDER BY dias_sin_existencia DESC LIMIT 5",
+      "error": null,
+      "filas": 5
+     },
+     {
+      "proposito": "Revisar ventas del mes anterior (noviembre) para comparar el comportamiento",
+      "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE categoria = 'Bebidas' AND mes = 11 GROUP BY producto ORDER BY unidades ASC LIMIT 5",
+      "error": null,
+      "filas": 5
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "15:39:17",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "reintentar",
+    "intento": 1,
+    "motivo": "revisión semántica",
+    "problema": "La consulta cuenta días sin existencias uniendo inventario_diario con ventas por fecha. Los días agotados no tienen ventas, así que esa unión siempre da 0. Cuenta los días sin existencias en inventario_diario directamente (COUNT(*) FILTER (WHERE sin_existencia)) en una consulta aparte o en una subconsulta sin unir por fecha."
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "15:39:18",
+   "duracion_s": 1.192,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.007,
+     "tokens_entrada": 2215,
+     "tokens_salida": 284,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 2,
+    "rag": {
+     "documentos": [
+      "Productos que ya no conviene resurtir",
+      "Categorías de productos",
+      "Tabla promociones",
+      "Promociones"
+     ],
+     "ejemplos": [
+      "¿Cuáles fueron los 10 productos más vendidos en marzo?",
+      "¿Cuál es la ganancia estimada por categoría?",
+      "¿Cuántos días estuvo sin existencias cada producto de botanas en octubre?"
+     ],
+     "productos": [],
+     "categorias": [
+      "Bebidas"
+     ]
+    },
+    "sql": "SELECT v.producto, SUM(v.cantidad) AS unidades, COALESCE(i.dias_sin_existencias, 0) AS dias_sin_existencias FROM ventas v LEFT JOIN (SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencias FROM inventario_diario WHERE mes = 12 GROUP BY producto) i ON v.producto = i.producto WHERE v.categoria = 'Bebidas' AND v.mes = 12 GROUP BY v.producto, i.dias_sin_existencias ORDER BY unidades ASC LIMIT 5",
+    "explicacion": "Muestra los 5 productos de bebidas menos vendidos en diciembre junto con sus días sin existencias para explicar el bajo desempeño.",
+    "error": null,
+    "filas": 5,
+    "consultas_apoyo": [
+     {
+      "proposito": "Verificar los días sin existencias de todos los productos de bebidas en diciembre",
+      "sql": "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencias FROM inventario_diario WHERE categoria = 'Bebidas' AND mes = 12 GROUP BY producto ORDER BY dias_sin_existencias DESC",
+      "error": null,
+      "filas": 15
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "15:39:18",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 5,
+    "intentos": 2
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "15:39:22",
+   "duracion_s": 4.131,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.244,
+     "tokens_entrada": 565,
+     "tokens_salida": 121,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras_horizontales",
+    "spec": {
+     "tipo": "barras_horizontales",
+     "x": "producto",
+     "y": [
+      "unidades",
+      "dias_sin_existencias"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Ventas y faltantes de bebidas en diciembre"
+    },
+    "razon": "Permite comparar fácilmente el volumen de ventas con los días de desabasto para identificar que el producto con menos ventas fue el que tuvo más días sin existencias.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "15:39:24",
+   "duracion_s": 1.814,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.671,
+     "tokens_entrada": 1529,
+     "tokens_salida": 106,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 4,
+     "verificadas": 4,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 24,
+    "reglas_rag": [
+     "Productos que ya no conviene resurtir",
+     "Promociones"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "15:39:24",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "diciembre 2025",
+     "categoria": "bebidas",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Qué producto de la categoría bebidas se vendió menos en diciembre de 2025 y cuál es la razón probable de este bajo desempeño?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "duracion_s": 13.57,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.169,
+   "tokens_entrada": 688,
+   "tokens_salida": 123,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 4.737,
+   "tokens_entrada": 1928,
+   "tokens_salida": 304,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.007,
+   "tokens_entrada": 2215,
+   "tokens_salida": 284,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.244,
+   "tokens_entrada": 565,
+   "tokens_salida": 121,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.671,
+   "tokens_entrada": 1529,
+   "tokens_salida": 106,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 7863,
+ "grafica": {
+  "spec": {
+   "tipo": "barras_horizontales",
+   "x": "producto",
+   "y": [
+    "unidades",
+    "dias_sin_existencias"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Ventas y faltantes de bebidas en diciembre",
+   "razon": "Permite comparar fácilmente el volumen de ventas con los días de desabasto para identificar que el producto con menos ventas fue el que tuvo más días sin existencias."
+  }
+ }
+}

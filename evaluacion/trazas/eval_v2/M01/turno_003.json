@@ -1,0 +1,289 @@
+{
+ "sesion": "M01",
+ "turno": 3,
+ "fecha": "2026-11-17T15:23:40",
+ "entrada": {
+  "pregunta": "¿Cuántos días estuvo sin existencias el refresco de uva en ese mes?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuántos días estuvo sin existencias el refresco de uva en ese mes?",
+ "pregunta_completa": "¿Cuántos días estuvo sin existencias el refresco de 3 litros sabor uva en noviembre de 2025?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": true,
+ "respuesta": "El refresco de 3 litros sabor uva no tuvo ningún día sin existencias durante noviembre de 2025. Esto significa que el producto estuvo disponible para tus clientes durante todo el mes. Aunque se vendieron 7 unidades, el inventario se mantuvo constante y no hubo faltantes.\n\nRecomendación: Mantén el nivel actual de inventario, ya que el producto tiene una rotación baja y no es temporada alta para este refresco.",
+ "sql": "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto",
+ "explicacion_sql": "Calcula los días sin existencias para el refresco de 3 litros sabor uva durante noviembre de 2025.",
+ "resultado": {
+  "sql": "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto",
+  "columnas": [
+   "producto",
+   "dias_sin_existencia"
+  ],
+  "filas": [
+   [
+    "Refresco 3 L sabor uva",
+    0
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0224,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver ventas de noviembre del producto para relacionarlo con sus días agotados",
+   "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto",
+   "columnas": [
+    "producto",
+    "unidades"
+   ],
+   "filas": [
+    [
+     "Refresco 3 L sabor uva",
+     7
+    ]
+   ],
+   "n_filas": 1,
+   "truncado": false,
+   "duracion_s": 0.0231,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 3,
+  "verificadas": 3,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto",
+  "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "15:23:37",
+   "duracion_s": 0.977,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.976,
+     "tokens_entrada": 1060,
+     "tokens_salida": 128,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "es_seguimiento": true,
+    "pregunta_completa": "¿Cuántos días estuvo sin existencias el refresco de 3 litros sabor uva en noviembre de 2025?",
+    "contexto": {
+     "periodo": "noviembre 2025",
+     "producto": "refresco de 3 litros sabor uva",
+     "categoria": "bebidas",
+     "metrica": "otra"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "15:23:39",
+   "duracion_s": 2.201,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.761,
+     "tokens_entrada": 1861,
+     "tokens_salida": 185,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Temporadas del año",
+      "Productos que ya no conviene resurtir",
+      "Nombres de productos",
+      "Resurtido y proveedores"
+     ],
+     "ejemplos": [
+      "¿Cuáles fueron los 10 productos más vendidos en marzo?",
+      "¿Cuántos días estuvo agotado el garrafón de agua en julio?",
+      "¿Cuántos días estuvo sin existencias cada producto de botanas en octubre?"
+     ],
+     "productos": [
+      "Refresco 3 L sabor uva"
+     ],
+     "categorias": []
+    },
+    "sql": "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto",
+    "explicacion": "Calcula los días sin existencias para el refresco de 3 litros sabor uva durante noviembre de 2025.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver ventas de noviembre del producto para relacionarlo con sus días agotados",
+      "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE producto = 'Refresco 3 L sabor uva' AND mes = 11 GROUP BY producto",
+      "error": null,
+      "filas": 1
+     }
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "15:23:39",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "15:23:39",
+   "duracion_s": 0.004,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "indicador",
+    "spec": {
+     "tipo": "indicador",
+     "y": [
+      "dias_sin_existencia"
+     ],
+     "titulo": "Dias sin existencia",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "15:23:40",
+   "duracion_s": 1.337,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.195,
+     "tokens_entrada": 647,
+     "tokens_salida": 94,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 3,
+     "verificadas": 3,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Temporadas del año",
+     "Productos que ya no conviene resurtir"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "15:23:40",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 3,
+    "contexto": {
+     "periodo": "noviembre 2025",
+     "categoria": "bebidas",
+     "metrica": "otra",
+     "ultima_pregunta": "¿Cuántos días estuvo sin existencias el refresco de 3 litros sabor uva en noviembre de 2025?",
+     "producto": "refresco de 3 litros sabor uva"
+    },
+    "tarjetas_dashboard": 3
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "duracion_s": 4.53,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.976,
+   "tokens_entrada": 1060,
+   "tokens_salida": 128,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.761,
+   "tokens_entrada": 1861,
+   "tokens_salida": 185,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.195,
+   "tokens_entrada": 647,
+   "tokens_salida": 94,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 3975,
+ "grafica": {
+  "spec": {
+   "tipo": "indicador",
+   "y": [
+    "dias_sin_existencia"
+   ],
+   "titulo": "Dias sin existencia",
+   "confianza": "alta"
+  }
+ }
+}

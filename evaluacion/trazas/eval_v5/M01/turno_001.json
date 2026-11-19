@@ -1,0 +1,370 @@
+{
+ "sesion": "M01",
+ "turno": 1,
+ "fecha": "2026-11-18T21:55:46",
+ "entrada": {
+  "pregunta": "¿Qué bebida se vendió menos en diciembre y por qué crees que pasó?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Qué bebida se vendió menos en diciembre y por qué crees que pasó?",
+ "pregunta_completa": "¿Qué bebida se vendió menos en diciembre de 2025 y por qué crees que pasó?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "La bebida que menos se vendió en diciembre fue el refresco de 3 litros sabor uva, con solo 4 unidades. Esto ocurrió principalmente porque el producto estuvo agotado durante 10 días del mes, lo que afectó su disponibilidad en plena temporada alta. Aunque en noviembre se vendieron 7 unidades, la falta de inventario impidió que el producto tuviera un mejor desempeño en diciembre. Es importante notar que este refresco tuvo el mayor número de días sin existencia entre los productos analizados.\n\nRecomendación: Asegura el resurtido constante de este refresco antes de que inicie la semana para evitar perder ventas por falta de inventario.",
+ "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE categoria = 'Bebidas' AND mes = 12 GROUP BY producto ORDER BY unidades ASC LIMIT 5",
+ "explicacion_sql": "Muestra las 5 bebidas menos vendidas en diciembre de 2025 para identificar cuál tuvo menor salida y evaluar posibles empates.",
+ "resultado": {
+  "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE categoria = 'Bebidas' AND mes = 12 GROUP BY producto ORDER BY unidades ASC LIMIT 5",
+  "columnas": [
+   "producto",
+   "unidades"
+  ],
+  "filas": [
+   [
+    "Refresco 3 L sabor uva",
+    4
+   ],
+   [
+    "Refresco sabor limón 2 L",
+    6
+   ],
+   [
+    "Agua mineral 600 ml",
+    6
+   ],
+   [
+    "Jugo de naranja 1 L",
+    9
+   ],
+   [
+    "Bebida isotónica 600 ml",
+    10
+   ]
+  ],
+  "n_filas": 5,
+  "truncado": false,
+  "duracion_s": 0.0347,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Verificar si la bebida menos vendida tuvo días sin existencias en diciembre",
+   "sql": "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE categoria = 'Bebidas' AND mes = 12 GROUP BY producto ORDER BY dias_sin_existencia DESC LIMIT 5",
+   "columnas": [
+    "producto",
+    "dias_sin_existencia"
+   ],
+   "filas": [
+    [
+     "Refresco 3 L sabor uva",
+     10
+    ],
+    [
+     "Té helado 600 ml",
+     3
+    ],
+    [
+     "Bebida energética 473 ml",
+     2
+    ],
+    [
+     "Bebida isotónica 600 ml",
+     1
+    ],
+    [
+     "Garrafón de agua 20 L",
+     0
+    ]
+   ],
+   "n_filas": 5,
+   "truncado": false,
+   "duracion_s": 0.0335,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "Comparar las ventas de esa misma bebida en el mes anterior (noviembre)",
+   "sql": "SELECT producto, SUM(cantidad) AS unidades_noviembre FROM ventas WHERE categoria = 'Bebidas' AND mes = 11 GROUP BY producto ORDER BY unidades_noviembre ASC LIMIT 5",
+   "columnas": [
+    "producto",
+    "unidades_noviembre"
+   ],
+   "filas": [
+    [
+     "Agua mineral 600 ml",
+     4
+    ],
+    [
+     "Refresco sabor limón 2 L",
+     6
+    ],
+    [
+     "Té helado 600 ml",
+     6
+    ],
+    [
+     "Jugo de naranja 1 L",
+     7
+    ],
+    [
+     "Refresco 3 L sabor uva",
+     7
+    ]
+   ],
+   "n_filas": 5,
+   "truncado": false,
+   "duracion_s": 0.0799,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 4,
+  "verificadas": 4,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE categoria = 'Bebidas' AND mes = 12 GROUP BY producto ORDER BY unidades ASC LIMIT 5",
+   "problema": null,
+   "n_filas": 5
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE categoria = 'Bebidas' AND mes = 12 GROUP BY producto ORDER BY unidades ASC LIMIT 5",
+  "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE categoria = 'Bebidas' AND mes = 12 GROUP BY producto ORDER BY dias_sin_existencia DESC LIMIT 5",
+  "SELECT producto, SUM(cantidad) AS unidades_noviembre FROM ventas WHERE categoria = 'Bebidas' AND mes = 11 GROUP BY producto ORDER BY unidades_noviembre ASC LIMIT 5"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "21:55:40",
+   "duracion_s": 1.266,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.265,
+     "tokens_entrada": 1041,
+     "tokens_salida": 124,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Qué bebida se vendió menos en diciembre de 2025 y por qué crees que pasó?",
+    "contexto": {
+     "periodo": "diciembre 2025",
+     "producto": null,
+     "categoria": "bebida",
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "21:55:42",
+   "duracion_s": 2.446,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.628,
+     "tokens_entrada": 2040,
+     "tokens_salida": 275,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Temporadas del año",
+      "Productos que ya no conviene resurtir",
+      "Métodos de pago",
+      "Convenciones de SQL (DuckDB)"
+     ],
+     "ejemplos": [
+      "Compara las ventas en pesos de bebidas entre julio y agosto",
+      "¿Cómo se vendieron las cervezas semana por semana en el último trimestre?",
+      "¿Cuáles fueron los 10 productos más vendidos en marzo?"
+     ],
+     "productos": [],
+     "categorias": [
+      "Bebidas"
+     ],
+     "grupos": []
+    },
+    "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE categoria = 'Bebidas' AND mes = 12 GROUP BY producto ORDER BY unidades ASC LIMIT 5",
+    "explicacion": "Muestra las 5 bebidas menos vendidas en diciembre de 2025 para identificar cuál tuvo menor salida y evaluar posibles empates.",
+    "error": null,
+    "filas": 5,
+    "consultas_apoyo": [
+     {
+      "proposito": "Verificar si la bebida menos vendida tuvo días sin existencias en diciembre",
+      "sql": "SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia FROM inventario_diario WHERE categoria = 'Bebidas' AND mes = 12 GROUP BY producto ORDER BY dias_sin_existencia DESC LIMIT 5",
+      "error": null,
+      "filas": 5
+     },
+     {
+      "proposito": "Comparar las ventas de esa misma bebida en el mes anterior (noviembre)",
+      "sql": "SELECT producto, SUM(cantidad) AS unidades_noviembre FROM ventas WHERE categoria = 'Bebidas' AND mes = 11 GROUP BY producto ORDER BY unidades_noviembre ASC LIMIT 5",
+      "error": null,
+      "filas": 5
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "21:55:42",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 5,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "21:55:43",
+   "duracion_s": 0.076,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "producto",
+     "y": [
+      "unidades"
+     ],
+     "titulo": "Unidades por producto",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "21:55:46",
+   "duracion_s": 3.76,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 3.523,
+     "tokens_entrada": 1651,
+     "tokens_salida": 138,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 4,
+     "verificadas": 4,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 28,
+    "reglas_rag": [
+     "Temporadas del año",
+     "Productos que ya no conviene resurtir"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "21:55:46",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "diciembre 2025",
+     "categoria": "bebida",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Qué bebida se vendió menos en diciembre de 2025 y por qué crees que pasó?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "duracion_s": 7.56,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.265,
+   "tokens_entrada": 1041,
+   "tokens_salida": 124,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.628,
+   "tokens_entrada": 2040,
+   "tokens_salida": 275,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 3.523,
+   "tokens_entrada": 1651,
+   "tokens_salida": 138,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5269,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "producto",
+   "y": [
+    "unidades"
+   ],
+   "titulo": "Unidades por producto",
+   "confianza": "alta"
+  }
+ }
+}

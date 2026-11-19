@@ -1,0 +1,98 @@
+{
+ "sesion": "J04",
+ "turno": 1,
+ "fecha": "2026-11-18T21:18:49",
+ "entrada": {
+  "pregunta": "¿Cuántos pedidos se tuvieron que corregir en septiembre de 2026?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuántos pedidos se tuvieron que corregir en septiembre de 2026?",
+ "pregunta_completa": "¿Cuántos pedidos se tuvieron que corregir en septiembre de 2026?",
+ "intencion": "limpieza_datos",
+ "es_seguimiento": false,
+ "respuesta": "Los datos de ejemplo ya están limpios y cargados. Si quieres revisar tu propio archivo, súbelo en formato CSV o Excel desde el panel lateral.",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "21:18:49",
+   "duracion_s": 5.025,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 5.025,
+     "tokens_entrada": 1024,
+     "tokens_salida": 117,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "limpieza_datos",
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántos pedidos se tuvieron que corregir en septiembre de 2026?",
+    "contexto": {
+     "periodo": "septiembre 2026",
+     "producto": null,
+     "categoria": null,
+     "metrica": "otra"
+    }
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "responder_directo",
+   "hora": "21:18:49",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "intencion": "limpieza_datos"
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "21:18:49",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {},
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "duracion_s": 5.03,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 5.025,
+   "tokens_entrada": 1024,
+   "tokens_salida": 117,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 1141,
+ "grafica": null
+}

@@ -1,0 +1,28 @@
+promocion,producto,categoria,fecha_inicio,fecha_fin,descuento_pct
+2x1 en papas fritas,Papas fritas sal 45 g,Botanas,2025-03-01,2025-03-15,50
+2x1 en papas fritas,Papas fritas chile 45 g,Botanas,2025-03-01,2025-03-15,50
+10% en refrescos de 2 L,Refresco de cola 2 L,Bebidas,2025-05-01,2025-05-31,10
+10% en refrescos de 2 L,Refresco sabor naranja 2 L,Bebidas,2025-05-01,2025-05-31,10
+10% en refrescos de 2 L,Refresco sabor limón 2 L,Bebidas,2025-05-01,2025-05-31,10
+3x2 en leche deslactosada,Leche deslactosada 1 L,Lácteos y huevo,2025-07-01,2025-07-14,33
+Quincena de la limpieza 15%,Detergente en polvo 1 kg,Limpieza del hogar,2025-08-04,2025-08-17,15
+Quincena de la limpieza 15%,Detergente líquido 1 L,Limpieza del hogar,2025-08-04,2025-08-17,15
+Quincena de la limpieza 15%,Jabón de barra para ropa 400 g,Limpieza del hogar,2025-08-04,2025-08-17,15
+Quincena de la limpieza 15%,Cloro 1 L,Limpieza del hogar,2025-08-04,2025-08-17,15
+Quincena de la limpieza 15%,Limpiador multiusos 1 L,Limpieza del hogar,2025-08-04,2025-08-17,15
+Quincena de la limpieza 15%,Suavizante de telas 850 ml,Limpieza del hogar,2025-08-04,2025-08-17,15
+Quincena de la limpieza 15%,Lavatrastes líquido 750 ml,Limpieza del hogar,2025-08-04,2025-08-17,15
+Quincena de la limpieza 15%,Fibra para trastes,Limpieza del hogar,2025-08-04,2025-08-17,15
+Quincena de la limpieza 15%,Escoba,Limpieza del hogar,2025-08-04,2025-08-17,15
+Quincena de la limpieza 15%,Trapeador,Limpieza del hogar,2025-08-04,2025-08-17,15
+Quincena de la limpieza 15%,Bolsas para basura 10 pzas,Limpieza del hogar,2025-08-04,2025-08-17,15
+Quincena de la limpieza 15%,Papel aluminio 7 m,Limpieza del hogar,2025-08-04,2025-08-17,15
+Quincena de la limpieza 15%,Servilletas 500 pzas,Limpieza del hogar,2025-08-04,2025-08-17,15
+Quincena de la limpieza 15%,Desinfectante en aerosol 400 ml,Limpieza del hogar,2025-08-04,2025-08-17,15
+Quincena de la limpieza 15%,Limpiador aroma pino 1 L,Limpieza del hogar,2025-08-04,2025-08-17,15
+Fiestas patrias: 10% en cerveza 6 pack,Cerveza clara 6 pack,Cervezas y vinos,2025-09-12,2025-09-16,10
+Fiestas patrias: 10% en cerveza 6 pack,Cerveza oscura 6 pack,Cervezas y vinos,2025-09-12,2025-09-16,10
+15% en galletas de animalitos,Galletas de animalitos 500 g,Dulces y galletas,2025-10-01,2025-10-15,15
+Navidad: 10% en sidra y vino,Sidra 750 ml,Cervezas y vinos,2025-12-15,2025-12-24,10
+Navidad: 10% en sidra y vino,Vino tinto 750 ml,Cervezas y vinos,2025-12-15,2025-12-24,10
+Navidad: 10% en sidra y vino,Vino blanco 750 ml,Cervezas y vinos,2025-12-15,2025-12-24,10

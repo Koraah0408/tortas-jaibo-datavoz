@@ -1,0 +1,295 @@
+{
+ "sesion": "C02",
+ "turno": 1,
+ "fecha": "2026-11-17T15:22:10",
+ "entrada": {
+  "pregunta": "¿Se vende más en fin de semana o entre semana? Dame el promedio de venta en pesos por día",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Se vende más en fin de semana o entre semana? Dame el promedio de venta en pesos por día",
+ "pregunta_completa": "¿Se vende más en fin de semana o entre semana? Dame el promedio de venta en pesos por día durante el año 2025.",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Se vende más en fin de semana, con un promedio de $2,241.04 diarios, mientras que entre semana el promedio es de $1,674.81. Esta diferencia ocurre posiblemente porque los clientes aprovechan sus días de descanso para realizar compras más grandes. Aunque entre semana hay más días de operación, el flujo de dinero es mayor cuando la gente no trabaja.\n\nRecomendación: Asegúrate de tener suficiente inventario de los productos más vendidos desde el jueves, para que no te falte mercancía durante el fin de semana.",
+ "sql": "SELECT CASE WHEN es_fin_de_semana THEN 'Fin de semana' ELSE 'Entre semana' END AS tipo_dia, COUNT(DISTINCT fecha) AS total_dias, ROUND(SUM(total), 2) AS ventas_totales, ROUND(SUM(total) / COUNT(DISTINCT fecha), 2) AS promedio_venta_diaria FROM ventas GROUP BY es_fin_de_semana ORDER BY ventas_totales DESC",
+ "explicacion_sql": "Calcula el promedio de venta diaria en pesos para fines de semana frente a entre semana durante el año 2025.",
+ "resultado": {
+  "sql": "SELECT CASE WHEN es_fin_de_semana THEN 'Fin de semana' ELSE 'Entre semana' END AS tipo_dia, COUNT(DISTINCT fecha) AS total_dias, ROUND(SUM(total), 2) AS ventas_totales, ROUND(SUM(total) / COUNT(DISTINCT fecha), 2) AS promedio_venta_diaria FROM ventas GROUP BY es_fin_de_semana ORDER BY ventas_totales DESC",
+  "columnas": [
+   "tipo_dia",
+   "total_dias",
+   "ventas_totales",
+   "promedio_venta_diaria"
+  ],
+  "filas": [
+   [
+    "Entre semana",
+    261,
+    437126.5,
+    1674.81
+   ],
+   [
+    "Fin de semana",
+    104,
+    233068.5,
+    2241.04
+   ]
+  ],
+  "n_filas": 2,
+  "truncado": false,
+  "duracion_s": 0.0256,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 2,
+  "verificadas": 2,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT CASE WHEN es_fin_de_semana THEN 'Fin de semana' ELSE 'Entre semana' END AS tipo_dia, COUNT(DISTINCT fecha) AS total_dias, ROUND(SUM(total), 2) AS ventas_totales, ROUND(SUM(total) / COUNT(DISTINCT fecha), 2) AS promedio_venta_diaria FROM ventas GROUP BY es_fin_de_semana ORDER BY ventas_totales DESC",
+   "problema": null,
+   "n_filas": 2
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT CASE WHEN es_fin_de_semana THEN 'Fin de semana' ELSE 'Entre semana' END AS tipo_dia, COUNT(DISTINCT fecha) AS total_dias, ROUND(SUM(total), 2) AS ventas_totales, ROUND(SUM(total) / COUNT(DISTINCT fecha), 2) AS promedio_venta_diaria FROM ventas GROUP BY es_fin_de_semana ORDER BY ventas_totales DESC"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "15:22:02",
+   "duracion_s": 0.785,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.785,
+     "tokens_entrada": 692,
+     "tokens_salida": 118,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Se vende más en fin de semana o entre semana? Dame el promedio de venta en pesos por día durante el año 2025.",
+    "contexto": {
+     "periodo": "2025",
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "15:22:04",
+   "duracion_s": 1.411,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.979,
+     "tokens_entrada": 1853,
+     "tokens_salida": 161,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Horario y días de la tienda",
+      "Columnas de calendario en ventas",
+      "Resurtido y proveedores",
+      "Temporadas del año"
+     ],
+     "ejemplos": [
+      "¿Cómo se vendieron las cervezas semana por semana en el último trimestre?",
+      "¿Cuál fue el día con más ventas del año?",
+      "Ventas por día de la semana y hora (mapa de calor)"
+     ],
+     "productos": [],
+     "categorias": []
+    },
+    "sql": "SELECT CASE WHEN es_fin_de_semana THEN 'Fin de semana' ELSE 'Entre semana' END AS tipo_dia, COUNT(DISTINCT fecha) AS total_dias, ROUND(SUM(total), 2) AS ventas_totales, ROUND(SUM(total) / COUNT(DISTINCT fecha), 2) AS promedio_venta_diaria FROM ventas GROUP BY es_fin_de_semana ORDER BY ventas_totales DESC",
+    "explicacion": "Calcula el promedio de venta diaria en pesos para fines de semana frente a entre semana durante el año 2025.",
+    "error": null,
+    "filas": 2,
+    "consultas_apoyo": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "15:22:04",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 2,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "15:22:08",
+   "duracion_s": 4.152,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.126,
+     "tokens_entrada": 571,
+     "tokens_salida": 102,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "tipo_dia",
+     "y": [
+      "promedio_venta_diaria"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Promedio de ventas por tipo de día"
+    },
+    "razon": "Las barras permiten comparar fácilmente el promedio de venta entre dos categorías claras como fin de semana y entre semana.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "15:22:10",
+   "duracion_s": 2.42,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.277,
+     "tokens_entrada": 1163,
+     "tokens_salida": 116,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 2,
+     "verificadas": 2,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 27,
+    "reglas_rag": [
+     "Horario y días de la tienda",
+     "Resurtido y proveedores"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "15:22:10",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "2025",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Se vende más en fin de semana o entre semana? Dame el promedio de venta en pesos por día durante el año 2025."
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "duracion_s": 8.78,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.785,
+   "tokens_entrada": 692,
+   "tokens_salida": 118,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.979,
+   "tokens_entrada": 1853,
+   "tokens_salida": 161,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.126,
+   "tokens_entrada": 571,
+   "tokens_salida": 102,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.277,
+   "tokens_entrada": 1163,
+   "tokens_salida": 116,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 4776,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "tipo_dia",
+   "y": [
+    "promedio_venta_diaria"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Promedio de ventas por tipo de día",
+   "razon": "Las barras permiten comparar fácilmente el promedio de venta entre dos categorías claras como fin de semana y entre semana."
+  }
+ }
+}

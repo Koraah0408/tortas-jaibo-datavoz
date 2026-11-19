@@ -1,0 +1,382 @@
+{
+ "sesion": "J07",
+ "turno": 1,
+ "fecha": "2026-11-18T21:42:44",
+ "entrada": {
+  "pregunta": "Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026",
+ "pregunta_completa": "Compara cuánto vendí en dinero en Didi contra Rappi durante los meses de septiembre y octubre de 2026.",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En septiembre y octubre, las ventas por Didi fueron superiores a las de Rappi, alcanzando un total de $17,979 y $23,224 respectivamente, mientras que Rappi generó $9,044 y $10,509. Esta diferencia se debe principalmente a que Didi recibió un mayor volumen de pedidos, llegando a 132 órdenes en octubre frente a las 51 de Rappi. Aunque Rappi mantiene un ticket promedio más alto, llegando a $206.06 en octubre, el mayor flujo de clientes en Didi impulsa más tus ingresos totales. Posiblemente, la mayor presencia de usuarios en Didi está compensando el ticket promedio ligeramente menor.\n\nRecomendación: Analiza si puedes crear una promoción exclusiva para Rappi que incentive a los clientes a pedir más seguido, aprovechando que su ticket promedio ya es más alto.",
+ "sql": "SELECT mes, nombre_mes, canal, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY mes, nombre_mes, canal ORDER BY mes, canal",
+ "explicacion_sql": "Compara las ventas en dinero entre Didi y Rappi durante septiembre y octubre de 2026.",
+ "resultado": {
+  "sql": "SELECT mes, nombre_mes, canal, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY mes, nombre_mes, canal ORDER BY mes, canal",
+  "columnas": [
+   "mes",
+   "nombre_mes",
+   "canal",
+   "ventas"
+  ],
+  "filas": [
+   [
+    9,
+    "septiembre",
+    "Didi",
+    17979.0
+   ],
+   [
+    9,
+    "septiembre",
+    "Rappi",
+    9044.0
+   ],
+   [
+    10,
+    "octubre",
+    "Didi",
+    23224.0
+   ],
+   [
+    10,
+    "octubre",
+    "Rappi",
+    10509.0
+   ]
+  ],
+  "n_filas": 4,
+  "truncado": false,
+  "duracion_s": 0.0392,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver el número de órdenes y el ticket promedio por canal en septiembre y octubre de 2026",
+   "sql": "SELECT canal, mes, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY canal, mes ORDER BY mes, canal",
+   "columnas": [
+    "canal",
+    "mes",
+    "ordenes",
+    "ticket_promedio"
+   ],
+   "filas": [
+    [
+     "Didi",
+     9,
+     101,
+     178.01
+    ],
+    [
+     "Rappi",
+     9,
+     48,
+     188.42
+    ],
+    [
+     "Didi",
+     10,
+     132,
+     175.94
+    ],
+    [
+     "Rappi",
+     10,
+     51,
+     206.06
+    ]
+   ],
+   "n_filas": 4,
+   "truncado": false,
+   "duracion_s": 0.0372,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 7,
+  "verificadas": 7,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT mes, nombre_mes, canal, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY mes, nombre_mes, canal ORDER BY mes, canal",
+   "problema": null,
+   "n_filas": 4
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT mes, nombre_mes, canal, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY mes, nombre_mes, canal ORDER BY mes, canal",
+  "SELECT canal, mes, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY canal, mes ORDER BY mes, canal"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "21:42:37",
+   "duracion_s": 2.006,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.006,
+     "tokens_entrada": 1126,
+     "tokens_salida": 130,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "Compara cuánto vendí en dinero en Didi contra Rappi durante los meses de septiembre y octubre de 2026.",
+    "contexto": {
+     "periodo": "septiembre y octubre de 2026",
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "21:42:39",
+   "duracion_s": 2.062,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.37,
+     "tokens_entrada": 2268,
+     "tokens_salida": 256,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Recomendaciones típicas para el dueño",
+      "Platillo del día",
+      "Horario y momentos del día",
+      "Canales y formas de pago"
+     ],
+     "ejemplos": [
+      "¿Cuánto más caro cobro en Didi y Rappi que en el mostrador? (sobreprecio de las apps)",
+      "¿Cuánto vendí en dinero la última semana?",
+      "¿Qué productos se venden más en Rappi?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT mes, nombre_mes, canal, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY mes, nombre_mes, canal ORDER BY mes, canal",
+    "explicacion": "Compara las ventas en dinero entre Didi y Rappi durante septiembre y octubre de 2026.",
+    "error": null,
+    "filas": 4,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver el número de órdenes y el ticket promedio por canal en septiembre y octubre de 2026",
+      "sql": "SELECT canal, mes, COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY canal, mes ORDER BY mes, canal",
+      "error": null,
+      "filas": 4
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "21:42:39",
+   "duracion_s": 0.002,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 4,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "21:42:40",
+   "duracion_s": 1.672,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.6,
+     "tokens_entrada": 551,
+     "tokens_salida": 97,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "nombre_mes",
+     "y": [
+      "ventas"
+     ],
+     "color": "canal",
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Ventas por canal: Didi vs Rappi"
+    },
+    "razon": "Las barras agrupadas permiten comparar fácilmente el desempeño de ambos canales de entrega mes a mes.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "21:42:44",
+   "duracion_s": 3.507,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.746,
+     "tokens_entrada": 1395,
+     "tokens_salida": 159,
+     "ok": true,
+     "error": null
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.537,
+     "tokens_entrada": 1442,
+     "tokens_salida": 191,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 2,
+    "verificacion": {
+     "total_cifras": 7,
+     "verificadas": 7,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 24,
+    "reglas_rag": [
+     "Recomendaciones típicas para el dueño",
+     "Platillo del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "21:42:44",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "septiembre y octubre de 2026",
+     "metrica": "dinero",
+     "ultima_pregunta": "Compara cuánto vendí en dinero en Didi contra Rappi durante los meses de septiembre y octubre de 2026."
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "duracion_s": 9.26,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.006,
+   "tokens_entrada": 1126,
+   "tokens_salida": 130,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.37,
+   "tokens_entrada": 2268,
+   "tokens_salida": 256,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.6,
+   "tokens_entrada": 551,
+   "tokens_salida": 97,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.746,
+   "tokens_entrada": 1395,
+   "tokens_salida": 159,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.537,
+   "tokens_entrada": 1442,
+   "tokens_salida": 191,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 7615,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "nombre_mes",
+   "y": [
+    "ventas"
+   ],
+   "color": "canal",
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Ventas por canal: Didi vs Rappi",
+   "razon": "Las barras agrupadas permiten comparar fácilmente el desempeño de ambos canales de entrega mes a mes."
+  }
+ }
+}

@@ -1,0 +1,165 @@
+{
+ "sesion": "D02",
+ "turno": 1,
+ "fecha": "2026-11-17T15:25:46",
+ "entrada": {
+  "pregunta": "",
+  "audio": null,
+  "archivo": "C:\\proyectos\\DataVoz\\data\\ventas_formato_distinto.xlsx"
+ },
+ "pregunta": "",
+ "pregunta_completa": "",
+ "intencion": "limpieza_datos",
+ "es_seguimiento": false,
+ "respuesta": "He revisado su archivo y logré estandarizar las 4,333 filas de ventas sin necesidad de eliminar ninguna. Corregí el formato de las fechas, convertí los precios a números y completé la información de las categorías usando su catálogo. Todo el archivo quedó listo para su análisis sin errores pendientes. ¿Tiene alguna duda sobre el desempeño de sus ventas que le gustaría consultar?",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": {
+  "resumen": {
+   "filas_entrada": 4333,
+   "filas_limpias": 4333,
+   "filas_eliminadas": 0,
+   "problemas_detectados": 0,
+   "por_tipo": {},
+   "mapeo_columnas": {
+    "Hora": "hora",
+    "Folio": "ticket",
+    "Pzas": "cantidad",
+    "Promo": "promocion",
+    "Día de venta": "fecha",
+    "Artículo vendido": "producto",
+    "Precio c/u": "precio_unitario",
+    "Cobrado": "total",
+    "Pagó con": "metodo_pago"
+   },
+   "columnas_ignoradas": [
+    "Notas"
+   ],
+   "notas": [
+    "Las fechas venían en formato dd/mm/aaaa; se convirtieron a AAAA-MM-DD.",
+    "Los precios venían con signo de pesos; se convirtieron a número.",
+    "El archivo no traía categoría; se completó con el catálogo de productos."
+   ]
+  },
+  "problemas_muestra": []
+ },
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Limpiador",
+   "accion": "limpiar_y_cargar",
+   "hora": "15:25:46",
+   "duracion_s": 6.691,
+   "llamadas_llm": [
+    {
+     "rol": "limpiador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.063,
+     "tokens_entrada": 866,
+     "tokens_salida": 154,
+     "ok": true,
+     "error": null
+    },
+    {
+     "rol": "limpiador_resumen",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.421,
+     "tokens_entrada": 321,
+     "tokens_salida": 81,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "archivo": "ventas_formato_distinto.xlsx",
+    "comentario_llm": "Se mapearon todas las columnas relevantes. La columna 'Notas' fue ignorada por no contener información transaccional relevante.",
+    "mapeo": {
+     "Hora": "hora",
+     "Folio": "ticket",
+     "Pzas": "cantidad",
+     "Promo": "promocion",
+     "Día de venta": "fecha",
+     "Artículo vendido": "producto",
+     "Precio c/u": "precio_unitario",
+     "Cobrado": "total",
+     "Pagó con": "metodo_pago"
+    },
+    "origen_mapeo": "reglas + LLM",
+    "herramienta": "limpiar_datos",
+    "resumen": {
+     "filas_entrada": 4333,
+     "filas_limpias": 4333,
+     "filas_eliminadas": 0,
+     "problemas_detectados": 0,
+     "por_tipo": {},
+     "mapeo_columnas": {
+      "Hora": "hora",
+      "Folio": "ticket",
+      "Pzas": "cantidad",
+      "Promo": "promocion",
+      "Día de venta": "fecha",
+      "Artículo vendido": "producto",
+      "Precio c/u": "precio_unitario",
+      "Cobrado": "total",
+      "Pagó con": "metodo_pago"
+     },
+     "columnas_ignoradas": [
+      "Notas"
+     ],
+     "notas": [
+      "Las fechas venían en formato dd/mm/aaaa; se convirtieron a AAAA-MM-DD.",
+      "Los precios venían con signo de pesos; se convirtieron a número.",
+      "El archivo no traía categoría; se completó con el catálogo de productos."
+     ]
+    }
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "15:25:46",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {},
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "",
+ "duracion_s": 6.69,
+ "llamadas_llm": [
+  {
+   "rol": "limpiador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.063,
+   "tokens_entrada": 866,
+   "tokens_salida": 154,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "limpiador_resumen",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.421,
+   "tokens_entrada": 321,
+   "tokens_salida": 81,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 1422,
+ "grafica": null
+}

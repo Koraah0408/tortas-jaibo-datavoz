@@ -1,0 +1,281 @@
+{
+ "sesion": "JH1",
+ "turno": 1,
+ "fecha": "2026-11-18T21:50:03",
+ "entrada": {
+  "pregunta": "¿Cuánto vendí en Rappi en agosto de 2026?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuánto vendí en Rappi en agosto de 2026?",
+ "pregunta_completa": "¿Cuánto dinero vendí en el canal Rappi durante el mes de agosto de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En agosto de 2026, tus ventas a través de Rappi sumaron $9,029. Ten en cuenta que esta cifra representa el ingreso total por ventas, pero recuerda que las plataformas cobran una comisión por el servicio, la cual es una estimación que te sugiero confirmar para conocer tu ganancia real.\n\nRecomendación: Revisa si el volumen de ventas en Rappi justifica la comisión que te cobran o si te conviene impulsar más las ventas en el local.",
+ "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_vendido FROM ordenes WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 AND NOT cancelada",
+ "explicacion_sql": "Calcula el dinero total vendido en el canal Rappi durante agosto de 2026, excluyendo órdenes canceladas.",
+ "resultado": {
+  "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_vendido FROM ordenes WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 AND NOT cancelada",
+  "columnas": [
+   "dinero_vendido"
+  ],
+  "filas": [
+   [
+    9029.0
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0294,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 2,
+  "verificadas": 2,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_vendido FROM ordenes WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 AND NOT cancelada",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT ROUND(SUM(monto_total), 2) AS dinero_vendido FROM ordenes WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 AND NOT cancelada"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "21:49:50",
+   "duracion_s": 1.037,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.037,
+     "tokens_entrada": 1121,
+     "tokens_salida": 123,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuánto dinero vendí en el canal Rappi durante el mes de agosto de 2026?",
+    "contexto": {
+     "periodo": "agosto 2026",
+     "producto": null,
+     "categoria": "Rappi",
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "21:49:54",
+   "duracion_s": 3.372,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 2.742,
+     "tokens_entrada": 2431,
+     "tokens_salida": 110,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Canales y formas de pago",
+      "Canales de venta y comisiones",
+      "Horario y momentos del día",
+      "Barbacoa"
+     ],
+     "ejemplos": [
+      "¿Cuánto vendí por canal este mes y cuál es el ticket promedio?",
+      "¿Cuánto más caro cobro en Didi y Rappi que en el mostrador? (sobreprecio de las apps)",
+      "¿Qué productos se venden más en Rappi?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_vendido FROM ordenes WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 AND NOT cancelada",
+    "explicacion": "Calcula el dinero total vendido en el canal Rappi durante agosto de 2026, excluyendo órdenes canceladas.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "21:49:54",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "21:49:54",
+   "duracion_s": 0.009,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "indicador",
+    "spec": {
+     "tipo": "indicador",
+     "y": [
+      "dinero_vendido"
+     ],
+     "titulo": "Dinero vendido",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "21:50:03",
+   "duracion_s": 9.075,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.846,
+     "tokens_entrada": 840,
+     "tokens_salida": 123,
+     "ok": true,
+     "error": null
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 5.975,
+     "tokens_entrada": 886,
+     "tokens_salida": 101,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 2,
+    "verificacion": {
+     "total_cifras": 2,
+     "verificadas": 2,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Canales de venta y comisiones",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "21:50:03",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "agosto 2026",
+     "categoria": "Rappi",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Cuánto dinero vendí en el canal Rappi durante el mes de agosto de 2026?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "duracion_s": 13.5,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.037,
+   "tokens_entrada": 1121,
+   "tokens_salida": 123,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 2.742,
+   "tokens_entrada": 2431,
+   "tokens_salida": 110,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.846,
+   "tokens_entrada": 840,
+   "tokens_salida": 123,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 5.975,
+   "tokens_entrada": 886,
+   "tokens_salida": 101,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5735,
+ "grafica": {
+  "spec": {
+   "tipo": "indicador",
+   "y": [
+    "dinero_vendido"
+   ],
+   "titulo": "Dinero vendido",
+   "confianza": "alta"
+  }
+ }
+}

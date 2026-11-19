@@ -1,0 +1,354 @@
+{
+ "sesion": "C03",
+ "turno": 1,
+ "fecha": "2026-11-18T21:30:22",
+ "entrada": {
+  "pregunta": "¿Funcionó la promoción 2x1 en papas fritas? Compara las unidades vendidas por día durante la promoción contra los días anteriores",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Funcionó la promoción 2x1 en papas fritas? Compara las unidades vendidas por día durante la promoción contra los días anteriores",
+ "pregunta_completa": "¿Funcionó la promoción 2x1 en papas fritas? Compara las unidades vendidas por día durante la promoción contra los días anteriores",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "¡Qué tal! Te confirmo que la promoción 2x1 en papas fritas sí funcionó, ya que logramos subir el promedio diario de ventas a 8 unidades, comparado con las 3 unidades que vendíamos antes. Este incremento es muy positivo, aunque notamos que tuvimos algunos días sin existencias de papas con sal durante la promoción, lo que posiblemente limitó un resultado aún mejor. Es importante cuidar que no se nos agote el producto cuando lanzamos estas ofertas para aprovechar al máximo la demanda.\n\nRecomendación: Asegura un inventario mayor de papas fritas antes de iniciar futuras promociones para evitar quedarte sin producto.",
+ "sql": "WITH datos_promo AS (\n  SELECT fecha_inicio, fecha_fin, dias_duracion,\n         fecha_inicio - INTERVAL (dias_duracion) DAY AS inicio_previo,\n         fecha_inicio - INTERVAL 1 DAY AS fin_previo\n  FROM promociones\n  WHERE promocion ILIKE '%2x1 en papas fritas%'\n  LIMIT 1\n),\nventas_promo AS (\n  SELECT SUM(v.cantidad) AS unidades_promo,\n         (SELECT dias_duracion FROM datos_promo) AS dias\n  FROM ventas v, datos_promo p\n  WHERE v.producto IN ('Papas fritas sal 45 g', 'Papas fritas chile 45 g')\n    AND v.fecha BETWEEN p.fecha_inicio AND p.fecha_fin\n),\nventas_previas AS (\n  SELECT SUM(v.cantidad) AS unidades_previas,\n         (SELECT dias_duracion FROM datos_promo) AS dias\n  FROM ventas v, datos_promo p\n  WHERE v.producto IN ('Papas fritas sal 45 g', 'Papas fritas chile 45 g')\n    AND v.fecha BETWEEN p.inicio_previo AND p.fin_previo\n)\nSELECT \n  ROUND(COALESCE(vp.unidades_promo, 0) * 1.0 / vp.dias, 2) AS promedio_diario_promo,\n  ROUND(COALESCE(vpr.unidades_previas, 0) * 1.0 / vpr.dias, 2) AS promedio_diario_previo,\n  CASE \n    WHEN (COALESCE(vp.unidades_promo, 0) * 1.0 / vp.dias) >= (COALESCE(vpr.unidades_previas, 0) * 1.0 / vpr.dias) * 1.2 \n    THEN 'Sí funcionó' \n    ELSE 'No funcionó' \n  END AS resultado\nFROM ventas_promo vp, ventas_previas vpr",
+ "explicacion_sql": "Compara el promedio diario de unidades vendidas durante la promoción 2x1 en papas fritas con el periodo previo de igual duración, aplicando el criterio del 20% de incremento.",
+ "resultado": {
+  "sql": "WITH datos_promo AS (\n  SELECT fecha_inicio, fecha_fin, dias_duracion,\n         fecha_inicio - INTERVAL (dias_duracion) DAY AS inicio_previo,\n         fecha_inicio - INTERVAL 1 DAY AS fin_previo\n  FROM promociones\n  WHERE promocion ILIKE '%2x1 en papas fritas%'\n  LIMIT 1\n),\nventas_promo AS (\n  SELECT SUM(v.cantidad) AS unidades_promo,\n         (SELECT dias_duracion FROM datos_promo) AS dias\n  FROM ventas v, datos_promo p\n  WHERE v.producto IN ('Papas fritas sal 45 g', 'Papas fritas chile 45 g')\n    AND v.fecha BETWEEN p.fecha_inicio AND p.fecha_fin\n),\nventas_previas AS (\n  SELECT SUM(v.cantidad) AS unidades_previas,\n         (SELECT dias_duracion FROM datos_promo) AS dias\n  FROM ventas v, datos_promo p\n  WHERE v.producto IN ('Papas fritas sal 45 g', 'Papas fritas chile 45 g')\n    AND v.fecha BETWEEN p.inicio_previo AND p.fin_previo\n)\nSELECT \n  ROUND(COALESCE(vp.unidades_promo, 0) * 1.0 / vp.dias, 2) AS promedio_diario_promo,\n  ROUND(COALESCE(vpr.unidades_previas, 0) * 1.0 / vpr.dias, 2) AS promedio_diario_previo,\n  CASE \n    WHEN (COALESCE(vp.unidades_promo, 0) * 1.0 / vp.dias) >= (COALESCE(vpr.unidades_previas, 0) * 1.0 / vpr.dias) * 1.2 \n    THEN 'Sí funcionó' \n    ELSE 'No funcionó' \n  END AS resultado\nFROM ventas_promo vp, ventas_previas vpr",
+  "columnas": [
+   "promedio_diario_promo",
+   "promedio_diario_previo",
+   "resultado"
+  ],
+  "filas": [
+   [
+    8.13,
+    3.2,
+    "Sí funcionó"
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0666,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Verificar fechas y duración de la promoción de papas fritas",
+   "sql": "SELECT promocion, producto, fecha_inicio, fecha_fin, descuento_pct, dias_duracion FROM promociones WHERE promocion ILIKE '%2x1 en papas fritas%'",
+   "columnas": [
+    "promocion",
+    "producto",
+    "fecha_inicio",
+    "fecha_fin",
+    "descuento_pct",
+    "dias_duracion"
+   ],
+   "filas": [
+    [
+     "2x1 en papas fritas",
+     "Papas fritas sal 45 g",
+     "2025-03-01",
+     "2025-03-15",
+     50,
+     15
+    ],
+    [
+     "2x1 en papas fritas",
+     "Papas fritas chile 45 g",
+     "2025-03-01",
+     "2025-03-15",
+     50,
+     15
+    ]
+   ],
+   "n_filas": 2,
+   "truncado": false,
+   "duracion_s": 0.0577,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "Revisar días sin existencias de papas fritas durante la promoción",
+   "sql": "SELECT producto, fecha, sin_existencia FROM inventario_diario WHERE producto IN ('Papas fritas sal 45 g', 'Papas fritas chile 45 g') AND fecha BETWEEN '2025-03-01' AND '2025-03-31' AND sin_existencia = TRUE",
+   "columnas": [
+    "producto",
+    "fecha",
+    "sin_existencia"
+   ],
+   "filas": [
+    [
+     "Papas fritas sal 45 g",
+     "2025-03-02",
+     true
+    ],
+    [
+     "Papas fritas sal 45 g",
+     "2025-03-15",
+     true
+    ],
+    [
+     "Papas fritas sal 45 g",
+     "2025-03-16",
+     true
+    ]
+   ],
+   "n_filas": 3,
+   "truncado": false,
+   "duracion_s": 0.0383,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 2,
+  "verificadas": 2,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "WITH datos_promo AS (\n  SELECT fecha_inicio, fecha_fin, dias_duracion,\n         fecha_inicio - INTERVAL (dias_duracion) DAY AS inicio_previo,\n         fecha_inicio - INTERVAL 1 DAY AS fin_previo\n  FROM promociones\n  WHERE promocion ILIKE '%2x1 en papas fritas%'\n  LIMIT 1\n),\nventas_promo AS (\n  SELECT SUM(v.cantidad) AS unidades_promo,\n         (SELECT dias_duracion FROM datos_promo) AS dias\n  FROM ventas v, datos_promo p\n  WHERE v.producto IN ('Papas fritas sal 45 g', 'Papas fritas chile 45 g')\n    AND v.fecha BETWEEN p.fecha_inicio AND p.fecha_fin\n),\nventas_previas AS (\n  SELECT SUM(v.cantidad) AS unidades_previas,\n         (SELECT dias_duracion FROM datos_promo) AS dias\n  FROM ventas v, datos_promo p\n  WHERE v.producto IN ('Papas fritas sal 45 g', 'Papas fritas chile 45 g')\n    AND v.fecha BETWEEN p.inicio_previo AND p.fin_previo\n)\nSELECT \n  ROUND(COALESCE(vp.unidades_promo, 0) * 1.0 / vp.dias, 2) AS promedio_diario_promo,\n  ROUND(COALESCE(vpr.unidades_previas, 0) * 1.0 / vpr.dias, 2) AS promedio_diario_previo,\n  CASE \n    WHEN (COALESCE(vp.unidades_promo, 0) * 1.0 / vp.dias) >= (COALESCE(vpr.unidades_previas, 0) * 1.0 / vpr.dias) * 1.2 \n    THEN 'Sí funcionó' \n    ELSE 'No funcionó' \n  END AS resultado\nFROM ventas_promo vp, ventas_previas vpr",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "WITH datos_promo AS (\n  SELECT fecha_inicio, fecha_fin, dias_duracion,\n         fecha_inicio - INTERVAL (dias_duracion) DAY AS inicio_previo,\n         fecha_inicio - INTERVAL 1 DAY AS fin_previo\n  FROM promociones\n  WHERE promocion ILIKE '%2x1 en papas fritas%'\n  LIMIT 1\n),\nventas_promo AS (\n  SELECT SUM(v.cantidad) AS unidades_promo,\n         (SELECT dias_duracion FROM datos_promo) AS dias\n  FROM ventas v, datos_promo p\n  WHERE v.producto IN ('Papas fritas sal 45 g', 'Papas fritas chile 45 g')\n    AND v.fecha BETWEEN p.fecha_inicio AND p.fecha_fin\n),\nventas_previas AS (\n  SELECT SUM(v.cantidad) AS unidades_previas,\n         (SELECT dias_duracion FROM datos_promo) AS dias\n  FROM ventas v, datos_promo p\n  WHERE v.producto IN ('Papas fritas sal 45 g', 'Papas fritas chile 45 g')\n    AND v.fecha BETWEEN p.inicio_previo AND p.fin_previo\n)\nSELECT \n  ROUND(COALESCE(vp.unidades_promo, 0) * 1.0 / vp.dias, 2) AS promedio_diario_promo,\n  ROUND(COALESCE(vpr.unidades_previas, 0) * 1.0 / vpr.dias, 2) AS promedio_diario_previo,\n  CASE \n    WHEN (COALESCE(vp.unidades_promo, 0) * 1.0 / vp.dias) >= (COALESCE(vpr.unidades_previas, 0) * 1.0 / vpr.dias) * 1.2 \n    THEN 'Sí funcionó' \n    ELSE 'No funcionó' \n  END AS resultado\nFROM ventas_promo vp, ventas_previas vpr",
+  "SELECT promocion, producto, fecha_inicio, fecha_fin, descuento_pct, dias_duracion FROM promociones WHERE promocion ILIKE '%2x1 en papas fritas%'",
+  "SELECT producto, fecha, sin_existencia FROM inventario_diario WHERE producto IN ('Papas fritas sal 45 g', 'Papas fritas chile 45 g') AND fecha BETWEEN '2025-03-01' AND '2025-03-31' AND sin_existencia = TRUE"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "21:30:09",
+   "duracion_s": 5.378,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 5.377,
+     "tokens_entrada": 955,
+     "tokens_salida": 137,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Funcionó la promoción 2x1 en papas fritas? Compara las unidades vendidas por día durante la promoción contra los días anteriores",
+    "contexto": {
+     "periodo": "durante la promoción y días anteriores",
+     "producto": "papas fritas",
+     "categoria": null,
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "21:30:16",
+   "duracion_s": 7.491,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 6.276,
+     "tokens_entrada": 2098,
+     "tokens_salida": 744,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Promociones",
+      "Tabla promociones",
+      "Recomendaciones típicas para el dueño",
+      "Productos que ya no conviene resurtir"
+     ],
+     "ejemplos": [
+      "¿Cuáles fueron los 10 productos más vendidos en marzo?",
+      "¿Cuál es la ganancia estimada por categoría?",
+      "¿Qué productos de higiene personal casi no se venden? (baja rotación)"
+     ],
+     "productos": [
+      "Papas fritas sal 45 g",
+      "Papas fritas chile 45 g"
+     ],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "WITH datos_promo AS (\n  SELECT fecha_inicio, fecha_fin, dias_duracion,\n         fecha_inicio - INTERVAL (dias_duracion) DAY AS inicio_previo,\n         fecha_inicio - INTERVAL 1 DAY AS fin_previo\n  FROM promociones\n  WHERE promocion ILIKE '%2x1 en papas fritas%'\n  LIMIT 1\n),\nventas_promo AS (\n  SELECT SUM(v.cantidad) AS unidades_promo,\n         (SELECT dias_duracion FROM datos_promo) AS dias\n  FROM ventas v, datos_promo p\n  WHERE v.producto IN ('Papas fritas sal 45 g', 'Papas fritas chile 45 g')\n    AND v.fecha BETWEEN p.fecha_inicio AND p.fecha_fin\n),\nventas_previas AS (\n  SELECT SUM(v.cantidad) AS unidades_previas,\n         (SELECT dias_duracion FROM datos_promo) AS dias\n  FROM ventas v, datos_promo p\n  WHERE v.producto IN ('Papas fritas sal 45 g', 'Papas fritas chile 45 g')\n    AND v.fecha BETWEEN p.inicio_previo AND p.fin_previo\n)\nSELECT \n  ROUND(COALESCE(vp.unidades_promo, 0) * 1.0 / vp.dias, 2) AS promedio_diario_promo,\n  ROUND(COALESCE(vpr.unidades_previas, 0) * 1.0 / vpr.dias, 2) AS promedio_diario_previo,\n  CASE \n    WHEN (COALESCE(vp.unidades_promo, 0) * 1.0 / vp.dias) >= (COALESCE(vpr.unidades_previas, 0) * 1.0 / vpr.dias) * 1.2 \n    THEN 'Sí funcionó' \n    ELSE 'No funcionó' \n  END AS resultado\nFROM ventas_promo vp, ventas_previas vpr",
+    "explicacion": "Compara el promedio diario de unidades vendidas durante la promoción 2x1 en papas fritas con el periodo previo de igual duración, aplicando el criterio del 20% de incremento.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Verificar fechas y duración de la promoción de papas fritas",
+      "sql": "SELECT promocion, producto, fecha_inicio, fecha_fin, descuento_pct, dias_duracion FROM promociones WHERE promocion ILIKE '%2x1 en papas fritas%'",
+      "error": null,
+      "filas": 2
+     },
+     {
+      "proposito": "Revisar días sin existencias de papas fritas durante la promoción",
+      "sql": "SELECT producto, fecha, sin_existencia FROM inventario_diario WHERE producto IN ('Papas fritas sal 45 g', 'Papas fritas chile 45 g') AND fecha BETWEEN '2025-03-01' AND '2025-03-31' AND sin_existencia = TRUE",
+      "error": null,
+      "filas": 3
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "21:30:16",
+   "duracion_s": 0.007,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "21:30:17",
+   "duracion_s": 0.065,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "promedio_diario_promo",
+      "promedio_diario_previo"
+     ],
+     "titulo": "Promedio diario promo",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "21:30:22",
+   "duracion_s": 5.049,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.649,
+     "tokens_entrada": 2657,
+     "tokens_salida": 137,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 2,
+     "verificadas": 2,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 22,
+    "reglas_rag": [
+     "Promociones",
+     "Recomendaciones típicas para el dueño"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "21:30:22",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "durante la promoción y días anteriores",
+     "producto": "papas fritas",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Funcionó la promoción 2x1 en papas fritas? Compara las unidades vendidas por día durante la promoción contra los días anteriores"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "duracion_s": 18.0,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 5.377,
+   "tokens_entrada": 955,
+   "tokens_salida": 137,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 6.276,
+   "tokens_entrada": 2098,
+   "tokens_salida": 744,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.649,
+   "tokens_entrada": 2657,
+   "tokens_salida": 137,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 6728,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "promedio_diario_promo",
+    "promedio_diario_previo"
+   ],
+   "titulo": "Promedio diario promo",
+   "confianza": "alta"
+  }
+ }
+}

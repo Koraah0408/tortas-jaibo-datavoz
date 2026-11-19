@@ -1,0 +1,156 @@
+# Pares pregunta–SQL validados (few-shot) para el Analista SQL.
+# Se indexan en el RAG; el Analista recupera los más parecidos a la pregunta.
+# Nota: no coinciden con los casos de prueba de la evaluación.
+
+- pregunta: ¿Cuáles fueron los 10 productos más vendidos en marzo?
+  sql: |
+    SELECT producto, SUM(cantidad) AS unidades
+    FROM ventas
+    WHERE mes = 3
+    GROUP BY producto
+    ORDER BY unidades DESC
+    LIMIT 10
+
+- pregunta: ¿Cuánto dinero vendí en total en el segundo trimestre?
+  sql: |
+    SELECT ROUND(SUM(total), 2) AS ventas_totales
+    FROM ventas
+    WHERE trimestre = 2
+
+- pregunta: ¿Cómo fueron las ventas mes por mes?
+  sql: |
+    SELECT mes, nombre_mes, ROUND(SUM(total), 2) AS ventas
+    FROM ventas
+    GROUP BY mes, nombre_mes
+    ORDER BY mes
+
+- pregunta: ¿Qué categoría deja más dinero?
+  sql: |
+    SELECT categoria, ROUND(SUM(total), 2) AS ventas
+    FROM ventas
+    GROUP BY categoria
+    ORDER BY ventas DESC
+
+- pregunta: ¿Cuántos tickets hubo cada día de la semana y cuál es el ticket promedio?
+  sql: |
+    SELECT dia_semana, num_dia_semana,
+           COUNT(DISTINCT ticket) AS tickets,
+           ROUND(SUM(total) / COUNT(DISTINCT ticket), 2) AS ticket_promedio
+    FROM ventas
+    GROUP BY dia_semana, num_dia_semana
+    ORDER BY num_dia_semana
+
+- pregunta: Compara las ventas en pesos de bebidas entre julio y agosto
+  sql: |
+    SELECT ROUND(SUM(total) FILTER (WHERE mes = 7), 2) AS julio,
+           ROUND(SUM(total) FILTER (WHERE mes = 8), 2) AS agosto,
+           ROUND(100.0 * (SUM(total) FILTER (WHERE mes = 8) - SUM(total) FILTER (WHERE mes = 7))
+                 / NULLIF(SUM(total) FILTER (WHERE mes = 7), 0), 1) AS cambio_pct
+    FROM ventas
+    WHERE categoria = 'Bebidas'
+
+- pregunta: ¿Cuántas unidades de atún en agua se vendieron por mes?
+  sql: |
+    SELECT mes, nombre_mes, SUM(cantidad) AS unidades
+    FROM ventas
+    WHERE producto = 'Atún en agua 140 g'
+    GROUP BY mes, nombre_mes
+    ORDER BY mes
+
+- pregunta: ¿Cuántos días estuvo agotado el garrafón de agua en julio?
+  sql: |
+    SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia
+    FROM inventario_diario
+    WHERE producto ILIKE '%garraf%' AND mes = 7
+    GROUP BY producto
+
+- pregunta: ¿Funcionó la promoción de 10% en refrescos de 2 L?
+  sql: |
+    WITH promo AS (
+      SELECT MIN(fecha_inicio) AS ini, MAX(fecha_fin) AS fin,
+             CAST(MAX(dias_duracion) AS INTEGER) AS dias
+      FROM promociones WHERE promocion ILIKE '%refrescos de 2 L%'
+    ), prods AS (
+      SELECT producto FROM promociones WHERE promocion ILIKE '%refrescos de 2 L%'
+    )
+    SELECT
+      ROUND(SUM(v.cantidad) FILTER (WHERE v.fecha BETWEEN p.ini AND p.fin) * 1.0 / MAX(p.dias), 2) AS unidades_por_dia_promocion,
+      ROUND(SUM(v.cantidad) FILTER (WHERE v.fecha BETWEEN p.ini - p.dias AND p.ini - 1) * 1.0 / MAX(p.dias), 2) AS unidades_por_dia_antes,
+      ROUND(100.0 * (SUM(v.cantidad) FILTER (WHERE v.fecha BETWEEN p.ini AND p.fin)
+                   - SUM(v.cantidad) FILTER (WHERE v.fecha BETWEEN p.ini - p.dias AND p.ini - 1))
+            / NULLIF(SUM(v.cantidad) FILTER (WHERE v.fecha BETWEEN p.ini - p.dias AND p.ini - 1), 0), 1) AS cambio_pct
+    FROM ventas v, promo p
+    WHERE v.producto IN (SELECT producto FROM prods)
+
+- pregunta: ¿Qué productos de higiene personal casi no se venden? (baja rotación)
+  sql: |
+    SELECT p.producto, COALESCE(SUM(v.cantidad), 0) AS unidades_oct_dic,
+           ROUND(COALESCE(SUM(v.cantidad), 0) / 13.0, 2) AS unidades_por_semana
+    FROM productos p
+    LEFT JOIN ventas v ON v.producto = p.producto AND v.mes BETWEEN 10 AND 12
+    WHERE p.categoria = 'Higiene personal'
+    GROUP BY p.producto
+    HAVING COALESCE(SUM(v.cantidad), 0) / 13.0 < 2
+    ORDER BY unidades_oct_dic
+
+- pregunta: ¿A qué hora del día se vende más?
+  sql: |
+    SELECT hora_del_dia, ROUND(SUM(total), 2) AS ventas
+    FROM ventas
+    GROUP BY hora_del_dia
+    ORDER BY hora_del_dia
+
+- pregunta: ¿Qué porcentaje de las ventas se paga con tarjeta, efectivo y transferencia?
+  sql: |
+    SELECT metodo_pago, ROUND(SUM(total), 2) AS ventas,
+           ROUND(100.0 * SUM(total) / SUM(SUM(total)) OVER (), 1) AS porcentaje
+    FROM ventas
+    GROUP BY metodo_pago
+    ORDER BY ventas DESC
+
+- pregunta: ¿Cuál es la ganancia estimada por categoría?
+  sql: |
+    SELECT v.categoria,
+           ROUND(SUM(v.cantidad * (v.precio_unitario - p.costo_unitario)), 2) AS ganancia_estimada
+    FROM ventas v JOIN productos p ON v.producto = p.producto
+    GROUP BY v.categoria
+    ORDER BY ganancia_estimada DESC
+
+- pregunta: ¿Se vende más en quincena que en días normales?
+  sql: |
+    SELECT CASE WHEN es_quincena THEN 'quincena' ELSE 'dia normal' END AS tipo_dia,
+           ROUND(SUM(total) / COUNT(DISTINCT fecha), 2) AS venta_promedio_por_dia
+    FROM ventas
+    GROUP BY tipo_dia
+    ORDER BY venta_promedio_por_dia DESC
+
+- pregunta: Ventas por día de la semana y hora (mapa de calor)
+  sql: |
+    SELECT dia_semana, num_dia_semana, hora_del_dia, ROUND(SUM(total), 2) AS ventas
+    FROM ventas
+    GROUP BY dia_semana, num_dia_semana, hora_del_dia
+    ORDER BY num_dia_semana, hora_del_dia
+
+- pregunta: ¿Cómo se vendieron las cervezas semana por semana en el último trimestre?
+  sql: |
+    SELECT semana, MIN(fecha) AS inicio_semana, SUM(cantidad) AS unidades
+    FROM ventas
+    WHERE categoria = 'Cervezas y vinos' AND trimestre = 4
+    GROUP BY semana
+    ORDER BY semana
+
+- pregunta: ¿Cuál fue el día con más ventas del año?
+  sql: |
+    SELECT fecha, dia_semana, ROUND(SUM(total), 2) AS ventas
+    FROM ventas
+    GROUP BY fecha, dia_semana
+    ORDER BY ventas DESC
+    LIMIT 1
+
+- pregunta: ¿Cuántos días estuvo sin existencias cada producto de botanas en octubre?
+  sql: |
+    SELECT producto, COUNT(*) FILTER (WHERE sin_existencia) AS dias_sin_existencia
+    FROM inventario_diario
+    WHERE categoria = 'Botanas' AND mes = 10
+    GROUP BY producto
+    ORDER BY dias_sin_existencia DESC

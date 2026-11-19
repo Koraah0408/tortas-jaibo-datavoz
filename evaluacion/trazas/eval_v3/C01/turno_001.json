@@ -1,0 +1,304 @@
+{
+ "sesion": "C01",
+ "turno": 1,
+ "fecha": "2026-11-17T15:37:50",
+ "entrada": {
+  "pregunta": "Compara las ventas en pesos de noviembre contra diciembre",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "Compara las ventas en pesos de noviembre contra diciembre",
+ "pregunta_completa": "Compara las ventas en dinero de noviembre de 2025 contra diciembre de 2025",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Las ventas de diciembre fueron de $78,203.50, superando los $53,467 que se registraron en noviembre, lo que representa un incremento del 46.30%. Este aumento se debe a que recibimos 1,006 clientes en diciembre frente a los 770 de noviembre, además de que el ticket promedio subió a $77.74. Posiblemente, la mayor afluencia de gente por las festividades de fin de mes ayudó a que los clientes gastaran más en cada visita.\n\nRecomendación: Asegura un inventario completo de productos de alta demanda antes de las fechas de quincena y fines de semana para aprovechar el mayor flujo de clientes.",
+ "sql": "SELECT ROUND(SUM(total) FILTER (WHERE mes = 11 AND anio = 2025), 2) AS noviembre, ROUND(SUM(total) FILTER (WHERE mes = 12 AND anio = 2025), 2) AS diciembre, ROUND(100.0 * (SUM(total) FILTER (WHERE mes = 12 AND anio = 2025) - SUM(total) FILTER (WHERE mes = 11 AND anio = 2025)) / NULLIF(SUM(total) FILTER (WHERE mes = 11 AND anio = 2025), 0), 1) AS cambio_porcentual FROM ventas WHERE anio = 2025 AND mes IN (11, 12)",
+ "explicacion_sql": "Compara las ventas totales en dinero entre noviembre y diciembre de 2025, incluyendo el cambio porcentual.",
+ "resultado": {
+  "sql": "SELECT ROUND(SUM(total) FILTER (WHERE mes = 11 AND anio = 2025), 2) AS noviembre, ROUND(SUM(total) FILTER (WHERE mes = 12 AND anio = 2025), 2) AS diciembre, ROUND(100.0 * (SUM(total) FILTER (WHERE mes = 12 AND anio = 2025) - SUM(total) FILTER (WHERE mes = 11 AND anio = 2025)) / NULLIF(SUM(total) FILTER (WHERE mes = 11 AND anio = 2025), 0), 1) AS cambio_porcentual FROM ventas WHERE anio = 2025 AND mes IN (11, 12)",
+  "columnas": [
+   "noviembre",
+   "diciembre",
+   "cambio_porcentual"
+  ],
+  "filas": [
+   [
+    53467.0,
+    78203.5,
+    46.3
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0228,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Comparar los tickets promedio y número de transacciones entre noviembre y diciembre de 2025",
+   "sql": "SELECT mes, ROUND(SUM(total), 2) AS ventas, COUNT(DISTINCT ticket) AS tickets, ROUND(SUM(total) / NULLIF(COUNT(DISTINCT ticket), 0), 2) AS ticket_promedio FROM ventas WHERE anio = 2025 AND mes IN (11, 12) GROUP BY mes ORDER BY mes",
+   "columnas": [
+    "mes",
+    "ventas",
+    "tickets",
+    "ticket_promedio"
+   ],
+   "filas": [
+    [
+     11,
+     53467.0,
+     770,
+     69.44
+    ],
+    [
+     12,
+     78203.5,
+     1006,
+     77.74
+    ]
+   ],
+   "n_filas": 2,
+   "truncado": false,
+   "duracion_s": 0.0241,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 6,
+  "verificadas": 6,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT ROUND(SUM(total) FILTER (WHERE mes = 11 AND anio = 2025), 2) AS noviembre, ROUND(SUM(total) FILTER (WHERE mes = 12 AND anio = 2025), 2) AS diciembre, ROUND(100.0 * (SUM(total) FILTER (WHERE mes = 12 AND anio = 2025) - SUM(total) FILTER (WHERE mes = 11 AND anio = 2025)) / NULLIF(SUM(total) FILTER (WHERE mes = 11 AND anio = 2025), 0), 1) AS cambio_porcentual FROM ventas WHERE anio = 2025 AND mes IN (11, 12)",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT ROUND(SUM(total) FILTER (WHERE mes = 11 AND anio = 2025), 2) AS noviembre, ROUND(SUM(total) FILTER (WHERE mes = 12 AND anio = 2025), 2) AS diciembre, ROUND(100.0 * (SUM(total) FILTER (WHERE mes = 12 AND anio = 2025) - SUM(total) FILTER (WHERE mes = 11 AND anio = 2025)) / NULLIF(SUM(total) FILTER (WHERE mes = 11 AND anio = 2025), 0), 1) AS cambio_porcentual FROM ventas WHERE anio = 2025 AND mes IN (11, 12)",
+  "SELECT mes, ROUND(SUM(total), 2) AS ventas, COUNT(DISTINCT ticket) AS tickets, ROUND(SUM(total) / NULLIF(COUNT(DISTINCT ticket), 0), 2) AS ticket_promedio FROM ventas WHERE anio = 2025 AND mes IN (11, 12) GROUP BY mes ORDER BY mes"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "15:37:43",
+   "duracion_s": 0.92,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.919,
+     "tokens_entrada": 681,
+     "tokens_salida": 122,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "es_seguimiento": false,
+    "pregunta_completa": "Compara las ventas en dinero de noviembre de 2025 contra diciembre de 2025",
+    "contexto": {
+     "periodo": "noviembre 2025 y diciembre 2025",
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "15:37:49",
+   "duracion_s": 5.849,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 5.412,
+     "tokens_entrada": 1807,
+     "tokens_salida": 360,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Horario y días de la tienda",
+      "Resurtido y proveedores",
+      "Métodos de pago",
+      "Convenciones de SQL (DuckDB)"
+     ],
+     "ejemplos": [
+      "Compara las ventas en pesos de bebidas entre julio y agosto",
+      "¿Qué porcentaje de las ventas se paga con tarjeta, efectivo y transferencia?",
+      "¿Qué categoría deja más dinero?"
+     ],
+     "productos": [],
+     "categorias": []
+    },
+    "sql": "SELECT ROUND(SUM(total) FILTER (WHERE mes = 11 AND anio = 2025), 2) AS noviembre, ROUND(SUM(total) FILTER (WHERE mes = 12 AND anio = 2025), 2) AS diciembre, ROUND(100.0 * (SUM(total) FILTER (WHERE mes = 12 AND anio = 2025) - SUM(total) FILTER (WHERE mes = 11 AND anio = 2025)) / NULLIF(SUM(total) FILTER (WHERE mes = 11 AND anio = 2025), 0), 1) AS cambio_porcentual FROM ventas WHERE anio = 2025 AND mes IN (11, 12)",
+    "explicacion": "Compara las ventas totales en dinero entre noviembre y diciembre de 2025, incluyendo el cambio porcentual.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Comparar los tickets promedio y número de transacciones entre noviembre y diciembre de 2025",
+      "sql": "SELECT mes, ROUND(SUM(total), 2) AS ventas, COUNT(DISTINCT ticket) AS tickets, ROUND(SUM(total) / NULLIF(COUNT(DISTINCT ticket), 0), 2) AS ticket_promedio FROM ventas WHERE anio = 2025 AND mes IN (11, 12) GROUP BY mes ORDER BY mes",
+      "error": null,
+      "filas": 2
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "15:37:49",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "15:37:49",
+   "duracion_s": 0.026,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "noviembre",
+      "diciembre",
+      "cambio_porcentual"
+     ],
+     "titulo": "Noviembre",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "15:37:50",
+   "duracion_s": 1.286,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.143,
+     "tokens_entrada": 1219,
+     "tokens_salida": 158,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 6,
+     "verificadas": 6,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 27,
+    "reglas_rag": [
+     "Horario y días de la tienda",
+     "Resurtido y proveedores"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "15:37:50",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "noviembre 2025 y diciembre 2025",
+     "metrica": "dinero",
+     "ultima_pregunta": "Compara las ventas en dinero de noviembre de 2025 contra diciembre de 2025"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "duracion_s": 8.09,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.919,
+   "tokens_entrada": 681,
+   "tokens_salida": 122,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 5.412,
+   "tokens_entrada": 1807,
+   "tokens_salida": 360,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.143,
+   "tokens_entrada": 1219,
+   "tokens_salida": 158,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 4347,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "noviembre",
+    "diciembre",
+    "cambio_porcentual"
+   ],
+   "titulo": "Noviembre",
+   "confianza": "alta"
+  }
+ }
+}

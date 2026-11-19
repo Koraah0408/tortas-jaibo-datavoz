@@ -1,0 +1,2290 @@
+{
+ "archivo": "ventas_sucias.csv",
+ "total": 325,
+ "por_tipo": {
+  "total_inconsistente": 20,
+  "precio_texto": 60,
+  "fecha_formato": 80,
+  "cantidad_negativa": 15,
+  "duplicado": 50,
+  "nulo": 60,
+  "producto_formato": 40
+ },
+ "errores": [
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "9.5",
+   "valor_correcto": "19.00",
+   "fila": 34
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": " 18 ",
+   "valor_correcto": "18.00",
+   "fila": 49
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "52,00",
+   "valor_correcto": "52.00",
+   "fila": 108
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "05/01/2025",
+   "valor_correcto": "2025-01-05",
+   "fila": 199
+  },
+  {
+   "tipo": "cantidad_negativa",
+   "columna": "cantidad",
+   "valor_original": "-3",
+   "valor_correcto": "3",
+   "fila": 204
+  },
+  {
+   "fila": 272,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 271"
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$ 22.00 MXN",
+   "valor_correcto": "22.00",
+   "fila": 305
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "2",
+   "fila": 317
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "15.0",
+   "valor_correcto": "30.00",
+   "fila": 381
+  },
+  {
+   "fila": 475,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 474"
+  },
+  {
+   "tipo": "nulo",
+   "columna": "fecha",
+   "valor_original": null,
+   "valor_correcto": "2025-01-12",
+   "fila": 531
+  },
+  {
+   "tipo": "nulo",
+   "columna": "producto",
+   "valor_original": null,
+   "valor_correcto": "Galletas saladas 300 g",
+   "fila": 536
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 694
+  },
+  {
+   "tipo": "nulo",
+   "columna": "producto",
+   "valor_original": null,
+   "valor_correcto": "Refresco de manzana 600 ml",
+   "fila": 741
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "3.00 pesos",
+   "valor_correcto": "3.00",
+   "fila": 774
+  },
+  {
+   "fila": 1032,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 1031"
+  },
+  {
+   "fila": 1139,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 1138"
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "20,00",
+   "valor_correcto": "20.00",
+   "fila": 1153
+  },
+  {
+   "tipo": "cantidad_negativa",
+   "columna": "cantidad",
+   "valor_original": "-1",
+   "valor_correcto": "1",
+   "fila": 1158
+  },
+  {
+   "fila": 1179,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 1178"
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "31 de enero de 2025",
+   "valor_correcto": "2025-01-31",
+   "fila": 1206
+  },
+  {
+   "tipo": "nulo",
+   "columna": "precio_unitario",
+   "valor_original": null,
+   "valor_correcto": "3.0",
+   "fila": 1316
+  },
+  {
+   "tipo": "nulo",
+   "columna": "precio_unitario",
+   "valor_original": null,
+   "valor_correcto": "14.0",
+   "fila": 1317
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "5.0",
+   "valor_correcto": "10.00",
+   "fila": 1386
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "Churritos  picantes  60  g",
+   "valor_correcto": "Churritos picantes 60 g",
+   "fila": 1436
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "Refresco  de  cola  3  L",
+   "valor_correcto": "Refresco de cola 3 L",
+   "fila": 1473
+  },
+  {
+   "tipo": "cantidad_negativa",
+   "columna": "cantidad",
+   "valor_original": "-1",
+   "valor_correcto": "1",
+   "fila": 1583
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$30.00",
+   "valor_correcto": "30.00",
+   "fila": 1619
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "32.00 pesos",
+   "valor_correcto": "32.00",
+   "fila": 1654
+  },
+  {
+   "fila": 1741,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 1740"
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "48.00 pesos",
+   "valor_correcto": "48.00",
+   "fila": 1828
+  },
+  {
+   "tipo": "nulo",
+   "columna": "producto",
+   "valor_original": null,
+   "valor_correcto": "Frijoles refritos 430 g",
+   "fila": 1883
+  },
+  {
+   "tipo": "cantidad_negativa",
+   "columna": "cantidad",
+   "valor_original": "-2",
+   "valor_correcto": "2",
+   "fila": 1892
+  },
+  {
+   "tipo": "nulo",
+   "columna": "fecha",
+   "valor_original": null,
+   "valor_correcto": "2025-02-17",
+   "fila": 1893
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/02/18",
+   "valor_correcto": "2025-02-18",
+   "fila": 1944
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "  Chícharos con zanahoria 400 g ",
+   "valor_correcto": "Chícharos con zanahoria 400 g",
+   "fila": 2000
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "20-02-2025",
+   "valor_correcto": "2025-02-20",
+   "fila": 2011
+  },
+  {
+   "tipo": "nulo",
+   "columna": "precio_unitario",
+   "valor_original": null,
+   "valor_correcto": "24.0",
+   "fila": 2094
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "GALLETAS DE ANIMALITOS 500 G",
+   "valor_correcto": "Galletas de animalitos 500 g",
+   "fila": 2128
+  },
+  {
+   "tipo": "nulo",
+   "columna": "fecha",
+   "valor_original": null,
+   "valor_correcto": "2025-02-25",
+   "fila": 2215
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "20.00 aprox",
+   "valor_correcto": "20.00",
+   "fila": 2241
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "  Atún en agua 140 g ",
+   "valor_correcto": "Atún en agua 140 g",
+   "fila": 2287
+  },
+  {
+   "fila": 2320,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 2319"
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$ 78.00 MXN",
+   "valor_correcto": "78.00",
+   "fila": 2331
+  },
+  {
+   "fila": 2370,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 2369"
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "01-03-2025",
+   "valor_correcto": "2025-03-01",
+   "fila": 2436
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "  Sopa instantánea vaso ",
+   "valor_correcto": "Sopa instantánea vaso",
+   "fila": 2513
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "06/03/2025",
+   "valor_correcto": "2025-03-06",
+   "fila": 2609
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "07/03/2025",
+   "valor_correcto": "2025-03-07",
+   "fila": 2626
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "24.00 aprox",
+   "valor_correcto": "24.00",
+   "fila": 2690
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "08/03/2025",
+   "valor_correcto": "2025-03-08",
+   "fila": 2707
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "99.0",
+   "valor_correcto": "66.00",
+   "fila": 2711
+  },
+  {
+   "tipo": "nulo",
+   "columna": "precio_unitario",
+   "valor_original": null,
+   "valor_correcto": "18.0",
+   "fila": 2773
+  },
+  {
+   "fila": 2891,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 2890"
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "16-03-2025",
+   "valor_correcto": "2025-03-16",
+   "fila": 3064
+  },
+  {
+   "tipo": "cantidad_negativa",
+   "columna": "cantidad",
+   "valor_original": "-1",
+   "valor_correcto": "1",
+   "fila": 3208
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "PAN DULCE",
+   "valor_correcto": "Pan dulce",
+   "fila": 3218
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "22.00 aprox",
+   "valor_correcto": "22.00",
+   "fila": 3271
+  },
+  {
+   "tipo": "nulo",
+   "columna": "precio_unitario",
+   "valor_original": null,
+   "valor_correcto": "19.0",
+   "fila": 3281
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "28/03/2025",
+   "valor_correcto": "2025-03-28",
+   "fila": 3481
+  },
+  {
+   "fila": 3489,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 3488"
+  },
+  {
+   "fila": 3517,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 3516"
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "29-03-2025",
+   "valor_correcto": "2025-03-29",
+   "fila": 3565
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 3567
+  },
+  {
+   "tipo": "cantidad_negativa",
+   "columna": "cantidad",
+   "valor_original": "-1",
+   "valor_correcto": "1",
+   "fila": 3624
+  },
+  {
+   "fila": 3672,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 3671"
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "1-abr-2025",
+   "valor_correcto": "2025-04-01",
+   "fila": 3693
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "cerveza clara lata 355 ml",
+   "valor_correcto": "Cerveza clara lata 355 ml",
+   "fila": 3787
+  },
+  {
+   "tipo": "nulo",
+   "columna": "precio_unitario",
+   "valor_original": null,
+   "valor_correcto": "22.0",
+   "fila": 3896
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "2.0",
+   "valor_correcto": "20.00",
+   "fila": 3974
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "2.8",
+   "valor_correcto": "28.00",
+   "fila": 3979
+  },
+  {
+   "fila": 4152,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 4151"
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "8",
+   "fila": 4188
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "1.0",
+   "valor_correcto": "10.00",
+   "fila": 4290
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "16 de abril de 2025",
+   "valor_correcto": "2025-04-16",
+   "fila": 4306
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 4348
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 4389
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "18/04/2025",
+   "valor_correcto": "2025-04-18",
+   "fila": 4403
+  },
+  {
+   "fila": 4451,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 4450"
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$ 32.00 MXN",
+   "valor_correcto": "32.00",
+   "fila": 4452
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "20 de abril de 2025",
+   "valor_correcto": "2025-04-20",
+   "fila": 4471
+  },
+  {
+   "fila": 4477,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 4476"
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "20-04-2025",
+   "valor_correcto": "2025-04-20",
+   "fila": 4481
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "20/04/2025",
+   "valor_correcto": "2025-04-20",
+   "fila": 4503
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "  Leche entera 1 L ",
+   "valor_correcto": "Leche entera 1 L",
+   "fila": 4545
+  },
+  {
+   "tipo": "nulo",
+   "columna": "precio_unitario",
+   "valor_original": null,
+   "valor_correcto": "28.0",
+   "fila": 4585
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/04/22",
+   "valor_correcto": "2025-04-22",
+   "fila": 4602
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "PAPEL HIGIÉNICO 4 ROLLOS",
+   "valor_correcto": "Papel higiénico 4 rollos",
+   "fila": 4636
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "ELOTE AMARILLO 400 G",
+   "valor_correcto": "Elote amarillo 400 g",
+   "fila": 4680
+  },
+  {
+   "fila": 4682,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 4681"
+  },
+  {
+   "fila": 4688,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 4687"
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "sopa instantánea vaso",
+   "valor_correcto": "Sopa instantánea vaso",
+   "fila": 4739
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "40.00 p/u",
+   "valor_correcto": "40.00",
+   "fila": 4740
+  },
+  {
+   "fila": 4789,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 4788"
+  },
+  {
+   "fila": 4829,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 4828"
+  },
+  {
+   "tipo": "nulo",
+   "columna": "fecha",
+   "valor_original": null,
+   "valor_correcto": "2025-04-27",
+   "fila": 4830
+  },
+  {
+   "fila": 4872,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 4871"
+  },
+  {
+   "tipo": "nulo",
+   "columna": "precio_unitario",
+   "valor_original": null,
+   "valor_correcto": "24.0",
+   "fila": 5092
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/05/02",
+   "valor_correcto": "2025-05-02",
+   "fila": 5097
+  },
+  {
+   "tipo": "nulo",
+   "columna": "precio_unitario",
+   "valor_original": null,
+   "valor_correcto": "24.0",
+   "fila": 5149
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "AGUA NATURAL 1 L",
+   "valor_correcto": "Agua natural 1 L",
+   "fila": 5155
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "120.00 pesos",
+   "valor_correcto": "120.00",
+   "fila": 5232
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "Leche  entera  1  L",
+   "valor_correcto": "Leche entera 1 L",
+   "fila": 5252
+  },
+  {
+   "fila": 5396,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 5395"
+  },
+  {
+   "tipo": "nulo",
+   "columna": "fecha",
+   "valor_original": null,
+   "valor_correcto": "2025-05-10",
+   "fila": 5423
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$ 10.00 MXN",
+   "valor_correcto": "10.00",
+   "fila": 5520
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "16-05-2025",
+   "valor_correcto": "2025-05-16",
+   "fila": 5687
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "17 de mayo de 2025",
+   "valor_correcto": "2025-05-17",
+   "fila": 5757
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "30.00 pesos",
+   "valor_correcto": "30.00",
+   "fila": 5831
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "  Salsa picante 150 ml ",
+   "valor_correcto": "Salsa picante 150 ml",
+   "fila": 5848
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "  Paleta de caramelo ",
+   "valor_correcto": "Paleta de caramelo",
+   "fila": 5973
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 6037
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$ 22.00 MXN",
+   "valor_correcto": "22.00",
+   "fila": 6092
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "Palomitas  para  microondas  3  pzas",
+   "valor_correcto": "Palomitas para microondas 3 pzas",
+   "fila": 6096
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "21.0",
+   "valor_correcto": "42.00",
+   "fila": 6138
+  },
+  {
+   "tipo": "nulo",
+   "columna": "precio_unitario",
+   "valor_original": null,
+   "valor_correcto": "18.0",
+   "fila": 6176
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "Yogur  natural  1  kg",
+   "valor_correcto": "Yogur natural 1 kg",
+   "fila": 6217
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "30/05/2025",
+   "valor_correcto": "2025-05-30",
+   "fila": 6268
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "48.00 aprox",
+   "valor_correcto": "48.00",
+   "fila": 6282
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "32.00 p/u",
+   "valor_correcto": "32.00",
+   "fila": 6315
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "31-may-2025",
+   "valor_correcto": "2025-05-31",
+   "fila": 6335
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "19,00",
+   "valor_correcto": "19.00",
+   "fila": 6336
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 6369
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "01-06-2025",
+   "valor_correcto": "2025-06-01",
+   "fila": 6371
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "mazapán",
+   "valor_correcto": "Mazapán",
+   "fila": 6431
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "14.00 pesos",
+   "valor_correcto": "14.00",
+   "fila": 6450
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/06/06",
+   "valor_correcto": "2025-06-06",
+   "fila": 6546
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "6 de junio de 2025",
+   "valor_correcto": "2025-06-06",
+   "fila": 6547
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$ 24.00 MXN",
+   "valor_correcto": "24.00",
+   "fila": 6625
+  },
+  {
+   "tipo": "nulo",
+   "columna": "fecha",
+   "valor_original": null,
+   "valor_correcto": "2025-06-08",
+   "fila": 6634
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "  Chiles jalapeños 220 g ",
+   "valor_correcto": "Chiles jalapeños 220 g",
+   "fila": 6642
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "17,00",
+   "valor_correcto": "17.00",
+   "fila": 6646
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 6671
+  },
+  {
+   "tipo": "nulo",
+   "columna": "precio_unitario",
+   "valor_original": null,
+   "valor_correcto": "22.0",
+   "fila": 6741
+  },
+  {
+   "fila": 6787,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 6786"
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "16.0",
+   "valor_correcto": "32.00",
+   "fila": 6852
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "  Brandy 700 ml ",
+   "valor_correcto": "Brandy 700 ml",
+   "fila": 6924
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$ 22.00 MXN",
+   "valor_correcto": "22.00",
+   "fila": 7091
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 7164
+  },
+  {
+   "tipo": "cantidad_negativa",
+   "columna": "cantidad",
+   "valor_original": "-1",
+   "valor_correcto": "1",
+   "fila": 7240
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "23/06/2025",
+   "valor_correcto": "2025-06-23",
+   "fila": 7272
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 7372
+  },
+  {
+   "tipo": "nulo",
+   "columna": "producto",
+   "valor_original": null,
+   "valor_correcto": "Atún en agua 140 g",
+   "fila": 7460
+  },
+  {
+   "tipo": "cantidad_negativa",
+   "columna": "cantidad",
+   "valor_original": "-1",
+   "valor_correcto": "1",
+   "fila": 7685
+  },
+  {
+   "tipo": "nulo",
+   "columna": "producto",
+   "valor_original": null,
+   "valor_correcto": "Cerveza clara caguama 1.2 L",
+   "fila": 7706
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "02-07-2025",
+   "valor_correcto": "2025-07-02",
+   "fila": 7712
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "03-07-2025",
+   "valor_correcto": "2025-07-03",
+   "fila": 7733
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "03/07/2025",
+   "valor_correcto": "2025-07-03",
+   "fila": 7755
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "32.00 aprox",
+   "valor_correcto": "32.00",
+   "fila": 7831
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "06-07-2025",
+   "valor_correcto": "2025-07-06",
+   "fila": 7861
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/07/06",
+   "valor_correcto": "2025-07-06",
+   "fila": 7926
+  },
+  {
+   "tipo": "nulo",
+   "columna": "fecha",
+   "valor_original": null,
+   "valor_correcto": "2025-07-07",
+   "fila": 7941
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/07/07",
+   "valor_correcto": "2025-07-07",
+   "fila": 7974
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "08-07-2025",
+   "valor_correcto": "2025-07-08",
+   "fila": 7993
+  },
+  {
+   "tipo": "nulo",
+   "columna": "fecha",
+   "valor_original": null,
+   "valor_correcto": "2025-07-08",
+   "fila": 8008
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 8015
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "  Galletas María 170 g ",
+   "valor_correcto": "Galletas María 170 g",
+   "fila": 8023
+  },
+  {
+   "tipo": "cantidad_negativa",
+   "columna": "cantidad",
+   "valor_original": "-1",
+   "valor_correcto": "1",
+   "fila": 8147
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "34,00",
+   "valor_correcto": "34.00",
+   "fila": 8156
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$4.00",
+   "valor_correcto": "4.00",
+   "fila": 8350
+  },
+  {
+   "tipo": "nulo",
+   "columna": "producto",
+   "valor_original": null,
+   "valor_correcto": "Jugo de mango 250 ml",
+   "fila": 8490
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/07/21",
+   "valor_correcto": "2025-07-21",
+   "fila": 8511
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "13.00 p/u",
+   "valor_correcto": "13.00",
+   "fila": 8549
+  },
+  {
+   "tipo": "nulo",
+   "columna": "precio_unitario",
+   "valor_original": null,
+   "valor_correcto": "18.0",
+   "fila": 8555
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$ 18.00 MXN",
+   "valor_correcto": "18.00",
+   "fila": 8568
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "24-07-2025",
+   "valor_correcto": "2025-07-24",
+   "fila": 8600
+  },
+  {
+   "tipo": "cantidad_negativa",
+   "columna": "cantidad",
+   "valor_original": "-1",
+   "valor_correcto": "1",
+   "fila": 8709
+  },
+  {
+   "tipo": "nulo",
+   "columna": "fecha",
+   "valor_original": null,
+   "valor_correcto": "2025-07-30",
+   "fila": 8811
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "30/07/2025",
+   "valor_correcto": "2025-07-30",
+   "fila": 8821
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$120.00",
+   "valor_correcto": "120.00",
+   "fila": 8872
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "24.0",
+   "valor_correcto": "48.00",
+   "fila": 8921
+  },
+  {
+   "tipo": "nulo",
+   "columna": "fecha",
+   "valor_original": null,
+   "valor_correcto": "2025-08-01",
+   "fila": 8938
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "bebida preparada lata 355 ml",
+   "valor_correcto": "Bebida preparada lata 355 ml",
+   "fila": 8939
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/08/02",
+   "valor_correcto": "2025-08-02",
+   "fila": 8964
+  },
+  {
+   "fila": 9099,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 9098"
+  },
+  {
+   "fila": 9114,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 9113"
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 9155
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "38,00",
+   "valor_correcto": "38.00",
+   "fila": 9199
+  },
+  {
+   "tipo": "nulo",
+   "columna": "producto",
+   "valor_original": null,
+   "valor_correcto": "Jamón de pavo 250 g",
+   "fila": 9221
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": " 45 ",
+   "valor_correcto": "45.00",
+   "fila": 9313
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 9316
+  },
+  {
+   "fila": 9362,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 9361"
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "87.0",
+   "valor_correcto": "58.00",
+   "fila": 9372
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "380.0",
+   "valor_correcto": "38.00",
+   "fila": 9389
+  },
+  {
+   "tipo": "nulo",
+   "columna": "producto",
+   "valor_original": null,
+   "valor_correcto": "Cloro 1 L",
+   "fila": 9416
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "28,00",
+   "valor_correcto": "28.00",
+   "fila": 9557
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "FRITURAS DE MAÍZ CON QUESO 60 G",
+   "valor_correcto": "Frituras de maíz con queso 60 g",
+   "fila": 9573
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "15 de agosto de 2025",
+   "valor_correcto": "2025-08-15",
+   "fila": 9599
+  },
+  {
+   "fila": 9601,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 9600"
+  },
+  {
+   "tipo": "nulo",
+   "columna": "fecha",
+   "valor_original": null,
+   "valor_correcto": "2025-08-16",
+   "fila": 9674
+  },
+  {
+   "fila": 9699,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 9698"
+  },
+  {
+   "fila": 9735,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 9734"
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "150.0",
+   "valor_correcto": "15.00",
+   "fila": 9781
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "21 de agosto de 2025",
+   "valor_correcto": "2025-08-21",
+   "fila": 9897
+  },
+  {
+   "tipo": "cantidad_negativa",
+   "columna": "cantidad",
+   "valor_original": "-1",
+   "valor_correcto": "1",
+   "fila": 9959
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "  Refresco de cola 3 L ",
+   "valor_correcto": "Refresco de cola 3 L",
+   "fila": 10017
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "20.00 p/u",
+   "valor_correcto": "20.00",
+   "fila": 10042
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "26-08-2025",
+   "valor_correcto": "2025-08-26",
+   "fila": 10136
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "2",
+   "fila": 10151
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "AZÚCAR ESTÁNDAR 1 KG",
+   "valor_correcto": "Azúcar estándar 1 kg",
+   "fila": 10167
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/08/27",
+   "valor_correcto": "2025-08-27",
+   "fila": 10177
+  },
+  {
+   "fila": 10319,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 10318"
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 10347
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/09/01",
+   "valor_correcto": "2025-09-01",
+   "fila": 10398
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2-sep-2025",
+   "valor_correcto": "2025-09-02",
+   "fila": 10442
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "02-09-2025",
+   "valor_correcto": "2025-09-02",
+   "fila": 10453
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "560.0",
+   "valor_correcto": "56.00",
+   "fila": 10513
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "22.00 p/u",
+   "valor_correcto": "22.00",
+   "fila": 10603
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "TORTILLAS DE MAÍZ 1 KG",
+   "valor_correcto": "Tortillas de maíz 1 kg",
+   "fila": 10663
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "8 de septiembre de 2025",
+   "valor_correcto": "2025-09-08",
+   "fila": 10679
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "63.0",
+   "valor_correcto": "42.00",
+   "fila": 10720
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "12 de septiembre de 2025",
+   "valor_correcto": "2025-09-12",
+   "fila": 10795
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "Azúcar  estándar  1  kg",
+   "valor_correcto": "Azúcar estándar 1 kg",
+   "fila": 10875
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/09/14",
+   "valor_correcto": "2025-09-14",
+   "fila": 10887
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "15-sep-2025",
+   "valor_correcto": "2025-09-15",
+   "fila": 10926
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "17/09/2025",
+   "valor_correcto": "2025-09-17",
+   "fila": 10990
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "34,00",
+   "valor_correcto": "34.00",
+   "fila": 10997
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "17 de septiembre de 2025",
+   "valor_correcto": "2025-09-17",
+   "fila": 11021
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "48.00 p/u",
+   "valor_correcto": "48.00",
+   "fila": 11022
+  },
+  {
+   "tipo": "cantidad_negativa",
+   "columna": "cantidad",
+   "valor_original": "-1",
+   "valor_correcto": "1",
+   "fila": 11048
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "19 de septiembre de 2025",
+   "valor_correcto": "2025-09-19",
+   "fila": 11086
+  },
+  {
+   "tipo": "nulo",
+   "columna": "producto",
+   "valor_original": null,
+   "valor_correcto": "Refresco de cola 2 L",
+   "fila": 11115
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/09/21",
+   "valor_correcto": "2025-09-21",
+   "fila": 11187
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "DETERGENTE EN POLVO 1 KG",
+   "valor_correcto": "Detergente en polvo 1 kg",
+   "fila": 11202
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "Limpiador  multiusos  1  L",
+   "valor_correcto": "Limpiador multiusos 1 L",
+   "fila": 11241
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "Papas  fritas  sal  45  g",
+   "valor_correcto": "Papas fritas sal 45 g",
+   "fila": 11272
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$65.00",
+   "valor_correcto": "65.00",
+   "fila": 11442
+  },
+  {
+   "fila": 11451,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 11450"
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "3.00 pesos",
+   "valor_correcto": "3.00",
+   "fila": 11573
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$18.00",
+   "valor_correcto": "18.00",
+   "fila": 11580
+  },
+  {
+   "fila": 11597,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 11596"
+  },
+  {
+   "fila": 11619,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 11618"
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$3.00",
+   "valor_correcto": "3.00",
+   "fila": 11641
+  },
+  {
+   "tipo": "cantidad_negativa",
+   "columna": "cantidad",
+   "valor_original": "-3",
+   "valor_correcto": "3",
+   "fila": 11670
+  },
+  {
+   "fila": 11702,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 11701"
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "06-10-2025",
+   "valor_correcto": "2025-10-06",
+   "fila": 11785
+  },
+  {
+   "fila": 11848,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 11847"
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 11935
+  },
+  {
+   "tipo": "nulo",
+   "columna": "fecha",
+   "valor_original": null,
+   "valor_correcto": "2025-10-10",
+   "fila": 11945
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "12-oct-2025",
+   "valor_correcto": "2025-10-12",
+   "fila": 12026
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/10/13",
+   "valor_correcto": "2025-10-13",
+   "fila": 12067
+  },
+  {
+   "fila": 12124,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 12123"
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "18.0",
+   "valor_correcto": "12.00",
+   "fila": 12224
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "PALETA DE CARAMELO",
+   "valor_correcto": "Paleta de caramelo",
+   "fila": 12322
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "PAPAS FRITAS SAL 45 G",
+   "valor_correcto": "Papas fritas sal 45 g",
+   "fila": 12371
+  },
+  {
+   "fila": 12399,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 12398"
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": " 15 ",
+   "valor_correcto": "15.00",
+   "fila": 12403
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$ 28.00 MXN",
+   "valor_correcto": "28.00",
+   "fila": 12421
+  },
+  {
+   "fila": 12493,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 12492"
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$ 45.00 MXN",
+   "valor_correcto": "45.00",
+   "fila": 12561
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "12.00 aprox",
+   "valor_correcto": "12.00",
+   "fila": 12571
+  },
+  {
+   "fila": 12580,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 12579"
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "27-10-2025",
+   "valor_correcto": "2025-10-27",
+   "fila": 12615
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "PAPAS FRITAS SAL 45 G",
+   "valor_correcto": "Papas fritas sal 45 g",
+   "fila": 12653
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$ 24.00 MXN",
+   "valor_correcto": "24.00",
+   "fila": 12664
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "28 de octubre de 2025",
+   "valor_correcto": "2025-10-28",
+   "fila": 12668
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/10/28",
+   "valor_correcto": "2025-10-28",
+   "fila": 12671
+  },
+  {
+   "fila": 12733,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 12732"
+  },
+  {
+   "fila": 12752,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 12751"
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "01-11-2025",
+   "valor_correcto": "2025-11-01",
+   "fila": 12829
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "26.0",
+   "valor_correcto": "52.00",
+   "fila": 12881
+  },
+  {
+   "fila": 12913,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 12912"
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": " 25 ",
+   "valor_correcto": "25.00",
+   "fila": 12917
+  },
+  {
+   "fila": 13010,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 13009"
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "LECHE ENTERA 1 L",
+   "valor_correcto": "Leche entera 1 L",
+   "fila": 13013
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/11/07",
+   "valor_correcto": "2025-11-07",
+   "fila": 13093
+  },
+  {
+   "tipo": "nulo",
+   "columna": "producto",
+   "valor_original": null,
+   "valor_correcto": "Papas fritas sal 45 g",
+   "fila": 13094
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "08-11-2025",
+   "valor_correcto": "2025-11-08",
+   "fila": 13104
+  },
+  {
+   "tipo": "cantidad_negativa",
+   "columna": "cantidad",
+   "valor_original": "-1",
+   "valor_correcto": "1",
+   "fila": 13119
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "08-11-2025",
+   "valor_correcto": "2025-11-08",
+   "fila": 13137
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/11/12",
+   "valor_correcto": "2025-11-12",
+   "fila": 13315
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 13322
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$ 12.00 MXN",
+   "valor_correcto": "12.00",
+   "fila": 13377
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "2",
+   "fila": 13442
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": " 14 ",
+   "valor_correcto": "14.00",
+   "fila": 13444
+  },
+  {
+   "tipo": "nulo",
+   "columna": "precio_unitario",
+   "valor_original": null,
+   "valor_correcto": "17.0",
+   "fila": 13509
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "16.0",
+   "valor_correcto": "32.00",
+   "fila": 13563
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$ 28.00 MXN",
+   "valor_correcto": "28.00",
+   "fila": 13564
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "19/11/2025",
+   "valor_correcto": "2025-11-19",
+   "fila": 13630
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "2.8",
+   "valor_correcto": "28.00",
+   "fila": 13754
+  },
+  {
+   "fila": 13833,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 13832"
+  },
+  {
+   "fila": 13875,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 13874"
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "26-nov-2025",
+   "valor_correcto": "2025-11-26",
+   "fila": 13910
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "27-11-2025",
+   "valor_correcto": "2025-11-27",
+   "fila": 13952
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "28-nov-2025",
+   "valor_correcto": "2025-11-28",
+   "fila": 13972
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "28/11/2025",
+   "valor_correcto": "2025-11-28",
+   "fila": 13982
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "19,00",
+   "valor_correcto": "19.00",
+   "fila": 14064
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "3.00 pesos",
+   "valor_correcto": "3.00",
+   "fila": 14150
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/12/02",
+   "valor_correcto": "2025-12-02",
+   "fila": 14219
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2 de diciembre de 2025",
+   "valor_correcto": "2025-12-02",
+   "fila": 14239
+  },
+  {
+   "fila": 14319,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 14318"
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "Pan  dulce",
+   "valor_correcto": "Pan dulce",
+   "fila": 14444
+  },
+  {
+   "tipo": "cantidad_negativa",
+   "columna": "cantidad",
+   "valor_original": "-2",
+   "valor_correcto": "2",
+   "fila": 14539
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/12/08",
+   "valor_correcto": "2025-12-08",
+   "fila": 14559
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "papas fritas chile 45 g",
+   "valor_correcto": "Papas fritas chile 45 g",
+   "fila": 14580
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "11 de diciembre de 2025",
+   "valor_correcto": "2025-12-11",
+   "fila": 14710
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "cerveza clara 6 pack",
+   "valor_correcto": "Cerveza clara 6 pack",
+   "fila": 14739
+  },
+  {
+   "fila": 14752,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 14751"
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$19.00",
+   "valor_correcto": "19.00",
+   "fila": 14755
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$20.00",
+   "valor_correcto": "20.00",
+   "fila": 14807
+  },
+  {
+   "tipo": "nulo",
+   "columna": "producto",
+   "valor_original": null,
+   "valor_correcto": "Papas fritas chile 45 g",
+   "fila": 14814
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "13/12/2025",
+   "valor_correcto": "2025-12-13",
+   "fila": 14860
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "  Roles de canela 4 pzas ",
+   "valor_correcto": "Roles de canela 4 pzas",
+   "fila": 14865
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "15-12-2025",
+   "valor_correcto": "2025-12-15",
+   "fila": 14955
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "2025/12/15",
+   "valor_correcto": "2025-12-15",
+   "fila": 14959
+  },
+  {
+   "tipo": "nulo",
+   "columna": "producto",
+   "valor_original": null,
+   "valor_correcto": "Paleta de caramelo",
+   "fila": 14972
+  },
+  {
+   "fila": 14995,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 14994"
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "35,00",
+   "valor_correcto": "35.00",
+   "fila": 14998
+  },
+  {
+   "tipo": "nulo",
+   "columna": "producto",
+   "valor_original": null,
+   "valor_correcto": "Detergente en polvo 1 kg",
+   "fila": 15005
+  },
+  {
+   "tipo": "total_inconsistente",
+   "columna": "total",
+   "valor_original": "1.4",
+   "valor_correcto": "14.00",
+   "fila": 15037
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "17/12/2025",
+   "valor_correcto": "2025-12-17",
+   "fila": 15064
+  },
+  {
+   "fila": 15247,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 15246"
+  },
+  {
+   "tipo": "nulo",
+   "columna": "cantidad",
+   "valor_original": null,
+   "valor_correcto": "1",
+   "fila": 15317
+  },
+  {
+   "fila": 15330,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 15329"
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": " 18 ",
+   "valor_correcto": "18.00",
+   "fila": 15522
+  },
+  {
+   "fila": 15624,
+   "tipo": "duplicado",
+   "columna": "*",
+   "valor_original": null,
+   "valor_correcto": "duplicado de la fila 15623"
+  },
+  {
+   "tipo": "producto_formato",
+   "columna": "producto",
+   "valor_original": "  Atún en agua 140 g ",
+   "valor_correcto": "Atún en agua 140 g",
+   "fila": 15653
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "28-12-2025",
+   "valor_correcto": "2025-12-28",
+   "fila": 15668
+  },
+  {
+   "tipo": "nulo",
+   "columna": "producto",
+   "valor_original": null,
+   "valor_correcto": "Galletas con chispas 300 g",
+   "fila": 15719
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "34.00 pesos",
+   "valor_correcto": "34.00",
+   "fila": 15769
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "29/12/2025",
+   "valor_correcto": "2025-12-29",
+   "fila": 15775
+  },
+  {
+   "tipo": "fecha_formato",
+   "columna": "fecha",
+   "valor_original": "30/12/2025",
+   "valor_correcto": "2025-12-30",
+   "fila": 15800
+  },
+  {
+   "tipo": "nulo",
+   "columna": "producto",
+   "valor_original": null,
+   "valor_correcto": "Chicharrón de harina 100 g",
+   "fila": 15849
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "30,00",
+   "valor_correcto": "30.00",
+   "fila": 15864
+  },
+  {
+   "tipo": "precio_texto",
+   "columna": "precio_unitario",
+   "valor_original": "$ 32.00 MXN",
+   "valor_correcto": "32.00",
+   "fila": 15871
+  }
+ ]
+}

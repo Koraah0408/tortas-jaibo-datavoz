@@ -1,0 +1,349 @@
+{
+ "sesion": "JD11",
+ "turno": 1,
+ "fecha": "2026-11-18T21:49:02",
+ "entrada": {
+  "pregunta": "¿Qué pasa si hago una promoción de 3 bocoles por 55 pesos?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Qué pasa si hago una promoción de 3 bocoles por 55 pesos?",
+ "pregunta_completa": "¿Qué pasa si hago una promoción de 3 bocoles por 55 pesos?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Hacer la promoción de 3 bocoles por $55.00 te costaría $38.50 semanales en descuentos a clientes que ya compran este producto. Para no perder dinero, tendrías que vender entre 1 y 3 combos adicionales cada semana, dependiendo de tu margen de ganancia real. Ten en cuenta que estos cálculos son un SUPUESTO sobre tus costos, por lo que te recomiendo confirmar cuánto te cuesta exactamente preparar cada bocol antes de lanzarla. Posiblemente, esta promoción sea efectiva si logras atraer a clientes que actualmente no piden los tres bocoles juntos.\n\nRecomendación: Lanza la promoción solo durante los días de menor venta para medir si realmente logras atraer clientes nuevos sin afectar tus ganancias actuales.",
+ "sql": null,
+ "explicacion_sql": "Simulación del combo 3 Bocoles a $55.00 (precio normal $66.00). Se usan las órdenes de mostrador del 2026-08-18 al 2026-11-15: los clientes que YA piden esos productos juntos también recibirían el descuento, y eso cuesta dinero; la tabla dice cuántos combos ADICIONALES por semana hacen falta para recuperarlo según el margen de ganancia. Supuestos: SUPUESTO: se desconoce el costo de ingredientes, así que se prueban márgenes de 40, 50 y 60 %.",
+ "resultado": {
+  "columnas": [
+   "margen_bruto_pct",
+   "ganancia_por_combo_precio_normal",
+   "ganancia_por_combo_con_promocion",
+   "combos_extra_por_semana_para_no_perder",
+   "aumento_necesario_pct"
+  ],
+  "filas": [
+   [
+    40,
+    26.4,
+    15.4,
+    2.5,
+    71.4
+   ],
+   [
+    50,
+    33.0,
+    22.0,
+    1.8,
+    50.0
+   ],
+   [
+    60,
+    39.6,
+    28.6,
+    1.3,
+    38.5
+   ]
+  ],
+  "n_filas": 3,
+  "error": null,
+  "ejecutada": true,
+  "herramienta": "simular_promocion",
+  "titulo": "Simulación: 3 Bocoles a $55"
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "datos base del combo",
+   "columnas": [
+    "concepto",
+    "valor"
+   ],
+   "filas": [
+    [
+     "precio normal del combo",
+     66.0
+    ],
+    [
+     "precio con la promoción",
+     55.0
+    ],
+    [
+     "descuento por combo",
+     11.0
+    ],
+    [
+     "combos que ya se venden por semana (mostrador)",
+     3.5
+    ],
+    [
+     "órdenes por semana con alguno de esos productos",
+     5.8
+    ],
+    [
+     "descuento que se daría por semana a quienes ya lo piden",
+     38.5
+    ]
+   ],
+   "n_filas": 6,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 5,
+  "verificadas": 5,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [],
+ "sql_ejecutadas": [
+  "SELECT producto, precio_unitario, COUNT(*) AS n, MAX(fecha) AS ultima FROM ventas WHERE producto IN ('Bocoles') AND precio_unitario > 0 AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 60 DAY GROUP BY producto, precio_unitario",
+  "SELECT id_orden, producto, SUM(cantidad) AS c, MIN(fecha) AS f FROM ventas WHERE canal = 'Local' AND producto IN ('Bocoles') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 90 DAY GROUP BY id_orden, producto",
+  "SELECT MIN(fecha) AS desde, MAX(fecha) AS hasta FROM ventas WHERE fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 90 DAY"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "21:48:49",
+   "duracion_s": 1.294,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.294,
+     "tokens_entrada": 1124,
+     "tokens_salida": 117,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "analisis": "promociones",
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Qué pasa si hago una promoción de 3 bocoles por 55 pesos?",
+    "contexto": {
+     "periodo": null,
+     "producto": "bocoles",
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Asesor de negocio",
+   "accion": "analisis_especializado",
+   "hora": "21:48:51",
+   "duracion_s": 2.56,
+   "llamadas_llm": [
+    {
+     "rol": "asesor",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.002,
+     "tokens_entrada": 698,
+     "tokens_salida": 93,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "simular_promocion",
+    "propuesta_llm": {
+     "herramienta": "simular_promocion",
+     "parametros": {
+      "productos": [
+       {
+        "producto": "Bocoles",
+        "cantidad": 3
+       }
+      ],
+      "precio_promocional": 55,
+      "margen_bruto": null,
+      "dias": 90
+     }
+    },
+    "parametros": {
+     "productos": {
+      "Bocoles": 3
+     },
+     "precio_promocional": 55.0,
+     "dias": 90
+    },
+    "filas": 3,
+    "supuestos": [
+     "SUPUESTO: se desconoce el costo de ingredientes, así que se prueban márgenes de 40, 50 y 60 %"
+    ],
+    "error_llm": null
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "21:48:55",
+   "duracion_s": 4.008,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 3.933,
+     "tokens_entrada": 668,
+     "tokens_salida": 128,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "margen_bruto_pct",
+     "y": [
+      "ganancia_por_combo_precio_normal",
+      "ganancia_por_combo_con_promocion"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Impacto de la promoción en tu ganancia"
+    },
+    "razon": "Permite comparar visualmente cómo disminuye la ganancia por combo al aplicar la promoción según el margen actual de la tienda.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "21:49:02",
+   "duracion_s": 7.024,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 6.808,
+     "tokens_entrada": 1980,
+     "tokens_salida": 159,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 5,
+     "verificadas": 5,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 60,
+    "reglas_rag": [
+     "Promociones",
+     "Barbacoa"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "21:49:02",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "producto": "bocoles",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Qué pasa si hago una promoción de 3 bocoles por 55 pesos?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": "promociones",
+ "herramienta_negocio": {
+  "nombre": "simular_promocion",
+  "titulo": "Simulación: 3 Bocoles a $55",
+  "parametros": {
+   "productos": {
+    "Bocoles": 3
+   },
+   "precio_promocional": 55.0,
+   "dias": 90
+  },
+  "supuestos": [
+   "SUPUESTO: se desconoce el costo de ingredientes, así que se prueban márgenes de 40, 50 y 60 %"
+  ]
+ },
+ "duracion_s": 14.9,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.294,
+   "tokens_entrada": 1124,
+   "tokens_salida": 117,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "asesor",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.002,
+   "tokens_entrada": 698,
+   "tokens_salida": 93,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 3.933,
+   "tokens_entrada": 668,
+   "tokens_salida": 128,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 6.808,
+   "tokens_entrada": 1980,
+   "tokens_salida": 159,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 4967,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "margen_bruto_pct",
+   "y": [
+    "ganancia_por_combo_precio_normal",
+    "ganancia_por_combo_con_promocion"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Impacto de la promoción en tu ganancia",
+   "razon": "Permite comparar visualmente cómo disminuye la ganancia por combo al aplicar la promoción según el margen actual de la tienda."
+  }
+ }
+}

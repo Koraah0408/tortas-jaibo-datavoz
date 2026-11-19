@@ -1,0 +1,463 @@
+{
+ "sesion": "J07",
+ "turno": 1,
+ "fecha": "2026-11-18T21:19:44",
+ "entrada": {
+  "pregunta": "Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026",
+ "pregunta_completa": "Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En el periodo de septiembre a octubre, Didi generó $40,748 en ventas con 223 órdenes, mientras que Rappi sumó $19,092 con 97 órdenes. Aunque Rappi tiene un ticket promedio más alto de $196.82 frente a los $182.73 de Didi, ambos canales nos dejan menos dinero por pedido que si vendiéramos lo mismo en el local. Esto sucede porque la comisión del 25% (que es un supuesto y te sugiero confirmar en tu contrato) es mayor al sobreprecio que aplicamos en las apps. En Didi perdemos $36.91 por orden y en Rappi $28.14 comparado con el mostrador. Ten en cuenta que estos cálculos de comisión son una estimación.\n\nRecomendación: Ajusta el sobreprecio en Didi para que se acerque al 25% y así cubrir mejor la comisión, ya que actualmente el sobreprecio aplicado solo compensa una pequeña parte del costo.",
+ "sql": null,
+ "explicacion_sql": "Ingreso por canal de las órdenes cobradas del 2026-09-17 al 2026-11-15: venta cobrada, sobreprecio de las apps contra el precio de mostrador, comisión estimada y lo que queda después de la comisión. «Comisión que cubre el sobreprecio» es la comisión máxima con la que un pedido en la app deja lo mismo que venderlo a precio de mostrador; si la comisión real es mayor, cada pedido en la app deja menos que en mostrador. El ingreso por orden NO se compara directo entre canales porque los pedidos de app suelen ser más grandes: la comparación justa es «gana o pierde por orden vs mostrador», lo que deja de más (positivo) o de menos (negativo) cada pedido de app comparado con vender esos mismos productos en el mostrador. Supuestos: comisión de Didi de 25% (SUPUESTO: confírmala en tu contrato con la app); comisión de Rappi de 25% (SUPUESTO: confírmala en tu contrato con la app); Legacy y Automatas compran a crédito: ese dinero entra cuando paga la empresa; sin costos de ingredientes no se puede calcular la ganancia: solo el ingreso después de comisiones.",
+ "resultado": {
+  "columnas": [
+   "canal",
+   "ordenes",
+   "venta_cobrada",
+   "ticket_promedio",
+   "sobreprecio_vs_mostrador_pct",
+   "comision_pct",
+   "comision_estimada",
+   "ingreso_despues_de_comision",
+   "ingreso_por_orden",
+   "comision_que_cubre_el_sobreprecio_pct",
+   "gana_o_pierde_por_orden_vs_mostrador"
+  ],
+  "filas": [
+   [
+    "Local",
+    458,
+    76316.0,
+    166.63,
+    -0.8,
+    0.0,
+    0.0,
+    76316.0,
+    166.63,
+    null,
+    null
+   ],
+   [
+    "Didi",
+    223,
+    40748.0,
+    182.73,
+    5.0,
+    25.0,
+    10187.0,
+    30561.0,
+    137.04,
+    4.8,
+    -36.91
+   ],
+   [
+    "Legacy",
+    108,
+    20463.0,
+    189.47,
+    -1.3,
+    0.0,
+    0.0,
+    20463.0,
+    189.47,
+    null,
+    null
+   ],
+   [
+    "Rappi",
+    97,
+    19092.0,
+    196.82,
+    12.0,
+    25.0,
+    4773.0,
+    14319.0,
+    147.62,
+    10.7,
+    -28.14
+   ],
+   [
+    "Automatas",
+    32,
+    5571.0,
+    174.09,
+    0.4,
+    0.0,
+    0.0,
+    5571.0,
+    174.09,
+    null,
+    null
+   ]
+  ],
+  "n_filas": 5,
+  "error": null,
+  "ejecutada": true,
+  "herramienta": "rentabilidad_canales",
+  "titulo": "Rentabilidad por canal"
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "productos más pedidos en cada canal",
+   "columnas": [
+    "canal",
+    "producto",
+    "unidades",
+    "porcentaje_de_unidades_del_canal"
+   ],
+   "filas": [
+    [
+     "Didi",
+     "Mega barda",
+     86,
+     13.5
+    ],
+    [
+     "Didi",
+     "Tacos de barbacoa",
+     77,
+     12.1
+    ],
+    [
+     "Didi",
+     "Barda normal",
+     75,
+     11.8
+    ],
+    [
+     "Didi",
+     "Bocoles",
+     71,
+     11.2
+    ],
+    [
+     "Didi",
+     "Gordita",
+     52,
+     8.2
+    ],
+    [
+     "Local",
+     "Mega barda",
+     174,
+     13.9
+    ],
+    [
+     "Local",
+     "Bocoles",
+     152,
+     12.1
+    ],
+    [
+     "Local",
+     "Barda normal",
+     148,
+     11.8
+    ],
+    [
+     "Local",
+     "Tacos de barbacoa",
+     138,
+     11.0
+    ],
+    [
+     "Local",
+     "Gordita",
+     116,
+     9.3
+    ],
+    [
+     "Rappi",
+     "Mega barda",
+     51,
+     19.3
+    ],
+    [
+     "Rappi",
+     "Gordita",
+     35,
+     13.3
+    ],
+    [
+     "Rappi",
+     "Barda normal",
+     28,
+     10.6
+    ],
+    [
+     "Rappi",
+     "Bocoles",
+     27,
+     10.2
+    ],
+    [
+     "Rappi",
+     "Tacos de barbacoa",
+     17,
+     6.4
+    ]
+   ],
+   "n_filas": 15,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 10,
+  "verificadas": 10,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [],
+ "sql_ejecutadas": [
+  "SELECT canal, COUNT(*) AS ordenes, SUM(monto_total) AS venta, SUM(subtotal) AS subtotal, MIN(fecha) AS desde, MAX(fecha) AS hasta FROM ordenes WHERE NOT cancelada AND fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 60 DAY GROUP BY canal ORDER BY venta DESC",
+  "SELECT canal, producto, SUM(cantidad) AS unidades FROM ventas WHERE fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 60 DAY AND categoria <> 'Interno' AND canal IN ('Local', 'Didi', 'Rappi') GROUP BY canal, producto"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "21:19:31",
+   "duracion_s": 5.39,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 5.389,
+     "tokens_entrada": 1027,
+     "tokens_salida": 130,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "analisis": "rentabilidad_canales",
+    "es_seguimiento": false,
+    "pregunta_completa": "Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026",
+    "contexto": {
+     "periodo": "septiembre y octubre de 2026",
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Asesor de negocio",
+   "accion": "analisis_especializado",
+   "hora": "21:19:33",
+   "duracion_s": 1.727,
+   "llamadas_llm": [
+    {
+     "rol": "asesor",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.323,
+     "tokens_entrada": 703,
+     "tokens_salida": 44,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "rentabilidad_canales",
+    "propuesta_llm": {
+     "herramienta": "rentabilidad_canales",
+     "parametros": {
+      "dias": 60,
+      "comisiones": null
+     }
+    },
+    "parametros": {
+     "dias": 60,
+     "comisiones": {
+      "Didi": 0.25,
+      "Rappi": 0.25
+     }
+    },
+    "filas": 5,
+    "supuestos": [
+     "comisión de Didi de 25% (SUPUESTO: confírmala en tu contrato con la app)",
+     "comisión de Rappi de 25% (SUPUESTO: confírmala en tu contrato con la app)",
+     "Legacy y Automatas compran a crédito: ese dinero entra cuando paga la empresa",
+     "sin costos de ingredientes no se puede calcular la ganancia: solo el ingreso después de comisiones"
+    ],
+    "error_llm": null
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "21:19:37",
+   "duracion_s": 3.978,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 3.905,
+     "tokens_entrada": 953,
+     "tokens_salida": 93,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "canal",
+     "y": [
+      "venta_cobrada"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Ventas por canal de entrega"
+    },
+    "razon": "Permite comparar fácilmente el volumen de ventas totales entre Didi y Rappi de forma directa.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "21:19:44",
+   "duracion_s": 6.632,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 6.375,
+     "tokens_entrada": 2344,
+     "tokens_salida": 222,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 10,
+     "verificadas": 10,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 94,
+    "reglas_rag": [
+     "Recomendaciones típicas para el dueño",
+     "Platillo del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "21:19:44",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "septiembre y octubre de 2026",
+     "metrica": "dinero",
+     "ultima_pregunta": "Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": "rentabilidad_canales",
+ "herramienta_negocio": {
+  "nombre": "rentabilidad_canales",
+  "titulo": "Rentabilidad por canal",
+  "parametros": {
+   "dias": 60,
+   "comisiones": {
+    "Didi": 0.25,
+    "Rappi": 0.25
+   }
+  },
+  "supuestos": [
+   "comisión de Didi de 25% (SUPUESTO: confírmala en tu contrato con la app)",
+   "comisión de Rappi de 25% (SUPUESTO: confírmala en tu contrato con la app)",
+   "Legacy y Automatas compran a crédito: ese dinero entra cuando paga la empresa",
+   "sin costos de ingredientes no se puede calcular la ganancia: solo el ingreso después de comisiones"
+  ]
+ },
+ "duracion_s": 17.74,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 5.389,
+   "tokens_entrada": 1027,
+   "tokens_salida": 130,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "asesor",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.323,
+   "tokens_entrada": 703,
+   "tokens_salida": 44,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 3.905,
+   "tokens_entrada": 953,
+   "tokens_salida": 93,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 6.375,
+   "tokens_entrada": 2344,
+   "tokens_salida": 222,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5516,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "canal",
+   "y": [
+    "venta_cobrada"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Ventas por canal de entrega",
+   "razon": "Permite comparar fácilmente el volumen de ventas totales entre Didi y Rappi de forma directa."
+  }
+ }
+}

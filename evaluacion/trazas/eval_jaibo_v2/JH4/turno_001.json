@@ -1,0 +1,65 @@
+{
+ "sesion": "JH4",
+ "turno": 1,
+ "fecha": "2026-11-18T21:50:41",
+ "entrada": {
+  "pregunta": "¿Me sale más caro vender por Rappi que en el local?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Me sale más caro vender por Rappi que en el local?",
+ "pregunta_completa": "",
+ "intencion": "",
+ "es_seguimiento": false,
+ "respuesta": "Ocurrió un error inesperado al procesar tu pregunta. Intenta de nuevo o reformúlala.",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [],
+ "error": "NotFoundError: Collection [735df8c9-436e-4fc6-a503-8f9b5b9bd862] does not exist.",
+ "decision_supervisor": "",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "duracion_s": 4.16,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.131,
+   "tokens_entrada": 1119,
+   "tokens_salida": 111,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "asesor",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.146,
+   "tokens_entrada": 696,
+   "tokens_salida": 58,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.439,
+   "tokens_entrada": 949,
+   "tokens_salida": 114,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 3047,
+ "grafica": null
+}

@@ -1,0 +1,324 @@
+{
+ "sesion": "J02",
+ "turno": 1,
+ "fecha": "2026-11-18T21:18:22",
+ "entrada": {
+  "pregunta": "¿Cuáles son mis 5 productos más vendidos?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuáles son mis 5 productos más vendidos?",
+ "pregunta_completa": "¿Cuáles son mis 5 productos más vendidos en el periodo del 2026-01-05 al 2026-11-15?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Tus 5 productos más vendidos en este periodo son la Mega barda con 1,926 unidades, seguida por los Tacos de barbacoa con 1,677, los Bocoles con 1,671, la Barda normal con 1,606 y las Gorditas con 1,600. La Mega barda destaca claramente como tu producto estrella, generando $197,835.67 en ventas y apareciendo en 1,747 tickets. Es interesante notar que, aunque los Tacos de barbacoa, Bocoles y Gorditas tienen un volumen de venta similar entre sí, la Barda normal aporta una parte mucho mayor de tus ingresos totales con $152,570.00. Posiblemente, la preferencia de tus clientes por las versiones \"Mega\" y \"Normal\" de la barda sea el motor principal de tu facturación.\n\nRecomendación: Asegúrate de tener siempre suficiente inventario de insumos para las bardas, ya que son tus productos con mayor rotación y los que más dinero dejan al negocio.",
+ "sql": "SELECT producto, categoria, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas, COUNT(DISTINCT ticket) AS tickets FROM ventas WHERE categoria <> 'Interno' AND fecha BETWEEN '2026-01-05' AND '2026-11-15' GROUP BY producto, categoria ORDER BY unidades DESC LIMIT 5",
+ "explicacion_sql": "Muestra los 5 productos más vendidos por unidades en todo el periodo disponible, excluyendo la categoría Interno.",
+ "resultado": {
+  "sql": "SELECT producto, categoria, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas, COUNT(DISTINCT ticket) AS tickets FROM ventas WHERE categoria <> 'Interno' AND fecha BETWEEN '2026-01-05' AND '2026-11-15' GROUP BY producto, categoria ORDER BY unidades DESC LIMIT 5",
+  "columnas": [
+   "producto",
+   "categoria",
+   "unidades",
+   "ventas",
+   "tickets"
+  ],
+  "filas": [
+   [
+    "Mega barda",
+    "Principal",
+    1926,
+    197835.0,
+    1747
+   ],
+   [
+    "Tacos de barbacoa",
+    "Principal",
+    1677,
+    45805.0,
+    538
+   ],
+   [
+    "Bocoles",
+    "Principal",
+    1671,
+    31290.0,
+    536
+   ],
+   [
+    "Barda normal",
+    "Principal",
+    1606,
+    152570.0,
+    1477
+   ],
+   [
+    "Gordita",
+    "Principal",
+    1600,
+    42277.0,
+    523
+   ]
+  ],
+  "n_filas": 5,
+  "truncado": false,
+  "duracion_s": 0.0795,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 9,
+  "verificadas": 9,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT producto, categoria, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas, COUNT(DISTINCT ticket) AS tickets FROM ventas WHERE categoria <> 'Interno' AND fecha BETWEEN '2026-01-05' AND '2026-11-15' GROUP BY producto, categoria ORDER BY unidades DESC LIMIT 5",
+   "problema": null,
+   "n_filas": 5
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT producto, categoria, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas, COUNT(DISTINCT ticket) AS tickets FROM ventas WHERE categoria <> 'Interno' AND fecha BETWEEN '2026-01-05' AND '2026-11-15' GROUP BY producto, categoria ORDER BY unidades DESC LIMIT 5"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "21:18:13",
+   "duracion_s": 1.215,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.214,
+     "tokens_entrada": 1016,
+     "tokens_salida": 151,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuáles son mis 5 productos más vendidos en el periodo del 2026-01-05 al 2026-11-15?",
+    "contexto": {
+     "periodo": "2026-01-05 al 2026-11-15",
+     "producto": null,
+     "categoria": null,
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "21:18:14",
+   "duracion_s": 1.782,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.989,
+     "tokens_entrada": 2094,
+     "tokens_salida": 142,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Horario y momentos del día",
+      "Recomendaciones típicas para el dueño",
+      "Tabla promociones",
+      "Platillo del día"
+     ],
+     "ejemplos": [
+      "¿Qué productos se venden más en Rappi?",
+      "¿Qué platillo del día se vende más cada día de la semana?",
+      "¿Cuánto subió el precio de las tortas con el tiempo?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT producto, categoria, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas, COUNT(DISTINCT ticket) AS tickets FROM ventas WHERE categoria <> 'Interno' AND fecha BETWEEN '2026-01-05' AND '2026-11-15' GROUP BY producto, categoria ORDER BY unidades DESC LIMIT 5",
+    "explicacion": "Muestra los 5 productos más vendidos por unidades en todo el periodo disponible, excluyendo la categoría Interno.",
+    "error": null,
+    "filas": 5,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "21:18:15",
+   "duracion_s": 0.003,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 5,
+    "intentos": 1
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "21:18:20",
+   "duracion_s": 5.794,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.046,
+     "tokens_entrada": 630,
+     "tokens_salida": 97,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras_horizontales",
+    "spec": {
+     "tipo": "barras_horizontales",
+     "x": "producto",
+     "y": [
+      "unidades"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Top 5 productos más vendidos"
+    },
+    "razon": "Las barras horizontales permiten leer fácilmente los nombres de los productos y comparar sus volúmenes de venta.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "21:18:22",
+   "duracion_s": 1.754,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.473,
+     "tokens_entrada": 1345,
+     "tokens_salida": 239,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "verificacion": {
+     "total_cifras": 9,
+     "verificadas": 9,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 27,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Recomendaciones típicas para el dueño"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "21:18:22",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "2026-01-05 al 2026-11-15",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Cuáles son mis 5 productos más vendidos en el periodo del 2026-01-05 al 2026-11-15?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "duracion_s": 10.56,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.214,
+   "tokens_entrada": 1016,
+   "tokens_salida": 151,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.989,
+   "tokens_entrada": 2094,
+   "tokens_salida": 142,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.046,
+   "tokens_entrada": 630,
+   "tokens_salida": 97,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.473,
+   "tokens_entrada": 1345,
+   "tokens_salida": 239,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5714,
+ "grafica": {
+  "spec": {
+   "tipo": "barras_horizontales",
+   "x": "producto",
+   "y": [
+    "unidades"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Top 5 productos más vendidos",
+   "razon": "Las barras horizontales permiten leer fácilmente los nombres de los productos y comparar sus volúmenes de venta."
+  }
+ }
+}

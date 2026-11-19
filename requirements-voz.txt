@@ -1,0 +1,5 @@
+# Entrada por voz (opcional): transcripción local con Whisper.
+# Descarga el modelo la primera vez (~460 MB para "small").
+faster-whisper>=1.1
+# faster-whisper 1.2 usa un parámetro que PyAV eliminó en la versión 16
+av>=12,<16

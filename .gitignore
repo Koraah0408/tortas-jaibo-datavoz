@@ -1,0 +1,37 @@
+# Secretos
+.env
+
+# Entorno de Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Artefactos generados (se reconstruyen con scripts/preparar_base.py)
+data/datavoz.duckdb
+data/datavoz.duckdb.wal
+data/sesiones/
+# Copia local del POS de Tortas Jaibo (datos reales del cliente: nunca se suben)
+data/jaibo/
+data/jaibo_sintetico.duckdb
+.chroma/
+.cache/
+/trazas/
+/reportes/
+.streamlit_log.txt
+.pip_install.log
+
+# Corridas de prueba del arnés con LLM simulado (no son métricas reales)
+evaluacion/resultados/SIMULADO_*
+evaluacion/trazas/SIMULADO_*
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.claude/
+
+# Secretos de Streamlit (solo en la nube)
+.streamlit/secrets.toml

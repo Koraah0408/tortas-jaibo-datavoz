@@ -1,0 +1,151 @@
+producto,categoria,precio_lista,costo_unitario
+Arroz 1 kg,Abarrotes,32.0,22.99
+Frijol negro 1 kg,Abarrotes,38.0,26.75
+Frijol pinto 1 kg,Abarrotes,40.0,33.36
+Azúcar estándar 1 kg,Abarrotes,34.0,24.5
+Aceite vegetal 1 L,Abarrotes,45.0,37.27
+Harina de maíz 1 kg,Abarrotes,24.0,18.89
+Harina de trigo 1 kg,Abarrotes,28.0,20.74
+Sal de mesa 1 kg,Abarrotes,14.0,10.84
+Pasta para sopa 200 g,Abarrotes,11.0,8.31
+Pasta spaghetti 200 g,Abarrotes,12.0,8.51
+Café soluble 120 g,Abarrotes,78.0,56.25
+Avena 400 g,Abarrotes,26.0,17.81
+Consomé de pollo 12 cubos,Abarrotes,24.0,17.22
+Puré de tomate 210 g,Abarrotes,10.0,7.71
+Mayonesa 390 g,Abarrotes,48.0,39.54
+Refresco de cola 600 ml,Bebidas,20.0,14.47
+Refresco de cola 2 L,Bebidas,38.0,30.2
+Refresco de cola 3 L,Bebidas,48.0,36.97
+Refresco sabor naranja 2 L,Bebidas,32.0,26.49
+Refresco sabor limón 2 L,Bebidas,32.0,25.97
+Refresco 3 L sabor uva,Bebidas,42.0,32.58
+Agua natural 1 L,Bebidas,13.0,9.5
+Garrafón de agua 20 L,Bebidas,40.0,28.34
+Jugo de naranja 1 L,Bebidas,28.0,21.96
+Jugo de mango 250 ml,Bebidas,12.0,8.81
+Bebida energética 473 ml,Bebidas,35.0,28.56
+Agua mineral 600 ml,Bebidas,18.0,12.89
+Té helado 600 ml,Bebidas,17.0,12.41
+Bebida isotónica 600 ml,Bebidas,22.0,16.98
+Refresco de manzana 600 ml,Bebidas,18.0,14.87
+Leche entera 1 L,Lácteos y huevo,28.0,20.62
+Leche deslactosada 1 L,Lácteos y huevo,30.0,22.62
+Huevo blanco 12 pzas,Lácteos y huevo,42.0,31.17
+Huevo blanco 30 pzas,Lácteos y huevo,98.0,73.98
+Queso fresco 400 g,Lácteos y huevo,65.0,54.91
+Queso amarillo rebanado 200 g,Lácteos y huevo,45.0,36.61
+Crema ácida 200 ml,Lácteos y huevo,24.0,16.92
+Yogur bebible fresa 250 g,Lácteos y huevo,14.0,11.76
+Yogur natural 1 kg,Lácteos y huevo,42.0,33.6
+Mantequilla 90 g,Lácteos y huevo,25.0,18.88
+Leche en polvo 360 g,Lácteos y huevo,85.0,62.65
+Leche condensada 387 g,Lácteos y huevo,32.0,22.77
+Leche evaporada 360 g,Lácteos y huevo,22.0,18.62
+Jamón de pavo 250 g,Lácteos y huevo,48.0,34.91
+Salchicha de pavo 500 g,Lácteos y huevo,45.0,37.02
+Papas fritas sal 45 g,Botanas,19.0,15.66
+Papas fritas chile 45 g,Botanas,19.0,14.71
+Totopos de maíz 200 g,Botanas,32.0,25.56
+Cacahuates japoneses 100 g,Botanas,16.0,12.62
+Cacahuates salados 100 g,Botanas,15.0,12.45
+Chicharrón de harina 100 g,Botanas,14.0,9.74
+Palomitas para microondas 3 pzas,Botanas,30.0,24.14
+Frituras de maíz con queso 60 g,Botanas,17.0,12.2
+Churritos picantes 60 g,Botanas,15.0,11.6
+Semillas de girasol 50 g,Botanas,10.0,8.34
+Pistaches 80 g,Botanas,35.0,27.04
+Mezcla de nueces 100 g,Botanas,38.0,30.32
+Tostadas horneadas 20 pzas,Botanas,30.0,24.6
+Plátanos fritos 70 g,Botanas,16.0,11.54
+Botana de habas 100 g,Botanas,18.0,13.98
+Galletas de animalitos 500 g,Dulces y galletas,30.0,22.52
+Galletas María 170 g,Dulces y galletas,14.0,11.7
+Galletas con chispas 300 g,Dulces y galletas,36.0,30.35
+Galletas saladas 300 g,Dulces y galletas,30.0,23.82
+Chocolate en barra 40 g,Dulces y galletas,16.0,13.32
+Chocolate de mesa 540 g,Dulces y galletas,62.0,50.9
+Paleta de caramelo,Dulces y galletas,3.0,2.25
+Chicles de menta 10 pzas,Dulces y galletas,12.0,8.99
+Gomitas 100 g,Dulces y galletas,18.0,12.37
+Mazapán,Dulces y galletas,5.0,3.58
+Malvaviscos 250 g,Dulces y galletas,28.0,21.48
+Dulce de tamarindo,Dulces y galletas,4.0,2.76
+Caramelos suaves 100 g,Dulces y galletas,15.0,11.54
+Pastelito de chocolate,Dulces y galletas,18.0,14.29
+Polvorones 250 g,Dulces y galletas,30.0,23.26
+Detergente en polvo 1 kg,Limpieza del hogar,42.0,29.8
+Detergente líquido 1 L,Limpieza del hogar,55.0,45.44
+Jabón de barra para ropa 400 g,Limpieza del hogar,22.0,18.29
+Cloro 1 L,Limpieza del hogar,18.0,14.44
+Limpiador multiusos 1 L,Limpieza del hogar,28.0,20.34
+Suavizante de telas 850 ml,Limpieza del hogar,32.0,26.61
+Lavatrastes líquido 750 ml,Limpieza del hogar,35.0,28.38
+Fibra para trastes,Limpieza del hogar,12.0,9.07
+Escoba,Limpieza del hogar,65.0,46.08
+Trapeador,Limpieza del hogar,55.0,43.78
+Bolsas para basura 10 pzas,Limpieza del hogar,28.0,22.42
+Papel aluminio 7 m,Limpieza del hogar,30.0,24.19
+Servilletas 500 pzas,Limpieza del hogar,32.0,26.3
+Desinfectante en aerosol 400 ml,Limpieza del hogar,75.0,58.2
+Limpiador aroma pino 1 L,Limpieza del hogar,30.0,20.95
+Papel higiénico 4 rollos,Higiene personal,38.0,26.55
+Jabón de tocador 150 g,Higiene personal,18.0,13.71
+Shampoo 400 ml,Higiene personal,55.0,39.53
+Pasta dental 100 ml,Higiene personal,32.0,25.17
+Cepillo dental,Higiene personal,25.0,18.08
+Desodorante en barra 50 g,Higiene personal,52.0,35.92
+Toallas femeninas 10 pzas,Higiene personal,35.0,29.02
+Pañales etapa 3 14 pzas,Higiene personal,120.0,98.87
+Papel higiénico 12 rollos,Higiene personal,105.0,78.55
+Rastrillo desechable 2 pzas,Higiene personal,28.0,22.86
+Crema corporal 400 ml,Higiene personal,60.0,43.07
+Gel para cabello 250 g,Higiene personal,30.0,22.95
+Algodón 50 g,Higiene personal,18.0,15.26
+Toallitas húmedas 80 pzas,Higiene personal,45.0,37.24
+Acondicionador 400 ml,Higiene personal,58.0,48.1
+Pan blanco de caja grande,Panadería y tortillas,52.0,38.06
+Pan integral de caja,Panadería y tortillas,58.0,47.33
+Tortillas de maíz 1 kg,Panadería y tortillas,24.0,17.48
+Tortillas de harina 10 pzas,Panadería y tortillas,30.0,24.83
+Bolillo,Panadería y tortillas,3.0,2.08
+Pan dulce,Panadería y tortillas,10.0,7.99
+Medias noches 8 pzas,Panadería y tortillas,40.0,29.49
+Pan molido 210 g,Panadería y tortillas,22.0,17.63
+Tostadas de maíz 30 pzas,Panadería y tortillas,35.0,29.6
+Pan tostado 210 g,Panadería y tortillas,34.0,25.24
+Mantecadas 4 pzas,Panadería y tortillas,28.0,23.13
+Donas de chocolate 4 pzas,Panadería y tortillas,38.0,26.06
+Roles de canela 4 pzas,Panadería y tortillas,40.0,27.66
+Panqué de nuez,Panadería y tortillas,58.0,44.69
+Rosca de reyes chica,Panadería y tortillas,180.0,152.45
+Atún en agua 140 g,Enlatados y conservas,22.0,15.6
+Atún en aceite 140 g,Enlatados y conservas,22.0,17.83
+Sardinas en tomate 425 g,Enlatados y conservas,32.0,23.9
+Chiles jalapeños 220 g,Enlatados y conservas,16.0,11.96
+Elote amarillo 400 g,Enlatados y conservas,24.0,18.87
+Frijoles refritos 430 g,Enlatados y conservas,22.0,16.26
+Chícharos con zanahoria 400 g,Enlatados y conservas,20.0,15.46
+Duraznos en almíbar 820 g,Enlatados y conservas,48.0,38.87
+Salsa picante 150 ml,Enlatados y conservas,14.0,9.96
+Salsa verde 450 g,Enlatados y conservas,30.0,25.16
+Champiñones en lata 186 g,Enlatados y conservas,28.0,23.1
+Sopa instantánea vaso,Enlatados y conservas,14.0,11.16
+Mermelada de fresa 470 g,Enlatados y conservas,40.0,27.74
+Puré de papa instantáneo 125 g,Enlatados y conservas,28.0,22.44
+Rajas de chile poblano 220 g,Enlatados y conservas,22.0,18.27
+Cerveza clara lata 355 ml,Cervezas y vinos,22.0,18.98
+Cerveza clara 6 pack,Cervezas y vinos,120.0,97.43
+Cerveza clara 12 pack,Cervezas y vinos,230.0,190.8
+Cerveza clara caguama 1.2 L,Cervezas y vinos,48.0,42.03
+Cerveza oscura lata 355 ml,Cervezas y vinos,24.0,20.52
+Cerveza ligera lata 355 ml,Cervezas y vinos,22.0,19.25
+Cerveza oscura 6 pack,Cervezas y vinos,130.0,113.08
+Vino tinto 750 ml,Cervezas y vinos,180.0,141.75
+Vino blanco 750 ml,Cervezas y vinos,175.0,138.2
+Sidra 750 ml,Cervezas y vinos,85.0,68.17
+Brandy 700 ml,Cervezas y vinos,220.0,190.64
+Tequila 750 ml,Cervezas y vinos,260.0,206.5
+Ron 750 ml,Cervezas y vinos,190.0,155.05
+Bebida preparada lata 355 ml,Cervezas y vinos,35.0,29.13
+Coctel de tomate 946 ml,Cervezas y vinos,48.0,40.48
