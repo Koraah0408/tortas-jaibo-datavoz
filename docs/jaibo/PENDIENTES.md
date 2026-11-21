@@ -41,6 +41,11 @@
 - **Lo que prometía la ficha corregida, ya implementado:** aclaración de preguntas ambiguas («¿en piezas o en dinero?»), Visualizador solo cuando hace falta, datos entre `<datos>` en los prompts, inyección directa e indirecta desde el POS (JX6, JX7). Corridas finales: `eval_jaibo_v4` (51 casos) y `eval_v6` (26 casos, todo cumple); `eval_jaibo_v4_correccion` comprueba la corrección de JH2 y del verificador.
 - Falta: las 10 preguntas del dueño.
 
+## Nuevo (21/11/2026)
+- **Revisar un archivo desde la app (simulación):** barra lateral → CSV/Excel → el Limpiador propone los cambios con ejemplos y botones «Aprobar y cargar» / «Cancelar»; con la aprobación se carga en una base de prueba de una conversación nueva, nunca en el POS. Probado en la app con un archivo con errores y con la orden escondida.
+- **Alertas visibles** en «Mi semana» (y un aviso al inicio si hay): caída fuerte de productos o canales, semana floja, pedidos corregidos de más, bebidas por acabarse. Con los datos actuales no hay alertas; `tests/test_alertas.py` comprueba cada regla.
+- **Casos de compras y reporte de ventas** (JC1, JC2, JR1, JR2): 4/4 con Gemini (`eval_jaibo_v4_compras_reporte`).
+
 ## Falta
 1. **Tú:**
    - confirmar qué pan usas (¿telera y telera doble?) y cuánto te cuesta con tu panadero;

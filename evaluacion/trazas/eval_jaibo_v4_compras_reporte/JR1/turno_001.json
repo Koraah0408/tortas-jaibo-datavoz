@@ -1,0 +1,377 @@
+{
+ "sesion": "JR1",
+ "turno": 1,
+ "fecha": "2026-11-21T16:10:58",
+ "entrada": {
+  "pregunta": "Dame el reporte de ventas del 14 de noviembre en PDF",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "Dame el reporte de ventas del 14 de noviembre en PDF",
+ "pregunta_completa": "Dame el reporte de ventas del 14 de noviembre en PDF",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "El 14 de noviembre registramos ventas totales por $2,026.00 distribuidas en 13 órdenes, con un ticket promedio de $155.85. La mayor parte de los ingresos provino de ventas en local, que sumaron $785.00, mientras que los productos más solicitados fueron los tacos de barbacoa y la mega barda. Es importante notar que las ventas a crédito de Legacy y Automatas, que sumaron $576.00, no ingresaron a caja hoy porque se cobran posteriormente. Ten en cuenta que las ventas por Didi y Rappi tienen comisiones estimadas de entre el 25% y 30%, por lo que el margen real en esos canales es menor al de mostrador.\n\nRecomendación: Dado que el local genera casi la mitad de tus órdenes, enfoca tus esfuerzos en promociones especiales para los clientes que visitan el establecimiento para incrementar aún más ese flujo.",
+ "sql": null,
+ "explicacion_sql": "Reporte de ventas 14 de noviembre de 2026 con la copia del POS: ventas cobradas (sin órdenes canceladas), órdenes, ticket promedio, formas de pago, canales y lo más vendido. El PDF completo también trae las ventas por hora.",
+ "resultado": {
+  "columnas": [
+   "forma_de_pago",
+   "ordenes",
+   "vendido"
+  ],
+  "filas": [
+   [
+    "Efectivo",
+    4,
+    540.0
+   ],
+   [
+    "Crédito Empleado",
+    2,
+    306.0
+   ],
+   [
+    "Crédito Automatas",
+    2,
+    270.0
+   ],
+   [
+    "Tarjeta",
+    2,
+    245.0
+   ],
+   [
+    "Didi Efectivo",
+    1,
+    231.0
+   ],
+   [
+    "Rappi",
+    1,
+    225.0
+   ],
+   [
+    "Didi",
+    1,
+    209.0
+   ]
+  ],
+  "n_filas": 7,
+  "error": null,
+  "ejecutada": true,
+  "herramienta": "reporte_de_ventas",
+  "titulo": "Reporte de ventas 14 de noviembre de 2026",
+  "grafica_sugerida": {
+   "tipo": "barras_horizontales",
+   "x": "forma_de_pago",
+   "y": [
+    "vendido"
+   ],
+   "titulo": "Ventas por forma de pago · 14 de noviembre de 2026"
+  }
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "resumen del periodo",
+   "columnas": [
+    "concepto",
+    "valor"
+   ],
+   "filas": [
+    [
+     "ventas cobradas",
+     2026.0
+    ],
+    [
+     "órdenes",
+     13
+    ],
+    [
+     "ticket promedio",
+     155.85
+    ],
+    [
+     "descuentos por promociones",
+     15.0
+    ],
+    [
+     "pedidos corregidos",
+     0
+    ],
+    [
+     "días con venta",
+     1
+    ]
+   ],
+   "n_filas": 6,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "ventas por canal",
+   "columnas": [
+    "canal",
+    "ordenes",
+    "vendido"
+   ],
+   "filas": [
+    [
+     "Local",
+     6,
+     785.0
+    ],
+    [
+     "Didi",
+     2,
+     440.0
+    ],
+    [
+     "Legacy",
+     2,
+     306.0
+    ],
+    [
+     "Automatas",
+     2,
+     270.0
+    ],
+    [
+     "Rappi",
+     1,
+     225.0
+    ]
+   ],
+   "n_filas": 5,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "lo más vendido",
+   "columnas": [
+    "producto",
+    "piezas",
+    "venta"
+   ],
+   "filas": [
+    [
+     "Tacos de barbacoa",
+     7,
+     210.0
+    ],
+    [
+     "Mega barda",
+     6,
+     660.0
+    ],
+    [
+     "Bocoles",
+     5,
+     110.0
+    ],
+    [
+     "Barda normal",
+     3,
+     285.0
+    ],
+    [
+     "Coca cola",
+     3,
+     105.0
+    ],
+    [
+     "Gordita",
+     2,
+     56.0
+    ],
+    [
+     "Fuze tea",
+     2,
+     60.0
+    ],
+    [
+     "Quesadillas",
+     2,
+     190.0
+    ],
+    [
+     "Pierna normal",
+     1,
+     95.0
+    ],
+    [
+     "Coca cola vainilla",
+     1,
+     40.0
+    ]
+   ],
+   "n_filas": 10,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 8,
+  "verificadas": 8,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [],
+ "sql_ejecutadas": [
+  "SELECT COUNT(*) FILTER (WHERE NOT cancelada) AS ordenes, COALESCE(SUM(monto_total) FILTER (WHERE NOT cancelada), 0) AS vendido, COUNT(*) FILTER (WHERE cancelada) AS corregidas, COALESCE(SUM(descuento) FILTER (WHERE NOT cancelada), 0) AS descuento, COUNT(DISTINCT fecha) AS dias FROM ordenes WHERE fecha BETWEEN DATE '2026-11-14' AND DATE '2026-11-14'",
+  "SELECT metodo_pago, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND fecha BETWEEN DATE '2026-11-14' AND DATE '2026-11-14' GROUP BY metodo_pago ORDER BY vendido DESC",
+  "SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND fecha BETWEEN DATE '2026-11-14' AND DATE '2026-11-14' GROUP BY canal ORDER BY vendido DESC",
+  "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS venta FROM ventas WHERE categoria <> 'Interno' AND fecha BETWEEN DATE '2026-11-14' AND DATE '2026-11-14' GROUP BY producto ORDER BY unidades DESC LIMIT 10",
+  "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND fecha BETWEEN DATE '2026-11-14' AND DATE '2026-11-14' GROUP BY hora_del_dia ORDER BY hora_del_dia"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": "C:\\proyectos\\DataVoz\\reportes\\reporte_ventas_20261114.pdf",
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "16:10:55",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "motivo": "reporte de ventas de un día o periodo detectado por patrón",
+    "analisis": "reporte_ventas"
+   }
+  },
+  {
+   "agente": "Asesor de negocio",
+   "accion": "analisis_especializado",
+   "hora": "16:10:56",
+   "duracion_s": 1.035,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "reporte_de_ventas",
+    "propuesta_llm": {},
+    "parametros": {
+     "desde": "2026-11-14",
+     "hasta": "2026-11-14",
+     "pdf": "C:\\proyectos\\DataVoz\\reportes\\reporte_ventas_20261114.pdf"
+    },
+    "filas": 7,
+    "supuestos": [],
+    "error_llm": null
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "16:10:56",
+   "duracion_s": 0.076,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "herramienta",
+    "tipo": "barras_horizontales",
+    "spec": {
+     "tipo": "barras_horizontales",
+     "x": "forma_de_pago",
+     "y": [
+      "vendido"
+     ],
+     "titulo": "Ventas por forma de pago · 14 de noviembre de 2026",
+     "color": null,
+     "y_dim": null,
+     "valor": null
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "16:10:58",
+   "duracion_s": 1.812,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.551,
+     "tokens_entrada": 2109,
+     "tokens_salida": 206,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 8,
+     "verificadas": 8,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 80,
+    "reglas_rag": [
+     "Canales de venta y comisiones",
+     "Rentabilidad"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "16:10:58",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "ultima_pregunta": "Dame el reporte de ventas del 14 de noviembre en PDF"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": "reporte_ventas",
+ "herramienta_negocio": {
+  "nombre": "reporte_de_ventas",
+  "titulo": "Reporte de ventas 14 de noviembre de 2026",
+  "parametros": {
+   "desde": "2026-11-14",
+   "hasta": "2026-11-14",
+   "pdf": "C:\\proyectos\\DataVoz\\reportes\\reporte_ventas_20261114.pdf"
+  },
+  "supuestos": []
+ },
+ "carga_pendiente": null,
+ "duracion_s": 2.93,
+ "llamadas_llm": [
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.551,
+   "tokens_entrada": 2109,
+   "tokens_salida": 206,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 2315,
+ "grafica": {
+  "spec": {
+   "tipo": "barras_horizontales",
+   "x": "forma_de_pago",
+   "y": [
+    "vendido"
+   ],
+   "titulo": "Ventas por forma de pago · 14 de noviembre de 2026",
+   "color": null,
+   "y_dim": null,
+   "valor": null
+  }
+ }
+}

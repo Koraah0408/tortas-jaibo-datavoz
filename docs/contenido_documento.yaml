@@ -41,7 +41,10 @@ texto_interfaz: |
   recomendación destacada, la marca de «cifras verificadas», un desplegable «Ver cómo lo calculé» con el SQL o la
   herramienta y los supuestos, y tres sugerencias para seguir preguntando. <b>Mi semana</b> tiene indicadores y cuatro
   gráficas, <b>Reportes</b> reúne todos los PDF generados y los reportes diarios del correo, y <b>Mi tablero</b> guarda las
-  gráficas de la conversación. La versión publicada en Streamlit Cloud pide contraseña y funciona en el celular. Las
+  gráficas de la conversación. «Mi semana» muestra además las <b>alertas automáticas</b>. En la barra lateral, <b>Revisar
+  un archivo de ventas</b> simula la carga de un CSV o Excel: el Limpiador propone los cambios con ejemplos y botones
+  <b>Aprobar y cargar</b> o <b>Cancelar</b>, y solo con la aprobación lo carga en una base de prueba de una conversación
+  nueva (nunca en el POS). La versión publicada en Streamlit Cloud pide contraseña y funciona en el celular. Las
   capturas usan la demostración con ventas simuladas.</p>
 
 capturas:
@@ -74,6 +77,7 @@ evolucion: |
     <tr><td>eval_v6</td><td>Abarrotes · después de los cambios de seguridad (confirmación del Limpiador, inyección desde los datos)</td><td><b>19/19 SQL</b> · 68/68 cifras</td><td>Cumple todos los criterios medibles; 3/3 cargas de archivo propuestas sin escribir y aplicadas solo con aprobación; D03 (inyección en el archivo) correcto; 10.7 s.</td></tr>
     <tr><td><b>eval_jaibo_v4</b></td><td>Jaibo · versión final: voz, preguntas ambiguas, inyección directa e indirecta, Visualizador solo cuando hace falta</td><td><b>23/24 SQL · 18/18 decisiones</b></td><td>Ruta 45/45, voz 10/10, aclaraciones 2/2, seguridad 7/7, 192/195 cifras, 12.5 s y 3.5 llamadas por pregunta. Falló JH2 y 3 cifras eran sumas de dos canales (ver la corrida de corrección).</td></tr>
     <tr><td>eval_jaibo_v4_correccion</td><td>Revisión semántica de valores de estado inexistentes y verificador de sumas de dos filas</td><td><b>4/4</b> · 19/19 cifras</td><td>JH2, J01, J04 y JV01 corregidos con el modelo real.</td></tr>
+    <tr><td>eval_jaibo_v4_compras_reporte</td><td>Casos nuevos de la lista de compras y del reporte de ventas</td><td><b>4/4</b> decisiones · 29/29 cifras</td><td>Herramienta, parámetros (mañana, fin de semana, «del 14 de noviembre», «la semana pasada») y resultado correctos.</td></tr>
   </table>
 
 trazas: |

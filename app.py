@@ -207,6 +207,29 @@ def _combo_sugerido(ruta_db: str, p1: str, p2: str) -> str | None:
     return f"¿Conviene un combo de {p1} + {p2} a ${int(normal * 0.9 // 5 * 5)}?"
 
 
+@st.cache_data(show_spinner=False, ttl=900)
+def _alertas(ruta_db: str, version: float) -> list[dict]:
+    from datavoz.herramientas.detectar_alertas import detectar_alertas
+    try:
+        return detectar_alertas(ruta_db)
+    except Exception:
+        return []
+
+
+def alertas_de(ruta_db: str) -> list[dict]:
+    return _alertas(ruta_db, Path(ruta_db).stat().st_mtime) if Path(ruta_db).exists() else []
+
+
+def mostrar_alertas(alertas: list[dict]) -> None:
+    st.markdown(estilos.titulo_tarjeta("alertas", "Alertas automáticas"), unsafe_allow_html=True)
+    if not alertas:
+        st.caption("Sin alertas: en las últimas semanas no hay nada fuera de lo normal (caídas de productos o canales, "
+                   "semana floja, pedidos corregidos de más o bebidas por acabarse).")
+        return
+    for a in alertas:
+        st.markdown(estilos.chip("aviso", a["mensaje"]), unsafe_allow_html=True)
+
+
 def mis_pdfs() -> list[tuple[Path, str]]:
     """Todos los PDF que se han hecho (reportes de ventas y de conversación), del más nuevo al más viejo."""
     carpeta = obtener_config().dir_reportes
@@ -436,6 +459,23 @@ def mostrar_mensaje(m: dict, indice: int, ultimo: bool = False, ruta_db: str = "
         if pdf and Path(pdf).exists():
             st.download_button("Descargar el PDF", Path(pdf).read_bytes(), file_name=Path(pdf).name,
                                mime="application/pdf", icon=":material/picture_as_pdf:", key=f"pdf_{indice}")
+        if r.get("intencion") == "confirmar_carga":
+            problemas = (r.get("limpieza") or {}).get("problemas") or []
+            if problemas:
+                with st.expander("Ver ejemplos de lo que voy a cambiar", icon=":material/rule:"):
+                    columnas = [c for c in ("fila", "tipo", "columna", "valor_original", "valor_corregido", "accion")
+                                if c in problemas[0]]
+                    st.dataframe(pd.DataFrame(problemas[:30])[columnas], hide_index=True, width="stretch")
+            if ultimo and sesion.carga_pendiente():
+                c1, c2 = st.columns(2)
+                if c1.button("Aprobar y cargar", icon=":material/check:", type="primary", width="stretch",
+                             key=f"aprobar_{indice}"):
+                    r2 = ejecutar(sesion.aprobar_carga, etiqueta="Aplicando los cambios aprobados…")
+                    registrar_respuesta(r2, "Apruebo los cambios: cárgalo")
+                    st.rerun()
+                if c2.button("Cancelar", icon=":material/close:", width="stretch", key=f"cancelar_{indice}"):
+                    registrar_respuesta(sesion.cancelar_carga(), "No, cancela la carga")
+                    st.rerun()
         verif = r.get("verificacion")
         if verif and verif.get("total_cifras"):
             texto = ("Cifras verificadas contra tus ventas" if verif.get("ok")
@@ -593,6 +633,24 @@ with st.sidebar:
                          icon=":material/check_circle:")
                 st.rerun()
 
+    # Archivo (simulación del agente Limpiador con confirmación del dueño)
+    st.markdown(estilos.seccion("datos", "Revisar un archivo de ventas"), unsafe_allow_html=True)
+    archivo = st.file_uploader("CSV o Excel de ventas", type=["csv", "xlsx", "xls"], label_visibility="collapsed",
+                               key=f"subir_{sesion.sesion_id}")
+    st.markdown('<div class="jb-nota"><b>Simulación:</b> el Limpiador revisa el archivo y te dice qué va a corregir; '
+                'solo si lo apruebas lo carga en una base de prueba de una conversación nueva. Nunca toca tu POS.</div>',
+                unsafe_allow_html=True)
+    if archivo is not None and st.session_state.get("archivo_firma") != (archivo.name, archivo.size):
+        st.session_state.archivo_firma = (archivo.name, archivo.size)
+        destino = Path(tempfile.gettempdir()) / "datavoz_archivos" / f"{datetime.now():%Y%m%d%H%M%S}" / Path(archivo.name).name
+        destino.parent.mkdir(parents=True, exist_ok=True)
+        destino.write_bytes(archivo.getvalue())
+        abrir_sesion(None)  # conversación aparte para no mezclar el archivo con las ventas del POS
+        sesion = st.session_state.sesion
+        r = ejecutar(sesion.cargar_archivo, destino, etiqueta="Revisando tu archivo…")
+        registrar_respuesta(r, f"Revisa mi archivo «{Path(archivo.name).name}»")
+        st.rerun()
+
     # Reporte
     st.markdown(estilos.seccion("reporte", "Reporte"), unsafe_allow_html=True)
     if st.button("Crear reporte PDF de la conversación", icon=":material/picture_as_pdf:", width="stretch"):
@@ -643,13 +701,18 @@ elif st.session_state.get("pendiente_audio"):
 memoria = sesion.estado()
 datos = memoria.get("datos") or {}
 ruta_db = datos.get("ruta_db") or ""
+ruta_panel = fuente_jaibo()[0] if datos.get("archivo_subido") else ruta_db  # «Mi semana» y alertas: el POS
 
 # ----------------------------- Contenido principal -------------------------
 st.markdown(estilos.encabezado('¡Hola! ¿Qué quieres <span class="rojo">decidir</span> hoy?',
                                f"Ventas registradas hasta el {fecha_larga((datos.get('resumen') or {}).get('hasta'))}",
                                "Demostración · ventas simuladas" if es_demo else "Copia del POS · solo lectura",
                                demo=es_demo), unsafe_allow_html=True)
-k = kpis_de(ruta_db) if Path(ruta_db).exists() else {}
+k = kpis_de(ruta_panel) if Path(ruta_panel).exists() else {}
+alertas = alertas_de(ruta_panel)
+if datos.get("archivo_subido"):
+    st.markdown(estilos.chip("datos", f"Esta conversación usa el archivo de prueba <b>{datos.get('origen')}</b> "
+                                      "(simulación). Tus ventas del POS no cambian.", demo=True), unsafe_allow_html=True)
 if k:  # una sola línea discreta; el detalle vive en «Mi semana»
     st.markdown(estilos.resumen_semana([
         (f"${formato_numero(round(k['venta']))}", "en ventas", cambio(k["venta"], k["venta_prev"])),
@@ -677,6 +740,9 @@ with pestanas[0]:
                     if st.button("Preguntar", key=f"btn_accion_{i}", icon=":material/arrow_forward:", width="stretch"):
                         st.session_state.pendiente = pregunta_accion
                         st.rerun()
+        if alertas:
+            st.markdown(estilos.chip("aviso", f"<b>{len(alertas)} alerta{'s' if len(alertas) > 1 else ''}</b>: "
+                                              f"{alertas[0]['mensaje']} Más en «Mi semana»."), unsafe_allow_html=True)
         with st.expander("Más ideas de preguntas sobre lo que ya vendiste", icon=":material/lightbulb:"):
             chips(SUGERENCIAS, "inicio", columnas=2)
     for i, m in enumerate(st.session_state.mensajes):
@@ -690,7 +756,8 @@ with pestanas[1]:
             ("tendencia", "Ticket promedio", f"${k['ticket']:,.0f}", cambio(k["ticket"], k["ticket_prev"])),
             ("pan", "Tortas vendidas en 7 días", formato_numero(k["tortas"]), cambio(k["tortas"], k["tortas_prev"])),
         ]), unsafe_allow_html=True)
-    figuras = graficas_semana(semana_de(ruta_db)) if Path(ruta_db).exists() else []
+    mostrar_alertas(alertas)
+    figuras = graficas_semana(semana_de(ruta_panel)) if Path(ruta_panel).exists() else []
     for par in range(0, len(figuras), 2):
         columnas = st.columns(2)
         for j, fig in enumerate(figuras[par:par + 2]):
@@ -700,7 +767,7 @@ with pestanas[1]:
         st.caption("Ventas cobradas, sin órdenes canceladas. Para ver otro periodo, pregúntalo en «Preguntar».")
 
 with pestanas[2]:
-    pestana_reportes(ruta_db)
+    pestana_reportes(ruta_panel)
 
 with pestanas[3]:
     tarjetas = memoria.get("dashboard") or []

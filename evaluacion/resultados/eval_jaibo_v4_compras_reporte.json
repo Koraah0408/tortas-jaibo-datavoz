@@ -1,0 +1,348 @@
+{
+ "etiqueta": "eval_jaibo_v4_compras_reporte",
+ "fecha": "2026-11-21T16:11:13",
+ "negocio": "jaibo",
+ "base": "sintetica",
+ "hoy": "2026-11-16",
+ "proveedores": [
+  "gemini"
+ ],
+ "metricas": {
+  "exactitud_sql": {
+   "correctos": 0,
+   "total": 0,
+   "porcentaje": null
+  },
+  "decisiones": {
+   "total": 4,
+   "resultado_correcto": 4,
+   "herramienta_correcta": 4,
+   "parametros_correctos": 4,
+   "porcentaje_resultado": 100.0,
+   "porcentaje_herramienta_y_parametros": 100.0,
+   "con_supuestos": 2,
+   "supuestos_declarados": 2,
+   "porcentaje_supuestos_declarados": 100.0
+  },
+  "ruta": {
+   "correctas": 4,
+   "total": 4,
+   "porcentaje": 100.0
+  },
+  "veracidad": {
+   "cifras_verificadas": 29,
+   "cifras_total": 29,
+   "porcentaje": 100.0
+  },
+  "limpieza": null,
+  "mapeo_columnas": null,
+  "grafica": {
+   "promedio": 5,
+   "casos": 4
+  },
+  "memoria": {
+   "correctos": 0,
+   "total": 0,
+   "porcentaje": null
+  },
+  "voz": {
+   "bien_interpretadas": 0,
+   "total": 0,
+   "similitud_promedio": null,
+   "porcentaje": null
+  },
+  "seguridad": {
+   "sentencias_no_select_ejecutadas": 0,
+   "casos_correctos": 0,
+   "casos": 0,
+   "filas_sin_cambios": true,
+   "filas_antes": {
+    "ingredientes": 13,
+    "ordenes": 5302,
+    "producto_ingredientes": 20,
+    "productos": 37,
+    "promociones": 7,
+    "ventas": 11073
+   },
+   "filas_despues": {
+    "ingredientes": 13,
+    "ordenes": 5302,
+    "producto_ingredientes": 20,
+    "productos": 37,
+    "promociones": 7,
+    "ventas": 11073
+   }
+  },
+  "tiempo": {
+   "promedio_s": 7.85,
+   "mediana_s": 4.03,
+   "maximo_s": 20.82,
+   "llamadas_llm_promedio": 2
+  },
+  "respaldo_modelos": {
+   "fallos_recuperados": 0,
+   "casos_sin_modelo": 0,
+   "modelos": [
+    "gemini-3.1-flash-lite"
+   ]
+  },
+  "aclaracion": {
+   "correctas": 0,
+   "total": 0,
+   "porcentaje": null
+  },
+  "confirmacion": {
+   "cargas": 0,
+   "propuestas_sin_escribir": 0,
+   "escritas_con_aprobacion": 0
+  },
+  "consumo": {
+   "llamadas_promedio": 2,
+   "tokens_promedio": 4279
+  },
+  "reintentos_sql": {
+   "casos_con_reintento": 0,
+   "total": 0
+  }
+ },
+ "casos": [
+  {
+   "id": "JC1",
+   "categoria": "decision",
+   "pregunta": "¿Cuánto me voy a gastar en pan mañana?",
+   "modelos": [
+    "gemini-3.1-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuánto dinero voy a gastar en pan para mañana?",
+   "sql": null,
+   "analisis": "compras",
+   "herramienta_negocio": "lista_de_compras",
+   "respuesta": "Para mañana vas a gastar $59.00 en pan, comprando 7 piezas de pan normal y 10 piezas de pan mega. Este cálculo se basa en el promedio de ventas de los martes de las últimas 8 semanas, incluyendo un margen de seguridad del 10% para evitar faltantes. Ten en cuenta que estos precios son una estimación basada en la tienda en línea de Chedraui y podrían variar con tu proveedor local. El método que usamos es bastante confiable, con un error promedio de solo 3 piezas por tipo de pan al día.\n\nRecomendación: Confirma con tu panadero el precio real de la telera y la telera doble para ajustar tu presupuesto diario con exactitud.",
+   "duracion_s": 20.82,
+   "llamadas_llm": 3,
+   "tokens": 6225,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "WITH d AS (SELECT DISTINCT fecha FROM ordenes) SELECT d.fecha, COALESCE(SUM(v.cantidad) FILTER (WHERE v.producto IN ('Barbacoa normal', 'Barda normal', 'Mixta normal', 'Pierna normal')), 0) AS normal, COALESCE(SUM(v.cantidad) FILTER (WHERE v.producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna')), 0) AS mega FROM d LEFT JOIN ventas v ON v.fecha = d.fecha GROUP BY d.fecha ORDER BY d.fecha",
+    "SELECT producto, SUM(cantidad) AS u FROM ventas WHERE producto IN ('Barbacoa normal', 'Barda normal', 'Mixta normal', 'Pierna normal', 'Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 56 DAY GROUP BY producto",
+    "WITH f AS (SELECT MAX(fecha) AS m FROM ventas), abiertos AS (SELECT COUNT(DISTINCT fecha) AS n FROM ordenes, f WHERE fecha > f.m - INTERVAL 28 DAY), v AS (SELECT producto, SUM(cantidad) AS u FROM ventas, f WHERE categoria = 'Bebidas' AND fecha > f.m - INTERVAL 28 DAY GROUP BY producto) SELECT p.producto, p.stock, v.u * 1.0 / NULLIF(MAX(a.n), 0) AS diario FROM productos p JOIN v ON v.producto = p.producto, abiertos a WHERE p.activo AND p.stock IS NOT NULL GROUP BY p.producto, p.stock, v.u"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_v4_compras_reporte\\JC1\\turno_001.json",
+   "resultado_correcto": true,
+   "herramienta_correcta": true,
+   "parametros_correctos": true,
+   "parametros_incorrectos": [],
+   "parametros_esperados": {
+    "fechas": [
+     "2026-11-17"
+    ]
+   },
+   "parametros_obtenidos": {
+    "fechas": [
+     "2026-11-17"
+    ],
+    "margen": 0.1,
+    "precios": {
+     "pan_normal": 2.0,
+     "pan_mega": 4.5
+    }
+   },
+   "motivo": "coincide con la referencia",
+   "grafica": "barras_horizontales",
+   "puntaje_grafica": 5,
+   "cifras_total": 6,
+   "cifras_verificadas": 6,
+   "cifras_no_verificadas": [],
+   "supuestos": [
+    "margen de seguridad de 10% (SUPUESTO: falta confirmarlo con el dueño)",
+    "se toma «Telera» como pan normal y «Telera Doble» como pan Mega (SUPUESTO: confírmalo o pon el precio de tu panadero en costos.yaml)",
+    "ingredientes según las porciones por torta de costos.yaml (Mega = 1.35 veces la normal) (SUPUESTO: porciones estimadas, ajústalas)"
+   ],
+   "supuestos_declarados": true,
+   "agente_usado": "asesor",
+   "ruta_correcta": true,
+   "tiempo_total_s": 21.68
+  },
+  {
+   "id": "JC2",
+   "categoria": "decision",
+   "pregunta": "Hazme la lista de compras para el fin de semana",
+   "modelos": [
+    "gemini-3.1-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "Hazme la lista de compras para el fin de semana",
+   "sql": null,
+   "analisis": "compras",
+   "herramienta_negocio": "lista_de_compras",
+   "respuesta": "Para este fin de semana, tu lista de compras suma un gasto estimado de $2,674.83 para cubrir la demanda de dos días. Necesitarás 46 piezas de pan en total, divididas equitativamente entre 23 piezas de pan normal y 23 piezas de pan Mega. Ten en cuenta que los ingredientes y cantidades son estimaciones basadas en tus recetas y precios de Chedraui, por lo que te sugiero verificar los costos reales con tus proveedores habituales. El método de cálculo tiene un error promedio de 3 piezas por día, lo cual es bastante preciso comparado con usar solo el histórico de la semana pasada.\n\nRecomendación: Revisa los precios de la carne para deshebrar con tu proveedor local, ya que representa el mayor gasto de tu lista con $1,313.18.",
+   "duracion_s": 5.12,
+   "llamadas_llm": 3,
+   "tokens": 6280,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "WITH d AS (SELECT DISTINCT fecha FROM ordenes) SELECT d.fecha, COALESCE(SUM(v.cantidad) FILTER (WHERE v.producto IN ('Barbacoa normal', 'Barda normal', 'Mixta normal', 'Pierna normal')), 0) AS normal, COALESCE(SUM(v.cantidad) FILTER (WHERE v.producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna')), 0) AS mega FROM d LEFT JOIN ventas v ON v.fecha = d.fecha GROUP BY d.fecha ORDER BY d.fecha",
+    "SELECT producto, SUM(cantidad) AS u FROM ventas WHERE producto IN ('Barbacoa normal', 'Barda normal', 'Mixta normal', 'Pierna normal', 'Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 56 DAY GROUP BY producto",
+    "WITH f AS (SELECT MAX(fecha) AS m FROM ventas), abiertos AS (SELECT COUNT(DISTINCT fecha) AS n FROM ordenes, f WHERE fecha > f.m - INTERVAL 28 DAY), v AS (SELECT producto, SUM(cantidad) AS u FROM ventas, f WHERE categoria = 'Bebidas' AND fecha > f.m - INTERVAL 28 DAY GROUP BY producto) SELECT p.producto, p.stock, v.u * 1.0 / NULLIF(MAX(a.n), 0) AS diario FROM productos p JOIN v ON v.producto = p.producto, abiertos a WHERE p.activo AND p.stock IS NOT NULL GROUP BY p.producto, p.stock, v.u"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_v4_compras_reporte\\JC2\\turno_001.json",
+   "resultado_correcto": true,
+   "herramienta_correcta": true,
+   "parametros_correctos": true,
+   "parametros_incorrectos": [],
+   "parametros_esperados": {
+    "fechas": [
+     "2026-11-21",
+     "2026-11-22"
+    ]
+   },
+   "parametros_obtenidos": {
+    "fechas": [
+     "2026-11-21",
+     "2026-11-22"
+    ],
+    "margen": 0.1,
+    "precios": {
+     "pan_normal": 2.0,
+     "pan_mega": 4.5
+    }
+   },
+   "motivo": "coincide con la referencia",
+   "grafica": "barras_horizontales",
+   "puntaje_grafica": 5,
+   "cifras_total": 6,
+   "cifras_verificadas": 6,
+   "cifras_no_verificadas": [],
+   "supuestos": [
+    "margen de seguridad de 10% (SUPUESTO: falta confirmarlo con el dueño)",
+    "se toma «Telera» como pan normal y «Telera Doble» como pan Mega (SUPUESTO: confírmalo o pon el precio de tu panadero en costos.yaml)",
+    "ingredientes según las porciones por torta de costos.yaml (Mega = 1.35 veces la normal) (SUPUESTO: porciones estimadas, ajústalas)"
+   ],
+   "supuestos_declarados": true,
+   "agente_usado": "asesor",
+   "ruta_correcta": true,
+   "tiempo_total_s": 5.99
+  },
+  {
+   "id": "JR1",
+   "categoria": "decision",
+   "pregunta": "Dame el reporte de ventas del 14 de noviembre en PDF",
+   "modelos": [
+    "gemini-3.1-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "Dame el reporte de ventas del 14 de noviembre en PDF",
+   "sql": null,
+   "analisis": "reporte_ventas",
+   "herramienta_negocio": "reporte_de_ventas",
+   "respuesta": "El 14 de noviembre registramos ventas totales por $2,026.00 distribuidas en 13 órdenes, con un ticket promedio de $155.85. La mayor parte de los ingresos provino de ventas en local, que sumaron $785.00, mientras que los productos más solicitados fueron los tacos de barbacoa y la mega barda. Es importante notar que las ventas a crédito de Legacy y Automatas, que sumaron $576.00, no ingresaron a caja hoy porque se cobran posteriormente. Ten en cuenta que las ventas por Didi y Rappi tienen comisiones estimadas de entre el 25% y 30%, por lo que el margen real en esos canales es menor al de mostrador.\n\nRecomendación: Dado que el local genera casi la mitad de tus órdenes, enfoca tus esfuerzos en promociones especiales para los clientes que visitan el establecimiento para incrementar aún más ese flujo.",
+   "duracion_s": 2.93,
+   "llamadas_llm": 1,
+   "tokens": 2315,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT COUNT(*) FILTER (WHERE NOT cancelada) AS ordenes, COALESCE(SUM(monto_total) FILTER (WHERE NOT cancelada), 0) AS vendido, COUNT(*) FILTER (WHERE cancelada) AS corregidas, COALESCE(SUM(descuento) FILTER (WHERE NOT cancelada), 0) AS descuento, COUNT(DISTINCT fecha) AS dias FROM ordenes WHERE fecha BETWEEN DATE '2026-11-14' AND DATE '2026-11-14'",
+    "SELECT metodo_pago, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND fecha BETWEEN DATE '2026-11-14' AND DATE '2026-11-14' GROUP BY metodo_pago ORDER BY vendido DESC",
+    "SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND fecha BETWEEN DATE '2026-11-14' AND DATE '2026-11-14' GROUP BY canal ORDER BY vendido DESC",
+    "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS venta FROM ventas WHERE categoria <> 'Interno' AND fecha BETWEEN DATE '2026-11-14' AND DATE '2026-11-14' GROUP BY producto ORDER BY unidades DESC LIMIT 10",
+    "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND fecha BETWEEN DATE '2026-11-14' AND DATE '2026-11-14' GROUP BY hora_del_dia ORDER BY hora_del_dia"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_v4_compras_reporte\\JR1\\turno_001.json",
+   "resultado_correcto": true,
+   "herramienta_correcta": true,
+   "parametros_correctos": true,
+   "parametros_incorrectos": [],
+   "parametros_esperados": {
+    "desde": "2026-11-14",
+    "hasta": "2026-11-14"
+   },
+   "parametros_obtenidos": {
+    "desde": "2026-11-14",
+    "hasta": "2026-11-14",
+    "pdf": "C:\\proyectos\\DataVoz\\reportes\\reporte_ventas_20261114.pdf"
+   },
+   "motivo": "coincide con la referencia",
+   "grafica": "barras_horizontales",
+   "puntaje_grafica": 5,
+   "cifras_total": 8,
+   "cifras_verificadas": 8,
+   "cifras_no_verificadas": [],
+   "supuestos": [],
+   "supuestos_declarados": null,
+   "agente_usado": "asesor",
+   "ruta_correcta": true,
+   "tiempo_total_s": 3.7
+  },
+  {
+   "id": "JR2",
+   "categoria": "decision",
+   "pregunta": "¿Cómo me fue la semana pasada? Hazme el reporte de ventas",
+   "modelos": [
+    "gemini-3.1-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cómo me fue la semana pasada? Hazme el reporte de ventas",
+   "sql": null,
+   "analisis": "reporte_ventas",
+   "herramienta_negocio": "reporte_de_ventas",
+   "respuesta": "La semana pasada lograste ventas por $19,494 con un total de 101 órdenes y un ticket promedio de $193.01. El canal principal fue el local con $8,080, seguido por Didi con $6,229, mientras que lo más vendido fueron las Mega bardas con 43 piezas. El efectivo sigue siendo tu forma de pago más utilizada, sumando $4,249 en 24 órdenes. Posiblemente, el buen desempeño de las Mega bardas y las gorditas ayudó a mantener el flujo constante durante los 6 días de operación.\n\nRecomendación: Aprovecha que las Mega bardas son tu producto estrella para crear un combo con bebida que aumente el ticket promedio en los pedidos de Didi.",
+   "duracion_s": 2.53,
+   "llamadas_llm": 1,
+   "tokens": 2296,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT COUNT(*) FILTER (WHERE NOT cancelada) AS ordenes, COALESCE(SUM(monto_total) FILTER (WHERE NOT cancelada), 0) AS vendido, COUNT(*) FILTER (WHERE cancelada) AS corregidas, COALESCE(SUM(descuento) FILTER (WHERE NOT cancelada), 0) AS descuento, COUNT(DISTINCT fecha) AS dias FROM ordenes WHERE fecha BETWEEN DATE '2026-11-02' AND DATE '2026-11-08'",
+    "SELECT metodo_pago, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND fecha BETWEEN DATE '2026-11-02' AND DATE '2026-11-08' GROUP BY metodo_pago ORDER BY vendido DESC",
+    "SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND fecha BETWEEN DATE '2026-11-02' AND DATE '2026-11-08' GROUP BY canal ORDER BY vendido DESC",
+    "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS venta FROM ventas WHERE categoria <> 'Interno' AND fecha BETWEEN DATE '2026-11-02' AND DATE '2026-11-08' GROUP BY producto ORDER BY unidades DESC LIMIT 10",
+    "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND fecha BETWEEN DATE '2026-11-02' AND DATE '2026-11-08' GROUP BY hora_del_dia ORDER BY hora_del_dia"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_v4_compras_reporte\\JR2\\turno_001.json",
+   "resultado_correcto": true,
+   "herramienta_correcta": true,
+   "parametros_correctos": true,
+   "parametros_incorrectos": [],
+   "parametros_esperados": {
+    "desde": "2026-11-02",
+    "hasta": "2026-11-08"
+   },
+   "parametros_obtenidos": {
+    "desde": "2026-11-02",
+    "hasta": "2026-11-08",
+    "pdf": "C:\\proyectos\\DataVoz\\reportes\\reporte_ventas_20261102_20261108.pdf"
+   },
+   "motivo": "coincide con la referencia",
+   "grafica": "barras_horizontales",
+   "puntaje_grafica": 5,
+   "cifras_total": 9,
+   "cifras_verificadas": 9,
+   "cifras_no_verificadas": [],
+   "supuestos": [],
+   "supuestos_declarados": null,
+   "agente_usado": "asesor",
+   "ruta_correcta": true,
+   "tiempo_total_s": 3.29
+  }
+ ]
+}

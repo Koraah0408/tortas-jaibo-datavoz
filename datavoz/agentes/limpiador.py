@@ -152,7 +152,9 @@ def limpiador(estado: EstadoDataVoz) -> dict:
         detalle["error_llm_resumen"] = str(e)
 
     datos = dict(estado.get("datos") or {})
-    datos.update({"ruta_db": str(ruta_db), "origen": nombre, "limpio": True, "resumen": resumen_ventas(ruta_db),
+    # El archivo tiene la estructura estándar de ventas (no la del POS): se analiza con el conocimiento genérico
+    datos.update({"archivo_subido": True, "dominio": "abarrotes", "negocio": f"negocio del archivo «{nombre}»",
+                  "ruta_db": str(ruta_db), "origen": nombre, "limpio": True, "resumen": resumen_ventas(ruta_db),
                   "tablas": sorted(tablas_y_columnas(ruta_db)), "reporte_limpieza": resumen})
     return {"intencion": "limpieza_datos", "datos": datos, "respuesta": texto, "carga_pendiente": None,
             "limpieza": {"resumen": resumen, "problemas": limpieza.problemas[:2000]},

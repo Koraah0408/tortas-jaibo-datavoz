@@ -169,6 +169,11 @@ def referencia_decision(caso: dict, ruta_db: str, hoy, p: dict) -> dict:
         return nj.rentabilidad_canales(ruta_db, p.get("dias", 90), p.get("comisiones"))
     if h == "combinaciones_frecuentes":
         return nj.combinaciones_frecuentes(ruta_db, p.get("dias", 180))
+    if h == "lista_de_compras":
+        return nj.lista_de_compras(ruta_db, p.get("fechas"), p.get("margen"), hoy)
+    if h == "reporte_de_ventas":
+        from datavoz.herramientas.reporte_ventas import reporte_de_ventas
+        return reporte_de_ventas(ruta_db, p["desde"], p.get("hasta"))
     return nj.simular_promocion(ruta_db, p["productos"], p["precio_promocional"], p.get("dias", 90),
                                 p.get("margen_bruto"))
 

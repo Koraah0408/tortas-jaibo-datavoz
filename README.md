@@ -91,7 +91,7 @@ flowchart LR
 | `generar_grafica` | Gráficas Plotly interactivas para el chat y el dashboard (y PNG para el PDF) |
 | `transcribir_voz` | Nota de voz → texto con Whisper local (`faster-whisper`) |
 | `exportar_reporte` | PDF con las preguntas, gráficas, conclusiones y alertas de la sesión |
-| `detectar_alertas` | (nivel ideal) productos que llevan 3 semanas bajando o con faltantes recientes |
+| `detectar_alertas` | (nivel ideal) avisos automáticos en «Mi semana» y al inicio: productos o canales que bajan fuerte, semana floja contra la anterior, pedidos corregidos de más, bebidas por acabarse (y, en la tienda, faltantes de inventario). |
 | `pronosticar_pan` | (Jaibo) Pan normal y Mega a comprar por día: promedio del mismo día de la semana en las últimas 8 semanas abiertas, ajuste de quincena y margen de seguridad. **Mide su propio error**: repite el método en cada día de las últimas 8 semanas con los datos previos, lo compara con «copiar la semana pasada» y muestra cuántos días habría faltado pan con márgenes de 0 a 30 % |
 | `rentabilidad_canales` | (Jaibo) Venta, ticket, sobreprecio de las apps contra mostrador, comisión e ingreso después de comisión por canal, y la **comisión máxima que cubre el sobreprecio** (no depende de suponer la comisión) |
 | `combinaciones_frecuentes` | (Jaibo) Pares de productos que se piden juntos, su afinidad (*lift*), si ya son promoción, y los horarios más flojos |
