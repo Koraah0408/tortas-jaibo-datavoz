@@ -279,11 +279,12 @@ s.exportar_reporte()                                 # PDF en reportes/
 python -m pytest
 ```
 
-138 pruebas: guardia de seguridad (22 SQL maliciosos que no deben ejecutarse), revisión semántica del SQL, sesiones
+187 pruebas: guardia de seguridad (22 SQL maliciosos que no deben ejecutarse), revisión semántica del SQL, sesiones
 guardadas, limpieza contra los errores inyectados, verificador de cifras, comparador de resultados, el flujo completo
 del grafo (reintento de SQL, memoria, rechazo de peticiones peligrosas, carga de archivo con mapeo por LLM, reporte
 PDF) y, para Tortas Jaibo, el conector de solo lectura, el RAG por negocio, las 4 herramientas del Asesor de negocio,
-la validación de sus parámetros y la ruta Orquestador → Asesor.
+la validación de sus parámetros, la ruta Orquestador → Asesor, la confirmación humana de las cargas, la inyección
+desde los datos, las alertas, la lista de compras, el reporte de ventas y los reportes de Gmail.
 
 **Suite de evaluación del agente** (usa el modelo real; 25 casos en `evaluacion/casos_prueba.yaml`):
 
@@ -375,7 +376,8 @@ cifras y la respuesta, «el domingo», son correctas, pero el caso exige el rank
 | `eval_v2` | 94.7 %: falló un promedio mal calculado; de ahí salió la revisión semántica del SQL. |
 | `eval_v3` | 100 %. |
 | `eval_v4` | 100 % de exactitud, pero 17.9 s: se corrió sin pausa entre preguntas y el limitador de 10 peticiones por minuto hizo esperar cada llamada (Gemini responde en ~1 s). |
-| `eval_v5` | Final: 100 % y 9.5 s, con la misma pausa que `eval_v3`. |
+| `eval_v5` | 100 % y 9.5 s, con la misma pausa que `eval_v3`. |
+| `eval_v6` | Final (26 casos), después de los cambios de seguridad: 19/19 SQL, 68/68 cifras, 3/3 cargas con aprobación del dueño, D03 correcto, 10.7 s. |
 
 *Tortas Jaibo*
 
@@ -391,15 +393,19 @@ tiempo reconstruyó el índice del RAG compartido (ya corregido: la prueba usa u
 reabre la colección). `eval_jaibo_v3` dio 36/36. JH3 («¿en qué mes cobré más?») pasó gracias a la misma
 regla que corrigió J09, sin haberla ajustado con ese caso.
 
-`eval_jaibo_v4` es la final (51 casos): agrega 10 notas de voz reales, preguntas ambiguas, inyección directa e
-indirecta desde el POS, y corre después de los cambios de seguridad. Falló JH2, que en v3 había pasado: la misma
-pregunta generó otro SQL (no determinismo), y de ahí salió la revisión de valores de `estado` inexistentes.
-`eval_jaibo_v6` (65 casos) se corrió con la cuota del modelo principal agotada; `eval_jaibo_v7` es la final, con la
-cuota disponible: 27/30 SQL, 26/26 decisiones, ruta 59/59, 274/274 cifras, 14.3 s y 3.5 llamadas por pregunta.
+`eval_jaibo_v4` (51 casos) agrega 10 notas de voz reales, preguntas ambiguas, inyección directa e indirecta desde
+el POS, y corre después de los cambios de seguridad. Falló JH2, que en v3 había pasado: la misma pregunta generó
+otro SQL (no determinismo), y de ahí salió la revisión de valores de `estado` inexistentes. Después se agregaron
+los casos de compras y reporte de ventas y las 10 preguntas del negocio (JP01–JP10).
+
+`eval_jaibo_real_v2` corrió la suite contra la **copia real del POS** (solo lectura): 29/30 SQL, ruta 58/58,
+287/289 cifras y cero escrituras. `eval_jaibo_v6` (65 casos) se corrió con la cuota del modelo principal agotada;
+`eval_jaibo_v7` es la final, con la cuota disponible: 27/30 SQL, 26/26 decisiones, ruta 59/59, 274/274 cifras,
+14.3 s y 3.5 llamadas por pregunta.
 
 > Con casos diseñados por el equipo, y reglas agregadas después de ver fallos, el 100 % puede estar
-> sobreajustado. Los casos de control lo mitigan, pero no lo eliminan. Falta correr la suite de Jaibo contra la
-> copia real del POS (`--base real`) y la encuesta con el dueño. Ver «Limitaciones» en el documento.
+> sobreajustado. Los casos de control y la corrida contra la copia real lo mitigan, pero no lo eliminan. Falta la
+> encuesta de utilidad con el dueño. Ver «Limitaciones» en el documento.
 
 ## 8. Estructura del repositorio
 

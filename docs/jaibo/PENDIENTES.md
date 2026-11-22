@@ -1,6 +1,6 @@
-# Integración Tortas Jaibo — estado al 18/11/2026
+# Integración Tortas Jaibo — estado al 22/11/2026
 
-## Ya funciona (probado)
+## Ya funciona (probado, al 18/11/2026)
 - **Conexión de solo lectura** a Supabase (`datavoz_lector`). `--verificar` da OK en todo. La copia real (7,199 órdenes) está en `data/jaibo/`, fuera de git.
 - **Asesor de negocio** con 4 herramientas: pronóstico de pan con error medido, rentabilidad por canal (ahora también de un mes concreto), combinaciones de productos y simulador de promociones. Los costos salen de `data/jaibo/costos.yaml` o de la plantilla con supuestos.
 - **Evaluación final**, con Gemini, sin caché y con 10 s de pausa:
@@ -50,24 +50,24 @@
 - **Permiso del dueño:** autorizó usar los datos en el proyecto escolar y la presentación, sin afectar su POS (todo es de solo lectura). Registrado en el documento final.
 - **10 preguntas del negocio** (JP01–JP10, aportadas por José Ramiro): 10/10 después de corregir el ruteo de «¿cuánto vendí ayer?» y la fecha de hoy del Analista.
 - **Evaluación con la copia real del POS** (`eval_jaibo_real_v2`): 29/30 SQL, ruta 58/58, cifras 287/289, cero escrituras. Resultados en `data/jaibo/evaluacion/`, fuera de git.
-- **Corrida final sintética** `eval_jaibo_v6` (65 casos): 29/30 SQL, 26/26 decisiones, ruta 59/59. Se corrió con la cuota diaria del modelo principal agotada, por eso 25.7 s; conviene repetirla otro día para tener el tiempo limpio.
+- **Corrida final sintética** `eval_jaibo_v6` (65 casos): 29/30 SQL, 26/26 decisiones, ruta 59/59. Se corrió con la cuota diaria del modelo principal agotada, por eso 25.7 s; se repitió el 22/11 como `eval_jaibo_v7`.
 - **Supuestos:** ya confirmados en `data/jaibo/costos.yaml` (comisiones 25 %, margen 10 %, telera y telera doble, porciones). El precio del pan es el de Chedraui porque no se sabe el del panadero.
 - **Encuesta** adaptada a Tortas Jaibo: la tiene que contestar el dueño (no se llena por él).
 
+## Nuevo (22/11/2026): corrida final
+- **`eval_jaibo_v7`** repite `eval_jaibo_v6` con la cuota del modelo principal disponible: 27/30 SQL, 26/26 decisiones, ruta 59/59, cifras 274/274, voz 9/10, aclaraciones 2/2, seguridad 7/7, **14.3 s y 3.5 llamadas** por pregunta (v6: 25.7 s y 6.0). Es la corrida que usan el documento y el README.
+- Fallaron J09 y JV06 (ordenó los días de lunes a domingo en vez de por monto; la respuesta «el domingo» es correcta) y JH2 (contó también las órdenes con descuento: 76 en vez de 30). En v6 J09 y JH2 habían pasado: no determinismo.
+- README, documento final (PDF) y esta lista actualizados; 187 pruebas automáticas pasan.
+
+## Ya resuelto de la lista anterior
+Supuestos de `costos.yaml` confirmados, permiso del dueño, corrida contra la copia real (`eval_jaibo_real_v2`), ficha y PDF con el giro a Tortas Jaibo (trazas JD02 y J09), casos de compras (JC1, JC2) y corrida final con la cuota disponible.
+
 ## Falta
-1. **Tú:**
-   - confirmar qué pan usas (¿telera y telera doble?) y cuánto te cuesta con tu panadero;
-   - llenar `data/jaibo/costos.yaml` con las comisiones reales, el margen de pan y los costos por pieza;
-   - pedir el permiso del dueño;
-   - cambiar la contraseña del POS en `DatabaseConfig.java`.
-2. **Correr la suite contra los datos reales:** `python evaluacion/ejecutar_evaluacion.py --negocio jaibo --base real --sin-cache --pausa 10`. Los resultados se quedan en `data/jaibo/evaluacion/`.
-3. **La encuesta con el dueño** (criterio «utilidad para el cliente»).
-4. **Confirmar por qué bajan las órdenes desde mayo de 2026:** ¿parte de la venta ya se registra en el POS nuevo?
-5. **Actualizar la ficha y el PDF final** con el giro a Tortas Jaibo: cliente real, Asesor de negocio, evaluación con historial y análisis de trazas. Buenas trazas para el análisis:
-   - una exitosa: JD02 (pan del fin de semana, con error medido);
-   - una fallida y corregida: J09 en v1 («qué día cobro más»: sumó renglones), contra v3, donde la revisión semántica lo detectó y reintentó.
-6. **Agregar casos de evaluación** de la lista de compras (con precios fijos, sin red).
-7. **Publicar en Streamlit Cloud** y autorizar Gmail (pasos en docs/PUBLICAR.md y docs/jaibo/GMAIL.md).
-8. **Límites conocidos:**
+1. **La encuesta con el dueño** (criterio «utilidad para el cliente», docs/encuesta_cliente.md). La contesta él.
+2. **Tú:** cambiar la contraseña del POS en `DatabaseConfig.java` (no es del proyecto, pero conviene).
+3. **Confirmar por qué bajan las órdenes desde mayo de 2026:** ¿parte de la venta ya se registra en el POS nuevo?
+4. **Publicar en Streamlit Cloud** y autorizar Gmail, si no se ha hecho (pasos en docs/PUBLICAR.md y docs/jaibo/GMAIL.md). Gmail es opcional.
+5. **Límites conocidos (trabajo futuro):**
    - «¿Cuánto más cobro en Didi?» se puede entender como «cuánto más vendo»;
-   - en JH2 el SQL detecta las órdenes rehechas con `ILIKE '%canc%'`: funciona, pero es frágil.
+   - en «¿qué día vendo más?» el Analista a veces ordena los días por calendario en vez de por monto (J09, JV06);
+   - «pedidos rehechos» = órdenes canceladas; el Analista a veces suma también las que tienen descuento (JH2), y la revisión semántica solo atrapa estados que no existen.

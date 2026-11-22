@@ -2,9 +2,9 @@
 repositorio: "https://github.com/Koraah0408/tortas-jaibo-datavoz (privado; acceso a solicitud)"
 proveedor: "Gemini 3.1 Flash-Lite y 3.5 Flash-Lite, capa gratuita"
 estado_cliente: "pendiente de la encuesta con el dueño"
-utilidad_texto: "Pendiente: la encuesta (docs/encuesta_cliente.md) se aplicará al dueño en la semana 3"
+utilidad_texto: "Pendiente: la encuesta (docs/encuesta_cliente.md) la contesta el dueño después de usar la app"
 utilidad_cumple: "—"
-n_pruebas: 182
+n_pruebas: 187
 
 problemas:
   - problema: "Al conectar el POS había que leer datos de producción sin poder afectarlos; el código del POS tiene la contraseña del administrador escrita en el programa."
