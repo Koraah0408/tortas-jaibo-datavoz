@@ -1,0 +1,393 @@
+{
+ "sesion": "J09",
+ "turno": 1,
+ "fecha": "2026-11-22T12:36:32",
+ "entrada": {
+  "pregunta": "¿Qué día de la semana cobro más dinero?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Qué día de la semana cobro más dinero?",
+ "pregunta_completa": "¿Qué día de la semana cobro más dinero?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "El día que más dinero cobras es el domingo, con un total de $141,401. Esto se debe principalmente a que es el día con mayor volumen de clientes, alcanzando 842 órdenes, aunque el ticket promedio es el más bajo de la semana con $167.93. Por el contrario, el lunes es el día de menor ingreso con $81,610, posiblemente porque es el día con menos actividad. Los martes destacan por tener el ticket promedio más alto, de $182.75.\n\nRecomendación: Refuerza el personal de atención para los domingos, ya que es cuando recibes el mayor número de pedidos y podrías estar perdiendo ventas por saturación.",
+ "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(id_orden) AS total_ordenes FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+ "explicacion_sql": "Calcula el dinero cobrado y el total de órdenes por cada día de la semana ordenados cronológicamente.",
+ "resultado": {
+  "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(id_orden) AS total_ordenes FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+  "columnas": [
+   "dia_semana",
+   "num_dia_semana",
+   "dinero_cobrado",
+   "total_ordenes"
+  ],
+  "filas": [
+   [
+    "lunes",
+    1,
+    81610.0,
+    461
+   ],
+   [
+    "martes",
+    2,
+    127560.0,
+    698
+   ],
+   [
+    "miercoles",
+    3,
+    136824.0,
+    773
+   ],
+   [
+    "jueves",
+    4,
+    126028.0,
+    717
+   ],
+   [
+    "viernes",
+    5,
+    135313.0,
+    761
+   ],
+   [
+    "sabado",
+    6,
+    133460.0,
+    745
+   ],
+   [
+    "domingo",
+    7,
+    141401.0,
+    842
+   ]
+  ],
+  "n_filas": 7,
+  "truncado": false,
+  "duracion_s": 0.0395,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver el ticket promedio por día de la semana para complementar el análisis de ingresos",
+   "sql": "SELECT dia_semana, num_dia_semana, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+   "columnas": [
+    "dia_semana",
+    "num_dia_semana",
+    "ticket_promedio"
+   ],
+   "filas": [
+    [
+     "lunes",
+     1,
+     177.03
+    ],
+    [
+     "martes",
+     2,
+     182.75
+    ],
+    [
+     "miercoles",
+     3,
+     177.0
+    ],
+    [
+     "jueves",
+     4,
+     175.77
+    ],
+    [
+     "viernes",
+     5,
+     177.81
+    ],
+    [
+     "sabado",
+     6,
+     179.14
+    ],
+    [
+     "domingo",
+     7,
+     167.93
+    ]
+   ],
+   "n_filas": 7,
+   "truncado": false,
+   "duracion_s": 0.0411,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 5,
+  "verificadas": 5,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(id_orden) AS total_ordenes FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+   "problema": null,
+   "n_filas": 7
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(id_orden) AS total_ordenes FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+  "SELECT dia_semana, num_dia_semana, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "12:36:18",
+   "duracion_s": 1.64,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.64,
+     "tokens_entrada": 1531,
+     "tokens_salida": 103,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Qué día de la semana cobro más dinero?",
+    "contexto": {
+     "periodo": null,
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "12:36:24",
+   "duracion_s": 6.915,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 6.217,
+     "tokens_entrada": 2710,
+     "tokens_salida": 229,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Platillo del día",
+      "Horario y momentos del día",
+      "Barbacoa, tacos, gorditas y bocoles",
+      "Tabla ordenes (una fila por orden o ticket, incluye canceladas)"
+     ],
+     "ejemplos": [
+      "¿Qué platillo del día se vende más cada día de la semana?",
+      "¿Cuántos tacos de barbacoa se venden en promedio por día entre semana y en fin de semana?",
+      "¿Cuántos panes normales y mega se usaron cada día la última semana?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(id_orden) AS total_ordenes FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+    "explicacion": "Calcula el dinero cobrado y el total de órdenes por cada día de la semana ordenados cronológicamente.",
+    "error": null,
+    "filas": 7,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver el ticket promedio por día de la semana para complementar el análisis de ingresos",
+      "sql": "SELECT dia_semana, num_dia_semana, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+      "error": null,
+      "filas": 7
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "12:36:24",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 7,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "12:36:26",
+   "duracion_s": 1.955,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.9,
+     "tokens_entrada": 762,
+     "tokens_salida": 100,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "dia_semana",
+     "y": [
+      "dinero_cobrado"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Ingresos por día de la semana"
+    },
+    "razon": "Las barras permiten comparar fácilmente el rendimiento económico de cada día de la semana para identificar cuál genera más ingresos.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "12:36:32",
+   "duracion_s": 5.841,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 5.666,
+     "tokens_entrada": 1828,
+     "tokens_salida": 156,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 5,
+     "verificadas": 5,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 33,
+    "reglas_rag": [
+     "Platillo del día",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "12:36:32",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Qué día de la semana cobro más dinero?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 16.36,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.64,
+   "tokens_entrada": 1531,
+   "tokens_salida": 103,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 6.217,
+   "tokens_entrada": 2710,
+   "tokens_salida": 229,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.9,
+   "tokens_entrada": 762,
+   "tokens_salida": 100,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 5.666,
+   "tokens_entrada": 1828,
+   "tokens_salida": 156,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 7419,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "dia_semana",
+   "y": [
+    "dinero_cobrado"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Ingresos por día de la semana",
+   "razon": "Las barras permiten comparar fácilmente el rendimiento económico de cada día de la semana para identificar cuál genera más ingresos."
+  }
+ }
+}

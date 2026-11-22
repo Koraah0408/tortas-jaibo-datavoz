@@ -1,0 +1,237 @@
+{
+ "sesion": "JM1",
+ "turno": 3,
+ "fecha": "2026-11-22T12:37:56",
+ "entrada": {
+  "pregunta": "¿Y de Barda normal?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Y de Barda normal?",
+ "pregunta_completa": "¿Cuántas tortas Barda normal vendí en septiembre de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": true,
+ "respuesta": "En septiembre de 2026 vendiste 141 tortas Barda normal. Este volumen refleja una demanda constante de nuestro producto estrella en el mostrador y plataformas de entrega. Es un buen indicador de que los clientes siguen prefiriendo este clásico de la casa.\n\nRecomendación: Considera ofrecer una promoción de combo con bebida para las tortas Barda normal durante los días de menor movimiento para aumentar el ticket promedio.",
+ "sql": "SELECT SUM(cantidad) AS unidades_vendidas FROM ventas WHERE producto = 'Barda normal' AND mes = 9 AND anio = 2026",
+ "explicacion_sql": "Calcula el total de unidades vendidas del producto 'Barda normal' durante septiembre de 2026.",
+ "resultado": {
+  "sql": "SELECT SUM(cantidad) AS unidades_vendidas FROM ventas WHERE producto = 'Barda normal' AND mes = 9 AND anio = 2026",
+  "columnas": [
+   "unidades_vendidas"
+  ],
+  "filas": [
+   [
+    141
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.022,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 2,
+  "verificadas": 2,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT SUM(cantidad) AS unidades_vendidas FROM ventas WHERE producto = 'Barda normal' AND mes = 9 AND anio = 2026",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT SUM(cantidad) AS unidades_vendidas FROM ventas WHERE producto = 'Barda normal' AND mes = 9 AND anio = 2026"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "12:37:50",
+   "duracion_s": 1.877,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.877,
+     "tokens_entrada": 1883,
+     "tokens_salida": 124,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": true,
+    "pregunta_completa": "¿Cuántas tortas Barda normal vendí en septiembre de 2026?",
+    "contexto": {
+     "periodo": "septiembre de 2026",
+     "producto": "Barda normal",
+     "categoria": "tortas",
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "12:37:53",
+   "duracion_s": 2.274,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.899,
+     "tokens_entrada": 2875,
+     "tokens_salida": 97,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Barbacoa",
+      "Tortas y pan",
+      "Promociones",
+      "Horario y momentos del día"
+     ],
+     "ejemplos": [
+      "¿Cuánto subió el precio de las tortas con el tiempo?",
+      "¿Cuántas tortas vendí por día de la semana en las últimas 8 semanas?",
+      "¿Cuántos panes normales y mega se usaron cada día la última semana?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": [
+      "tortas"
+     ]
+    },
+    "sql": "SELECT SUM(cantidad) AS unidades_vendidas FROM ventas WHERE producto = 'Barda normal' AND mes = 9 AND anio = 2026",
+    "explicacion": "Calcula el total de unidades vendidas del producto 'Barda normal' durante septiembre de 2026.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "12:37:53",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "no: la respuesta es un solo número"
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "12:37:56",
+   "duracion_s": 3.823,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 3.67,
+     "tokens_entrada": 858,
+     "tokens_salida": 90,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 2,
+     "verificadas": 2,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Barbacoa",
+     "Promociones"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "12:37:56",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 3,
+    "contexto": {
+     "periodo": "septiembre de 2026",
+     "producto": "Barda normal",
+     "categoria": "tortas",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Cuántas tortas Barda normal vendí en septiembre de 2026?"
+    },
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 7.98,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.877,
+   "tokens_entrada": 1883,
+   "tokens_salida": 124,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.899,
+   "tokens_entrada": 2875,
+   "tokens_salida": 97,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 3.67,
+   "tokens_entrada": 858,
+   "tokens_salida": 90,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5927,
+ "grafica": null
+}

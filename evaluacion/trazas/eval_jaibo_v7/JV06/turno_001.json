@@ -1,0 +1,414 @@
+{
+ "sesion": "JV06",
+ "turno": 1,
+ "fecha": "2026-11-22T12:56:22",
+ "entrada": {
+  "pregunta": "",
+  "audio": "C:\\proyectos\\DataVoz\\evaluacion\\audio\\jaibo\\voz_06.ogg",
+  "archivo": null
+ },
+ "pregunta": "¿Qué día de la semana tengo más ventas?",
+ "pregunta_completa": "¿Qué día de la semana tengo más ventas?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "El día de la semana en el que tienes más ventas es el domingo, alcanzando un total de $141,401 con 842 tickets. Este día también destaca por tener el promedio de venta diaria más alto, con $3,142.24, lo que confirma que es tu jornada más fuerte. Posiblemente, el flujo de clientes aumenta durante el fin de semana al ser un día de descanso para muchas familias. Por el contrario, el lunes es el día con menor actividad, lo cual coincide con que es el día de menor afluencia de clientes.\n\nRecomendación: Asegura tener suficiente personal y producto preparado para los domingos, ya que es cuando recibes el mayor volumen de pedidos.",
+ "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(id_orden) AS tickets FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+ "explicacion_sql": "Calcula el total de ventas y el número de tickets agrupados por día de la semana, ordenados cronológicamente de lunes a domingo.",
+ "resultado": {
+  "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(id_orden) AS tickets FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+  "columnas": [
+   "dia_semana",
+   "num_dia_semana",
+   "ventas",
+   "tickets"
+  ],
+  "filas": [
+   [
+    "lunes",
+    1,
+    81610.0,
+    461
+   ],
+   [
+    "martes",
+    2,
+    127560.0,
+    698
+   ],
+   [
+    "miercoles",
+    3,
+    136824.0,
+    773
+   ],
+   [
+    "jueves",
+    4,
+    126028.0,
+    717
+   ],
+   [
+    "viernes",
+    5,
+    135313.0,
+    761
+   ],
+   [
+    "sabado",
+    6,
+    133460.0,
+    745
+   ],
+   [
+    "domingo",
+    7,
+    141401.0,
+    842
+   ]
+  ],
+  "n_filas": 7,
+  "truncado": false,
+  "duracion_s": 0.0334,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver el promedio de ventas por día de la semana para normalizar por la cantidad de semanas que tuvo cada día",
+   "sql": "SELECT o.dia_semana, o.num_dia_semana, ROUND(SUM(o.monto_total) / COUNT(DISTINCT o.fecha), 2) AS venta_promedio_diaria FROM ordenes o WHERE NOT o.cancelada GROUP BY o.dia_semana, o.num_dia_semana ORDER BY o.num_dia_semana",
+   "columnas": [
+    "dia_semana",
+    "num_dia_semana",
+    "venta_promedio_diaria"
+   ],
+   "filas": [
+    [
+     "lunes",
+     1,
+     2814.14
+    ],
+    [
+     "martes",
+     2,
+     2834.67
+    ],
+    [
+     "miercoles",
+     3,
+     3040.53
+    ],
+    [
+     "jueves",
+     4,
+     2800.62
+    ],
+    [
+     "viernes",
+     5,
+     3006.96
+    ],
+    [
+     "sabado",
+     6,
+     2965.78
+    ],
+    [
+     "domingo",
+     7,
+     3142.24
+    ]
+   ],
+   "n_filas": 7,
+   "truncado": false,
+   "duracion_s": 0.0368,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 3,
+  "verificadas": 3,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(id_orden) AS tickets FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+   "problema": null,
+   "n_filas": 7
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(id_orden) AS tickets FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+  "SELECT o.dia_semana, o.num_dia_semana, ROUND(SUM(o.monto_total) / COUNT(DISTINCT o.fecha), 2) AS venta_promedio_diaria FROM ordenes o WHERE NOT o.cancelada GROUP BY o.dia_semana, o.num_dia_semana ORDER BY o.num_dia_semana"
+ ],
+ "transcripcion": {
+  "texto": "¿Qué día de la semana tengo más ventas?",
+  "idioma": "es",
+  "duracion_audio_s": 2.89,
+  "duracion_s": 2.67,
+  "error": null
+ },
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "transcribir_voz",
+   "hora": "12:56:11",
+   "duracion_s": 2.675,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "transcribir_voz",
+    "texto": "¿Qué día de la semana tengo más ventas?",
+    "idioma": "es",
+    "duracion_audio_s": 2.89,
+    "duracion_s": 2.67,
+    "error": null
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "12:56:13",
+   "duracion_s": 2.232,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.231,
+     "tokens_entrada": 1530,
+     "tokens_salida": 102,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Qué día de la semana tengo más ventas?",
+    "contexto": {
+     "periodo": null,
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "12:56:18",
+   "duracion_s": 5.386,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 4.766,
+     "tokens_entrada": 2492,
+     "tokens_salida": 263,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Horario y momentos del día",
+      "Platillo del día",
+      "Compra y preparación de pan",
+      "Columnas de calendario en ventas y ordenes"
+     ],
+     "ejemplos": [
+      "¿Qué platillo del día se vende más cada día de la semana?",
+      "¿Cuántos tacos de barbacoa se venden en promedio por día entre semana y en fin de semana?",
+      "¿Qué productos se venden más en Rappi?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(id_orden) AS tickets FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+    "explicacion": "Calcula el total de ventas y el número de tickets agrupados por día de la semana, ordenados cronológicamente de lunes a domingo.",
+    "error": null,
+    "filas": 7,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver el promedio de ventas por día de la semana para normalizar por la cantidad de semanas que tuvo cada día",
+      "sql": "SELECT o.dia_semana, o.num_dia_semana, ROUND(SUM(o.monto_total) / COUNT(DISTINCT o.fecha), 2) AS venta_promedio_diaria FROM ordenes o WHERE NOT o.cancelada GROUP BY o.dia_semana, o.num_dia_semana ORDER BY o.num_dia_semana",
+      "error": null,
+      "filas": 7
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "12:56:18",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 7,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "12:56:20",
+   "duracion_s": 1.59,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.527,
+     "tokens_entrada": 746,
+     "tokens_salida": 100,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "dia_semana",
+     "y": [
+      "ventas"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Ventas por día de la semana"
+    },
+    "razon": "Las barras permiten comparar fácilmente el rendimiento de ventas entre los siete días de la semana para identificar el día con mayor volumen.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "12:56:22",
+   "duracion_s": 1.538,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.337,
+     "tokens_entrada": 1829,
+     "tokens_salida": 153,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 3,
+     "verificadas": 3,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 33,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Platillo del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "12:56:22",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Qué día de la semana tengo más ventas?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 13.43,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.231,
+   "tokens_entrada": 1530,
+   "tokens_salida": 102,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 4.766,
+   "tokens_entrada": 2492,
+   "tokens_salida": 263,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.527,
+   "tokens_entrada": 746,
+   "tokens_salida": 100,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.337,
+   "tokens_entrada": 1829,
+   "tokens_salida": 153,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 7215,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "dia_semana",
+   "y": [
+    "ventas"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Ventas por día de la semana",
+   "razon": "Las barras permiten comparar fácilmente el rendimiento de ventas entre los siete días de la semana para identificar el día con mayor volumen."
+  }
+ }
+}

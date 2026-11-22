@@ -1,0 +1,610 @@
+{
+ "sesion": "JV04",
+ "turno": 1,
+ "fecha": "2026-11-22T12:55:37",
+ "entrada": {
+  "pregunta": "",
+  "audio": "C:\\proyectos\\DataVoz\\evaluacion\\audio\\jaibo\\voz_04.ogg",
+  "archivo": null
+ },
+ "pregunta": "¿Cuánto vendí en Rappi?, en agosto de 2026.",
+ "pregunta_completa": "¿Cuánto vendí en Rappi en agosto de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En agosto de 2026, tus ventas a través de Rappi sumaron $9,029.00, repartidas en 48 órdenes. El producto estrella en este canal fue la Mega barda, que generó $2,090.00 con 19 unidades vendidas. Tu ticket promedio en Rappi fue de $188.10, manteniéndose por encima del promedio general de todos tus canales de venta. Posiblemente, este buen desempeño se deba a la preferencia de los clientes por las tortas de mayor tamaño en las plataformas de entrega.\n\nRecomendación: Crea un paquete promocional que combine la Mega barda con una bebida para aumentar aún más el ticket promedio en Rappi.",
+ "sql": "SELECT ROUND(SUM(monto_total), 2) AS ventas_totales, COUNT(*) AS total_ordenes FROM ordenes WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 AND NOT cancelada",
+ "explicacion_sql": "Calcula el total de dinero vendido y el número de órdenes procesadas a través de Rappi durante agosto de 2026, excluyendo órdenes canceladas.",
+ "resultado": {
+  "sql": "SELECT ROUND(SUM(monto_total), 2) AS ventas_totales, COUNT(*) AS total_ordenes FROM ordenes WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 AND NOT cancelada",
+  "columnas": [
+   "ventas_totales",
+   "total_ordenes"
+  ],
+  "filas": [
+   [
+    9029.0,
+    48
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.028,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver el desglose de ventas por producto en Rappi durante agosto de 2026",
+   "sql": "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas_renglones FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 GROUP BY producto ORDER BY unidades DESC",
+   "columnas": [
+    "producto",
+    "unidades",
+    "ventas_renglones"
+   ],
+   "filas": [
+    [
+     "Mega barda",
+     19,
+     2090.0
+    ],
+    [
+     "Bocoles",
+     16,
+     352.0
+    ],
+    [
+     "Gordita",
+     16,
+     448.0
+    ],
+    [
+     "Barda normal",
+     12,
+     1140.0
+    ],
+    [
+     "Mega mixta",
+     10,
+     1250.0
+    ],
+    [
+     "Horchata",
+     9,
+     270.0
+    ],
+    [
+     "Jamaica",
+     7,
+     210.0
+    ],
+    [
+     "Tacos de barbacoa",
+     7,
+     210.0
+    ],
+    [
+     "Pierna normal",
+     6,
+     570.0
+    ],
+    [
+     "Coca cola",
+     6,
+     210.0
+    ],
+    [
+     "Mega pierna",
+     3,
+     330.0
+    ],
+    [
+     "Sidral mundet",
+     2,
+     70.0
+    ],
+    [
+     "Delaware punch",
+     2,
+     70.0
+    ],
+    [
+     "Tamarindo",
+     2,
+     60.0
+    ],
+    [
+     "Agua natural",
+     1,
+     30.0
+    ],
+    [
+     "Coca sin azucar",
+     1,
+     35.0
+    ],
+    [
+     "Enchiladas suizas",
+     1,
+     125.0
+    ],
+    [
+     "Fuze tea",
+     1,
+     30.0
+    ],
+    [
+     "Arizona",
+     1,
+     30.0
+    ],
+    [
+     "Barbacoa normal",
+     1,
+     100.0
+    ],
+    [
+     "Huevos al gusto",
+     1,
+     125.0
+    ],
+    [
+     "Coca cola vainilla",
+     1,
+     40.0
+    ],
+    [
+     "Mixta normal",
+     1,
+     110.0
+    ],
+    [
+     "Enmoladas",
+     1,
+     125.0
+    ],
+    [
+     "Sprite",
+     1,
+     35.0
+    ]
+   ],
+   "n_filas": 25,
+   "truncado": false,
+   "duracion_s": 0.0465,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "Comparar el ticket promedio de Rappi en agosto contra el promedio general del mismo mes",
+   "sql": "SELECT canal, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE mes = 8 AND anio = 2026 AND NOT cancelada GROUP BY canal",
+   "columnas": [
+    "canal",
+    "ticket_promedio"
+   ],
+   "filas": [
+    [
+     "Local",
+     178.74
+    ],
+    [
+     "Legacy",
+     175.73
+    ],
+    [
+     "Automatas",
+     165.38
+    ],
+    [
+     "Didi",
+     192.23
+    ],
+    [
+     "Rappi",
+     188.1
+    ]
+   ],
+   "n_filas": 5,
+   "truncado": false,
+   "duracion_s": 0.0306,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 6,
+  "verificadas": 6,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT ROUND(SUM(total), 2) AS ventas_totales, COUNT(DISTINCT ticket) AS total_tickets FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026",
+   "problema": "revisión del Orquestador: La consulta calcula el dinero cobrado o el ticket promedio con ventas.total. Esa columna es el precio de cada renglón: no incluye extras, sobreprecio de las apps ni descuentos, y AVG(total) es el promedio por renglón, no por orden. Para dinero cobrado, órdenes y ticket promedio usa la tabla ordenes: SUM(monto_total), COUNT(*) y AVG(monto_total) con WHERE NOT cancelada (tiene las mismas columnas de calendario y canal). ventas.total solo sirve para comparar productos o categorías.",
+   "n_filas": 1
+  },
+  {
+   "sql": "SELECT ROUND(SUM(monto_total), 2) AS ventas_totales, COUNT(*) AS total_ordenes FROM ordenes WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 AND NOT cancelada",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT ROUND(SUM(total), 2) AS ventas_totales, COUNT(DISTINCT ticket) AS total_tickets FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026",
+  "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 GROUP BY producto ORDER BY unidades DESC LIMIT 5",
+  "SELECT ROUND(SUM(monto_total), 2) AS ventas_totales, COUNT(*) AS total_ordenes FROM ordenes WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 AND NOT cancelada",
+  "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas_renglones FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 GROUP BY producto ORDER BY unidades DESC",
+  "SELECT canal, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE mes = 8 AND anio = 2026 AND NOT cancelada GROUP BY canal"
+ ],
+ "transcripcion": {
+  "texto": "¿Cuánto vendí en Rappi?, en agosto de 2026.",
+  "idioma": "es",
+  "duracion_audio_s": 3.95,
+  "duracion_s": 3.06,
+  "error": null
+ },
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "transcribir_voz",
+   "hora": "12:55:21",
+   "duracion_s": 3.056,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "transcribir_voz",
+    "texto": "¿Cuánto vendí en Rappi?, en agosto de 2026.",
+    "idioma": "es",
+    "duracion_audio_s": 3.95,
+    "duracion_s": 3.06,
+    "error": null
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "12:55:23",
+   "duracion_s": 1.541,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.541,
+     "tokens_entrada": 1537,
+     "tokens_salida": 118,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuánto vendí en Rappi en agosto de 2026?",
+    "contexto": {
+     "periodo": "agosto de 2026",
+     "producto": null,
+     "categoria": "Rappi",
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "12:55:32",
+   "duracion_s": 8.976,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "error",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 5.767,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+    },
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.615,
+     "tokens_entrada": 2413,
+     "tokens_salida": 284,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Canales y formas de pago",
+      "Horario y momentos del día",
+      "Recomendaciones típicas para el dueño",
+      "Tabla promociones"
+     ],
+     "ejemplos": [
+      "¿Qué productos se venden más en Rappi?",
+      "¿Cuánto más caro cobro en Didi y Rappi que en el mostrador? (sobreprecio de las apps)",
+      "¿Cuánto vendí en dinero la última semana?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT ROUND(SUM(total), 2) AS ventas_totales, COUNT(DISTINCT ticket) AS total_tickets FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026",
+    "explicacion": "Calcula el total de ventas en dinero y el número de tickets generados a través del canal Rappi durante el mes de agosto de 2026.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver los productos más vendidos en Rappi durante agosto 2026",
+      "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 GROUP BY producto ORDER BY unidades DESC LIMIT 5",
+      "error": null,
+      "filas": 5
+     }
+    ],
+    "consultas_apoyo_descartadas": [
+     {
+      "proposito": "Comparar con el mes anterior (julio 2026) para ver la tendencia en Rappi",
+      "sql": "SELECT ROUND(SUM(total), 2) AS ventas_julio FROM ventas WHERE canal = 'Rappi' AND mes = 7 AND anio = 2026",
+      "motivo": "La consulta calcula el dinero cobrado o el ticket promedio con ventas.total. Esa columna es el precio de cada renglón: no incluye extras, sobreprecio de las apps ni descuentos, y AVG(total) es el promedio por renglón, no por orden. Para dinero cobrado, órdenes y ticket promedio usa la tabla ordenes: SUM(monto_total), COUNT(*) y AVG(monto_total) con WHERE NOT cancelada (tiene las mismas columnas de calendario y canal). ventas.total solo sirve para comparar productos o categorías."
+     }
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "12:55:32",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "reintentar",
+    "intento": 1,
+    "motivo": "revisión semántica",
+    "problema": "La consulta calcula el dinero cobrado o el ticket promedio con ventas.total. Esa columna es el precio de cada renglón: no incluye extras, sobreprecio de las apps ni descuentos, y AVG(total) es el promedio por renglón, no por orden. Para dinero cobrado, órdenes y ticket promedio usa la tabla ordenes: SUM(monto_total), COUNT(*) y AVG(monto_total) con WHERE NOT cancelada (tiene las mismas columnas de calendario y canal). ventas.total solo sirve para comparar productos o categorías."
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "12:55:35",
+   "duracion_s": 3.077,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "error",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.102,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+    },
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.635,
+     "tokens_entrada": 2733,
+     "tokens_salida": 308,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 2,
+    "rag": {
+     "documentos": [
+      "Canales y formas de pago",
+      "Horario y momentos del día",
+      "Recomendaciones típicas para el dueño",
+      "Tabla promociones"
+     ],
+     "ejemplos": [
+      "¿Qué productos se venden más en Rappi?",
+      "¿Cuánto más caro cobro en Didi y Rappi que en el mostrador? (sobreprecio de las apps)",
+      "¿Cuánto vendí en dinero la última semana?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT ROUND(SUM(monto_total), 2) AS ventas_totales, COUNT(*) AS total_ordenes FROM ordenes WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 AND NOT cancelada",
+    "explicacion": "Calcula el total de dinero vendido y el número de órdenes procesadas a través de Rappi durante agosto de 2026, excluyendo órdenes canceladas.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver el desglose de ventas por producto en Rappi durante agosto de 2026",
+      "sql": "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas_renglones FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 GROUP BY producto ORDER BY unidades DESC",
+      "error": null,
+      "filas": 25
+     },
+     {
+      "proposito": "Comparar el ticket promedio de Rappi en agosto contra el promedio general del mismo mes",
+      "sql": "SELECT canal, ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE mes = 8 AND anio = 2026 AND NOT cancelada GROUP BY canal",
+      "error": null,
+      "filas": 5
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "12:55:35",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 2,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "12:55:35",
+   "duracion_s": 0.067,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "ventas_totales",
+      "total_ordenes"
+     ],
+     "titulo": "Ventas totales",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "12:55:37",
+   "duracion_s": 2.13,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.939,
+     "tokens_entrada": 1709,
+     "tokens_salida": 158,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 6,
+     "verificadas": 6,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 19,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Recomendaciones típicas para el dueño"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "12:55:37",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "agosto de 2026",
+     "categoria": "Rappi",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Cuánto vendí en Rappi en agosto de 2026?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 18.86,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.541,
+   "tokens_entrada": 1537,
+   "tokens_salida": 118,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "error",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 5.767,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.615,
+   "tokens_entrada": 2413,
+   "tokens_salida": 284,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "error",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.102,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.635,
+   "tokens_entrada": 2733,
+   "tokens_salida": 308,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.939,
+   "tokens_entrada": 1709,
+   "tokens_salida": 158,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 9260,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "ventas_totales",
+    "total_ordenes"
+   ],
+   "titulo": "Ventas totales",
+   "confianza": "alta"
+  }
+ }
+}

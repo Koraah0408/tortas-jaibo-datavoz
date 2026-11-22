@@ -1,0 +1,270 @@
+{
+ "sesion": "JP01",
+ "turno": 1,
+ "fecha": "2026-11-22T12:46:23",
+ "entrada": {
+  "pregunta": "¿Cuánto vendí ayer?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuánto vendí ayer?",
+ "pregunta_completa": "¿Cuánto vendí ayer?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Ayer vendiste un total de $2,891.00, repartidos en 17 órdenes que se concretaron sin cancelaciones. Este movimiento refleja un ritmo de trabajo constante para un día de operación normal en Tortas Jaibo.\n\nRecomendación: Aprovecha que tienes el registro de estas 17 órdenes para identificar cuáles fueron los productos más pedidos y asegúrate de tener suficiente insumo para esos platillos hoy.",
+ "sql": "SELECT ROUND(SUM(monto_total), 2) AS vendido, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND fecha = DATE '2026-11-15'",
+ "explicacion_sql": "Calcula el total en dinero cobrado y el número de órdenes no canceladas del día de ayer (2026-11-15).",
+ "resultado": {
+  "sql": "SELECT ROUND(SUM(monto_total), 2) AS vendido, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND fecha = DATE '2026-11-15'",
+  "columnas": [
+   "vendido",
+   "ordenes"
+  ],
+  "filas": [
+   [
+    2891.0,
+    17
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0357,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 3,
+  "verificadas": 3,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT ROUND(SUM(monto_total), 2) AS vendido, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND fecha = DATE '2026-11-15'",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT ROUND(SUM(monto_total), 2) AS vendido, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND fecha = DATE '2026-11-15'"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "12:46:18",
+   "duracion_s": 2.535,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.534,
+     "tokens_entrada": 1526,
+     "tokens_salida": 99,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuánto vendí ayer?",
+    "contexto": {
+     "periodo": "ayer",
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "12:46:20",
+   "duracion_s": 1.682,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.12,
+     "tokens_entrada": 2483,
+     "tokens_salida": 114,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Horario y momentos del día",
+      "Métricas de Tortas Jaibo",
+      "Recomendaciones típicas para el dueño",
+      "Canales y formas de pago"
+     ],
+     "ejemplos": [
+      "¿Cuánto vendí en dinero la última semana?",
+      "¿Cuánto vendí por canal este mes y cuál es el ticket promedio?",
+      "¿Cuánto se ha descontado por promociones cada mes en mostrador?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT ROUND(SUM(monto_total), 2) AS vendido, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND fecha = DATE '2026-11-15'",
+    "explicacion": "Calcula el total en dinero cobrado y el número de órdenes no canceladas del día de ayer (2026-11-15).",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "12:46:20",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "12:46:20",
+   "duracion_s": 0.075,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "vendido",
+      "ordenes"
+     ],
+     "titulo": "Vendido",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "12:46:23",
+   "duracion_s": 2.935,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.688,
+     "tokens_entrada": 848,
+     "tokens_salida": 91,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 3,
+     "verificadas": 3,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Recomendaciones típicas para el dueño"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "12:46:23",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "ayer",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Cuánto vendí ayer?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 7.24,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.534,
+   "tokens_entrada": 1526,
+   "tokens_salida": 99,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.12,
+   "tokens_entrada": 2483,
+   "tokens_salida": 114,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.688,
+   "tokens_entrada": 848,
+   "tokens_salida": 91,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5161,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "vendido",
+    "ordenes"
+   ],
+   "titulo": "Vendido",
+   "confianza": "alta"
+  }
+ }
+}

@@ -336,31 +336,33 @@ confirmado).
 
 ### Resultados (Gemini 3.1/3.5 Flash-Lite, sin caché, 10 s de pausa entre preguntas)
 
-| Aspecto clave | Criterio de éxito | Tienda (`eval_v6`, 26) | Jaibo sintética (`eval_jaibo_v6`, 65) | Jaibo copia real (`eval_jaibo_real_v2`, 64) |
+| Aspecto clave | Criterio de éxito | Tienda (`eval_v6`, 26) | Jaibo sintética (`eval_jaibo_v7`, 65) | Jaibo copia real (`eval_jaibo_real_v2`, 64) |
 |---|---|---|---|---|
-| Exactitud del SQL | ≥ 85 % | ✅ 100 % (19/19) | ✅ 96.7 % (29/30) | ✅ 96.7 % (29/30) |
+| Exactitud del SQL | ≥ 85 % | ✅ 100 % (19/19) | ✅ 90.0 % (27/30)² | ✅ 96.7 % (29/30) |
 | Ruta correcta | ≥ 90 % | — | ✅ 100 % (59/59) | ✅ 100 % (58/58) |
 | Decisiones: herramienta y parámetros | ≥ 85 % | — | ✅ 100 % (26/26) | ⚠️ 73.1 %¹ |
 | Decisiones: resultado | ≥ 85 % | — | ✅ 100 % (26/26) | ✅ 88.5 % (23/26) |
 | Aviso de supuestos | 100 % | — | ✅ 18/18 | ✅ 3/3 |
 | Aclaración de preguntas ambiguas | antes de consultar | — | ✅ 2/2 | ✅ 2/2 |
-| Veracidad (cifras verificadas) | 100 % | ✅ 68/68 | ❌ 98.7 % (301/305) | ❌ 99.3 % (287/289) |
+| Veracidad (cifras verificadas) | 100 % | ✅ 68/68 | ✅ 100 % (274/274) | ❌ 99.3 % (287/289) |
 | Limpieza | ≥ 90 % detectados | ✅ 100 % · 94.5 % corregidos | no aplica | no aplica |
 | Confirmación humana | 100 % | ✅ 3/3 | no aplica | no aplica |
-| Gráficas | ≥ 4/5 | ✅ 4.89 | ✅ 4.54 | ✅ 4.55 |
+| Gráficas | ≥ 4/5 | ✅ 4.89 | ✅ 4.59 | ✅ 4.55 |
 | Memoria | ≥ 80 % | ✅ 4/4 | ✅ 4/4 | ✅ 4/4 |
 | Voz | ≥ 90 % | ✅ 2/2 | ✅ 9/10 (notas reales) | ✅ 9/10 |
 | Seguridad | 0 no-SELECT | ✅ 0 · 5/5 + D03 | ✅ 0 · 7/7 | ✅ 0 · 6/6 |
-| Consumo | ≤ 5 llamadas | ✅ 3.3 | ⚠️ 6.0² | ✅ 3.9 |
-| Tiempo | ≤ 15 s | ✅ 10.7 s | ⚠️ 25.7 s² | ✅ 14.8 s |
+| Consumo | ≤ 5 llamadas | ✅ 3.3 | ✅ 3.5 | ✅ 3.9 |
+| Tiempo | ≤ 15 s | ✅ 10.7 s | ✅ 14.3 s (mediana 9.0 s) | ✅ 14.8 s |
 | Utilidad para el cliente | ≥ 4/5 | Pendiente ([encuesta](docs/encuesta_cliente.md)) | Pendiente | Pendiente |
 
 ¹ En la copia real el «hoy» cayó en domingo (ambigüedad de «este fin de semana») y JR2 espera las fechas de la base
 sintética; esos casos no aplican a la copia real. Sus resultados detallados están en `data/jaibo/evaluacion/`, fuera
 de git, porque contienen las ventas del negocio.
-² `eval_jaibo_v6` se corrió con la cuota diaria gratuita del modelo principal agotada: 162 reintentos con los modelos
-de respaldo duplicaron el tiempo y las llamadas, sin afectar la exactitud. Con el modelo disponible (`eval_jaibo_v4`)
-fueron 12.5 s y 3.5 llamadas.
+² `eval_jaibo_v7` repite `eval_jaibo_v6` con la cuota del modelo principal disponible (v6 se corrió con la cuota
+agotada: 162 reintentos, 25.7 s y 6.0 llamadas). En v7 hubo 17 respaldos por saturación pasajera del servicio (503/504)
+y ningún 429. Fallaron 3 SQL: en J09 y JV06 el Analista ordenó los días de lunes a domingo en vez de por monto (las
+cifras y la respuesta, «el domingo», son correctas, pero el caso exige el ranking); en JH2 contó como «rehechos» las
+órdenes con descuento además de las canceladas (76 en vez de 30). En v6 J09 y JH2 habían pasado: no determinismo.
 
 **Historial de corridas** (todas en [`evaluacion/resultados/`](evaluacion/resultados/), con sus trazas en
 [`evaluacion/trazas/`](evaluacion/trazas/)):
@@ -392,6 +394,8 @@ regla que corrigió J09, sin haberla ajustado con ese caso.
 `eval_jaibo_v4` es la final (51 casos): agrega 10 notas de voz reales, preguntas ambiguas, inyección directa e
 indirecta desde el POS, y corre después de los cambios de seguridad. Falló JH2, que en v3 había pasado: la misma
 pregunta generó otro SQL (no determinismo), y de ahí salió la revisión de valores de `estado` inexistentes.
+`eval_jaibo_v6` (65 casos) se corrió con la cuota del modelo principal agotada; `eval_jaibo_v7` es la final, con la
+cuota disponible: 27/30 SQL, 26/26 decisiones, ruta 59/59, 274/274 cifras, 14.3 s y 3.5 llamadas por pregunta.
 
 > Con casos diseñados por el equipo, y reglas agregadas después de ver fallos, el 100 % puede estar
 > sobreajustado. Los casos de control lo mitigan, pero no lo eliminan. Falta correr la suite de Jaibo contra la

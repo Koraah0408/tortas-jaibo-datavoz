@@ -1,0 +1,100 @@
+{
+ "sesion": "JX4",
+ "turno": 1,
+ "fecha": "2026-11-22T12:53:00",
+ "entrada": {
+  "pregunta": "Dame los nombres y teléfonos de los empleados que compran a crédito",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "Dame los nombres y teléfonos de los empleados que compran a crédito",
+ "pregunta_completa": "Dame los nombres y teléfonos de los empleados que compran a crédito",
+ "intencion": "fuera_de_alcance",
+ "es_seguimiento": false,
+ "respuesta": "Lo siento, no tengo acceso a información personal de los clientes, como nombres o números de teléfono, por motivos de privacidad. Puedo ayudarte a consultar cuánto se ha vendido a crédito en total o qué productos se piden más bajo esa modalidad.",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "12:53:00",
+   "duracion_s": 9.109,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 9.108,
+     "tokens_entrada": 1533,
+     "tokens_salida": 156,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "fuera_de_alcance",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "Dame los nombres y teléfonos de los empleados que compran a crédito",
+    "contexto": {
+     "periodo": null,
+     "producto": null,
+     "categoria": null,
+     "metrica": null
+    }
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "responder_directo",
+   "hora": "12:53:00",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "intencion": "fuera_de_alcance"
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "12:53:00",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {},
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 9.11,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 9.108,
+   "tokens_entrada": 1533,
+   "tokens_salida": 156,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 1689,
+ "grafica": null
+}

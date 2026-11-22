@@ -1,0 +1,263 @@
+{
+ "sesion": "J04",
+ "turno": 1,
+ "fecha": "2026-11-22T12:34:38",
+ "entrada": {
+  "pregunta": "¿Cuántos pedidos se tuvieron que corregir en septiembre de 2026?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuántos pedidos se tuvieron que corregir en septiembre de 2026?",
+ "pregunta_completa": "¿Cuántos pedidos se tuvieron que corregir en septiembre de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En septiembre de 2026 se tuvieron que corregir 23 pedidos en total. Esto representa el 5% de las 463 órdenes que recibimos en el mes. Posiblemente, estas correcciones se debieron a confusiones en los pedidos de las plataformas o cambios de último momento en las órdenes de crédito. Es un número que debemos mantener bajo control para evitar desperdicios y asegurar que el cliente reciba exactamente lo que pidió.\n\nRecomendación: Revisa con el equipo de cocina y los encargados de las plataformas cuáles fueron los errores más comunes en esos 23 pedidos para ajustar el proceso de toma de nota.",
+ "sql": "SELECT COUNT(*) AS pedidos_corregidos FROM ordenes WHERE mes = 9 AND anio = 2026 AND cancelada",
+ "explicacion_sql": "Calcula el número total de órdenes canceladas (corregidas) en septiembre de 2026.",
+ "resultado": {
+  "sql": "SELECT COUNT(*) AS pedidos_corregidos FROM ordenes WHERE mes = 9 AND anio = 2026 AND cancelada",
+  "columnas": [
+   "pedidos_corregidos"
+  ],
+  "filas": [
+   [
+    23
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0303,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver el total de órdenes de septiembre de 2026 para calcular el porcentaje de corrección",
+   "sql": "SELECT COUNT(*) AS total_ordenes, COUNT(*) FILTER (WHERE cancelada) AS corregidas, ROUND(100.0 * COUNT(*) FILTER (WHERE cancelada) / COUNT(*), 1) AS porcentaje_corregidas FROM ordenes WHERE mes = 9 AND anio = 2026",
+   "columnas": [
+    "total_ordenes",
+    "corregidas",
+    "porcentaje_corregidas"
+   ],
+   "filas": [
+    [
+     463,
+     23,
+     5.0
+    ]
+   ],
+   "n_filas": 1,
+   "truncado": false,
+   "duracion_s": 0.0265,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 5,
+  "verificadas": 5,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT COUNT(*) AS pedidos_corregidos FROM ordenes WHERE mes = 9 AND anio = 2026 AND cancelada",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT COUNT(*) AS pedidos_corregidos FROM ordenes WHERE mes = 9 AND anio = 2026 AND cancelada",
+  "SELECT COUNT(*) AS total_ordenes, COUNT(*) FILTER (WHERE cancelada) AS corregidas, ROUND(100.0 * COUNT(*) FILTER (WHERE cancelada) / COUNT(*), 1) AS porcentaje_corregidas FROM ordenes WHERE mes = 9 AND anio = 2026"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "12:34:34",
+   "duracion_s": 2.128,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.128,
+     "tokens_entrada": 1538,
+     "tokens_salida": 118,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": "limpieza_datos sin archivo en Jaibo → consulta_datos",
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántos pedidos se tuvieron que corregir en septiembre de 2026?",
+    "contexto": {
+     "periodo": "septiembre de 2026",
+     "producto": null,
+     "categoria": null,
+     "metrica": "otra"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "12:34:36",
+   "duracion_s": 2.12,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.561,
+     "tokens_entrada": 2417,
+     "tokens_salida": 202,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Columnas de calendario en ventas y ordenes",
+      "Recomendaciones típicas para el dueño",
+      "Platillo del día",
+      "Barbacoa"
+     ],
+     "ejemplos": [
+      "¿Cuántas órdenes se corrigieron (canceladas por modificación) cada mes?",
+      "¿Cuánto se vende a crédito a las empresas cada mes?",
+      "¿Cuánto vendí por canal este mes y cuál es el ticket promedio?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT COUNT(*) AS pedidos_corregidos FROM ordenes WHERE mes = 9 AND anio = 2026 AND cancelada",
+    "explicacion": "Calcula el número total de órdenes canceladas (corregidas) en septiembre de 2026.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver el total de órdenes de septiembre de 2026 para calcular el porcentaje de corrección",
+      "sql": "SELECT COUNT(*) AS total_ordenes, COUNT(*) FILTER (WHERE cancelada) AS corregidas, ROUND(100.0 * COUNT(*) FILTER (WHERE cancelada) / COUNT(*), 1) AS porcentaje_corregidas FROM ordenes WHERE mes = 9 AND anio = 2026",
+      "error": null,
+      "filas": 1
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "12:34:36",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "no: la respuesta es un solo número"
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "12:34:38",
+   "duracion_s": 1.787,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.608,
+     "tokens_entrada": 891,
+     "tokens_salida": 135,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 5,
+     "verificadas": 5,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Recomendaciones típicas para el dueño",
+     "Platillo del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "12:34:38",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "septiembre de 2026",
+     "metrica": "otra",
+     "ultima_pregunta": "¿Cuántos pedidos se tuvieron que corregir en septiembre de 2026?"
+    },
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 6.04,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.128,
+   "tokens_entrada": 1538,
+   "tokens_salida": 118,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.561,
+   "tokens_entrada": 2417,
+   "tokens_salida": 202,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.608,
+   "tokens_entrada": 891,
+   "tokens_salida": 135,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5301,
+ "grafica": null
+}

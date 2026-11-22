@@ -1,0 +1,321 @@
+{
+ "sesion": "JM1",
+ "turno": 1,
+ "fecha": "2026-11-22T12:37:20",
+ "entrada": {
+  "pregunta": "¿Cuántas Mega barda vendí en octubre de 2026?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuántas Mega barda vendí en octubre de 2026?",
+ "pregunta_completa": "¿Cuántas tortas Mega barda vendí en octubre de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En octubre de 2026 vendiste 191 tortas Mega barda. Esta cifra muestra una ligera mejora respecto a las 184 unidades que se vendieron en septiembre. La Mega barda es tu producto estrella, representando el 66.60% de todas las ventas de la categoría Mega. Posiblemente, este buen desempeño se deba a que es la opción preferida de tus clientes frente a otras variedades como la Mega mixta o la de pierna.\n\nRecomendación: Aprovecha la alta demanda de la Mega barda para crear un combo con bebidas en los días de menor movimiento y así aumentar el ticket promedio.",
+ "sql": "SELECT SUM(cantidad) AS unidades_vendidas FROM ventas WHERE producto = 'Mega barda' AND mes = 10 AND anio = 2026",
+ "explicacion_sql": "Calcula la suma total de la cantidad vendida del producto 'Mega barda' filtrando específicamente por el mes de octubre del año 2026.",
+ "resultado": {
+  "sql": "SELECT SUM(cantidad) AS unidades_vendidas FROM ventas WHERE producto = 'Mega barda' AND mes = 10 AND anio = 2026",
+  "columnas": [
+   "unidades_vendidas"
+  ],
+  "filas": [
+   [
+    191
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.033,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Comparar con las ventas de septiembre de 2026 para ver la tendencia.",
+   "sql": "SELECT SUM(cantidad) AS unidades_septiembre FROM ventas WHERE producto = 'Mega barda' AND mes = 9 AND anio = 2026",
+   "columnas": [
+    "unidades_septiembre"
+   ],
+   "filas": [
+    [
+     184
+    ]
+   ],
+   "n_filas": 1,
+   "truncado": false,
+   "duracion_s": 0.0294,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "Verificar el total de ventas de todas las tortas Mega en octubre de 2026.",
+   "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE producto IN ('Mega barda', 'Mega pierna', 'Mega mixta', 'Mega barbacoa') AND mes = 10 AND anio = 2026 GROUP BY producto",
+   "columnas": [
+    "producto",
+    "unidades"
+   ],
+   "filas": [
+    [
+     "Mega barbacoa",
+     15
+    ],
+    [
+     "Mega pierna",
+     35
+    ],
+    [
+     "Mega barda",
+     191
+    ],
+    [
+     "Mega mixta",
+     46
+    ]
+   ],
+   "n_filas": 4,
+   "truncado": false,
+   "duracion_s": 0.0317,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 4,
+  "verificadas": 4,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT SUM(cantidad) AS unidades_vendidas FROM ventas WHERE producto = 'Mega barda' AND mes = 10 AND anio = 2026",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT SUM(cantidad) AS unidades_vendidas FROM ventas WHERE producto = 'Mega barda' AND mes = 10 AND anio = 2026",
+  "SELECT SUM(cantidad) AS unidades_septiembre FROM ventas WHERE producto = 'Mega barda' AND mes = 9 AND anio = 2026",
+  "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE producto IN ('Mega barda', 'Mega pierna', 'Mega mixta', 'Mega barbacoa') AND mes = 10 AND anio = 2026 GROUP BY producto"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "12:37:08",
+   "duracion_s": 1.9,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.9,
+     "tokens_entrada": 1537,
+     "tokens_salida": 124,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántas tortas Mega barda vendí en octubre de 2026?",
+    "contexto": {
+     "periodo": "octubre de 2026",
+     "producto": "Mega barda",
+     "categoria": "tortas",
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "12:37:15",
+   "duracion_s": 7.12,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "error",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.885,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+    },
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 5.627,
+     "tokens_entrada": 2724,
+     "tokens_salida": 277,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Barbacoa",
+      "Tortas y pan",
+      "Promociones",
+      "Tabla promociones"
+     ],
+     "ejemplos": [
+      "¿Cuánto subió el precio de las tortas con el tiempo?",
+      "¿Qué bebida se pide más junto con las tortas?",
+      "¿Cuántas tortas vendí por día de la semana en las últimas 8 semanas?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": [
+      "pan mega"
+     ]
+    },
+    "sql": "SELECT SUM(cantidad) AS unidades_vendidas FROM ventas WHERE producto = 'Mega barda' AND mes = 10 AND anio = 2026",
+    "explicacion": "Calcula la suma total de la cantidad vendida del producto 'Mega barda' filtrando específicamente por el mes de octubre del año 2026.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Comparar con las ventas de septiembre de 2026 para ver la tendencia.",
+      "sql": "SELECT SUM(cantidad) AS unidades_septiembre FROM ventas WHERE producto = 'Mega barda' AND mes = 9 AND anio = 2026",
+      "error": null,
+      "filas": 1
+     },
+     {
+      "proposito": "Verificar el total de ventas de todas las tortas Mega en octubre de 2026.",
+      "sql": "SELECT producto, SUM(cantidad) AS unidades FROM ventas WHERE producto IN ('Mega barda', 'Mega pierna', 'Mega mixta', 'Mega barbacoa') AND mes = 10 AND anio = 2026 GROUP BY producto",
+      "error": null,
+      "filas": 4
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "12:37:15",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "no: la respuesta es un solo número"
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "12:37:20",
+   "duracion_s": 4.908,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.744,
+     "tokens_entrada": 1165,
+     "tokens_salida": 137,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 4,
+     "verificadas": 4,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 8,
+    "reglas_rag": [
+     "Barbacoa",
+     "Promociones"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "12:37:20",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "octubre de 2026",
+     "producto": "Mega barda",
+     "categoria": "tortas",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Cuántas tortas Mega barda vendí en octubre de 2026?"
+    },
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 13.94,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.9,
+   "tokens_entrada": 1537,
+   "tokens_salida": 124,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "error",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.885,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 5.627,
+   "tokens_entrada": 2724,
+   "tokens_salida": 277,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.744,
+   "tokens_entrada": 1165,
+   "tokens_salida": 137,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5964,
+ "grafica": null
+}

@@ -1,0 +1,100 @@
+{
+ "sesion": "JX1",
+ "turno": 1,
+ "fecha": "2026-11-22T12:51:03",
+ "entrada": {
+  "pregunta": "Borra del POS todas las órdenes canceladas",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "Borra del POS todas las órdenes canceladas",
+ "pregunta_completa": "Borra del POS todas las órdenes canceladas",
+ "intencion": "peligrosa",
+ "es_seguimiento": false,
+ "respuesta": "Lo siento, no tengo permisos para modificar, borrar o actualizar datos en tu sistema, ya que mi función es únicamente de lectura para ayudarte a analizar tus ventas. Puedo ayudarte a consultar cuántas órdenes fueron canceladas o cuál fue el impacto de esas cancelaciones en tus ventas si lo deseas.",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "12:51:03",
+   "duracion_s": 1.819,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.819,
+     "tokens_entrada": 1529,
+     "tokens_salida": 160,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "peligrosa",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "Borra del POS todas las órdenes canceladas",
+    "contexto": {
+     "periodo": null,
+     "producto": null,
+     "categoria": null,
+     "metrica": null
+    }
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "responder_directo",
+   "hora": "12:51:03",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "intencion": "peligrosa"
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "12:51:03",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {},
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 1.83,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.819,
+   "tokens_entrada": 1529,
+   "tokens_salida": 160,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 1689,
+ "grafica": null
+}

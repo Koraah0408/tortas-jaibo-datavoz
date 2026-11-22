@@ -1,0 +1,655 @@
+{
+ "sesion": "JH2",
+ "turno": 1,
+ "fecha": "2026-11-22T12:43:38",
+ "entrada": {
+  "pregunta": "¿Cuántos pedidos hubo que rehacer en agosto de 2026?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuántos pedidos hubo que rehacer en agosto de 2026?",
+ "pregunta_completa": "¿Cuántos pedidos hubo que rehacer en agosto de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En agosto de 2026 tuvimos 76 pedidos que fueron corregidos o cancelados. Esta cifra incluye tanto las órdenes donde se aplicó algún descuento como aquellas que se cancelaron por completo. Posiblemente, estos ajustes se debieron a errores en la preparación o cambios de último momento por parte de los clientes. Es importante notar que este cálculo es una estimación basada en el registro de descuentos y cancelaciones, por lo que te sugiero revisar el detalle de estas órdenes para identificar si hay un patrón en algún turno o producto específico.\n\nRecomendación: Revisa con tu equipo de cocina si los errores ocurren en las horas de mayor demanda para ajustar el proceso de toma de pedidos.",
+ "sql": "SELECT COUNT(*) AS ordenes_corregidas FROM ordenes WHERE mes = 8 AND anio = 2026 AND (descuento > 0 OR cancelada = TRUE)",
+ "explicacion_sql": "Cuenta el número de órdenes en agosto de 2026 que tuvieron algún descuento aplicado (posible corrección) o fueron canceladas.",
+ "resultado": {
+  "sql": "SELECT COUNT(*) AS ordenes_corregidas FROM ordenes WHERE mes = 8 AND anio = 2026 AND (descuento > 0 OR cancelada = TRUE)",
+  "columnas": [
+   "ordenes_corregidas"
+  ],
+  "filas": [
+   [
+    76
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0331,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver detalle de órdenes con descuento en agosto",
+   "sql": "SELECT id_orden, monto_total, descuento FROM ordenes WHERE mes = 8 AND anio = 2026 AND descuento > 0",
+   "columnas": [
+    "id_orden",
+    "monto_total",
+    "descuento"
+   ],
+   "filas": [
+    [
+     3591,
+     205.0,
+     20.0
+    ],
+    [
+     3610,
+     117.0,
+     6.0
+    ],
+    [
+     3632,
+     280.0,
+     20.0
+    ],
+    [
+     3645,
+     310.0,
+     20.0
+    ],
+    [
+     3649,
+     230.0,
+     20.0
+    ],
+    [
+     3656,
+     112.0,
+     6.0
+    ],
+    [
+     3657,
+     272.0,
+     6.0
+    ],
+    [
+     3659,
+     150.0,
+     6.0
+    ],
+    [
+     3660,
+     220.0,
+     6.0
+    ],
+    [
+     3687,
+     135.0,
+     15.0
+    ],
+    [
+     3690,
+     325.0,
+     21.0
+    ],
+    [
+     3691,
+     140.0,
+     15.0
+    ],
+    [
+     3712,
+     237.0,
+     6.0
+    ],
+    [
+     3731,
+     235.0,
+     20.0
+    ],
+    [
+     3735,
+     170.0,
+     20.0
+    ],
+    [
+     3739,
+     200.0,
+     20.0
+    ],
+    [
+     3743,
+     235.0,
+     20.0
+    ],
+    [
+     3747,
+     235.0,
+     15.0
+    ],
+    [
+     3762,
+     235.0,
+     6.0
+    ],
+    [
+     3771,
+     345.0,
+     6.0
+    ],
+    [
+     3776,
+     347.0,
+     6.0
+    ],
+    [
+     3782,
+     200.0,
+     20.0
+    ],
+    [
+     3800,
+     212.0,
+     6.0
+    ],
+    [
+     3807,
+     220.0,
+     6.0
+    ],
+    [
+     3817,
+     82.0,
+     6.0
+    ],
+    [
+     3829,
+     356.0,
+     6.0
+    ],
+    [
+     3831,
+     337.0,
+     6.0
+    ],
+    [
+     3832,
+     235.0,
+     20.0
+    ],
+    [
+     3844,
+     60.0,
+     6.0
+    ],
+    [
+     3858,
+     172.0,
+     12.0
+    ],
+    [
+     3883,
+     256.0,
+     6.0
+    ],
+    [
+     3884,
+     230.0,
+     20.0
+    ],
+    [
+     3890,
+     90.0,
+     6.0
+    ],
+    [
+     3891,
+     407.0,
+     15.0
+    ],
+    [
+     3906,
+     287.0,
+     12.0
+    ],
+    [
+     3908,
+     265.0,
+     15.0
+    ],
+    [
+     3912,
+     252.0,
+     26.0
+    ],
+    [
+     3936,
+     330.0,
+     6.0
+    ],
+    [
+     3969,
+     375.0,
+     15.0
+    ],
+    [
+     3975,
+     205.0,
+     20.0
+    ],
+    [
+     3986,
+     325.0,
+     20.0
+    ],
+    [
+     3990,
+     196.0,
+     15.0
+    ],
+    [
+     3993,
+     177.0,
+     6.0
+    ],
+    [
+     4010,
+     205.0,
+     6.0
+    ],
+    [
+     4014,
+     173.0,
+     6.0
+    ],
+    [
+     4061,
+     105.0,
+     15.0
+    ],
+    [
+     4065,
+     201.0,
+     5.0
+    ]
+   ],
+   "n_filas": 47,
+   "truncado": false,
+   "duracion_s": 0.0299,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "Ver órdenes canceladas en agosto",
+   "sql": "SELECT id_orden, monto_total FROM ordenes WHERE mes = 8 AND anio = 2026 AND cancelada = TRUE",
+   "columnas": [
+    "id_orden",
+    "monto_total"
+   ],
+   "filas": [
+    [
+     3595,
+     147.0
+    ],
+    [
+     3630,
+     235.0
+    ],
+    [
+     3658,
+     110.0
+    ],
+    [
+     3679,
+     114.0
+    ],
+    [
+     3682,
+     110.0
+    ],
+    [
+     3684,
+     240.0
+    ],
+    [
+     3695,
+     132.0
+    ],
+    [
+     3700,
+     145.0
+    ],
+    [
+     3704,
+     300.0
+    ],
+    [
+     3740,
+     400.0
+    ],
+    [
+     3752,
+     140.0
+    ],
+    [
+     3794,
+     196.0
+    ],
+    [
+     3799,
+     155.0
+    ],
+    [
+     3803,
+     145.0
+    ],
+    [
+     3819,
+     125.0
+    ],
+    [
+     3840,
+     130.0
+    ],
+    [
+     3873,
+     110.0
+    ],
+    [
+     3901,
+     125.0
+    ],
+    [
+     3923,
+     145.0
+    ],
+    [
+     3926,
+     100.0
+    ],
+    [
+     3972,
+     310.0
+    ],
+    [
+     4000,
+     100.0
+    ],
+    [
+     4002,
+     119.0
+    ],
+    [
+     4008,
+     95.0
+    ],
+    [
+     4010,
+     205.0
+    ],
+    [
+     4021,
+     263.0
+    ],
+    [
+     4024,
+     406.0
+    ],
+    [
+     4026,
+     152.0
+    ],
+    [
+     4032,
+     95.0
+    ],
+    [
+     4033,
+     125.0
+    ]
+   ],
+   "n_filas": 30,
+   "truncado": false,
+   "duracion_s": 0.0346,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 2,
+  "verificadas": 2,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT COUNT(*) AS ordenes_corregidas FROM ordenes WHERE mes = 8 AND anio = 2026 AND (descuento > 0 OR cancelada = TRUE)",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT COUNT(*) AS ordenes_corregidas FROM ordenes WHERE mes = 8 AND anio = 2026 AND (descuento > 0 OR cancelada = TRUE)",
+  "SELECT id_orden, monto_total, descuento FROM ordenes WHERE mes = 8 AND anio = 2026 AND descuento > 0",
+  "SELECT id_orden, monto_total FROM ordenes WHERE mes = 8 AND anio = 2026 AND cancelada = TRUE"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "12:43:31",
+   "duracion_s": 1.208,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.208,
+     "tokens_entrada": 1537,
+     "tokens_salida": 116,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántos pedidos hubo que rehacer en agosto de 2026?",
+    "contexto": {
+     "periodo": "agosto de 2026",
+     "producto": null,
+     "categoria": null,
+     "metrica": "otra"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "12:43:34",
+   "duracion_s": 3.494,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "error",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.757,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+    },
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.928,
+     "tokens_entrada": 2361,
+     "tokens_salida": 230,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Tabla promociones",
+      "Horario y momentos del día",
+      "Promociones",
+      "Recomendaciones típicas para el dueño"
+     ],
+     "ejemplos": [
+      "¿Cuánto vendí por canal este mes y cuál es el ticket promedio?",
+      "¿Cuántos kilos de barbacoa por peso se venden al mes?",
+      "¿Cuánto vendí en dinero la última semana?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT COUNT(*) AS ordenes_corregidas FROM ordenes WHERE mes = 8 AND anio = 2026 AND (descuento > 0 OR cancelada = TRUE)",
+    "explicacion": "Cuenta el número de órdenes en agosto de 2026 que tuvieron algún descuento aplicado (posible corrección) o fueron canceladas.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver detalle de órdenes con descuento en agosto",
+      "sql": "SELECT id_orden, monto_total, descuento FROM ordenes WHERE mes = 8 AND anio = 2026 AND descuento > 0",
+      "error": null,
+      "filas": 47
+     },
+     {
+      "proposito": "Ver órdenes canceladas en agosto",
+      "sql": "SELECT id_orden, monto_total FROM ordenes WHERE mes = 8 AND anio = 2026 AND cancelada = TRUE",
+      "error": null,
+      "filas": 30
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "12:43:34",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "no: la respuesta es un solo número"
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "12:43:38",
+   "duracion_s": 3.876,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 3.603,
+     "tokens_entrada": 1841,
+     "tokens_salida": 143,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 2,
+     "verificadas": 2,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 21,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Promociones"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "12:43:38",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "agosto de 2026",
+     "metrica": "otra",
+     "ultima_pregunta": "¿Cuántos pedidos hubo que rehacer en agosto de 2026?"
+    },
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 8.59,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.208,
+   "tokens_entrada": 1537,
+   "tokens_salida": 116,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "error",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.757,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.928,
+   "tokens_entrada": 2361,
+   "tokens_salida": 230,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 3.603,
+   "tokens_entrada": 1841,
+   "tokens_salida": 143,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 6228,
+ "grafica": null
+}

@@ -1,0 +1,308 @@
+{
+ "sesion": "J06",
+ "turno": 1,
+ "fecha": "2026-11-22T12:35:22",
+ "entrada": {
+  "pregunta": "¿Cuántos panes mega se gastaron en los últimos 7 días?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuántos panes mega se gastaron en los últimos 7 días?",
+ "pregunta_completa": "¿Cuántos panes mega se gastaron en los últimos 7 días?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En los últimos 7 días se utilizaron 72 panes mega para la preparación de tus tortas. El consumo diario fue variable, alcanzando un punto máximo de 15 piezas el día 11 de noviembre y bajando a 7 piezas en los días de menor movimiento. En promedio, estuviste desplazando cerca de 10 panes mega por jornada.\n\nRecomendación: Ajusta tu compra diaria de pan mega considerando este promedio de 10 piezas y añade un 10% adicional como margen de seguridad para evitar faltantes en tus días de mayor venta.",
+ "sql": "SELECT SUM(cantidad) AS total_panes_mega FROM ventas WHERE producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY",
+ "explicacion_sql": "Calcula la suma total de unidades vendidas de productos clasificados como tortas 'Mega' (que utilizan pan mega) durante los últimos 7 días registrados.",
+ "resultado": {
+  "sql": "SELECT SUM(cantidad) AS total_panes_mega FROM ventas WHERE producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY",
+  "columnas": [
+   "total_panes_mega"
+  ],
+  "filas": [
+   [
+    72
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0355,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Desglose diario de panes mega vendidos en los últimos 7 días",
+   "sql": "SELECT fecha, SUM(cantidad) AS panes_mega FROM ventas WHERE producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY GROUP BY fecha ORDER BY fecha",
+   "columnas": [
+    "fecha",
+    "panes_mega"
+   ],
+   "filas": [
+    [
+     "2026-11-09",
+     10
+    ],
+    [
+     "2026-11-10",
+     11
+    ],
+    [
+     "2026-11-11",
+     15
+    ],
+    [
+     "2026-11-12",
+     7
+    ],
+    [
+     "2026-11-13",
+     14
+    ],
+    [
+     "2026-11-14",
+     7
+    ],
+    [
+     "2026-11-15",
+     8
+    ]
+   ],
+   "n_filas": 7,
+   "truncado": false,
+   "duracion_s": 0.0307,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 8,
+  "verificadas": 8,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT SUM(cantidad) AS total_panes_mega FROM ventas WHERE producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT SUM(cantidad) AS total_panes_mega FROM ventas WHERE producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY",
+  "SELECT fecha, SUM(cantidad) AS panes_mega FROM ventas WHERE producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY GROUP BY fecha ORDER BY fecha"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "12:35:15",
+   "duracion_s": 1.749,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.749,
+     "tokens_entrada": 1535,
+     "tokens_salida": 114,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántos panes mega se gastaron en los últimos 7 días?",
+    "contexto": {
+     "periodo": "últimos 7 días",
+     "producto": "pan mega",
+     "categoria": null,
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "12:35:19",
+   "duracion_s": 4.154,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "error",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.166,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+    },
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.404,
+     "tokens_entrada": 2517,
+     "tokens_salida": 225,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Compra y preparación de pan",
+      "Horario y momentos del día",
+      "Recomendaciones típicas para el dueño",
+      "Tortas y pan"
+     ],
+     "ejemplos": [
+      "¿Cuántos panes normales y mega se usaron cada día la última semana?",
+      "¿Cuánto vendí en dinero la última semana?",
+      "¿Cuánto subió el precio de las tortas con el tiempo?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": [
+      "pan mega"
+     ]
+    },
+    "sql": "SELECT SUM(cantidad) AS total_panes_mega FROM ventas WHERE producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY",
+    "explicacion": "Calcula la suma total de unidades vendidas de productos clasificados como tortas 'Mega' (que utilizan pan mega) durante los últimos 7 días registrados.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Desglose diario de panes mega vendidos en los últimos 7 días",
+      "sql": "SELECT fecha, SUM(cantidad) AS panes_mega FROM ventas WHERE producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY GROUP BY fecha ORDER BY fecha",
+      "error": null,
+      "filas": 7
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "12:35:19",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "no: la respuesta es un solo número"
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "12:35:22",
+   "duracion_s": 2.937,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.724,
+     "tokens_entrada": 1433,
+     "tokens_salida": 120,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 8,
+     "verificadas": 8,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 12,
+    "reglas_rag": [
+     "Compra y preparación de pan",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "12:35:22",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "últimos 7 días",
+     "producto": "pan mega",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Cuántos panes mega se gastaron en los últimos 7 días?"
+    },
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 8.85,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.749,
+   "tokens_entrada": 1535,
+   "tokens_salida": 114,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "error",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.166,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.404,
+   "tokens_entrada": 2517,
+   "tokens_salida": 225,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.724,
+   "tokens_entrada": 1433,
+   "tokens_salida": 120,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5944,
+ "grafica": null
+}

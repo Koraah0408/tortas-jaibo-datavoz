@@ -1,0 +1,315 @@
+{
+ "sesion": "JP04",
+ "turno": 1,
+ "fecha": "2026-11-22T12:47:22",
+ "entrada": {
+  "pregunta": "¿A qué hora del día vendo más?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿A qué hora del día vendo más?",
+ "pregunta_completa": "¿A qué hora del día vendo más?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Tu hora de mayor venta es a las 14:00, cuando registras 803 órdenes que suman $143,207. En general, tu horario más fuerte es de las 14:00 a las 17:00, acumulando la mayor parte de tus ingresos diarios. Posiblemente este pico se deba a que es el horario principal de comida para tus clientes de mostrador y las empresas que atiendes. Mantener este ritmo durante toda la tarde es clave para tus resultados.\n\nRecomendación: Asegura tener suficiente personal y producto listo desde las 13:30 para cubrir la alta demanda que comienza a las 14:00.",
+ "sql": "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada GROUP BY hora_del_dia ORDER BY vendido DESC LIMIT 5",
+ "explicacion_sql": "Muestra las horas del día con mayores ventas totales y número de órdenes, ordenadas de mayor a menor.",
+ "resultado": {
+  "sql": "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada GROUP BY hora_del_dia ORDER BY vendido DESC LIMIT 5",
+  "columnas": [
+   "hora_del_dia",
+   "ordenes",
+   "vendido"
+  ],
+  "filas": [
+   [
+    14,
+    803,
+    143207.0
+   ],
+   [
+    15,
+    678,
+    121489.0
+   ],
+   [
+    16,
+    578,
+    102809.0
+   ],
+   [
+    17,
+    549,
+    96099.0
+   ],
+   [
+    13,
+    473,
+    84568.0
+   ]
+  ],
+  "n_filas": 5,
+  "truncado": false,
+  "duracion_s": 0.0335,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 2,
+  "verificadas": 2,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada GROUP BY hora_del_dia ORDER BY vendido DESC LIMIT 5",
+   "problema": null,
+   "n_filas": 5
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada GROUP BY hora_del_dia ORDER BY vendido DESC LIMIT 5"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "12:47:16",
+   "duracion_s": 2.344,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.344,
+     "tokens_entrada": 1529,
+     "tokens_salida": 102,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿A qué hora del día vendo más?",
+    "contexto": {
+     "periodo": null,
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "12:47:18",
+   "duracion_s": 2.111,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.551,
+     "tokens_entrada": 2310,
+     "tokens_salida": 108,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Horario y momentos del día",
+      "Platillo del día",
+      "Barbacoa",
+      "Recomendaciones típicas para el dueño"
+     ],
+     "ejemplos": [
+      "¿A qué hora se venden más órdenes?",
+      "¿Qué platillo del día se vende más cada día de la semana?",
+      "¿Cuántos kilos de barbacoa por peso se venden al mes?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada GROUP BY hora_del_dia ORDER BY vendido DESC LIMIT 5",
+    "explicacion": "Muestra las horas del día con mayores ventas totales y número de órdenes, ordenadas de mayor a menor.",
+    "error": null,
+    "filas": 5,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "12:47:18",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 5,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "12:47:20",
+   "duracion_s": 2.667,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.592,
+     "tokens_entrada": 691,
+     "tokens_salida": 93,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "hora_del_dia",
+     "y": [
+      "vendido"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Ventas por hora del día"
+    },
+    "razon": "Las barras permiten comparar fácilmente en qué horas del día se genera mayor volumen de ventas.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "12:47:22",
+   "duracion_s": 1.873,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.661,
+     "tokens_entrada": 1213,
+     "tokens_salida": 149,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 2,
+     "verificadas": 2,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 18,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Platillo del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "12:47:22",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "metrica": "dinero",
+     "ultima_pregunta": "¿A qué hora del día vendo más?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 9.0,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.344,
+   "tokens_entrada": 1529,
+   "tokens_salida": 102,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.551,
+   "tokens_entrada": 2310,
+   "tokens_salida": 108,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.592,
+   "tokens_entrada": 691,
+   "tokens_salida": 93,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.661,
+   "tokens_entrada": 1213,
+   "tokens_salida": 149,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 6195,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "hora_del_dia",
+   "y": [
+    "vendido"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Ventas por hora del día",
+   "razon": "Las barras permiten comparar fácilmente en qué horas del día se genera mayor volumen de ventas."
+  }
+ }
+}

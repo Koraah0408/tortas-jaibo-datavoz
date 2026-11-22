@@ -1,0 +1,348 @@
+{
+ "sesion": "JV03",
+ "turno": 1,
+ "fecha": "2026-11-22T12:55:08",
+ "entrada": {
+  "pregunta": "",
+  "audio": "C:\\proyectos\\DataVoz\\evaluacion\\audio\\jaibo\\voz_03.ogg",
+  "archivo": null
+ },
+ "pregunta": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?",
+ "pregunta_completa": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En agosto de 2026 se vendieron 168 tacos de barbacoa. Esta cifra es mayor a los 123 tacos que se vendieron en julio, lo que muestra una buena tendencia de crecimiento. Es importante notar que solo hubo ventas durante 24 días del mes, posiblemente debido a que el negocio cierra los lunes.\n\nRecomendación: Considera promocionar los tacos de barbacoa los días de menor movimiento para aprovechar el buen ritmo de ventas que traemos.",
+ "sql": "SELECT SUM(cantidad) AS total_tacos_barbacoa FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8",
+ "explicacion_sql": "Suma la cantidad vendida del producto 'Tacos de barbacoa' filtrando específicamente por el mes de agosto de 2026.",
+ "resultado": {
+  "sql": "SELECT SUM(cantidad) AS total_tacos_barbacoa FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8",
+  "columnas": [
+   "total_tacos_barbacoa"
+  ],
+  "filas": [
+   [
+    168
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0364,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Comparar con el mes anterior (julio 2026)",
+   "sql": "SELECT SUM(cantidad) AS total_tacos_julio FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 7",
+   "columnas": [
+    "total_tacos_julio"
+   ],
+   "filas": [
+    [
+     123
+    ]
+   ],
+   "n_filas": 1,
+   "truncado": false,
+   "duracion_s": 0.0277,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "Verificar si hubo días sin ventas en agosto",
+   "sql": "SELECT COUNT(DISTINCT fecha) AS dias_con_ventas FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8",
+   "columnas": [
+    "dias_con_ventas"
+   ],
+   "filas": [
+    [
+     24
+    ]
+   ],
+   "n_filas": 1,
+   "truncado": false,
+   "duracion_s": 0.0326,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 4,
+  "verificadas": 4,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT SUM(cantidad) AS total_tacos_barbacoa FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT SUM(cantidad) AS total_tacos_barbacoa FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8",
+  "SELECT SUM(cantidad) AS total_tacos_julio FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 7",
+  "SELECT COUNT(DISTINCT fecha) AS dias_con_ventas FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8"
+ ],
+ "transcripcion": {
+  "texto": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?",
+  "idioma": "es",
+  "duracion_audio_s": 5.61,
+  "duracion_s": 3.4,
+  "error": null
+ },
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "transcribir_voz",
+   "hora": "12:54:28",
+   "duracion_s": 3.396,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "transcribir_voz",
+    "texto": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?",
+    "idioma": "es",
+    "duracion_audio_s": 5.61,
+    "duracion_s": 3.4,
+    "error": null
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "12:55:00",
+   "duracion_s": 31.997,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 29.853,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleAPIError: 504 DEADLINE_EXCEEDED. {'error': {'code': 504, 'message': 'Deadline expired before operation could complete.', 'status': 'DEADLINE_EXCEEDED'}}"
+    },
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 2.143,
+     "tokens_entrada": 1539,
+     "tokens_salida": 127,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?",
+    "contexto": {
+     "periodo": "agosto de 2026",
+     "producto": "tacos de barbacoa",
+     "categoria": "tacos",
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "12:55:06",
+   "duracion_s": 6.076,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "error",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 2.045,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+    },
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 3.216,
+     "tokens_entrada": 2499,
+     "tokens_salida": 262,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Barbacoa",
+      "Barbacoa, tacos, gorditas y bocoles",
+      "Tabla promociones",
+      "Horario y momentos del día"
+     ],
+     "ejemplos": [
+      "¿Cuántos tacos de barbacoa se venden en promedio por día entre semana y en fin de semana?",
+      "¿Cuántos kilos de barbacoa por peso se venden al mes?",
+      "¿Cuánto vendí en dinero la última semana?"
+     ],
+     "productos": [
+      "Tacos de barbacoa"
+     ],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT SUM(cantidad) AS total_tacos_barbacoa FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8",
+    "explicacion": "Suma la cantidad vendida del producto 'Tacos de barbacoa' filtrando específicamente por el mes de agosto de 2026.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Comparar con el mes anterior (julio 2026)",
+      "sql": "SELECT SUM(cantidad) AS total_tacos_julio FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 7",
+      "error": null,
+      "filas": 1
+     },
+     {
+      "proposito": "Verificar si hubo días sin ventas en agosto",
+      "sql": "SELECT COUNT(DISTINCT fecha) AS dias_con_ventas FROM ventas WHERE producto = 'Tacos de barbacoa' AND anio = 2026 AND mes = 8",
+      "error": null,
+      "filas": 1
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "12:55:06",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "no: la respuesta es un solo número"
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "12:55:08",
+   "duracion_s": 2.12,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.938,
+     "tokens_entrada": 970,
+     "tokens_salida": 104,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 4,
+     "verificadas": 4,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Barbacoa",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "12:55:08",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "agosto de 2026",
+     "producto": "tacos de barbacoa",
+     "categoria": "tacos",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?"
+    },
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 43.6,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 29.853,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleAPIError: 504 DEADLINE_EXCEEDED. {'error': {'code': 504, 'message': 'Deadline expired before operation could complete.', 'status': 'DEADLINE_EXCEEDED'}}"
+  },
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 2.143,
+   "tokens_entrada": 1539,
+   "tokens_salida": 127,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "error",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 2.045,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 3.216,
+   "tokens_entrada": 2499,
+   "tokens_salida": 262,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.938,
+   "tokens_entrada": 970,
+   "tokens_salida": 104,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5501,
+ "grafica": null
+}
