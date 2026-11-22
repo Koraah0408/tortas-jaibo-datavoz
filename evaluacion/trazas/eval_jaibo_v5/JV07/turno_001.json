@@ -1,0 +1,735 @@
+{
+ "sesion": "JV07",
+ "turno": 1,
+ "fecha": "2026-11-21T17:15:27",
+ "entrada": {
+  "pregunta": "",
+  "audio": "C:\\proyectos\\DataVoz\\evaluacion\\audio\\jaibo\\voz_07.ogg",
+  "archivo": null
+ },
+ "pregunta": "¿Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026?",
+ "pregunta_completa": "Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Didi superó a Rappi en ventas y órdenes durante septiembre y octubre, alcanzando su punto más alto en octubre con $23,224 en 132 órdenes. En comparación, Rappi cerró octubre con $10,509 en 51 órdenes, manteniendo un ritmo menor pero constante. La preferencia en Didi se concentra principalmente en las tortas Mega barda y Barda normal, que son los productos con mayor movimiento. Posiblemente, la mayor actividad en Didi se deba a una mejor respuesta de los clientes a las promociones o al alcance de la plataforma en nuestra zona.\n\nRecomendación: Enfoca tus esfuerzos de promoción en Rappi para intentar cerrar la brecha de ventas, aprovechando que ya tienes una base de clientes activa en esa plataforma.",
+ "sql": "SELECT canal, nombre_mes, anio, COUNT(DISTINCT id_orden) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY canal, nombre_mes, anio, mes ORDER BY mes, canal",
+ "explicacion_sql": "Compara las ventas totales y el número de órdenes entre Didi y Rappi durante los meses de septiembre y octubre de 2026.",
+ "resultado": {
+  "sql": "SELECT canal, nombre_mes, anio, COUNT(DISTINCT id_orden) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY canal, nombre_mes, anio, mes ORDER BY mes, canal",
+  "columnas": [
+   "canal",
+   "nombre_mes",
+   "anio",
+   "ordenes",
+   "ventas"
+  ],
+  "filas": [
+   [
+    "Didi",
+    "septiembre",
+    2026,
+    101,
+    17979.0
+   ],
+   [
+    "Rappi",
+    "septiembre",
+    2026,
+    48,
+    9044.0
+   ],
+   [
+    "Didi",
+    "octubre",
+    2026,
+    132,
+    23224.0
+   ],
+   [
+    "Rappi",
+    "octubre",
+    2026,
+    51,
+    10509.0
+   ]
+  ],
+  "n_filas": 4,
+  "truncado": false,
+  "duracion_s": 0.0408,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver el total de productos vendidos por cada app en septiembre y octubre de 2026",
+   "sql": "SELECT canal, producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS dinero FROM ventas WHERE canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY canal, producto ORDER BY canal, dinero DESC",
+   "columnas": [
+    "canal",
+    "producto",
+    "unidades",
+    "dinero"
+   ],
+   "filas": [
+    [
+     "Didi",
+     "Mega barda",
+     89,
+     9790.0
+    ],
+    [
+     "Didi",
+     "Barda normal",
+     87,
+     8265.0
+    ],
+    [
+     "Didi",
+     "Mega mixta",
+     20,
+     2500.0
+    ],
+    [
+     "Didi",
+     "Tacos de barbacoa",
+     75,
+     2250.0
+    ],
+    [
+     "Didi",
+     "Pierna normal",
+     17,
+     1615.0
+    ],
+    [
+     "Didi",
+     "Coca cola",
+     46,
+     1610.0
+    ],
+    [
+     "Didi",
+     "Gordita",
+     54,
+     1512.0
+    ],
+    [
+     "Didi",
+     "Mega pierna",
+     13,
+     1430.0
+    ],
+    [
+     "Didi",
+     "Bocoles",
+     63,
+     1386.0
+    ],
+    [
+     "Didi",
+     "Barbacoa normal",
+     9,
+     900.0
+    ],
+    [
+     "Didi",
+     "Mega barbacoa",
+     7,
+     875.0
+    ],
+    [
+     "Didi",
+     "Horchata",
+     27,
+     810.0
+    ],
+    [
+     "Didi",
+     "Jamaica",
+     27,
+     810.0
+    ],
+    [
+     "Didi",
+     "Mixta normal",
+     7,
+     770.0
+    ],
+    [
+     "Didi",
+     "Tamarindo",
+     21,
+     630.0
+    ],
+    [
+     "Didi",
+     "Enchiladas suizas",
+     5,
+     625.0
+    ],
+    [
+     "Didi",
+     "Delaware punch",
+     15,
+     525.0
+    ],
+    [
+     "Didi",
+     "Coca sin azucar",
+     12,
+     420.0
+    ],
+    [
+     "Didi",
+     "Arizona",
+     13,
+     390.0
+    ],
+    [
+     "Didi",
+     "Enchiladas c/ cecina",
+     3,
+     315.0
+    ],
+    [
+     "Didi",
+     "Barbacoa",
+     1,
+     275.0
+    ],
+    [
+     "Didi",
+     "Milanesa de pollo",
+     2,
+     250.0
+    ],
+    [
+     "Didi",
+     "Quesadillas",
+     2,
+     190.0
+    ],
+    [
+     "Didi",
+     "Fuze tea",
+     6,
+     180.0
+    ],
+    [
+     "Didi",
+     "Huevos al gusto",
+     1,
+     125.0
+    ],
+    [
+     "Didi",
+     "Enmoladas",
+     1,
+     125.0
+    ],
+    [
+     "Didi",
+     "Agua natural",
+     4,
+     120.0
+    ],
+    [
+     "Didi",
+     "Coca cola cherry",
+     3,
+     120.0
+    ],
+    [
+     "Didi",
+     "Sprite",
+     3,
+     105.0
+    ],
+    [
+     "Didi",
+     "Cargo Extra",
+     3,
+     90.0
+    ],
+    [
+     "Didi",
+     "Coca cola vainilla",
+     2,
+     80.0
+    ],
+    [
+     "Didi",
+     "Sidral mundet",
+     2,
+     70.0
+    ],
+    [
+     "Didi",
+     "Fesca",
+     2,
+     70.0
+    ],
+    [
+     "Rappi",
+     "Mega barda",
+     59,
+     6490.0
+    ],
+    [
+     "Rappi",
+     "Barda normal",
+     26,
+     2470.0
+    ],
+    [
+     "Rappi",
+     "Mega mixta",
+     9,
+     1125.0
+    ],
+    [
+     "Rappi",
+     "Gordita",
+     36,
+     1008.0
+    ],
+    [
+     "Rappi",
+     "Mega pierna",
+     6,
+     660.0
+    ],
+    [
+     "Rappi",
+     "Bocoles",
+     28,
+     616.0
+    ],
+    [
+     "Rappi",
+     "Coca cola",
+     17,
+     595.0
+    ],
+    [
+     "Rappi",
+     "Barbacoa",
+     1,
+     550.0
+    ],
+    [
+     "Rappi",
+     "Jamaica",
+     16,
+     480.0
+    ],
+    [
+     "Rappi",
+     "Horchata",
+     15,
+     450.0
+    ],
+    [
+     "Rappi",
+     "Barbacoa normal",
+     4,
+     400.0
+    ],
+    [
+     "Rappi",
+     "Tacos de barbacoa",
+     13,
+     390.0
+    ],
+    [
+     "Rappi",
+     "Pierna normal",
+     4,
+     380.0
+    ],
+    [
+     "Rappi",
+     "Mega barbacoa",
+     2,
+     250.0
+    ],
+    [
+     "Rappi",
+     "Tamarindo",
+     8,
+     240.0
+    ],
+    [
+     "Rappi",
+     "Mixta normal",
+     2,
+     220.0
+    ],
+    [
+     "Rappi",
+     "Delaware punch",
+     4,
+     140.0
+    ],
+    [
+     "Rappi",
+     "Coca sin azucar",
+     4,
+     140.0
+    ],
+    [
+     "Rappi",
+     "Enchiladas suizas",
+     1,
+     125.0
+    ],
+    [
+     "Rappi",
+     "Milanesa de pollo",
+     1,
+     125.0
+    ],
+    [
+     "Rappi",
+     "Huevos al gusto",
+     1,
+     125.0
+    ],
+    [
+     "Rappi",
+     "Agua natural",
+     4,
+     120.0
+    ],
+    [
+     "Rappi",
+     "Enchiladas c/ cecina",
+     1,
+     105.0
+    ],
+    [
+     "Rappi",
+     "Quesadillas",
+     1,
+     95.0
+    ],
+    [
+     "Rappi",
+     "Arizona",
+     2,
+     60.0
+    ],
+    [
+     "Rappi",
+     "Sidral mundet",
+     1,
+     35.0
+    ],
+    [
+     "Rappi",
+     "Sprite",
+     1,
+     35.0
+    ],
+    [
+     "Rappi",
+     "Fuze tea",
+     1,
+     30.0
+    ]
+   ],
+   "n_filas": 61,
+   "truncado": false,
+   "duracion_s": 0.0452,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 4,
+  "verificadas": 4,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT canal, nombre_mes, anio, COUNT(DISTINCT id_orden) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY canal, nombre_mes, anio, mes ORDER BY mes, canal",
+   "problema": null,
+   "n_filas": 4
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT canal, nombre_mes, anio, COUNT(DISTINCT id_orden) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY canal, nombre_mes, anio, mes ORDER BY mes, canal",
+  "SELECT canal, producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS dinero FROM ventas WHERE canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY canal, producto ORDER BY canal, dinero DESC"
+ ],
+ "transcripcion": {
+  "texto": "¿Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026?",
+  "idioma": "es",
+  "duracion_audio_s": 7.63,
+  "duracion_s": 3.85,
+  "error": null
+ },
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "transcribir_voz",
+   "hora": "17:15:13",
+   "duracion_s": 3.847,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "transcribir_voz",
+    "texto": "¿Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026?",
+    "idioma": "es",
+    "duracion_audio_s": 7.63,
+    "duracion_s": 3.85,
+    "error": null
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "17:15:18",
+   "duracion_s": 5.554,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 5.553,
+     "tokens_entrada": 1540,
+     "tokens_salida": 130,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026",
+    "contexto": {
+     "periodo": "septiembre y octubre de 2026",
+     "producto": null,
+     "categoria": "Didi, Rappi",
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "17:15:20",
+   "duracion_s": 1.963,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.215,
+     "tokens_entrada": 2435,
+     "tokens_salida": 268,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Recomendaciones típicas para el dueño",
+      "Platillo del día",
+      "Canales y formas de pago",
+      "Horario y momentos del día"
+     ],
+     "ejemplos": [
+      "¿Cuánto más caro cobro en Didi y Rappi que en el mostrador? (sobreprecio de las apps)",
+      "¿Cuánto vendí en dinero la última semana?",
+      "¿Qué productos se venden más en Rappi?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT canal, nombre_mes, anio, COUNT(DISTINCT id_orden) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY canal, nombre_mes, anio, mes ORDER BY mes, canal",
+    "explicacion": "Compara las ventas totales y el número de órdenes entre Didi y Rappi durante los meses de septiembre y octubre de 2026.",
+    "error": null,
+    "filas": 4,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver el total de productos vendidos por cada app en septiembre y octubre de 2026",
+      "sql": "SELECT canal, producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS dinero FROM ventas WHERE canal IN ('Didi', 'Rappi') AND anio = 2026 AND mes IN (9, 10) GROUP BY canal, producto ORDER BY canal, dinero DESC",
+      "error": null,
+      "filas": 61
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "17:15:20",
+   "duracion_s": 0.002,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 4,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "17:15:24",
+   "duracion_s": 4.075,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 3.986,
+     "tokens_entrada": 721,
+     "tokens_salida": 98,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "nombre_mes",
+     "y": [
+      "ventas"
+     ],
+     "color": "canal",
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Ventas por canal: Septiembre vs Octubre"
+    },
+    "razon": "Las barras agrupadas permiten comparar fácilmente el desempeño de cada plataforma en los dos meses seleccionados.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "17:15:27",
+   "duracion_s": 2.333,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.107,
+     "tokens_entrada": 1770,
+     "tokens_salida": 167,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 4,
+     "verificadas": 4,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 25,
+    "reglas_rag": [
+     "Recomendaciones típicas para el dueño",
+     "Platillo del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "17:15:27",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "septiembre y octubre de 2026",
+     "categoria": "Didi, Rappi",
+     "metrica": "dinero",
+     "ultima_pregunta": "Compara cuánto vendí en Didi contra Rappi en septiembre y octubre de 2026"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 17.78,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 5.553,
+   "tokens_entrada": 1540,
+   "tokens_salida": 130,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.215,
+   "tokens_entrada": 2435,
+   "tokens_salida": 268,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 3.986,
+   "tokens_entrada": 721,
+   "tokens_salida": 98,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.107,
+   "tokens_entrada": 1770,
+   "tokens_salida": 167,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 7129,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "nombre_mes",
+   "y": [
+    "ventas"
+   ],
+   "color": "canal",
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Ventas por canal: Septiembre vs Octubre",
+   "razon": "Las barras agrupadas permiten comparar fácilmente el desempeño de cada plataforma en los dos meses seleccionados."
+  }
+ }
+}

@@ -1,0 +1,316 @@
+{
+ "sesion": "JM1",
+ "turno": 1,
+ "fecha": "2026-11-21T17:51:31",
+ "entrada": {
+  "pregunta": "¿Cuántas Mega barda vendí en octubre de 2026?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuántas Mega barda vendí en octubre de 2026?",
+ "pregunta_completa": "¿Cuántas Mega barda vendí en octubre de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Hola, en octubre de 2026 vendiste 191 unidades de Mega barda, lo que te generó un ingreso de $21,010.00. Este buen resultado muestra que es uno de los tamaños y estilos preferidos por tus clientes en el mostrador y plataformas. \n\nRecomendación: Revisa cuáles son los días y horarios con más movimiento de esta torta para asegurar que tengas suficiente preparación de ingredientes lista y evitar tiempos de espera.",
+ "sql": "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE producto = 'Mega barda' AND anio = 2026 AND mes = 10 GROUP BY producto",
+ "explicacion_sql": "Calcula el total de unidades vendidas y el ingreso por la venta del producto 'Mega barda' durante el mes de octubre de 2026.",
+ "resultado": {
+  "sql": "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE producto = 'Mega barda' AND anio = 2026 AND mes = 10 GROUP BY producto",
+  "columnas": [
+   "producto",
+   "unidades",
+   "ventas"
+  ],
+  "filas": [
+   [
+    "Mega barda",
+    191,
+    21010.0
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0334,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 3,
+  "verificadas": 3,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE producto = 'Mega barda' AND anio = 2026 AND mes = 10 GROUP BY producto",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE producto = 'Mega barda' AND anio = 2026 AND mes = 10 GROUP BY producto"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "17:51:13",
+   "duracion_s": 1.056,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.192,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.864,
+     "tokens_entrada": 1537,
+     "tokens_salida": 122,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántas Mega barda vendí en octubre de 2026?",
+    "contexto": {
+     "periodo": "octubre de 2026",
+     "producto": "Mega barda",
+     "categoria": "tortas",
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "17:51:19",
+   "duracion_s": 6.029,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 5.491,
+     "tokens_entrada": 2412,
+     "tokens_salida": 120,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Barbacoa",
+      "Tabla promociones",
+      "Promociones",
+      "Horario y momentos del día"
+     ],
+     "ejemplos": [
+      "¿Cuántos panes normales y mega se usaron cada día la última semana?",
+      "¿Cuánto vendí en dinero la última semana?",
+      "¿Cuánto vendí por canal este mes y cuál es el ticket promedio?"
+     ],
+     "productos": [
+      "Mega barda"
+     ],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE producto = 'Mega barda' AND anio = 2026 AND mes = 10 GROUP BY producto",
+    "explicacion": "Calcula el total de unidades vendidas y el ingreso por la venta del producto 'Mega barda' durante el mes de octubre de 2026.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "17:51:19",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "17:51:19",
+   "duracion_s": 0.071,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "unidades",
+      "ventas"
+     ],
+     "titulo": "Unidades",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "17:51:31",
+   "duracion_s": 12.134,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 5.147,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 6.773,
+     "tokens_entrada": 880,
+     "tokens_salida": 101,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 3,
+     "verificadas": 3,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Barbacoa",
+     "Promociones"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "17:51:31",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "octubre de 2026",
+     "producto": "Mega barda",
+     "categoria": "tortas",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Cuántas Mega barda vendí en octubre de 2026?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 19.3,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.192,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.864,
+   "tokens_entrada": 1537,
+   "tokens_salida": 122,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 5.491,
+   "tokens_entrada": 2412,
+   "tokens_salida": 120,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 5.147,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 6.773,
+   "tokens_entrada": 880,
+   "tokens_salida": 101,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5172,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "unidades",
+    "ventas"
+   ],
+   "titulo": "Unidades",
+   "confianza": "alta"
+  }
+ }
+}

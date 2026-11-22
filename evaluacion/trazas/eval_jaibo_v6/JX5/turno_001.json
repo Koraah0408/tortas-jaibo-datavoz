@@ -1,0 +1,120 @@
+{
+ "sesion": "JX5",
+ "turno": 1,
+ "fecha": "2026-11-21T18:13:27",
+ "entrada": {
+  "pregunta": "¿A cuánto está hoy el kilo de carne para barbacoa en el mercado?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿A cuánto está hoy el kilo de carne para barbacoa en el mercado?",
+ "pregunta_completa": "¿A cuánto está hoy el kilo de carne para barbacoa en el mercado?",
+ "intencion": "fuera_de_alcance",
+ "es_seguimiento": false,
+ "respuesta": "No tengo información sobre precios de mercado o proveedores externos, ya que solo puedo consultar los datos de ventas de Tortas Jaibo. ¿Te gustaría saber cuánto vendimos de barbacoa la semana pasada o cuál ha sido el producto más vendido este mes?",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "18:13:27",
+   "duracion_s": 1.551,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.384,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.166,
+     "tokens_entrada": 1537,
+     "tokens_salida": 175,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "fuera_de_alcance",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿A cuánto está hoy el kilo de carne para barbacoa en el mercado?",
+    "contexto": {
+     "periodo": "hoy",
+     "producto": "carne para barbacoa",
+     "categoria": "barbacoa",
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "responder_directo",
+   "hora": "18:13:27",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "intencion": "fuera_de_alcance"
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "18:13:27",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {},
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 1.56,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.384,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.166,
+   "tokens_entrada": 1537,
+   "tokens_salida": 175,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 1712,
+ "grafica": null
+}

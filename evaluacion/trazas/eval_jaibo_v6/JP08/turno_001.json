@@ -1,0 +1,320 @@
+{
+ "sesion": "JP08",
+ "turno": 1,
+ "fecha": "2026-11-21T18:09:29",
+ "entrada": {
+  "pregunta": "¿Cuántos pedidos se cancelaron este mes?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuántos pedidos se cancelaron este mes?",
+ "pregunta_completa": "¿Cuántos pedidos se cancelaron este mes?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En noviembre de Tortas Jaibo se cancelaron 14 pedidos, lo que representa el 5.83% de un total de 240 órdenes. Estas cancelaciones corresponden a correcciones o modificaciones donde la orden original se cancela y se vuelve a capturar, por lo que no son ventas perdidas sino errores al momento de registrar. \n\nRecomendación: Vigilar cuántas órdenes se corrigen para reducir los errores de captura en el mostrador o las plataformas.",
+ "sql": "SELECT anio, mes, nombre_mes, COUNT(*) FILTER (WHERE cancelada) AS pedidos_cancelados, COUNT(*) AS total_pedidos, ROUND(100.0 * COUNT(*) FILTER (WHERE cancelada) / COUNT(*), 2) AS porcentaje_cancelados FROM ordenes WHERE anio = 2026 AND mes = 11 GROUP BY anio, mes, nombre_mes",
+ "explicacion_sql": "Cuenta el número de pedidos cancelados (órdenes con cancelada = true, que corresponden a 'Cancelada por Modificación') y el porcentaje del total para el mes actual (noviembre de 2026).",
+ "resultado": {
+  "sql": "SELECT anio, mes, nombre_mes, COUNT(*) FILTER (WHERE cancelada) AS pedidos_cancelados, COUNT(*) AS total_pedidos, ROUND(100.0 * COUNT(*) FILTER (WHERE cancelada) / COUNT(*), 2) AS porcentaje_cancelados FROM ordenes WHERE anio = 2026 AND mes = 11 GROUP BY anio, mes, nombre_mes",
+  "columnas": [
+   "anio",
+   "mes",
+   "nombre_mes",
+   "pedidos_cancelados",
+   "total_pedidos",
+   "porcentaje_cancelados"
+  ],
+  "filas": [
+   [
+    2026,
+    11,
+    "noviembre",
+    14,
+    240,
+    5.83
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0416,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 3,
+  "verificadas": 3,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT anio, mes, nombre_mes, COUNT(*) FILTER (WHERE cancelada) AS pedidos_cancelados, COUNT(*) AS total_pedidos, ROUND(100.0 * COUNT(*) FILTER (WHERE cancelada) / COUNT(*), 2) AS porcentaje_cancelados FROM ordenes WHERE anio = 2026 AND mes = 11 GROUP BY anio, mes, nombre_mes",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT anio, mes, nombre_mes, COUNT(*) FILTER (WHERE cancelada) AS pedidos_cancelados, COUNT(*) AS total_pedidos, ROUND(100.0 * COUNT(*) FILTER (WHERE cancelada) / COUNT(*), 2) AS porcentaje_cancelados FROM ordenes WHERE anio = 2026 AND mes = 11 GROUP BY anio, mes, nombre_mes"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "18:09:17",
+   "duracion_s": 1.471,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.326,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.144,
+     "tokens_entrada": 1530,
+     "tokens_salida": 103,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántos pedidos se cancelaron este mes?",
+    "contexto": {
+     "periodo": "este mes",
+     "producto": null,
+     "categoria": null,
+     "metrica": "tickets"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "18:09:19",
+   "duracion_s": 2.017,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.265,
+     "tokens_entrada": 2700,
+     "tokens_salida": 172,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Cancelaciones",
+      "Tabla ordenes (una fila por orden o ticket, incluye canceladas)",
+      "Canales y formas de pago",
+      "Tabla reportes_diarios (reportes financieros que se mandan por Gmail cada noche)"
+     ],
+     "ejemplos": [
+      "¿Cuánto se vende a crédito a las empresas cada mes?",
+      "¿Cuántas órdenes se corrigieron (canceladas por modificación) cada mes?",
+      "¿Cuánto se ha descontado por promociones cada mes en mostrador?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT anio, mes, nombre_mes, COUNT(*) FILTER (WHERE cancelada) AS pedidos_cancelados, COUNT(*) AS total_pedidos, ROUND(100.0 * COUNT(*) FILTER (WHERE cancelada) / COUNT(*), 2) AS porcentaje_cancelados FROM ordenes WHERE anio = 2026 AND mes = 11 GROUP BY anio, mes, nombre_mes",
+    "explicacion": "Cuenta el número de pedidos cancelados (órdenes con cancelada = true, que corresponden a 'Cancelada por Modificación') y el porcentaje del total para el mes actual (noviembre de 2026).",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "18:09:19",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "18:09:19",
+   "duracion_s": 0.096,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "pedidos_cancelados",
+      "total_pedidos",
+      "porcentaje_cancelados"
+     ],
+     "titulo": "Pedidos cancelados",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "18:09:29",
+   "duracion_s": 9.697,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.299,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 7.013,
+     "tokens_entrada": 835,
+     "tokens_salida": 101,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 3,
+     "verificadas": 3,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Cancelaciones",
+     "Recomendaciones típicas para el dueño"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "18:09:29",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "este mes",
+     "metrica": "tickets",
+     "ultima_pregunta": "¿Cuántos pedidos se cancelaron este mes?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 13.29,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.326,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.144,
+   "tokens_entrada": 1530,
+   "tokens_salida": 103,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.265,
+   "tokens_entrada": 2700,
+   "tokens_salida": 172,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.299,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 7.013,
+   "tokens_entrada": 835,
+   "tokens_salida": 101,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5441,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "pedidos_cancelados",
+    "total_pedidos",
+    "porcentaje_cancelados"
+   ],
+   "titulo": "Pedidos cancelados",
+   "confianza": "alta"
+  }
+ }
+}

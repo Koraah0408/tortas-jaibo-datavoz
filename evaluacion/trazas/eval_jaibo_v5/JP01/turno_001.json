@@ -1,0 +1,358 @@
+{
+ "sesion": "JP01",
+ "turno": 1,
+ "fecha": "2026-11-21T17:07:18",
+ "entrada": {
+  "pregunta": "¿Cuánto vendí ayer?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuánto vendí ayer?",
+ "pregunta_completa": "¿Cuánto vendí el domingo 2026-11-15?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "El domingo 15 de noviembre vendiste un total de $2,891.00 en 17 órdenes. La mayor parte de tus ingresos, $1,962.00, provino de las ventas en el local, mientras que las plataformas de entrega como Didi y Rappi aportaron el resto. Los bocoles fueron lo más solicitado en cantidad con 12 unidades, aunque las tortas barda y mega barda fueron las que generaron mayores ingresos. Posiblemente, el buen desempeño en el local se deba a que es tu canal principal de atención durante el fin de semana.\n\nRecomendación: Considera crear un paquete de desayuno o promoción especial para las horas de la mañana, ya que el volumen de órdenes en el local es significativamente mayor que en las plataformas digitales.",
+ "sql": "SELECT COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-15'",
+ "explicacion_sql": "Calcula el total de ventas en dinero y el número de órdenes para el domingo 2026-11-15",
+ "resultado": {
+  "sql": "SELECT COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-15'",
+  "columnas": [
+   "ordenes",
+   "ventas"
+  ],
+  "filas": [
+   [
+    17,
+    2891.0
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0348,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver ventas desglosadas por canal para el 2026-11-15",
+   "sql": "SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-15' GROUP BY canal ORDER BY ventas DESC",
+   "columnas": [
+    "canal",
+    "ordenes",
+    "ventas"
+   ],
+   "filas": [
+    [
+     "Local",
+     11,
+     1962.0
+    ],
+    [
+     "Didi",
+     5,
+     783.0
+    ],
+    [
+     "Rappi",
+     1,
+     146.0
+    ]
+   ],
+   "n_filas": 3,
+   "truncado": false,
+   "duracion_s": 0.037,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "Ver los productos más vendidos el 2026-11-15",
+   "sql": "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE fecha = '2026-11-15' GROUP BY producto ORDER BY unidades DESC LIMIT 5",
+   "columnas": [
+    "producto",
+    "unidades",
+    "ventas"
+   ],
+   "filas": [
+    [
+     "Bocoles",
+     12,
+     264.0
+    ],
+    [
+     "Barda normal",
+     7,
+     665.0
+    ],
+    [
+     "Mega barda",
+     6,
+     660.0
+    ],
+    [
+     "Coca cola",
+     4,
+     140.0
+    ],
+    [
+     "Pierna normal",
+     4,
+     380.0
+    ]
+   ],
+   "n_filas": 5,
+   "truncado": false,
+   "duracion_s": 0.0409,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 5,
+  "verificadas": 5,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-15'",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-15'",
+  "SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-15' GROUP BY canal ORDER BY ventas DESC",
+  "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE fecha = '2026-11-15' GROUP BY producto ORDER BY unidades DESC LIMIT 5"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "17:07:14",
+   "duracion_s": 0.864,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.864,
+     "tokens_entrada": 1523,
+     "tokens_salida": 120,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuánto vendí el domingo 2026-11-15?",
+    "contexto": {
+     "periodo": "2026-11-15",
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "17:07:16",
+   "duracion_s": 2.408,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.393,
+     "tokens_entrada": 2422,
+     "tokens_salida": 293,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Columnas de calendario en ventas y ordenes",
+      "Horario y momentos del día",
+      "Recomendaciones típicas para el dueño",
+      "Platillo del día"
+     ],
+     "ejemplos": [
+      "¿Cuánto vendí en dinero la última semana?",
+      "¿Cuánto vendí por canal este mes y cuál es el ticket promedio?",
+      "¿Cuánto se vende a crédito a las empresas cada mes?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-15'",
+    "explicacion": "Calcula el total de ventas en dinero y el número de órdenes para el domingo 2026-11-15",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver ventas desglosadas por canal para el 2026-11-15",
+      "sql": "SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-15' GROUP BY canal ORDER BY ventas DESC",
+      "error": null,
+      "filas": 3
+     },
+     {
+      "proposito": "Ver los productos más vendidos el 2026-11-15",
+      "sql": "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE fecha = '2026-11-15' GROUP BY producto ORDER BY unidades DESC LIMIT 5",
+      "error": null,
+      "filas": 5
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "17:07:16",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "17:07:16",
+   "duracion_s": 0.08,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "ordenes",
+      "ventas"
+     ],
+     "titulo": "Ordenes",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "17:07:18",
+   "duracion_s": 1.889,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.608,
+     "tokens_entrada": 1873,
+     "tokens_salida": 172,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 5,
+     "verificadas": 5,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 39,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Recomendaciones típicas para el dueño"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "17:07:18",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "2026-11-15",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Cuánto vendí el domingo 2026-11-15?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 5.26,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.864,
+   "tokens_entrada": 1523,
+   "tokens_salida": 120,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.393,
+   "tokens_entrada": 2422,
+   "tokens_salida": 293,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.608,
+   "tokens_entrada": 1873,
+   "tokens_salida": 172,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 6403,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "ordenes",
+    "ventas"
+   ],
+   "titulo": "Ordenes",
+   "confianza": "alta"
+  }
+ }
+}

@@ -1,0 +1,359 @@
+{
+ "sesion": "JP09",
+ "turno": 1,
+ "fecha": "2026-11-21T18:10:10",
+ "entrada": {
+  "pregunta": "¿Cuál es mi ticket promedio en Rappi?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuál es mi ticket promedio en Rappi?",
+ "pregunta_completa": "¿Cuál es mi ticket promedio en Rappi?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Hola, tu ticket promedio en Rappi es de $183.81 pesos, con un total de 502 órdenes y ventas por $92,271.00 en ese canal. Recuerda que este canal cuenta con una comisión por parte de la plataforma (SUPUESTO: alrededor de 25 a 30 %, por confirmar), por lo que conviene revisar si este margen se adapta a tus costos. \n\nRecomendación: Revisa cuáles son los productos más pedidos en Rappi para asegurar que su preparación sea rápida y mantengas contentos a tus clientes de entrega a domicilio.\n\n_Nota: algunas cifras de esta explicación no se pudieron verificar contra los datos; revisa la tabla de resultados._",
+ "sql": "SELECT ROUND(AVG(monto_total), 2) AS ticket_promedio, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas_totales FROM ordenes WHERE NOT cancelada AND canal = 'Rappi'",
+ "explicacion_sql": "Calcula el ticket promedio, la cantidad de órdenes y las ventas totales para el canal Rappi en las órdenes no canceladas.",
+ "resultado": {
+  "sql": "SELECT ROUND(AVG(monto_total), 2) AS ticket_promedio, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas_totales FROM ordenes WHERE NOT cancelada AND canal = 'Rappi'",
+  "columnas": [
+   "ticket_promedio",
+   "ordenes",
+   "ventas_totales"
+  ],
+  "filas": [
+   [
+    183.81,
+    502,
+    92271.0
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0317,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 5,
+  "verificadas": 3,
+  "no_verificadas": [
+   "25",
+   "30 %"
+  ],
+  "porcentaje": 60.0,
+  "ok": false
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT ROUND(AVG(monto_total), 2) AS ticket_promedio, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas_totales FROM ordenes WHERE NOT cancelada AND canal = 'Rappi'",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT ROUND(AVG(monto_total), 2) AS ticket_promedio, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas_totales FROM ordenes WHERE NOT cancelada AND canal = 'Rappi'"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "18:09:46",
+   "duracion_s": 7.035,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.445,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 6.59,
+     "tokens_entrada": 1530,
+     "tokens_salida": 101,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuál es mi ticket promedio en Rappi?",
+    "contexto": {
+     "periodo": null,
+     "producto": null,
+     "categoria": null,
+     "metrica": "tickets"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "18:09:53",
+   "duracion_s": 6.364,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 5.69,
+     "tokens_entrada": 2754,
+     "tokens_salida": 119,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Promociones",
+      "Tabla ordenes (una fila por orden o ticket, incluye canceladas)",
+      "Métricas de Tortas Jaibo",
+      "Tabla ventas (una fila por producto vendido en una orden completada)"
+     ],
+     "ejemplos": [
+      "¿Cuánto vendí por canal este mes y cuál es el ticket promedio?",
+      "¿Cuánto más caro cobro en Didi y Rappi que en el mostrador? (sobreprecio de las apps)",
+      "¿Qué productos se venden más en Rappi?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT ROUND(AVG(monto_total), 2) AS ticket_promedio, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas_totales FROM ordenes WHERE NOT cancelada AND canal = 'Rappi'",
+    "explicacion": "Calcula el ticket promedio, la cantidad de órdenes y las ventas totales para el canal Rappi en las órdenes no canceladas.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "18:09:53",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "18:09:53",
+   "duracion_s": 0.068,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "ticket_promedio",
+      "ordenes",
+      "ventas_totales"
+     ],
+     "titulo": "Ticket promedio",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "18:10:10",
+   "duracion_s": 17.854,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.592,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 7.025,
+     "tokens_entrada": 978,
+     "tokens_salida": 104,
+     "ok": true,
+     "error": null
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.287,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 5.695,
+     "tokens_entrada": 1024,
+     "tokens_salida": 129,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 2,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 5,
+     "verificadas": 3,
+     "no_verificadas": [
+      "25",
+      "30 %"
+     ],
+     "porcentaje": 60.0,
+     "ok": false
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Promociones",
+     "Canales de venta y comisiones"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "18:10:10",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "metrica": "tickets",
+     "ultima_pregunta": "¿Cuál es mi ticket promedio en Rappi?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 31.33,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.445,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 6.59,
+   "tokens_entrada": 1530,
+   "tokens_salida": 101,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 5.69,
+   "tokens_entrada": 2754,
+   "tokens_salida": 119,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.592,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 7.025,
+   "tokens_entrada": 978,
+   "tokens_salida": 104,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.287,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 5.695,
+   "tokens_entrada": 1024,
+   "tokens_salida": 129,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 6739,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "ticket_promedio",
+    "ordenes",
+    "ventas_totales"
+   ],
+   "titulo": "Ticket promedio",
+   "confianza": "alta"
+  }
+ }
+}

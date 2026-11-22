@@ -1,0 +1,340 @@
+{
+ "sesion": "JP01",
+ "turno": 1,
+ "fecha": "2026-11-21T16:49:27",
+ "entrada": {
+  "pregunta": "¿Cuánto vendí ayer?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuánto vendí ayer?",
+ "pregunta_completa": "¿Cuánto vendí el 14 de noviembre de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "El 14 de noviembre de 2026 tus ventas totales fueron de $2,026.00, generadas a través de 13 órdenes. La mayor parte de este movimiento provino de las ventas en el local, que sumaron $785.00 con 6 órdenes. El resto de tus ingresos se repartió entre las plataformas de entrega y los pedidos a crédito de las empresas Legacy y Automatas. Posiblemente, el flujo constante de estas empresas ayuda a mantener el volumen de órdenes durante el día.\n\nRecomendación: Analiza si puedes incentivar más pedidos a través de Rappi, ya que fue el canal con menor participación en ventas con $225.00.",
+ "sql": "SELECT COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-14'",
+ "explicacion_sql": "Calcula el total de ventas en dinero y el número de órdenes para el 14 de noviembre de 2026.",
+ "resultado": {
+  "sql": "SELECT COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-14'",
+  "columnas": [
+   "ordenes",
+   "ventas"
+  ],
+  "filas": [
+   [
+    13,
+    2026.0
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0337,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver desglose por canal de venta para el 14 de noviembre de 2026",
+   "sql": "SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-14' GROUP BY canal ORDER BY ventas DESC",
+   "columnas": [
+    "canal",
+    "ordenes",
+    "ventas"
+   ],
+   "filas": [
+    [
+     "Local",
+     6,
+     785.0
+    ],
+    [
+     "Didi",
+     2,
+     440.0
+    ],
+    [
+     "Legacy",
+     2,
+     306.0
+    ],
+    [
+     "Automatas",
+     2,
+     270.0
+    ],
+    [
+     "Rappi",
+     1,
+     225.0
+    ]
+   ],
+   "n_filas": 5,
+   "truncado": false,
+   "duracion_s": 0.041,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 7,
+  "verificadas": 7,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-14'",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-14'",
+  "SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-14' GROUP BY canal ORDER BY ventas DESC"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "16:49:14",
+   "duracion_s": 6.69,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.676,
+     "tokens_entrada": 1471,
+     "tokens_salida": 119,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuánto vendí el 14 de noviembre de 2026?",
+    "contexto": {
+     "periodo": "2026-11-14",
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "16:49:20",
+   "duracion_s": 6.052,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.192,
+     "tokens_entrada": 2308,
+     "tokens_salida": 205,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Horario y momentos del día",
+      "Barbacoa",
+      "Tabla promociones",
+      "Platillo del día"
+     ],
+     "ejemplos": [
+      "¿Cuánto vendí en dinero la última semana?",
+      "¿Cuánto vendí por canal este mes y cuál es el ticket promedio?",
+      "¿Cuánto se vende a crédito a las empresas cada mes?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-14'",
+    "explicacion": "Calcula el total de ventas en dinero y el número de órdenes para el 14 de noviembre de 2026.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver desglose por canal de venta para el 14 de noviembre de 2026",
+      "sql": "SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-14' GROUP BY canal ORDER BY ventas DESC",
+      "error": null,
+      "filas": 5
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "16:49:20",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "16:49:21",
+   "duracion_s": 0.599,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "ordenes",
+      "ventas"
+     ],
+     "titulo": "Ordenes",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "16:49:27",
+   "duracion_s": 6.658,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.345,
+     "tokens_entrada": 1342,
+     "tokens_salida": 159,
+     "ok": true,
+     "error": null
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.433,
+     "tokens_entrada": 1384,
+     "tokens_salida": 152,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 2,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 7,
+     "verificadas": 7,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 18,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Barbacoa"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "16:49:27",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "2026-11-14",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Cuánto vendí el 14 de noviembre de 2026?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 20.01,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.676,
+   "tokens_entrada": 1471,
+   "tokens_salida": 119,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.192,
+   "tokens_entrada": 2308,
+   "tokens_salida": 205,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.345,
+   "tokens_entrada": 1342,
+   "tokens_salida": 159,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.433,
+   "tokens_entrada": 1384,
+   "tokens_salida": 152,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 7140,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "ordenes",
+    "ventas"
+   ],
+   "titulo": "Ordenes",
+   "confianza": "alta"
+  }
+ }
+}

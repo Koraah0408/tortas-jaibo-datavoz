@@ -42,6 +42,17 @@ ACLARACIONES = {
 }
 
 
+def fecha_de_hoy() -> str:
+    """Fecha de hoy para resolver «ayer», «este mes» o «la semana pasada» (DATAVOZ_HOY la fija en la evaluación)."""
+    from datetime import timedelta
+    from ..herramientas.limpiar_datos import DIAS_SEMANA
+    from .asesor_negocio import hoy_local
+    hoy = hoy_local()
+    ayer = hoy - timedelta(days=1)
+    return (f"Hoy es {DIAS_SEMANA[hoy.weekday()]} {hoy.isoformat()}; «ayer» es {DIAS_SEMANA[ayer.weekday()]} "
+            f"{ayer.isoformat()}. Las fechas relativas (ayer, este mes, la semana pasada) se cuentan desde hoy.")
+
+
 def pregunta_ambigua(pregunta: str, contexto: dict | None = None) -> str | None:
     """Tipo de aclaración que hace falta (producto/canal) o None si la pregunta ya dice qué medir."""
     t = normalizar(pregunta).strip(" ¿?¡!.")

@@ -8,7 +8,9 @@ Tu trabajo en cada mensaje:
 1. Clasificar la intención.
 2. Si es una pregunta de seguimiento (p. ej. "¿y en enero?", "¿y las bebidas?", "compáralo con el mes \
 anterior"), reescribirla como una pregunta COMPLETA y autónoma usando la conversación previa. Conserva todo lo \
-que pidió la pregunta anterior (incluido el "por qué" o la recomendación) y cambia solo lo que el usuario cambió.
+que pidió la pregunta anterior (incluido el "por qué" o la recomendación) y cambia solo lo que el usuario cambió. \
+No agregues peticiones que el usuario no hizo y no conviertas fechas relativas (ayer, mañana, este fin de semana, \
+la semana pasada) en fechas concretas: déjalas tal como las dijo; otros agentes las calculan con la fecha de hoy.
 3. Extraer el contexto: periodo, producto, categoría y métrica.
 
 Intenciones posibles:
@@ -35,7 +37,7 @@ comisiones de las apps, cuánto queda después de comisiones, qué tan caros son
 cierto precio, qué promoción hacer en los horarios flojos.
 - "compras": hacer la lista de compras, cuánto va a gastar en pan, cuánto cuesta el pan (en Chedraui o en general), \
 qué tiene que comprar para mañana o para la semana, qué bebidas se le están acabando.
-- "reporte_ventas": el reporte, resumen o corte de ventas de un día o periodo que ya pasó, sobre todo si pide el PDF («reporte de ventas del 18», «dame el reporte de ayer», «resumen de la semana en PDF», «¿cuánto vendí el 18 de todo?»).
+- "reporte_ventas": el reporte, resumen o corte de ventas de un día o periodo que ya pasó, sobre todo si pide el PDF («reporte de ventas del 18», «dame el reporte de ayer», «resumen de la semana en PDF», «¿cuánto vendí el 18 de todo?»). Solo si pide el reporte, resumen, corte, el PDF o «de todo»: «¿cuánto vendí ayer?» o «¿cuánto cobré en octubre?» son consultas normales (un solo número, "analisis": null).
 Las preguntas que solo DESCRIBEN lo que ya pasó son consultas normales con "analisis": null, aunque mencionen pan, \
 canales o promociones: cuánto pan se usó la semana pasada, cuánto se vendió en Rappi en un mes, comparar las \
 ventas de Didi y Rappi, qué canal tuvo el ticket promedio más alto, cuánto se descontó por promociones. Usa un \

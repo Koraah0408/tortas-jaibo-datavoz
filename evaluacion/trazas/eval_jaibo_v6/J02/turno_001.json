@@ -1,0 +1,381 @@
+{
+ "sesion": "J02",
+ "turno": 1,
+ "fecha": "2026-11-21T17:45:57",
+ "entrada": {
+  "pregunta": "¿Cuáles son mis 5 productos más vendidos?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuáles son mis 5 productos más vendidos?",
+ "pregunta_completa": "¿Cuáles son mis 5 productos más vendidos?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Tus 5 productos más vendidos en unidades son la Mega barda con 1,926 piezas, los Tacos de barbacoa con 1,677, los Bocoles con 1,671, la Barda normal con 1,606 y las Gorditas con 1,600 unidades. Esta preferencia por las tortas y antojitos tradicionales en el mostrador y plataformas impulsa fuertemente tus ingresos, destacando la Mega barda con $197,835 en ventas totales. Posiblemente los clientes buscan estos platillos principales tanto en las horas fuertes como a lo largo de la jornada. \n\nRecomendación: Asegúrate de tener suficiente inventario de insumos para preparar Mega bardas y Bardanormales, ya que son tus productos estrella en ventas.",
+ "sql": "SELECT producto, categoria, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE categoria <> 'Interno' AND producto NOT IN ('--', 'Cargo Extra', 'Prueba4', 'Pruebanumero3') GROUP BY producto, categoria ORDER BY unidades DESC LIMIT 5",
+ "explicacion_sql": "Muestra los 5 productos con mayor número de unidades vendidas en todo el periodo, excluyendo productos internos, de prueba o sin nombre.",
+ "resultado": {
+  "sql": "SELECT producto, categoria, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE categoria <> 'Interno' AND producto NOT IN ('--', 'Cargo Extra', 'Prueba4', 'Pruebanumero3') GROUP BY producto, categoria ORDER BY unidades DESC LIMIT 5",
+  "columnas": [
+   "producto",
+   "categoria",
+   "unidades",
+   "ventas"
+  ],
+  "filas": [
+   [
+    "Mega barda",
+    "Principal",
+    1926,
+    197835.0
+   ],
+   [
+    "Tacos de barbacoa",
+    "Principal",
+    1677,
+    45805.0
+   ],
+   [
+    "Bocoles",
+    "Principal",
+    1671,
+    31290.0
+   ],
+   [
+    "Barda normal",
+    "Principal",
+    1606,
+    152570.0
+   ],
+   [
+    "Gordita",
+    "Principal",
+    1600,
+    42277.0
+   ]
+  ],
+  "n_filas": 5,
+  "truncado": false,
+  "duracion_s": 0.0491,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 7,
+  "verificadas": 7,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT producto, categoria, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE categoria <> 'Interno' AND producto NOT IN ('--', 'Cargo Extra', 'Prueba4', 'Pruebanumero3') GROUP BY producto, categoria ORDER BY unidades DESC LIMIT 5",
+   "problema": null,
+   "n_filas": 5
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT producto, categoria, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE categoria <> 'Interno' AND producto NOT IN ('--', 'Cargo Extra', 'Prueba4', 'Pruebanumero3') GROUP BY producto, categoria ORDER BY unidades DESC LIMIT 5"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "17:45:37",
+   "duracion_s": 1.397,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.396,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.0,
+     "tokens_entrada": 1530,
+     "tokens_salida": 102,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuáles son mis 5 productos más vendidos?",
+    "contexto": {
+     "periodo": null,
+     "producto": null,
+     "categoria": null,
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "17:45:39",
+   "duracion_s": 1.768,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.167,
+     "tokens_entrada": 2323,
+     "tokens_salida": 134,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Tabla productos (catálogo)",
+      "Horario y momentos del día",
+      "Tabla promociones",
+      "Recomendaciones típicas para el dueño"
+     ],
+     "ejemplos": [
+      "¿Qué productos se venden más en Rappi?",
+      "¿Qué platillo del día se vende más cada día de la semana?",
+      "¿Cuánto subió el precio de las tortas con el tiempo?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT producto, categoria, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE categoria <> 'Interno' AND producto NOT IN ('--', 'Cargo Extra', 'Prueba4', 'Pruebanumero3') GROUP BY producto, categoria ORDER BY unidades DESC LIMIT 5",
+    "explicacion": "Muestra los 5 productos con mayor número de unidades vendidas en todo el periodo, excluyendo productos internos, de prueba o sin nombre.",
+    "error": null,
+    "filas": 5,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "17:45:39",
+   "duracion_s": 0.002,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 5,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "17:45:44",
+   "duracion_s": 5.76,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.187,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.951,
+     "tokens_entrada": 698,
+     "tokens_salida": 96,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras_horizontales",
+    "spec": {
+     "tipo": "barras_horizontales",
+     "x": "producto",
+     "y": [
+      "unidades"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Tus 5 productos más vendidos"
+    },
+    "razon": "Permite ver fácilmente el ranking de los 5 productos con nombres largos y comparar sus unidades.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "17:45:57",
+   "duracion_s": 12.122,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.719,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 7.089,
+     "tokens_entrada": 1268,
+     "tokens_salida": 177,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 7,
+     "verificadas": 7,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 18,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Recomendaciones típicas para el dueño"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "17:45:57",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Cuáles son mis 5 productos más vendidos?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 21.06,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.396,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.0,
+   "tokens_entrada": 1530,
+   "tokens_salida": 102,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.167,
+   "tokens_entrada": 2323,
+   "tokens_salida": 134,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.187,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.951,
+   "tokens_entrada": 698,
+   "tokens_salida": 96,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.719,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 7.089,
+   "tokens_entrada": 1268,
+   "tokens_salida": 177,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 6328,
+ "grafica": {
+  "spec": {
+   "tipo": "barras_horizontales",
+   "x": "producto",
+   "y": [
+    "unidades"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Tus 5 productos más vendidos",
+   "razon": "Permite ver fácilmente el ranking de los 5 productos con nombres largos y comparar sus unidades."
+  }
+ }
+}

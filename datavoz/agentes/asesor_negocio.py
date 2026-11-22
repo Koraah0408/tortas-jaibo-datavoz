@@ -91,10 +91,16 @@ def _combo_de_pregunta(pregunta: str, productos: list[str]) -> dict[str, int]:
 
 
 def elegir(analisis: str, pregunta: str, propuesta: dict, productos: list[str], hoy: date,
-           ultimo: date | None = None) -> tuple[str, dict]:
-    """Valida la herramienta y los parámetros que propuso el LLM y completa lo que falte con reglas."""
+           ultimo: date | None = None, original: str | None = None) -> tuple[str, dict]:
+    """Valida la herramienta y los parámetros que propuso el LLM y completa lo que falte con reglas.
+
+    ``original``: lo que escribió el dueño. Las fechas relativas («mañana», «el fin de semana», «ayer») se calculan con
+    ella y no con la pregunta reescrita por el Orquestador, que a veces las convierte mal en fechas concretas."""
+    original = original or pregunta
     if analisis == "reporte_ventas":  # el periodo se saca de la pregunta con reglas («del 18», «de ayer»…)
-        desde, hasta = periodo_de_pregunta(pregunta, ultimo or hoy, hoy)
+        desde, hasta = periodo_de_pregunta(original, ultimo or hoy, hoy)
+        if (desde, hasta) == ((ultimo or hoy),) * 2 and original != pregunta:  # el seguimiento no dijo periodo
+            desde, hasta = periodo_de_pregunta(pregunta, ultimo or hoy, hoy)
         return "reporte_de_ventas", {"desde": desde.isoformat(), "hasta": hasta.isoformat()}
     p = propuesta.get("parametros") if isinstance(propuesta.get("parametros"), dict) else {}
     herramienta = propuesta.get("herramienta") if propuesta.get("herramienta") in ANALISIS[analisis] else None
@@ -105,7 +111,7 @@ def elegir(analisis: str, pregunta: str, propuesta: dict, productos: list[str], 
         p = {k: v for k, v in p.items() if k not in ("comisiones", "margen", "margen_bruto")}
     if analisis in ("pronostico_pan", "compras"):
         # Las fechas se calculan con reglas: los modelos pequeños suelen equivocarse con el día de la semana
-        fechas = fechas_de_pregunta(pregunta, hoy)
+        fechas = fechas_de_pregunta(original, hoy) or fechas_de_pregunta(pregunta, hoy)
         if not fechas:
             for f in (p.get("fechas") or [])[:14] if isinstance(p.get("fechas"), list) else []:
                 try:
@@ -177,7 +183,8 @@ def asesor_negocio(estado: EstadoDataVoz) -> dict:
             ultimo = date.fromisoformat(str(ultimo)[:10])
         except Exception:
             ultimo = None
-    herramienta, parametros = elegir(analisis, pregunta, propuesta, productos, hoy, ultimo)
+    herramienta, parametros = elegir(analisis, pregunta, propuesta, productos, hoy, ultimo,
+                                     original=estado.get("pregunta") or pregunta)
     try:
         res = HERRAMIENTAS_NEGOCIO[herramienta].invoke(
             {"ruta_db": ruta_db, **{k: v for k, v in parametros.items() if v is not None}})

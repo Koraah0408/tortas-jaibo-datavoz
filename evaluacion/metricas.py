@@ -83,8 +83,9 @@ def comparar_resultados(gen: dict | None, ref: dict, comparar: list[str] | None 
     if clave and clave in rcols:
         k = rcols.index(clave)
         esperados = [normalizar(str(f[k])) for f in rfilas]
-        textos_gen = [[normalizar(str(f[j])) for f in gfilas] for j in range(len(gen.get("columnas") or []))
-                      if j not in idx_gen]
+        # todas las columnas: la clave puede ser numérica (p. ej. hora_del_dia)
+        textos_gen = [[normalizar(str(_num(f[j]) if isinstance(f[j], float) and float(f[j]).is_integer() else f[j]))
+                       for f in gfilas] for j in range(len(gen.get("columnas") or []))]
         ok_clave = False
         for col in textos_gen:
             if ordenado and col[:len(esperados)] == esperados:

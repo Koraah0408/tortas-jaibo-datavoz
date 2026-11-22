@@ -143,6 +143,9 @@ def resolver_parametros(esperados: dict | None, hoy) -> dict:
                 delta = (DIAS_SEMANA.index(normalizar(f)) - hoy.weekday()) % 7 or 7
                 fechas.append((hoy + timedelta(days=delta)).isoformat())
         p["fechas"] = fechas
+    for clave in ("desde", "hasta"):  # «-1» = ayer
+        if str(p.get(clave, "")).startswith("-"):
+            p[clave] = (hoy - timedelta(days=int(str(p[clave])[1:]))).isoformat()
     return p
 
 
@@ -250,6 +253,14 @@ def main() -> None:
         previa = json.loads(Path(args.reintentar_cuota).read_text(encoding="utf-8"))
         args.negocio, args.base = previa.get("negocio", "abarrotes"), previa.get("base", "sintetica")
     jaibo_real = args.negocio == "jaibo" and args.base == "real"
+    if jaibo_real and not os.getenv("DATAVOZ_HOY"):
+        # como en la sintética, «hoy» es el día siguiente al último dato de la copia (fechas relativas comparables)
+        import duckdb
+        from datetime import timedelta
+        from datavoz.conectores import jaibo as _jaibo
+        with duckdb.connect(str(_jaibo.RUTA_DB), read_only=True) as _con:
+            _ultimo = _con.execute("SELECT MAX(fecha) FROM ordenes").fetchone()[0]
+        os.environ["DATAVOZ_HOY"] = (_ultimo + timedelta(days=1)).isoformat()
     if args.negocio == "jaibo" and not jaibo_real:
         # reproducible: "hoy" fijo y los costos de la plantilla con supuestos (no los del dueño)
         os.environ["DATAVOZ_HOY"] = HOY_JAIBO_SINTETICO

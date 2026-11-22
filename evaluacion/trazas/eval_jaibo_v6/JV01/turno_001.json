@@ -1,0 +1,381 @@
+{
+ "sesion": "JV01",
+ "turno": 1,
+ "fecha": "2026-11-21T18:13:50",
+ "entrada": {
+  "pregunta": "",
+  "audio": "C:\\proyectos\\DataVoz\\evaluacion\\audio\\jaibo\\voz_01.ogg",
+  "archivo": null
+ },
+ "pregunta": "¿Cuánto dinero cobré en octubre de 2026?",
+ "pregunta_completa": "¿Cuánto dinero cobré en octubre de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En octubre de 2026 cobraste un total de $88,585.00 repartido en 506 órdenes. El canal que más aportó fue el Local con $42,657.00, seguido por Didi con $23,224.00. Por otro lado, las ventas a crédito para la empresa Automatas fueron las más bajas, con $2,509.00. Posiblemente el mostrador sigue siendo tu principal fuente de ingresos por la cercanía con los clientes. \n\nRecomendación: Impulsa promociones o dinámicas para aumentar los pedidos en los canales con menor participación, como Automatas y Rappi.",
+ "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+ "explicacion_sql": "Calcula el dinero total cobrado (monto de órdenes no canceladas) y el número de órdenes durante el mes de octubre de 2026.",
+ "resultado": {
+  "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+  "columnas": [
+   "dinero_cobrado",
+   "total_ordenes"
+  ],
+  "filas": [
+   [
+    88585.0,
+    506
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0335,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver el desglose del dinero cobrado por canal de venta en octubre de 2026",
+   "sql": "SELECT canal, ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY dinero_cobrado DESC",
+   "columnas": [
+    "canal",
+    "dinero_cobrado",
+    "ordenes"
+   ],
+   "filas": [
+    [
+     "Local",
+     42657.0,
+     254
+    ],
+    [
+     "Didi",
+     23224.0,
+     132
+    ],
+    [
+     "Rappi",
+     10509.0,
+     51
+    ],
+    [
+     "Legacy",
+     9686.0,
+     52
+    ],
+    [
+     "Automatas",
+     2509.0,
+     17
+    ]
+   ],
+   "n_filas": 5,
+   "truncado": false,
+   "duracion_s": 0.0351,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 6,
+  "verificadas": 6,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+  "SELECT canal, ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY dinero_cobrado DESC"
+ ],
+ "transcripcion": {
+  "texto": "¿Cuánto dinero cobré en octubre de 2026?",
+  "idioma": "es",
+  "duracion_audio_s": 4.57,
+  "duracion_s": 7.31,
+  "error": null
+ },
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "transcribir_voz",
+   "hora": "18:13:44",
+   "duracion_s": 7.314,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "transcribir_voz",
+    "texto": "¿Cuánto dinero cobré en octubre de 2026?",
+    "idioma": "es",
+    "duracion_audio_s": 4.57,
+    "duracion_s": 7.31,
+    "error": null
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "18:13:46",
+   "duracion_s": 1.579,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.319,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.26,
+     "tokens_entrada": 1534,
+     "tokens_salida": 114,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuánto dinero cobré en octubre de 2026?",
+    "contexto": {
+     "periodo": "octubre de 2026",
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "18:13:48",
+   "duracion_s": 1.896,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.247,
+     "tokens_entrada": 2461,
+     "tokens_salida": 222,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Tabla promociones",
+      "Barbacoa",
+      "Horario y momentos del día",
+      "Convenciones de SQL (DuckDB)"
+     ],
+     "ejemplos": [
+      "¿Cuánto vendí en dinero la última semana?",
+      "¿Cuánto se vende a crédito a las empresas cada mes?",
+      "¿Cuántas órdenes se corrigieron (canceladas por modificación) cada mes?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS total_ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10",
+    "explicacion": "Calcula el dinero total cobrado (monto de órdenes no canceladas) y el número de órdenes durante el mes de octubre de 2026.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver el desglose del dinero cobrado por canal de venta en octubre de 2026",
+      "sql": "SELECT canal, ROUND(SUM(monto_total), 2) AS dinero_cobrado, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND anio = 2026 AND mes = 10 GROUP BY canal ORDER BY dinero_cobrado DESC",
+      "error": null,
+      "filas": 5
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "18:13:48",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "18:13:48",
+   "duracion_s": 0.062,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "dinero_cobrado",
+      "total_ordenes"
+     ],
+     "titulo": "Dinero cobrado",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "18:13:50",
+   "duracion_s": 1.72,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.326,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.18,
+     "tokens_entrada": 1413,
+     "tokens_salida": 152,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 6,
+     "verificadas": 6,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 18,
+    "reglas_rag": [
+     "Barbacoa",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "18:13:50",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "octubre de 2026",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Cuánto dinero cobré en octubre de 2026?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 12.58,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.319,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.26,
+   "tokens_entrada": 1534,
+   "tokens_salida": 114,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.247,
+   "tokens_entrada": 2461,
+   "tokens_salida": 222,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.326,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.18,
+   "tokens_entrada": 1413,
+   "tokens_salida": 152,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5896,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "dinero_cobrado",
+    "total_ordenes"
+   ],
+   "titulo": "Dinero cobrado",
+   "confianza": "alta"
+  }
+ }
+}

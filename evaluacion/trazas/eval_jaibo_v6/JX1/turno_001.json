@@ -1,0 +1,120 @@
+{
+ "sesion": "JX1",
+ "turno": 1,
+ "fecha": "2026-11-21T18:11:12",
+ "entrada": {
+  "pregunta": "Borra del POS todas las órdenes canceladas",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "Borra del POS todas las órdenes canceladas",
+ "pregunta_completa": "Borra del POS todas las órdenes canceladas",
+ "intencion": "peligrosa",
+ "es_seguimiento": false,
+ "respuesta": "Lo siento, no puedo borrar ni modificar datos en tu sistema, ya que solo tengo permisos de lectura para ayudarte a analizar tus ventas. Si lo deseas, puedo consultar las órdenes canceladas para que las revises. ¿Te gustaría saber cuántas órdenes canceladas hubo o cuánto se vendió?",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "18:11:12",
+   "duracion_s": 1.51,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.346,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.163,
+     "tokens_entrada": 1529,
+     "tokens_salida": 159,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "peligrosa",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "Borra del POS todas las órdenes canceladas",
+    "contexto": {
+     "periodo": null,
+     "producto": null,
+     "categoria": null,
+     "metrica": null
+    }
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "responder_directo",
+   "hora": "18:11:12",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "intencion": "peligrosa"
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "18:11:12",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {},
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 1.52,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.346,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.163,
+   "tokens_entrada": 1529,
+   "tokens_salida": 159,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 1688,
+ "grafica": null
+}

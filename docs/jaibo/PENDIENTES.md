@@ -46,6 +46,14 @@
 - **Alertas visibles** en «Mi semana» (y un aviso al inicio si hay): caída fuerte de productos o canales, semana floja, pedidos corregidos de más, bebidas por acabarse. Con los datos actuales no hay alertas; `tests/test_alertas.py` comprueba cada regla.
 - **Casos de compras y reporte de ventas** (JC1, JC2, JR1, JR2): 4/4 con Gemini (`eval_jaibo_v4_compras_reporte`).
 
+## Nuevo (21/11/2026, tarde)
+- **Permiso del dueño:** autorizó usar los datos en el proyecto escolar y la presentación, sin afectar su POS (todo es de solo lectura). Registrado en el documento final.
+- **10 preguntas del negocio** (JP01–JP10, aportadas por José Ramiro): 10/10 después de corregir el ruteo de «¿cuánto vendí ayer?» y la fecha de hoy del Analista.
+- **Evaluación con la copia real del POS** (`eval_jaibo_real_v2`): 29/30 SQL, ruta 58/58, cifras 287/289, cero escrituras. Resultados en `data/jaibo/evaluacion/`, fuera de git.
+- **Corrida final sintética** `eval_jaibo_v6` (65 casos): 29/30 SQL, 26/26 decisiones, ruta 59/59. Se corrió con la cuota diaria del modelo principal agotada, por eso 25.7 s; conviene repetirla otro día para tener el tiempo limpio.
+- **Supuestos:** ya confirmados en `data/jaibo/costos.yaml` (comisiones 25 %, margen 10 %, telera y telera doble, porciones). El precio del pan es el de Chedraui porque no se sabe el del panadero.
+- **Encuesta** adaptada a Tortas Jaibo: la tiene que contestar el dueño (no se llena por él).
+
 ## Falta
 1. **Tú:**
    - confirmar qué pan usas (¿telera y telera doble?) y cuánto te cuesta con tu panadero;

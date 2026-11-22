@@ -308,7 +308,7 @@ trazas de cada turno en `evaluacion/trazas/`.
 Para verificar el arnés de evaluación sin llave de API: `python evaluacion/ejecutar_evaluacion.py --simulado`
 (responde con el SQL de referencia; **no** mide al agente).
 
-**Suite de Tortas Jaibo** (51 casos en `evaluacion/casos_jaibo.yaml`, incluidos 5 de control):
+**Suite de Tortas Jaibo** (65 casos en `evaluacion/casos_jaibo.yaml`, incluidos 5 de control y las 10 preguntas del negocio):
 
 ```bash
 python evaluacion/ejecutar_evaluacion.py --negocio jaibo --sin-cache              # base sintética (reproducible)
@@ -336,28 +336,31 @@ confirmado).
 
 ### Resultados (Gemini 3.1/3.5 Flash-Lite, sin caché, 10 s de pausa entre preguntas)
 
-| Aspecto clave | Criterio de éxito | Tienda de abarrotes (`eval_v6`, 26 casos) | Tortas Jaibo (`eval_jaibo_v4`, 51 casos) |
-|---|---|---|---|
-| Exactitud del SQL | ≥ 85 % de casos correctos | ✅ **100 %** (19/19) | ✅ **95.8 %** (23/24)¹ |
-| Ruta correcta | ≥ 90 % | — | ✅ **100 %** (45/45) |
-| Decisiones: herramienta y parámetros correctos | ≥ 85 % | — | ✅ **100 %** (18/18) |
-| Decisiones: resultado igual a la referencia | ≥ 85 % | — | ✅ **100 %** (18/18) |
-| Decisiones: avisa cuando usa supuestos | 100 % | — | ✅ **100 %** (14/14) |
-| Aclaración de preguntas ambiguas | pregunta antes de consultar | — | ✅ **2/2** |
-| Veracidad de la respuesta | 100 % de cifras verificadas | ✅ **100 %** (68/68) | ❌ **98.5 %** (192/195)¹ |
-| Calidad de la limpieza | ≥ 90 % de errores detectados | ✅ **100 %** detectados · 94.5 % corregidos | no aplica |
-| Confirmación humana | 100 % de las cargas con aprobación | ✅ **3/3** | no aplica |
-| Pertinencia de la gráfica | Promedio ≥ 4/5 | ✅ **4.89/5** | ✅ **4.67/5** |
-| Memoria y seguimiento | ≥ 80 % correctas | ✅ **100 %** (4/4) | ✅ **100 %** (4/4) |
-| Entrada por voz | ≥ 90 % bien interpretadas | ✅ **100 %** (2/2) | ✅ **100 %** (10/10 notas reales) · similitud 0.992 |
-| Seguridad | 0 consultas distintas de SELECT | ✅ **0** · 5/5 + D03 (inyección en archivo) | ✅ **0** · 7/7 (inyección directa e indirecta) · datos intactos |
-| Consumo | ≤ 5 llamadas por pregunta | ✅ **3.3** llamadas · 5,283 tokens | ✅ **3.5** llamadas · 6,028 tokens |
-| Tiempo de respuesta | ≤ 15 s en promedio | ✅ **10.7 s** | ✅ **12.5 s** |
-| Utilidad para el cliente | ≥ 4/5 en encuesta | Pendiente ([encuesta](docs/encuesta_cliente.md)) | Pendiente |
+| Aspecto clave | Criterio de éxito | Tienda (`eval_v6`, 26) | Jaibo sintética (`eval_jaibo_v6`, 65) | Jaibo copia real (`eval_jaibo_real_v2`, 64) |
+|---|---|---|---|---|
+| Exactitud del SQL | ≥ 85 % | ✅ 100 % (19/19) | ✅ 96.7 % (29/30) | ✅ 96.7 % (29/30) |
+| Ruta correcta | ≥ 90 % | — | ✅ 100 % (59/59) | ✅ 100 % (58/58) |
+| Decisiones: herramienta y parámetros | ≥ 85 % | — | ✅ 100 % (26/26) | ⚠️ 73.1 %¹ |
+| Decisiones: resultado | ≥ 85 % | — | ✅ 100 % (26/26) | ✅ 88.5 % (23/26) |
+| Aviso de supuestos | 100 % | — | ✅ 18/18 | ✅ 3/3 |
+| Aclaración de preguntas ambiguas | antes de consultar | — | ✅ 2/2 | ✅ 2/2 |
+| Veracidad (cifras verificadas) | 100 % | ✅ 68/68 | ❌ 98.7 % (301/305) | ❌ 99.3 % (287/289) |
+| Limpieza | ≥ 90 % detectados | ✅ 100 % · 94.5 % corregidos | no aplica | no aplica |
+| Confirmación humana | 100 % | ✅ 3/3 | no aplica | no aplica |
+| Gráficas | ≥ 4/5 | ✅ 4.89 | ✅ 4.54 | ✅ 4.55 |
+| Memoria | ≥ 80 % | ✅ 4/4 | ✅ 4/4 | ✅ 4/4 |
+| Voz | ≥ 90 % | ✅ 2/2 | ✅ 9/10 (notas reales) | ✅ 9/10 |
+| Seguridad | 0 no-SELECT | ✅ 0 · 5/5 + D03 | ✅ 0 · 7/7 | ✅ 0 · 6/6 |
+| Consumo | ≤ 5 llamadas | ✅ 3.3 | ⚠️ 6.0² | ✅ 3.9 |
+| Tiempo | ≤ 15 s | ✅ 10.7 s | ⚠️ 25.7 s² | ✅ 14.8 s |
+| Utilidad para el cliente | ≥ 4/5 | Pendiente ([encuesta](docs/encuesta_cliente.md)) | Pendiente | Pendiente |
 
-¹ Falló JH2 (buscó «rehacer» en la columna estado) y 3 cifras eran sumas de dos canales que el verificador no
-reconocía. Se corrigieron (revisión semántica de valores de estado inexistentes y sumas de dos filas en el
-verificador) y `eval_jaibo_v4_correccion` comprobó con el modelo real los 4 casos afectados: 4/4 y 19/19 cifras.
+¹ En la copia real el «hoy» cayó en domingo (ambigüedad de «este fin de semana») y JR2 espera las fechas de la base
+sintética; esos casos no aplican a la copia real. Sus resultados detallados están en `data/jaibo/evaluacion/`, fuera
+de git, porque contienen las ventas del negocio.
+² `eval_jaibo_v6` se corrió con la cuota diaria gratuita del modelo principal agotada: 162 reintentos con los modelos
+de respaldo duplicaron el tiempo y las llamadas, sin afectar la exactitud. Con el modelo disponible (`eval_jaibo_v4`)
+fueron 12.5 s y 3.5 llamadas.
 
 **Historial de corridas** (todas en [`evaluacion/resultados/`](evaluacion/resultados/), con sus trazas en
 [`evaluacion/trazas/`](evaluacion/trazas/)):

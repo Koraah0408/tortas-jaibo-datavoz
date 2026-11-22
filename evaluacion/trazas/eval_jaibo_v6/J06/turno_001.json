@@ -1,0 +1,336 @@
+{
+ "sesion": "J06",
+ "turno": 1,
+ "fecha": "2026-11-21T17:48:21",
+ "entrada": {
+  "pregunta": "¿Cuántos panes mega se gastaron en los últimos 7 días?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuántos panes mega se gastaron en los últimos 7 días?",
+ "pregunta_completa": "¿Cuántos panes mega se gastaron en los últimos 7 días?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En los últimos 7 días se gastaron 72 panes mega en Tortas Jaibo. El día con mayor consumo fue el miércoles con 15 panes, mientras que el jueves y el sábado registraron el mínimo con 7 panes cada uno. Este comportamiento muestra que las ventas varían durante la semana sin seguir un patrón fijo de fin de semana. Como el pan se compra diario y el sobrante se pierde, recuerda que el supuesto margen de seguridad del 10% es una estimación que conviene confirmar. Recomendación: Revisa el promedio histórico de este mismo día de la semana antes de hacer tu compra de pan mañana para evitar mermas.",
+ "sql": "SELECT SUM(cantidad) AS panes_mega FROM ventas WHERE producto IN ('Mega barda', 'Mega pierna', 'Mega mixta', 'Mega barbacoa') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY",
+ "explicacion_sql": "Calcula el total de panes mega utilizados en los últimos 7 días sumando las unidades vendidas de todas las tortas de tamaño Mega.",
+ "resultado": {
+  "sql": "SELECT SUM(cantidad) AS panes_mega FROM ventas WHERE producto IN ('Mega barda', 'Mega pierna', 'Mega mixta', 'Mega barbacoa') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY",
+  "columnas": [
+   "panes_mega"
+  ],
+  "filas": [
+   [
+    72
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0391,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Desglose por día de los panes mega gastados en los últimos 7 días",
+   "sql": "SELECT fecha, dia_semana, SUM(cantidad) AS panes_mega FROM ventas WHERE producto IN ('Mega barda', 'Mega pierna', 'Mega mixta', 'Mega barbacoa') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY GROUP BY fecha, dia_semana ORDER BY fecha",
+   "columnas": [
+    "fecha",
+    "dia_semana",
+    "panes_mega"
+   ],
+   "filas": [
+    [
+     "2026-11-09",
+     "lunes",
+     10
+    ],
+    [
+     "2026-11-10",
+     "martes",
+     11
+    ],
+    [
+     "2026-11-11",
+     "miercoles",
+     15
+    ],
+    [
+     "2026-11-12",
+     "jueves",
+     7
+    ],
+    [
+     "2026-11-13",
+     "viernes",
+     14
+    ],
+    [
+     "2026-11-14",
+     "sabado",
+     7
+    ],
+    [
+     "2026-11-15",
+     "domingo",
+     8
+    ]
+   ],
+   "n_filas": 7,
+   "truncado": false,
+   "duracion_s": 0.0397,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 5,
+  "verificadas": 5,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT SUM(cantidad) AS panes_mega FROM ventas WHERE producto IN ('Mega barda', 'Mega pierna', 'Mega mixta', 'Mega barbacoa') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT SUM(cantidad) AS panes_mega FROM ventas WHERE producto IN ('Mega barda', 'Mega pierna', 'Mega mixta', 'Mega barbacoa') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY",
+  "SELECT fecha, dia_semana, SUM(cantidad) AS panes_mega FROM ventas WHERE producto IN ('Mega barda', 'Mega pierna', 'Mega mixta', 'Mega barbacoa') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY GROUP BY fecha, dia_semana ORDER BY fecha"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "17:48:02",
+   "duracion_s": 1.139,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.376,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.762,
+     "tokens_entrada": 1535,
+     "tokens_salida": 114,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántos panes mega se gastaron en los últimos 7 días?",
+    "contexto": {
+     "periodo": "últimos 7 días",
+     "producto": "pan mega",
+     "categoria": null,
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "17:48:09",
+   "duracion_s": 6.194,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 5.458,
+     "tokens_entrada": 2517,
+     "tokens_salida": 208,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Compra y preparación de pan",
+      "Horario y momentos del día",
+      "Recomendaciones típicas para el dueño",
+      "Tortas y pan"
+     ],
+     "ejemplos": [
+      "¿Cuántos panes normales y mega se usaron cada día la última semana?",
+      "¿Cuánto vendí en dinero la última semana?",
+      "¿Cuánto subió el precio de las tortas con el tiempo?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": [
+      "pan mega"
+     ]
+    },
+    "sql": "SELECT SUM(cantidad) AS panes_mega FROM ventas WHERE producto IN ('Mega barda', 'Mega pierna', 'Mega mixta', 'Mega barbacoa') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY",
+    "explicacion": "Calcula el total de panes mega utilizados en los últimos 7 días sumando las unidades vendidas de todas las tortas de tamaño Mega.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Desglose por día de los panes mega gastados en los últimos 7 días",
+      "sql": "SELECT fecha, dia_semana, SUM(cantidad) AS panes_mega FROM ventas WHERE producto IN ('Mega barda', 'Mega pierna', 'Mega mixta', 'Mega barbacoa') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 7 DAY GROUP BY fecha, dia_semana ORDER BY fecha",
+      "error": null,
+      "filas": 7
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "17:48:09",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "no: la respuesta es un solo número"
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "17:48:21",
+   "duracion_s": 12.018,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.894,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 6.905,
+     "tokens_entrada": 1477,
+     "tokens_salida": 135,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 5,
+     "verificadas": 5,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 12,
+    "reglas_rag": [
+     "Compra y preparación de pan",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "17:48:21",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "últimos 7 días",
+     "producto": "pan mega",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Cuántos panes mega se gastaron en los últimos 7 días?"
+    },
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 19.36,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.376,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.762,
+   "tokens_entrada": 1535,
+   "tokens_salida": 114,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 5.458,
+   "tokens_entrada": 2517,
+   "tokens_salida": 208,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.894,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 6.905,
+   "tokens_entrada": 1477,
+   "tokens_salida": 135,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5986,
+ "grafica": null
+}

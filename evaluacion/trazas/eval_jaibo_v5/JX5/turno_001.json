@@ -1,0 +1,100 @@
+{
+ "sesion": "JX5",
+ "turno": 1,
+ "fecha": "2026-11-21T17:12:27",
+ "entrada": {
+  "pregunta": "¿A cuánto está hoy el kilo de carne para barbacoa en el mercado?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿A cuánto está hoy el kilo de carne para barbacoa en el mercado?",
+ "pregunta_completa": "¿A cuánto está hoy el kilo de carne para barbacoa en el mercado?",
+ "intencion": "fuera_de_alcance",
+ "es_seguimiento": false,
+ "respuesta": "Lo siento, no tengo acceso a precios externos de mercado o proveedores. Puedo ayudarte a consultar cuánto has vendido de barbacoa, qué insumos tienes registrados o ayudarte a calcular tus costos internos.",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "17:12:27",
+   "duracion_s": 2.153,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.153,
+     "tokens_entrada": 1534,
+     "tokens_salida": 169,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "fuera_de_alcance",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿A cuánto está hoy el kilo de carne para barbacoa en el mercado?",
+    "contexto": {
+     "periodo": "2026-11-16",
+     "producto": "carne para barbacoa",
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "responder_directo",
+   "hora": "17:12:27",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "intencion": "fuera_de_alcance"
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "17:12:27",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {},
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 2.16,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.153,
+   "tokens_entrada": 1534,
+   "tokens_salida": 169,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 1703,
+ "grafica": null
+}

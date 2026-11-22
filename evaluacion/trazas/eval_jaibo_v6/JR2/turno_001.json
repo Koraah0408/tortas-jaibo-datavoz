@@ -1,0 +1,402 @@
+{
+ "sesion": "JR2",
+ "turno": 1,
+ "fecha": "2026-11-21T18:05:05",
+ "entrada": {
+  "pregunta": "¿Cómo me fue la semana pasada? Hazme el reporte de ventas",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cómo me fue la semana pasada? Hazme el reporte de ventas",
+ "pregunta_completa": "¿Cómo me fue la semana pasada? Hazme el reporte de ventas",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "La semana pasada tuviste ventas totales por $19,494.00, con un total de 101 órdenes y un ticket promedio de $193.01. El canal que más te generó fue el Local con $8,080.00, seguido de cerca por Didi, mientras que lo más vendido fueron las tortas de Mega barda con 43 piezas. Posiblemente el efectivo y Didi se mantuvieron como tus formas de pago más fuertes porque los clientes prefieren estas opciones para sus pedidos diarios. \n\nRecomendación: Impulsa las ventas del local ofreciendo promociones especiales en tus horas más tranquilas de la mañana para atraer más clientes.",
+ "sql": null,
+ "explicacion_sql": "Reporte de ventas del 2 de noviembre de 2026 al 8 de noviembre de 2026 con la copia del POS: ventas cobradas (sin órdenes canceladas), órdenes, ticket promedio, formas de pago, canales y lo más vendido. El PDF completo también trae las ventas por hora.",
+ "resultado": {
+  "columnas": [
+   "forma_de_pago",
+   "ordenes",
+   "vendido"
+  ],
+  "filas": [
+   [
+    "Efectivo",
+    24,
+    4249.0
+   ],
+   [
+    "Didi",
+    21,
+    3808.0
+   ],
+   [
+    "Crédito Empleado",
+    15,
+    3495.0
+   ],
+   [
+    "Tarjeta",
+    19,
+    3326.0
+   ],
+   [
+    "Didi Efectivo",
+    11,
+    2421.0
+   ],
+   [
+    "Rappi",
+    7,
+    1174.0
+   ],
+   [
+    "Crédito Automatas",
+    2,
+    516.0
+   ],
+   [
+    "Transferencia",
+    2,
+    505.0
+   ]
+  ],
+  "n_filas": 8,
+  "error": null,
+  "ejecutada": true,
+  "herramienta": "reporte_de_ventas",
+  "titulo": "Reporte de ventas del 2 de noviembre de 2026 al 8 de noviembre de 2026",
+  "grafica_sugerida": {
+   "tipo": "barras_horizontales",
+   "x": "forma_de_pago",
+   "y": [
+    "vendido"
+   ],
+   "titulo": "Ventas por forma de pago · del 2 de noviembre de 2026 al 8 de noviembre de 2026"
+  }
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "resumen del periodo",
+   "columnas": [
+    "concepto",
+    "valor"
+   ],
+   "filas": [
+    [
+     "ventas cobradas",
+     19494.0
+    ],
+    [
+     "órdenes",
+     101
+    ],
+    [
+     "ticket promedio",
+     193.01
+    ],
+    [
+     "descuentos por promociones",
+     124.0
+    ],
+    [
+     "pedidos corregidos",
+     2
+    ],
+    [
+     "días con venta",
+     6
+    ]
+   ],
+   "n_filas": 6,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "ventas por canal",
+   "columnas": [
+    "canal",
+    "ordenes",
+    "vendido"
+   ],
+   "filas": [
+    [
+     "Local",
+     45,
+     8080.0
+    ],
+    [
+     "Didi",
+     32,
+     6229.0
+    ],
+    [
+     "Legacy",
+     15,
+     3495.0
+    ],
+    [
+     "Rappi",
+     7,
+     1174.0
+    ],
+    [
+     "Automatas",
+     2,
+     516.0
+    ]
+   ],
+   "n_filas": 5,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "lo más vendido",
+   "columnas": [
+    "producto",
+    "piezas",
+    "venta"
+   ],
+   "filas": [
+    [
+     "Mega barda",
+     43,
+     4730.0
+    ],
+    [
+     "Gordita",
+     38,
+     1064.0
+    ],
+    [
+     "Barda normal",
+     37,
+     3515.0
+    ],
+    [
+     "Bocoles",
+     35,
+     770.0
+    ],
+    [
+     "Tacos de barbacoa",
+     24,
+     720.0
+    ],
+    [
+     "Coca cola",
+     23,
+     805.0
+    ],
+    [
+     "Pierna normal",
+     13,
+     1235.0
+    ],
+    [
+     "Horchata",
+     12,
+     360.0
+    ],
+    [
+     "Jamaica",
+     10,
+     300.0
+    ],
+    [
+     "Mega pierna",
+     9,
+     990.0
+    ]
+   ],
+   "n_filas": 10,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 5,
+  "verificadas": 5,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [],
+ "sql_ejecutadas": [
+  "SELECT COUNT(*) FILTER (WHERE NOT cancelada) AS ordenes, COALESCE(SUM(monto_total) FILTER (WHERE NOT cancelada), 0) AS vendido, COUNT(*) FILTER (WHERE cancelada) AS corregidas, COALESCE(SUM(descuento) FILTER (WHERE NOT cancelada), 0) AS descuento, COUNT(DISTINCT fecha) AS dias FROM ordenes WHERE fecha BETWEEN DATE '2026-11-02' AND DATE '2026-11-08'",
+  "SELECT metodo_pago, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND fecha BETWEEN DATE '2026-11-02' AND DATE '2026-11-08' GROUP BY metodo_pago ORDER BY vendido DESC",
+  "SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND fecha BETWEEN DATE '2026-11-02' AND DATE '2026-11-08' GROUP BY canal ORDER BY vendido DESC",
+  "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS venta FROM ventas WHERE categoria <> 'Interno' AND fecha BETWEEN DATE '2026-11-02' AND DATE '2026-11-08' GROUP BY producto ORDER BY unidades DESC LIMIT 10",
+  "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND fecha BETWEEN DATE '2026-11-02' AND DATE '2026-11-08' GROUP BY hora_del_dia ORDER BY hora_del_dia"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": "C:\\proyectos\\DataVoz\\reportes\\reporte_ventas_20261102_20261108.pdf",
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "18:05:02",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "motivo": "reporte de ventas de un día o periodo detectado por patrón",
+    "analisis": "reporte_ventas"
+   }
+  },
+  {
+   "agente": "Asesor de negocio",
+   "accion": "analisis_especializado",
+   "hora": "18:05:02",
+   "duracion_s": 0.929,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "reporte_de_ventas",
+    "propuesta_llm": {},
+    "parametros": {
+     "desde": "2026-11-02",
+     "hasta": "2026-11-08",
+     "pdf": "C:\\proyectos\\DataVoz\\reportes\\reporte_ventas_20261102_20261108.pdf"
+    },
+    "filas": 8,
+    "supuestos": [],
+    "error_llm": null
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "18:05:03",
+   "duracion_s": 0.08,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "herramienta",
+    "tipo": "barras_horizontales",
+    "spec": {
+     "tipo": "barras_horizontales",
+     "x": "forma_de_pago",
+     "y": [
+      "vendido"
+     ],
+     "titulo": "Ventas por forma de pago · del 2 de noviembre de 2026 al 8 de noviembre de 2026",
+     "color": null,
+     "y_dim": null,
+     "valor": null
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "18:05:05",
+   "duracion_s": 1.945,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.462,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.237,
+     "tokens_entrada": 2126,
+     "tokens_salida": 150,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 5,
+     "verificadas": 5,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 81,
+    "reglas_rag": [
+     "Platillo del día",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "18:05:05",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "ultima_pregunta": "¿Cómo me fue la semana pasada? Hazme el reporte de ventas"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": "reporte_ventas",
+ "herramienta_negocio": {
+  "nombre": "reporte_de_ventas",
+  "titulo": "Reporte de ventas del 2 de noviembre de 2026 al 8 de noviembre de 2026",
+  "parametros": {
+   "desde": "2026-11-02",
+   "hasta": "2026-11-08",
+   "pdf": "C:\\proyectos\\DataVoz\\reportes\\reporte_ventas_20261102_20261108.pdf"
+  },
+  "supuestos": []
+ },
+ "carga_pendiente": null,
+ "duracion_s": 2.96,
+ "llamadas_llm": [
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.462,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.237,
+   "tokens_entrada": 2126,
+   "tokens_salida": 150,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 2276,
+ "grafica": {
+  "spec": {
+   "tipo": "barras_horizontales",
+   "x": "forma_de_pago",
+   "y": [
+    "vendido"
+   ],
+   "titulo": "Ventas por forma de pago · del 2 de noviembre de 2026 al 8 de noviembre de 2026",
+   "color": null,
+   "y_dim": null,
+   "valor": null
+  }
+ }
+}

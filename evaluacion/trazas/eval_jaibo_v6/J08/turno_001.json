@@ -1,0 +1,315 @@
+{
+ "sesion": "J08",
+ "turno": 1,
+ "fecha": "2026-11-21T17:49:38",
+ "entrada": {
+  "pregunta": "¿Se venden más gorditas en fin de semana o entre semana? Dame el promedio por día",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Se venden más gorditas en fin de semana o entre semana? Dame el promedio por día",
+ "pregunta_completa": "¿Se venden más gorditas en fin de semana o entre semana? Dame el promedio por día",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Hola. Se venden un poco más las gorditas en fin de semana, con un promedio de 6 unidades por día, mientras que entre semana el promedio es de 5 unidades por día. Esta pequeña diferencia muestra que la demanda se mantiene estable, aunque el fin de semana hay un ligero repunte. Posiblemente se deba a que las familias aprovechan esos días para salir a desayunar o comer con más calma. \n\nRecomendación: Ten listas más gorditas y masa preparada los fines de semana para atender rápido ese ligero aumento de clientes.",
+ "sql": "WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana) SELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 2) AS gorditas_por_dia FROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana WHERE v.producto = 'Gordita' GROUP BY v.es_fin_de_semana ORDER BY gorditas_por_dia DESC",
+ "explicacion_sql": "Calcula el promedio diario de gorditas vendidas diferenciando entre semana y fin de semana.",
+ "resultado": {
+  "sql": "WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana) SELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 2) AS gorditas_por_dia FROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana WHERE v.producto = 'Gordita' GROUP BY v.es_fin_de_semana ORDER BY gorditas_por_dia DESC",
+  "columnas": [
+   "es_fin_de_semana",
+   "gorditas_por_dia"
+  ],
+  "filas": [
+   [
+    true,
+    5.7
+   ],
+   [
+    false,
+    5.2
+   ]
+  ],
+  "n_filas": 2,
+  "truncado": false,
+  "duracion_s": 0.0487,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 2,
+  "verificadas": 2,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana) SELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 2) AS gorditas_por_dia FROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana WHERE v.producto = 'Gordita' GROUP BY v.es_fin_de_semana ORDER BY gorditas_por_dia DESC",
+   "problema": null,
+   "n_filas": 2
+  }
+ ],
+ "sql_ejecutadas": [
+  "WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana) SELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 2) AS gorditas_por_dia FROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana WHERE v.producto = 'Gordita' GROUP BY v.es_fin_de_semana ORDER BY gorditas_por_dia DESC"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "17:49:20",
+   "duracion_s": 1.319,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.414,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.905,
+     "tokens_entrada": 1539,
+     "tokens_salida": 123,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Se venden más gorditas en fin de semana o entre semana? Dame el promedio por día",
+    "contexto": {
+     "periodo": "fin de semana o entre semana",
+     "producto": "gorditas",
+     "categoria": null,
+     "metrica": "promedio por día"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "17:49:26",
+   "duracion_s": 5.767,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 5.14,
+     "tokens_entrada": 2538,
+     "tokens_salida": 195,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Platillo del día",
+      "Barbacoa, tacos, gorditas y bocoles",
+      "Horario y momentos del día",
+      "Recomendaciones típicas para el dueño"
+     ],
+     "ejemplos": [
+      "¿Cuántos tacos de barbacoa se venden en promedio por día entre semana y en fin de semana?",
+      "¿Qué platillo del día se vende más cada día de la semana?",
+      "¿Cuánto vendí por canal este mes y cuál es el ticket promedio?"
+     ],
+     "productos": [
+      "Gordita"
+     ],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana) SELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 2) AS gorditas_por_dia FROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana WHERE v.producto = 'Gordita' GROUP BY v.es_fin_de_semana ORDER BY gorditas_por_dia DESC",
+    "explicacion": "Calcula el promedio diario de gorditas vendidas diferenciando entre semana y fin de semana.",
+    "error": null,
+    "filas": 2,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "17:49:26",
+   "duracion_s": 0.002,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 2,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "17:49:26",
+   "duracion_s": 0.09,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "es_fin_de_semana",
+     "y": [
+      "gorditas_por_dia"
+     ],
+     "titulo": "Gorditas por dia por es fin de semana",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "17:49:38",
+   "duracion_s": 11.964,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.797,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 6.918,
+     "tokens_entrada": 1057,
+     "tokens_salida": 113,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 2,
+     "verificadas": 2,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 9,
+    "reglas_rag": [
+     "Platillo del día",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "17:49:38",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "fin de semana o entre semana",
+     "producto": "gorditas",
+     "metrica": "promedio por día",
+     "ultima_pregunta": "¿Se venden más gorditas en fin de semana o entre semana? Dame el promedio por día"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 19.15,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.414,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.905,
+   "tokens_entrada": 1539,
+   "tokens_salida": 123,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 5.14,
+   "tokens_entrada": 2538,
+   "tokens_salida": 195,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.797,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 6.918,
+   "tokens_entrada": 1057,
+   "tokens_salida": 113,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5565,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "es_fin_de_semana",
+   "y": [
+    "gorditas_por_dia"
+   ],
+   "titulo": "Gorditas por dia por es fin de semana",
+   "confianza": "alta"
+  }
+ }
+}

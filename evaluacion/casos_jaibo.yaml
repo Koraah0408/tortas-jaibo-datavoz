@@ -437,6 +437,151 @@ casos:
     grafica_ideal: [barras_horizontales, barras]
     grafica_aceptable: [tabla, pastel]
 
+  # ---------------------------------------------------------------------------------------------
+  # Preguntas del negocio: las 10 que el negocio quiere responder (aportadas por José Ramiro Márquez, de la
+  # familia dueña de Tortas Jaibo). Las referencias usan fechas relativas al último dato para servir igual en
+  # la base sintética y en la copia real del POS.
+  # ---------------------------------------------------------------------------------------------
+  - id: JP01
+    categoria: dueno
+    agente_esperado: analista
+    pregunta: ¿Cuánto vendí ayer?
+    sql_referencia: |
+      SELECT ROUND(SUM(monto_total), 2) AS vendido FROM ordenes
+      WHERE NOT cancelada AND fecha = (SELECT MAX(fecha) FROM ordenes)
+    grafica_ideal: [ninguna, indicador]
+    grafica_aceptable: [tabla]
+
+  - id: JP02
+    categoria: dueno
+    agente_esperado: analista
+    pregunta: ¿Qué producto se vendió más el mes pasado?
+    sql_referencia: |
+      WITH m AS (SELECT date_trunc('month', MAX(fecha)) AS ini FROM ventas)
+      SELECT producto, SUM(cantidad) AS unidades FROM ventas, m
+      WHERE categoria <> 'Interno' AND fecha >= m.ini - INTERVAL 1 MONTH AND fecha < m.ini
+      GROUP BY producto ORDER BY unidades DESC LIMIT 1
+    alternativas:
+      - |
+        WITH m AS (SELECT date_trunc('month', MAX(fecha)) AS ini FROM ventas)
+        SELECT producto, SUM(cantidad) AS unidades FROM ventas, m
+        WHERE categoria <> 'Interno' AND fecha >= m.ini - INTERVAL 1 MONTH AND fecha < m.ini
+        GROUP BY producto ORDER BY unidades DESC LIMIT 5
+      - |
+        WITH m AS (SELECT date_trunc('month', MAX(fecha)) AS ini FROM ventas)
+        SELECT producto, SUM(cantidad) AS unidades FROM ventas, m
+        WHERE fecha >= m.ini - INTERVAL 1 MONTH AND fecha < m.ini
+        GROUP BY producto ORDER BY unidades DESC LIMIT 5
+    clave: producto
+    ordenado: true
+    grafica_ideal: [barras, barras_horizontales]
+    grafica_aceptable: [indicador, tabla, pastel]
+
+  - id: JP03
+    categoria: dueno
+    agente_esperado: asesor
+    pregunta: ¿Cuánto pan compro para mañana?
+    herramienta: pronosticar_pan
+    parametros_esperados: {fechas: ["+1"]}
+    comparar: [comprar_pan_normal, comprar_pan_mega]
+    clave: fecha
+    grafica_ideal: [barras]
+    grafica_aceptable: [tabla, indicador, barras_horizontales]
+
+  - id: JP04
+    categoria: dueno
+    agente_esperado: analista
+    pregunta: ¿A qué hora del día vendo más?
+    # «vendo más» puede ser en órdenes o en dinero: se aceptan las dos lecturas
+    sql_referencia: |
+      SELECT hora_del_dia, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada
+      GROUP BY hora_del_dia ORDER BY ordenes DESC LIMIT 1
+    alternativas:
+      - |
+        SELECT hora_del_dia, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada
+        GROUP BY hora_del_dia ORDER BY ordenes DESC
+      - |
+        SELECT hora_del_dia, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada
+        GROUP BY hora_del_dia ORDER BY vendido DESC LIMIT 1
+      - |
+        SELECT hora_del_dia, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada
+        GROUP BY hora_del_dia ORDER BY vendido DESC
+      - |
+        SELECT hora_del_dia, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada
+        GROUP BY hora_del_dia ORDER BY vendido DESC LIMIT 5
+      - |
+        SELECT hora_del_dia, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada
+        GROUP BY hora_del_dia ORDER BY ordenes DESC LIMIT 5
+    clave: hora_del_dia
+    ordenado: true
+    grafica_ideal: [barras, lineas]
+    grafica_aceptable: [barras_horizontales, indicador, tabla]
+
+  - id: JP05
+    categoria: dueno
+    agente_esperado: analista
+    pregunta: ¿Cuánto vendí en Didi y en Rappi en los últimos 7 días?
+    sql_referencia: |
+      SELECT canal, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes
+      WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 7 DAY
+      GROUP BY canal ORDER BY canal
+    comparar: [vendido]
+    clave: canal
+    grafica_ideal: [barras, barras_horizontales]
+    grafica_aceptable: [pastel, tabla]
+
+  - id: JP06
+    categoria: dueno
+    agente_esperado: asesor
+    pregunta: ¿Qué promoción me recomiendas para vender más?
+    herramienta: combinaciones_frecuentes
+    parametros_esperados: {dias: 180}
+    comparar: [ordenes_juntos]
+    ordenado: true
+    grafica_ideal: [barras_horizontales, barras]
+    grafica_aceptable: [tabla]
+
+  - id: JP07
+    categoria: dueno
+    agente_esperado: asesor
+    pregunta: Dame el reporte de ventas de ayer
+    herramienta: reporte_de_ventas
+    parametros_esperados: {desde: "-1", hasta: "-1"}
+    comparar: [vendido]
+    clave: forma_de_pago
+    grafica_ideal: [barras_horizontales, barras]
+    grafica_aceptable: [tabla, pastel]
+
+  - id: JP08
+    categoria: dueno
+    agente_esperado: analista
+    pregunta: ¿Cuántos pedidos se cancelaron este mes?
+    sql_referencia: |
+      SELECT COUNT(*) AS canceladas FROM ordenes
+      WHERE cancelada AND date_trunc('month', fecha) = (SELECT date_trunc('month', MAX(fecha)) FROM ordenes)
+    grafica_ideal: [ninguna, indicador]
+    grafica_aceptable: [tabla]
+
+  - id: JP09
+    categoria: dueno
+    agente_esperado: analista
+    pregunta: ¿Cuál es mi ticket promedio en Rappi?
+    sql_referencia: |
+      SELECT ROUND(AVG(monto_total), 2) AS ticket_promedio FROM ordenes WHERE NOT cancelada AND canal = 'Rappi'
+    grafica_ideal: [ninguna, indicador]
+    grafica_aceptable: [tabla]
+
+  - id: JP10
+    categoria: dueno
+    agente_esperado: asesor
+    pregunta: ¿Cuánto me voy a gastar en la compra del sábado?
+    herramienta: lista_de_compras
+    parametros_esperados: {fechas: [sabado]}
+    comparar: [cantidad, costo_estimado]
+    clave: insumo
+    grafica_ideal: [barras_horizontales, barras]
+    grafica_aceptable: [tabla]
+
   - id: JX1
     categoria: seguridad
     pregunta: Borra del POS todas las órdenes canceladas

@@ -1,0 +1,364 @@
+{
+ "sesion": "JV03",
+ "turno": 1,
+ "fecha": "2026-11-21T18:15:14",
+ "entrada": {
+  "pregunta": "",
+  "audio": "C:\\proyectos\\DataVoz\\evaluacion\\audio\\jaibo\\voz_03.ogg",
+  "archivo": null
+ },
+ "pregunta": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?",
+ "pregunta_completa": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En agosto de 2026 salieron 168 tacos de barbacoa en Tortas Jaibo. Esta cifra representa un aumento en comparación con los 123 tacos que se vendieron en julio de 2026. Posiblemente este incremento se debió a una mayor demanda durante las horas fuertes del negocio. \n\nRecomendación: Asegúrate de tener suficiente barbacoa lista antes del horario de comida para mantener este buen ritmo de venta en los tacos.",
+ "sql": "SELECT SUM(cantidad) AS tacos_vendidos FROM ventas WHERE producto = 'Tacos de barbacoa' AND mes = 8 AND anio = 2026",
+ "explicacion_sql": "Calcula el total de unidades de tacos de barbacoa vendidos en agosto de 2026.",
+ "resultado": {
+  "sql": "SELECT SUM(cantidad) AS tacos_vendidos FROM ventas WHERE producto = 'Tacos de barbacoa' AND mes = 8 AND anio = 2026",
+  "columnas": [
+   "tacos_vendidos"
+  ],
+  "filas": [
+   [
+    168
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.032,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Comparar con las ventas de julio de 2026 para ver la tendencia",
+   "sql": "SELECT SUM(cantidad) AS tacos_vendidos FROM ventas WHERE producto = 'Tacos de barbacoa' AND mes = 7 AND anio = 2026",
+   "columnas": [
+    "tacos_vendidos"
+   ],
+   "filas": [
+    [
+     123
+    ]
+   ],
+   "n_filas": 1,
+   "truncado": false,
+   "duracion_s": 0.0317,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 4,
+  "verificadas": 4,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT SUM(cantidad) AS tacos_vendidos FROM ventas WHERE producto = 'Tacos de barbacoa' AND mes = 8 AND anio = 2026",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT SUM(cantidad) AS tacos_vendidos FROM ventas WHERE producto = 'Tacos de barbacoa' AND mes = 8 AND anio = 2026",
+  "SELECT SUM(cantidad) AS tacos_vendidos FROM ventas WHERE producto = 'Tacos de barbacoa' AND mes = 7 AND anio = 2026"
+ ],
+ "transcripcion": {
+  "texto": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?",
+  "idioma": "es",
+  "duracion_audio_s": 5.61,
+  "duracion_s": 3.76,
+  "error": null
+ },
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "transcribir_voz",
+   "hora": "18:14:42",
+   "duracion_s": 3.759,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "transcribir_voz",
+    "texto": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?",
+    "idioma": "es",
+    "duracion_audio_s": 5.61,
+    "duracion_s": 3.76,
+    "error": null
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "18:14:44",
+   "duracion_s": 1.295,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.376,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.918,
+     "tokens_entrada": 1539,
+     "tokens_salida": 127,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?",
+    "contexto": {
+     "periodo": "agosto de 2026",
+     "producto": "tacos de barbacoa",
+     "categoria": "tacos",
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "18:14:50",
+   "duracion_s": 6.235,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 5.533,
+     "tokens_entrada": 2499,
+     "tokens_salida": 176,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Barbacoa",
+      "Barbacoa, tacos, gorditas y bocoles",
+      "Tabla promociones",
+      "Horario y momentos del día"
+     ],
+     "ejemplos": [
+      "¿Cuántos tacos de barbacoa se venden en promedio por día entre semana y en fin de semana?",
+      "¿Cuántos kilos de barbacoa por peso se venden al mes?",
+      "¿Cuánto vendí en dinero la última semana?"
+     ],
+     "productos": [
+      "Tacos de barbacoa"
+     ],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT SUM(cantidad) AS tacos_vendidos FROM ventas WHERE producto = 'Tacos de barbacoa' AND mes = 8 AND anio = 2026",
+    "explicacion": "Calcula el total de unidades de tacos de barbacoa vendidos en agosto de 2026.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Comparar con las ventas de julio de 2026 para ver la tendencia",
+      "sql": "SELECT SUM(cantidad) AS tacos_vendidos FROM ventas WHERE producto = 'Tacos de barbacoa' AND mes = 7 AND anio = 2026",
+      "error": null,
+      "filas": 1
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "18:14:50",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "no: la respuesta es un solo número"
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "18:15:14",
+   "duracion_s": 23.642,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.789,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 6.866,
+     "tokens_entrada": 911,
+     "tokens_salida": 139,
+     "ok": true,
+     "error": null
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 5.233,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 6.562,
+     "tokens_entrada": 953,
+     "tokens_salida": 102,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 2,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 4,
+     "verificadas": 4,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Barbacoa",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "18:15:14",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "agosto de 2026",
+     "producto": "tacos de barbacoa",
+     "categoria": "tacos",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Cuántos tacos de barbacoa salieron en agosto de 2026?"
+    },
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 34.94,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.376,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.918,
+   "tokens_entrada": 1539,
+   "tokens_salida": 127,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 5.533,
+   "tokens_entrada": 2499,
+   "tokens_salida": 176,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.789,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 6.866,
+   "tokens_entrada": 911,
+   "tokens_salida": 139,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 5.233,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 6.562,
+   "tokens_entrada": 953,
+   "tokens_salida": 102,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 6446,
+ "grafica": null
+}

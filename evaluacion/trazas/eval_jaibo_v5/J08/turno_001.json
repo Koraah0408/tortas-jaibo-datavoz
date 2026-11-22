@@ -1,0 +1,310 @@
+{
+ "sesion": "J08",
+ "turno": 1,
+ "fecha": "2026-11-21T16:58:30",
+ "entrada": {
+  "pregunta": "¿Se venden más gorditas en fin de semana o entre semana? Dame el promedio por día",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Se venden más gorditas en fin de semana o entre semana? Dame el promedio por día",
+ "pregunta_completa": "¿Se venden más gorditas en fin de semana o entre semana? Dame el promedio de ventas por día de las gorditas.",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Las gorditas se venden ligeramente mejor en fin de semana, con un promedio de 5.70 unidades diarias, comparado con las 5.20 unidades que se venden entre semana. Aunque el promedio diario es mayor en sábado y domingo, entre semana se registra un volumen total de ventas más alto debido a que el negocio opera más días. Posiblemente, la clientela busca este platillo como un antojo especial durante sus días de descanso.\n\nRecomendación: Mantén un inventario de insumos para gorditas un poco más alto para los fines de semana, ya que la demanda por día es más intensa.",
+ "sql": "WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana)\nSELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 2) AS unidades_por_dia\nFROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana\nWHERE v.producto = 'Gordita'\nGROUP BY v.es_fin_de_semana",
+ "explicacion_sql": "Calcula el promedio de unidades de gorditas vendidas por día separando entre semana y fin de semana.",
+ "resultado": {
+  "sql": "WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana)\nSELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 2) AS unidades_por_dia\nFROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana\nWHERE v.producto = 'Gordita'\nGROUP BY v.es_fin_de_semana",
+  "columnas": [
+   "es_fin_de_semana",
+   "unidades_por_dia"
+  ],
+  "filas": [
+   [
+    false,
+    5.2
+   ],
+   [
+    true,
+    5.7
+   ]
+  ],
+  "n_filas": 2,
+  "truncado": false,
+  "duracion_s": 0.0413,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver el total de unidades y días con ventas de gorditas por tipo de día para mayor contexto",
+   "sql": "SELECT es_fin_de_semana, SUM(cantidad) AS total_unidades, COUNT(DISTINCT fecha) AS dias_con_ventas FROM ventas WHERE producto = 'Gordita' GROUP BY es_fin_de_semana",
+   "columnas": [
+    "es_fin_de_semana",
+    "total_unidades",
+    "dias_con_ventas"
+   ],
+   "filas": [
+    [
+     false,
+     1087,
+     178
+    ],
+    [
+     true,
+     513,
+     78
+    ]
+   ],
+   "n_filas": 2,
+   "truncado": false,
+   "duracion_s": 0.0415,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 2,
+  "verificadas": 2,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana)\nSELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 2) AS unidades_por_dia\nFROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana\nWHERE v.producto = 'Gordita'\nGROUP BY v.es_fin_de_semana",
+   "problema": null,
+   "n_filas": 2
+  }
+ ],
+ "sql_ejecutadas": [
+  "WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana)\nSELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 2) AS unidades_por_dia\nFROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana\nWHERE v.producto = 'Gordita'\nGROUP BY v.es_fin_de_semana",
+  "SELECT es_fin_de_semana, SUM(cantidad) AS total_unidades, COUNT(DISTINCT fecha) AS dias_con_ventas FROM ventas WHERE producto = 'Gordita' GROUP BY es_fin_de_semana"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "16:58:25",
+   "duracion_s": 1.783,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.783,
+     "tokens_entrada": 1536,
+     "tokens_salida": 125,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Se venden más gorditas en fin de semana o entre semana? Dame el promedio de ventas por día de las gorditas.",
+    "contexto": {
+     "periodo": "todo el periodo disponible",
+     "producto": "gorditas",
+     "categoria": null,
+     "metrica": "unidades"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "16:58:27",
+   "duracion_s": 2.075,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.181,
+     "tokens_entrada": 2608,
+     "tokens_salida": 290,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Barbacoa, tacos, gorditas y bocoles",
+      "Platillo del día",
+      "Compra y preparación de pan",
+      "Columnas de calendario en ventas y ordenes"
+     ],
+     "ejemplos": [
+      "¿Cuántos tacos de barbacoa se venden en promedio por día entre semana y en fin de semana?",
+      "¿Qué platillo del día se vende más cada día de la semana?",
+      "¿Cuánto subió el precio de las tortas con el tiempo?"
+     ],
+     "productos": [
+      "Gordita"
+     ],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "WITH dias AS (SELECT es_fin_de_semana, COUNT(DISTINCT fecha) AS n FROM ordenes GROUP BY es_fin_de_semana)\nSELECT v.es_fin_de_semana, ROUND(SUM(v.cantidad) * 1.0 / MAX(d.n), 2) AS unidades_por_dia\nFROM ventas v JOIN dias d ON v.es_fin_de_semana = d.es_fin_de_semana\nWHERE v.producto = 'Gordita'\nGROUP BY v.es_fin_de_semana",
+    "explicacion": "Calcula el promedio de unidades de gorditas vendidas por día separando entre semana y fin de semana.",
+    "error": null,
+    "filas": 2,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver el total de unidades y días con ventas de gorditas por tipo de día para mayor contexto",
+      "sql": "SELECT es_fin_de_semana, SUM(cantidad) AS total_unidades, COUNT(DISTINCT fecha) AS dias_con_ventas FROM ventas WHERE producto = 'Gordita' GROUP BY es_fin_de_semana",
+      "error": null,
+      "filas": 2
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "16:58:27",
+   "duracion_s": 0.003,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 2,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "16:58:27",
+   "duracion_s": 0.073,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "es_fin_de_semana",
+     "y": [
+      "unidades_por_dia"
+     ],
+     "titulo": "Unidades por dia por es fin de semana",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "16:58:30",
+   "duracion_s": 2.357,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.044,
+     "tokens_entrada": 1581,
+     "tokens_salida": 129,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 2,
+     "verificadas": 2,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 27,
+    "reglas_rag": [
+     "Platillo del día",
+     "Compra y preparación de pan"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "16:58:30",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "todo el periodo disponible",
+     "producto": "gorditas",
+     "metrica": "unidades",
+     "ultima_pregunta": "¿Se venden más gorditas en fin de semana o entre semana? Dame el promedio de ventas por día de las gorditas."
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 6.3,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.783,
+   "tokens_entrada": 1536,
+   "tokens_salida": 125,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.181,
+   "tokens_entrada": 2608,
+   "tokens_salida": 290,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.044,
+   "tokens_entrada": 1581,
+   "tokens_salida": 129,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 6269,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "es_fin_de_semana",
+   "y": [
+    "unidades_por_dia"
+   ],
+   "titulo": "Unidades por dia por es fin de semana",
+   "confianza": "alta"
+  }
+ }
+}

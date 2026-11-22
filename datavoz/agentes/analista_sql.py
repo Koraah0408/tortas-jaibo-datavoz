@@ -63,6 +63,11 @@ def recuperar_contexto(pregunta: str, ruta_db: str, dominio: str = "abarrotes") 
             "todas_las_categorias": categorias}
 
 
+def _fecha_de_hoy() -> str:
+    from .orquestador import fecha_de_hoy  # importación tardía: orquestador también importa de aquí
+    return fecha_de_hoy()
+
+
 def construir_prompt_usuario(estado: EstadoDataVoz, rag: dict, ruta_db: str) -> str:
     datos = estado.get("datos") or {}
     resumen = datos.get("resumen") or {}
@@ -70,7 +75,7 @@ def construir_prompt_usuario(estado: EstadoDataVoz, rag: dict, ruta_db: str) -> 
     partes = [
         f"Negocio: {datos.get('negocio') or 'pequeño negocio'}.",
         f"Esquema de la base de datos (DuckDB):\n{esquema_de(ruta_db)}",
-        f"Periodo disponible: del {resumen.get('desde')} al {resumen.get('hasta')}.",
+        f"Periodo disponible: del {resumen.get('desde')} al {resumen.get('hasta')}. {_fecha_de_hoy()}",
         "Diccionario de datos y reglas del negocio relevantes (RAG):\n" +
         "\n\n".join(d["texto"] for d in rag["documentos"]),
         "Ejemplos validados de pregunta → SQL (RAG):\n" + "\n\n".join(e["texto"] for e in rag["ejemplos"]),

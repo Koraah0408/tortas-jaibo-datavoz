@@ -255,6 +255,9 @@ vistas preparadas sin datos personales (se excluyen empleados, créditos de empl
 órdenes). El conector descarga una copia a DuckDB (<code>data/jaibo/jaibo.duckdb</code>) cuando tiene más de 30 minutos y
 la transforma en las tablas <code>ordenes</code>, <code>ventas</code>, <code>productos</code>, <code>ingredientes</code> y
 <code>promociones</code>. La copia, los costos y los reportes no se suben a GitHub.</p>
+<p><b>Permiso del dueño.</b> El dueño autorizó usar las ventas del negocio en este proyecto escolar, incluida la
+presentación, con una condición: que su punto de venta no se vea afectado. Por eso todo el acceso es de solo lectura,
+sobre una copia, y las cifras reales no se publican en el repositorio.</p>
 <p><b>Datos para evaluar.</b> Para que la evaluación sea reproducible y no publique ventas reales se generó una base
 sintética con el mismo menú y la misma estructura del POS: {{ datos.ordenes }} órdenes, {{ datos.renglones }} renglones de
 venta y {{ datos.productos }} productos (enero–noviembre de 2026), con fines de semana, quincenas, canales, créditos a

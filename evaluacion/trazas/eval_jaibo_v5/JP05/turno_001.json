@@ -1,0 +1,328 @@
+{
+ "sesion": "JP05",
+ "turno": 1,
+ "fecha": "2026-11-21T17:08:39",
+ "entrada": {
+  "pregunta": "¿Cuánto vendí en Didi y en Rappi en los últimos 7 días?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuánto vendí en Didi y en Rappi en los últimos 7 días?",
+ "pregunta_completa": "¿Cuánto vendí en dinero en Didi y en Rappi durante los últimos 7 días, del 9 al 15 de noviembre de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En los últimos 7 días, tus ventas por aplicaciones sumaron $6,748, de los cuales $4,123 fueron por Didi con 22 órdenes y $2,625 por Rappi con 12 órdenes. Estas plataformas representan una parte importante de tus $19,153 en ventas totales del periodo. Didi está moviendo un volumen mayor, superando a Rappi por 10 órdenes y $1,498 en dinero. Posiblemente, la diferencia se deba a una mayor preferencia de los clientes por Didi en tu zona o a una mejor visibilidad de tu negocio en esa plataforma.\n\nRecomendación: Analiza qué productos se venden más en Didi para crear una promoción exclusiva en Rappi que te ayude a equilibrar el volumen de ventas entre ambas plataformas.",
+ "sql": "SELECT canal, ROUND(SUM(monto_total), 2) AS ventas, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND fecha BETWEEN '2026-11-09' AND '2026-11-15' GROUP BY canal ORDER BY ventas DESC",
+ "explicacion_sql": "Mide las ventas totales en dinero y el número de órdenes para Didi y Rappi durante los últimos 7 días especificados (del 9 al 15 de noviembre de 2026).",
+ "resultado": {
+  "sql": "SELECT canal, ROUND(SUM(monto_total), 2) AS ventas, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND fecha BETWEEN '2026-11-09' AND '2026-11-15' GROUP BY canal ORDER BY ventas DESC",
+  "columnas": [
+   "canal",
+   "ventas",
+   "ordenes"
+  ],
+  "filas": [
+   [
+    "Didi",
+    4123.0,
+    22
+   ],
+   [
+    "Rappi",
+    2625.0,
+    12
+   ]
+  ],
+  "n_filas": 2,
+  "truncado": false,
+  "duracion_s": 0.0332,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Comparar con las ventas totales del negocio en el mismo periodo para ver el peso de las apps",
+   "sql": "SELECT ROUND(SUM(monto_total), 2) AS ventas_totales FROM ordenes WHERE NOT cancelada AND fecha BETWEEN '2026-11-09' AND '2026-11-15'",
+   "columnas": [
+    "ventas_totales"
+   ],
+   "filas": [
+    [
+     19153.0
+    ]
+   ],
+   "n_filas": 1,
+   "truncado": false,
+   "duracion_s": 0.0343,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 9,
+  "verificadas": 9,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT canal, ROUND(SUM(monto_total), 2) AS ventas, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND fecha BETWEEN '2026-11-09' AND '2026-11-15' GROUP BY canal ORDER BY ventas DESC",
+   "problema": null,
+   "n_filas": 2
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT canal, ROUND(SUM(monto_total), 2) AS ventas, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND fecha BETWEEN '2026-11-09' AND '2026-11-15' GROUP BY canal ORDER BY ventas DESC",
+  "SELECT ROUND(SUM(monto_total), 2) AS ventas_totales FROM ordenes WHERE NOT cancelada AND fecha BETWEEN '2026-11-09' AND '2026-11-15'"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "17:08:32",
+   "duracion_s": 1.561,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.56,
+     "tokens_entrada": 1535,
+     "tokens_salida": 155,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuánto vendí en dinero en Didi y en Rappi durante los últimos 7 días, del 9 al 15 de noviembre de 2026?",
+    "contexto": {
+     "periodo": "2026-11-09 al 2026-11-15",
+     "producto": null,
+     "categoria": "Didi, Rappi",
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "17:08:34",
+   "duracion_s": 1.977,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.272,
+     "tokens_entrada": 2573,
+     "tokens_salida": 254,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Horario y momentos del día",
+      "Convenciones de SQL (DuckDB)",
+      "Recomendaciones típicas para el dueño",
+      "Columnas de calendario en ventas y ordenes"
+     ],
+     "ejemplos": [
+      "¿Cuánto vendí en dinero la última semana?",
+      "¿Cuánto más caro cobro en Didi y Rappi que en el mostrador? (sobreprecio de las apps)",
+      "¿Qué productos se venden más en Rappi?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT canal, ROUND(SUM(monto_total), 2) AS ventas, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND fecha BETWEEN '2026-11-09' AND '2026-11-15' GROUP BY canal ORDER BY ventas DESC",
+    "explicacion": "Mide las ventas totales en dinero y el número de órdenes para Didi y Rappi durante los últimos 7 días especificados (del 9 al 15 de noviembre de 2026).",
+    "error": null,
+    "filas": 2,
+    "consultas_apoyo": [
+     {
+      "proposito": "Comparar con las ventas totales del negocio en el mismo periodo para ver el peso de las apps",
+      "sql": "SELECT ROUND(SUM(monto_total), 2) AS ventas_totales FROM ordenes WHERE NOT cancelada AND fecha BETWEEN '2026-11-09' AND '2026-11-15'",
+      "error": null,
+      "filas": 1
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "17:08:34",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 2,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "17:08:36",
+   "duracion_s": 1.43,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.349,
+     "tokens_entrada": 635,
+     "tokens_salida": 86,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "canal",
+     "y": [
+      "ventas"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Ventas por plataforma"
+    },
+    "razon": "Es la forma más clara de comparar el rendimiento en dinero entre dos canales específicos.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "17:08:39",
+   "duracion_s": 3.094,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.878,
+     "tokens_entrada": 1241,
+     "tokens_salida": 177,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 9,
+     "verificadas": 9,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 18,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Recomendaciones típicas para el dueño"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "17:08:39",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "2026-11-09 al 2026-11-15",
+     "categoria": "Didi, Rappi",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Cuánto vendí en dinero en Didi y en Rappi durante los últimos 7 días, del 9 al 15 de noviembre de 2026?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 8.08,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.56,
+   "tokens_entrada": 1535,
+   "tokens_salida": 155,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.272,
+   "tokens_entrada": 2573,
+   "tokens_salida": 254,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.349,
+   "tokens_entrada": 635,
+   "tokens_salida": 86,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.878,
+   "tokens_entrada": 1241,
+   "tokens_salida": 177,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 6656,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "canal",
+   "y": [
+    "ventas"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Ventas por plataforma",
+   "razon": "Es la forma más clara de comparar el rendimiento en dinero entre dos canales específicos."
+  }
+ }
+}

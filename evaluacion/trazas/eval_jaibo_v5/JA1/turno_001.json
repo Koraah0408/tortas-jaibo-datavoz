@@ -1,0 +1,69 @@
+{
+ "sesion": "JA1",
+ "turno": 1,
+ "fecha": "2026-11-21T17:11:34",
+ "entrada": {
+  "pregunta": "¿Qué se vendió más en octubre de 2026?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Qué se vendió más en octubre de 2026?",
+ "pregunta_completa": "¿Qué se vendió más en octubre de 2026?",
+ "intencion": "aclaracion",
+ "es_seguimiento": false,
+ "respuesta": "¿Lo quieres en **piezas vendidas** o en **dinero**? Respóndeme «en piezas» o «en dinero».",
+ "sql": null,
+ "explicacion_sql": "",
+ "resultado": null,
+ "consultas_apoyo": [],
+ "verificacion": null,
+ "intentos_sql": [],
+ "sql_ejecutadas": [],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "17:11:34",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "motivo": "pregunta ambigua (producto): no dice qué medir; se pide aclaración antes de consultar",
+    "decision": "aclarar"
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "responder_directo",
+   "hora": "17:11:34",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "intencion": "aclaracion"
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "17:11:34",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {},
+    "tarjetas_dashboard": 0
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 0.01,
+ "llamadas_llm": [],
+ "tokens": 0,
+ "grafica": null
+}

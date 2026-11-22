@@ -1,0 +1,440 @@
+{
+ "sesion": "JH1",
+ "turno": 1,
+ "fecha": "2026-11-21T18:00:55",
+ "entrada": {
+  "pregunta": "¿Cuánto vendí en Rappi en agosto de 2026?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuánto vendí en Rappi en agosto de 2026?",
+ "pregunta_completa": "¿Cuánto vendí en Rappi en agosto de 2026?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "En agosto de 2026 vendiste $9,029.00 en Rappi, lo que equivale a 48 órdenes en total. \n\nEste resultado estuvo impulsado principalmente por la venta de 19 unidades de Mega barda, que generaron $2,090.00, siendo el producto más pedido por esta plataforma. \n\nRecomendación: Empujar en Didi y Rappi los productos que dejan más, como la Mega barda y la Mega mixta, para seguir aprovechando las ventas por aplicación.",
+ "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_vendido, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND canal = 'Rappi' AND mes = 8 AND anio = 2026",
+ "explicacion_sql": "Calcula el dinero total vendido y el número de órdenes en Rappi durante agosto de 2026 usando la tabla ordenes.",
+ "resultado": {
+  "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_vendido, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND canal = 'Rappi' AND mes = 8 AND anio = 2026",
+  "columnas": [
+   "dinero_vendido",
+   "ordenes"
+  ],
+  "filas": [
+   [
+    9029.0,
+    48
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0278,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver el desglose de productos vendidos en Rappi durante agosto de 2026",
+   "sql": "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS venta_renglones FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 GROUP BY producto ORDER BY unidades DESC LIMIT 5",
+   "columnas": [
+    "producto",
+    "unidades",
+    "venta_renglones"
+   ],
+   "filas": [
+    [
+     "Mega barda",
+     19,
+     2090.0
+    ],
+    [
+     "Bocoles",
+     16,
+     352.0
+    ],
+    [
+     "Gordita",
+     16,
+     448.0
+    ],
+    [
+     "Barda normal",
+     12,
+     1140.0
+    ],
+    [
+     "Mega mixta",
+     10,
+     1250.0
+    ]
+   ],
+   "n_filas": 5,
+   "truncado": false,
+   "duracion_s": 0.038,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 5,
+  "verificadas": 5,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT ROUND(SUM(total), 2) AS venta_total, SUM(cantidad) AS unidades FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026",
+   "problema": "revisión del Orquestador: La consulta calcula el dinero cobrado o el ticket promedio con ventas.total. Esa columna es el precio de cada renglón: no incluye extras, sobreprecio de las apps ni descuentos, y AVG(total) es el promedio por renglón, no por orden. Para dinero cobrado, órdenes y ticket promedio usa la tabla ordenes: SUM(monto_total), COUNT(*) y AVG(monto_total) con WHERE NOT cancelada (tiene las mismas columnas de calendario y canal). ventas.total solo sirve para comparar productos o categorías.",
+   "n_filas": 1
+  },
+  {
+   "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_vendido, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND canal = 'Rappi' AND mes = 8 AND anio = 2026",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT ROUND(SUM(total), 2) AS venta_total, SUM(cantidad) AS unidades FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026",
+  "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 GROUP BY producto ORDER BY ventas DESC",
+  "SELECT ROUND(SUM(monto_total), 2) AS dinero_vendido, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND canal = 'Rappi' AND mes = 8 AND anio = 2026",
+  "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS venta_renglones FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 GROUP BY producto ORDER BY unidades DESC LIMIT 5"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "18:00:31",
+   "duracion_s": 1.241,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.223,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 1.017,
+     "tokens_entrada": 1536,
+     "tokens_salida": 116,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuánto vendí en Rappi en agosto de 2026?",
+    "contexto": {
+     "periodo": "agosto de 2026",
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "18:00:37",
+   "duracion_s": 6.136,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 5.326,
+     "tokens_entrada": 2413,
+     "tokens_salida": 198,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Canales y formas de pago",
+      "Horario y momentos del día",
+      "Recomendaciones típicas para el dueño",
+      "Tabla promociones"
+     ],
+     "ejemplos": [
+      "¿Qué productos se venden más en Rappi?",
+      "¿Cuánto más caro cobro en Didi y Rappi que en el mostrador? (sobreprecio de las apps)",
+      "¿Cuánto vendí en dinero la última semana?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT ROUND(SUM(total), 2) AS venta_total, SUM(cantidad) AS unidades FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026",
+    "explicacion": "Calcula el total en dinero y unidades vendidas en Rappi durante agosto de 2026",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver el desglose de productos vendidos en Rappi en agosto de 2026",
+      "sql": "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 GROUP BY producto ORDER BY ventas DESC",
+      "error": null,
+      "filas": 25
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "18:00:37",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "reintentar",
+    "intento": 1,
+    "motivo": "revisión semántica",
+    "problema": "La consulta calcula el dinero cobrado o el ticket promedio con ventas.total. Esa columna es el precio de cada renglón: no incluye extras, sobreprecio de las apps ni descuentos, y AVG(total) es el promedio por renglón, no por orden. Para dinero cobrado, órdenes y ticket promedio usa la tabla ordenes: SUM(monto_total), COUNT(*) y AVG(monto_total) con WHERE NOT cancelada (tiene las mismas columnas de calendario y canal). ventas.total solo sirve para comparar productos o categorías."
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "18:00:43",
+   "duracion_s": 5.925,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 5.731,
+     "tokens_entrada": 2728,
+     "tokens_salida": 219,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 2,
+    "rag": {
+     "documentos": [
+      "Canales y formas de pago",
+      "Horario y momentos del día",
+      "Recomendaciones típicas para el dueño",
+      "Tabla promociones"
+     ],
+     "ejemplos": [
+      "¿Qué productos se venden más en Rappi?",
+      "¿Cuánto más caro cobro en Didi y Rappi que en el mostrador? (sobreprecio de las apps)",
+      "¿Cuánto vendí en dinero la última semana?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT ROUND(SUM(monto_total), 2) AS dinero_vendido, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND canal = 'Rappi' AND mes = 8 AND anio = 2026",
+    "explicacion": "Calcula el dinero total vendido y el número de órdenes en Rappi durante agosto de 2026 usando la tabla ordenes.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver el desglose de productos vendidos en Rappi durante agosto de 2026",
+      "sql": "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS venta_renglones FROM ventas WHERE canal = 'Rappi' AND mes = 8 AND anio = 2026 GROUP BY producto ORDER BY unidades DESC LIMIT 5",
+      "error": null,
+      "filas": 5
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "18:00:43",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 2,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "18:00:43",
+   "duracion_s": 0.076,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "dinero_vendido",
+      "ordenes"
+     ],
+     "titulo": "Dinero vendido",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "18:00:55",
+   "duracion_s": 11.959,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.879,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 6.82,
+     "tokens_entrada": 1392,
+     "tokens_salida": 117,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 5,
+     "verificadas": 5,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 18,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Recomendaciones típicas para el dueño"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "18:00:55",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "agosto de 2026",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Cuánto vendí en Rappi en agosto de 2026?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 25.35,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.223,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 1.017,
+   "tokens_entrada": 1536,
+   "tokens_salida": 116,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 5.326,
+   "tokens_entrada": 2413,
+   "tokens_salida": 198,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 5.731,
+   "tokens_entrada": 2728,
+   "tokens_salida": 219,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.879,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 6.82,
+   "tokens_entrada": 1392,
+   "tokens_salida": 117,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 8719,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "dinero_vendido",
+    "ordenes"
+   ],
+   "titulo": "Dinero vendido",
+   "confianza": "alta"
+  }
+ }
+}

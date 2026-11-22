@@ -1,0 +1,518 @@
+{
+ "sesion": "JH4",
+ "turno": 1,
+ "fecha": "2026-11-21T18:02:48",
+ "entrada": {
+  "pregunta": "¿Me sale más caro vender por Rappi que en el local?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Me sale más caro vender por Rappi que en el local?",
+ "pregunta_completa": "¿Me sale más caro vender por Rappi que en el local?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Sí, vender por Rappi te deja menos dinero por pedido que vender en el local. Cada orden en Rappi deja $28.12 menos que en el mostrador debido a la comisión estimada de 25%, una estimación que conviene confirmar en tu contrato con la app. Aunque en Rappi los clientes piden más Mega barda, el sobreprecio de 12% no alcanza a cubrir la comisión. \n\nRecomendación: Revisa si puedes subir ligeramente los precios en Rappi para absorber mejor la comisión y proteger tu ganancia por pedido.",
+ "sql": null,
+ "explicacion_sql": "Ingreso por canal de las órdenes cobradas del 2026-08-18 al 2026-11-15: venta cobrada, sobreprecio de las apps contra el precio de mostrador, comisión estimada y lo que queda después de la comisión. «Comisión que cubre el sobreprecio» es la comisión máxima con la que un pedido en la app deja lo mismo que venderlo a precio de mostrador; si la comisión real es mayor, cada pedido en la app deja menos que en mostrador. El ingreso por orden NO se compara directo entre canales porque los pedidos de app suelen ser más grandes: la comparación justa es «gana o pierde por orden vs mostrador», lo que deja de más (positivo) o de menos (negativo) cada pedido de app comparado con vender esos mismos productos en el mostrador. Supuestos: comisión de Didi de 25% (SUPUESTO: confírmala en tu contrato con la app); comisión de Rappi de 25% (SUPUESTO: confírmala en tu contrato con la app); Legacy y Automatas compran a crédito: ese dinero entra cuando paga la empresa; sin costos de ingredientes no se puede calcular la ganancia: solo el ingreso después de comisiones.",
+ "resultado": {
+  "columnas": [
+   "canal",
+   "ordenes",
+   "venta_cobrada",
+   "ticket_promedio",
+   "sobreprecio_vs_mostrador_pct",
+   "comision_pct",
+   "comision_estimada",
+   "ingreso_despues_de_comision",
+   "ingreso_por_orden",
+   "comision_que_cubre_el_sobreprecio_pct",
+   "gana_o_pierde_por_orden_vs_mostrador"
+  ],
+  "filas": [
+   [
+    "Local",
+    674,
+    113922.0,
+    169.02,
+    -0.8,
+    0.0,
+    0.0,
+    113922.0,
+    169.02,
+    null,
+    null
+   ],
+   [
+    "Didi",
+    337,
+    61826.0,
+    183.46,
+    5.0,
+    25.0,
+    15456.5,
+    46369.5,
+    137.59,
+    4.8,
+    -37.07
+   ],
+   [
+    "Legacy",
+    158,
+    30284.0,
+    191.67,
+    -1.2,
+    0.0,
+    0.0,
+    30284.0,
+    191.67,
+    null,
+    null
+   ],
+   [
+    "Rappi",
+    138,
+    27136.0,
+    196.64,
+    12.0,
+    25.0,
+    6784.0,
+    20352.0,
+    147.48,
+    10.7,
+    -28.12
+   ],
+   [
+    "Automatas",
+    49,
+    8368.0,
+    170.78,
+    0.3,
+    0.0,
+    0.0,
+    8368.0,
+    170.78,
+    null,
+    null
+   ]
+  ],
+  "n_filas": 5,
+  "error": null,
+  "ejecutada": true,
+  "herramienta": "rentabilidad_canales",
+  "titulo": "Rentabilidad por canal",
+  "grafica_sugerida": {
+   "tipo": "barras",
+   "x": "canal",
+   "y": [
+    "venta_cobrada",
+    "ingreso_despues_de_comision"
+   ],
+   "titulo": "Lo que cobras y lo que te queda después de comisiones"
+  }
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "productos más pedidos en cada canal",
+   "columnas": [
+    "canal",
+    "producto",
+    "unidades",
+    "porcentaje_de_unidades_del_canal"
+   ],
+   "filas": [
+    [
+     "Didi",
+     "Mega barda",
+     144,
+     15.0
+    ],
+    [
+     "Didi",
+     "Tacos de barbacoa",
+     118,
+     12.3
+    ],
+    [
+     "Didi",
+     "Barda normal",
+     117,
+     12.2
+    ],
+    [
+     "Didi",
+     "Bocoles",
+     100,
+     10.4
+    ],
+    [
+     "Didi",
+     "Gordita",
+     82,
+     8.6
+    ],
+    [
+     "Local",
+     "Mega barda",
+     264,
+     13.9
+    ],
+    [
+     "Local",
+     "Tacos de barbacoa",
+     221,
+     11.6
+    ],
+    [
+     "Local",
+     "Gordita",
+     217,
+     11.4
+    ],
+    [
+     "Local",
+     "Barda normal",
+     214,
+     11.3
+    ],
+    [
+     "Local",
+     "Bocoles",
+     213,
+     11.2
+    ],
+    [
+     "Rappi",
+     "Mega barda",
+     76,
+     20.1
+    ],
+    [
+     "Rappi",
+     "Gordita",
+     44,
+     11.6
+    ],
+    [
+     "Rappi",
+     "Bocoles",
+     40,
+     10.6
+    ],
+    [
+     "Rappi",
+     "Barda normal",
+     38,
+     10.1
+    ],
+    [
+     "Rappi",
+     "Tacos de barbacoa",
+     26,
+     6.9
+    ]
+   ],
+   "n_filas": 15,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 3,
+  "verificadas": 3,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [],
+ "sql_ejecutadas": [
+  "SELECT canal, COUNT(*) AS ordenes, SUM(monto_total) AS venta, SUM(subtotal) AS subtotal, MIN(fecha) AS desde, MAX(fecha) AS hasta FROM ordenes WHERE NOT cancelada AND fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 90 DAY GROUP BY canal ORDER BY venta DESC",
+  "SELECT canal, producto, SUM(cantidad) AS unidades FROM ventas WHERE fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 90 DAY AND categoria <> 'Interno' AND canal IN ('Local', 'Didi', 'Rappi') GROUP BY canal, producto"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "18:02:24",
+   "duracion_s": 1.266,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.323,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.943,
+     "tokens_entrada": 1534,
+     "tokens_salida": 111,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": "rentabilidad_canales",
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Me sale más caro vender por Rappi que en el local?",
+    "contexto": {
+     "periodo": null,
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Asesor de negocio",
+   "accion": "analisis_especializado",
+   "hora": "18:02:36",
+   "duracion_s": 11.982,
+   "llamadas_llm": [
+    {
+     "rol": "asesor",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 5.034,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "asesor",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 6.568,
+     "tokens_entrada": 993,
+     "tokens_salida": 42,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "rentabilidad_canales",
+    "propuesta_llm": {
+     "herramienta": "rentabilidad_canales",
+     "parametros": {
+      "dias": null,
+      "comisiones": null
+     }
+    },
+    "parametros": {
+     "dias": 90,
+     "mes": null,
+     "anio": null,
+     "comisiones": {
+      "Didi": 0.25,
+      "Rappi": 0.25
+     }
+    },
+    "filas": 5,
+    "supuestos": [
+     "comisión de Didi de 25% (SUPUESTO: confírmala en tu contrato con la app)",
+     "comisión de Rappi de 25% (SUPUESTO: confírmala en tu contrato con la app)",
+     "Legacy y Automatas compran a crédito: ese dinero entra cuando paga la empresa",
+     "sin costos de ingredientes no se puede calcular la ganancia: solo el ingreso después de comisiones"
+    ],
+    "error_llm": null
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "18:02:36",
+   "duracion_s": 0.093,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "herramienta",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "canal",
+     "y": [
+      "venta_cobrada",
+      "ingreso_despues_de_comision"
+     ],
+     "titulo": "Lo que cobras y lo que te queda después de comisiones",
+     "color": null,
+     "y_dim": null,
+     "valor": null
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "18:02:48",
+   "duracion_s": 12.112,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 4.945,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 6.906,
+     "tokens_entrada": 2533,
+     "tokens_salida": 116,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 3,
+     "verificadas": 3,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 94,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Barbacoa"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "18:02:48",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Me sale más caro vender por Rappi que en el local?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": "rentabilidad_canales",
+ "herramienta_negocio": {
+  "nombre": "rentabilidad_canales",
+  "titulo": "Rentabilidad por canal",
+  "parametros": {
+   "dias": 90,
+   "mes": null,
+   "anio": null,
+   "comisiones": {
+    "Didi": 0.25,
+    "Rappi": 0.25
+   }
+  },
+  "supuestos": [
+   "comisión de Didi de 25% (SUPUESTO: confírmala en tu contrato con la app)",
+   "comisión de Rappi de 25% (SUPUESTO: confírmala en tu contrato con la app)",
+   "Legacy y Automatas compran a crédito: ese dinero entra cuando paga la empresa",
+   "sin costos de ingredientes no se puede calcular la ganancia: solo el ingreso después de comisiones"
+  ]
+ },
+ "carga_pendiente": null,
+ "duracion_s": 25.46,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.323,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.943,
+   "tokens_entrada": 1534,
+   "tokens_salida": 111,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "asesor",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 5.034,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "asesor",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 6.568,
+   "tokens_entrada": 993,
+   "tokens_salida": 42,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 4.945,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 6.906,
+   "tokens_entrada": 2533,
+   "tokens_salida": 116,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5329,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "canal",
+   "y": [
+    "venta_cobrada",
+    "ingreso_despues_de_comision"
+   ],
+   "titulo": "Lo que cobras y lo que te queda después de comisiones",
+   "color": null,
+   "y_dim": null,
+   "valor": null
+  }
+ }
+}

@@ -1,0 +1,347 @@
+{
+ "sesion": "JP04",
+ "turno": 1,
+ "fecha": "2026-11-21T17:08:20",
+ "entrada": {
+  "pregunta": "¿A qué hora del día vendo más?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿A qué hora del día vendo más?",
+ "pregunta_completa": "¿A qué hora del día vendo más en Tortas Jaibo?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Tu hora de mayor venta es a las 14:00, cuando alcanzas $143,207 con 803 órdenes. Este horario es, por mucho, el más fuerte del día, seguido de cerca por las 15:00 y las 16:00, lo que confirma que tu pico de actividad se concentra a media tarde. Posiblemente, este flujo se deba a la hora de comida de los empleados de las empresas que atiendes y los clientes que visitan el local. En contraste, las ventas disminuyen considerablemente conforme se acerca el cierre a las 19:00.\n\nRecomendación: Asegura tener suficiente personal y producto preparado desde las 13:30 para cubrir la alta demanda que comienza a las 14:00.",
+ "sql": "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada GROUP BY hora_del_dia ORDER BY vendido DESC",
+ "explicacion_sql": "Muestra las horas del día ordenadas por el monto total vendido y el número de órdenes.",
+ "resultado": {
+  "sql": "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada GROUP BY hora_del_dia ORDER BY vendido DESC",
+  "columnas": [
+   "hora_del_dia",
+   "ordenes",
+   "vendido"
+  ],
+  "filas": [
+   [
+    14,
+    803,
+    143207.0
+   ],
+   [
+    15,
+    678,
+    121489.0
+   ],
+   [
+    16,
+    578,
+    102809.0
+   ],
+   [
+    17,
+    549,
+    96099.0
+   ],
+   [
+    13,
+    473,
+    84568.0
+   ],
+   [
+    18,
+    486,
+    83566.0
+   ],
+   [
+    11,
+    395,
+    71648.0
+   ],
+   [
+    12,
+    405,
+    71450.0
+   ],
+   [
+    10,
+    339,
+    58973.0
+   ],
+   [
+    9,
+    202,
+    33300.0
+   ],
+   [
+    19,
+    89,
+    15087.0
+   ]
+  ],
+  "n_filas": 11,
+  "truncado": false,
+  "duracion_s": 0.0348,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 2,
+  "verificadas": 2,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada GROUP BY hora_del_dia ORDER BY vendido DESC",
+   "problema": null,
+   "n_filas": 11
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada GROUP BY hora_del_dia ORDER BY vendido DESC"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "17:08:15",
+   "duracion_s": 1.521,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.52,
+     "tokens_entrada": 1526,
+     "tokens_salida": 106,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿A qué hora del día vendo más en Tortas Jaibo?",
+    "contexto": {
+     "periodo": null,
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "17:08:16",
+   "duracion_s": 1.582,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.985,
+     "tokens_entrada": 2686,
+     "tokens_salida": 102,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Horario y momentos del día",
+      "Métricas de Tortas Jaibo",
+      "Barbacoa",
+      "Compra y preparación de pan"
+     ],
+     "ejemplos": [
+      "¿Cuánto subió el precio de las tortas con el tiempo?",
+      "¿A qué hora se venden más órdenes?",
+      "¿Cuántas tortas vendí por día de la semana en las últimas 8 semanas?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": [
+      "tortas"
+     ]
+    },
+    "sql": "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada GROUP BY hora_del_dia ORDER BY vendido DESC",
+    "explicacion": "Muestra las horas del día ordenadas por el monto total vendido y el número de órdenes.",
+    "error": null,
+    "filas": 11,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "17:08:16",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 11,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "17:08:18",
+   "duracion_s": 1.786,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.697,
+     "tokens_entrada": 809,
+     "tokens_salida": 102,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "lineas",
+    "spec": {
+     "tipo": "lineas",
+     "x": "hora_del_dia",
+     "y": [
+      "ordenes"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Horas de mayor venta"
+    },
+    "razon": "Las líneas permiten visualizar claramente la tendencia de las ventas a lo largo de las horas del día para identificar los picos de actividad.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "17:08:20",
+   "duracion_s": 2.092,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.816,
+     "tokens_entrada": 1485,
+     "tokens_salida": 172,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 2,
+     "verificadas": 2,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 30,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Barbacoa"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "17:08:20",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "metrica": "dinero",
+     "ultima_pregunta": "¿A qué hora del día vendo más en Tortas Jaibo?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 6.99,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.52,
+   "tokens_entrada": 1526,
+   "tokens_salida": 106,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.985,
+   "tokens_entrada": 2686,
+   "tokens_salida": 102,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.697,
+   "tokens_entrada": 809,
+   "tokens_salida": 102,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.816,
+   "tokens_entrada": 1485,
+   "tokens_salida": 172,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 6988,
+ "grafica": {
+  "spec": {
+   "tipo": "lineas",
+   "x": "hora_del_dia",
+   "y": [
+    "ordenes"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Horas de mayor venta",
+   "razon": "Las líneas permiten visualizar claramente la tendencia de las ventas a lo largo de las horas del día para identificar los picos de actividad."
+  }
+ }
+}

@@ -1,0 +1,553 @@
+{
+ "sesion": "JV10",
+ "turno": 1,
+ "fecha": "2026-11-21T18:20:27",
+ "entrada": {
+  "pregunta": "",
+  "audio": "C:\\proyectos\\DataVoz\\evaluacion\\audio\\jaibo\\voz_10.ogg",
+  "archivo": null
+ },
+ "pregunta": "¿Qué tan conveniente es poner una nueva oferta?",
+ "pregunta_completa": "¿Qué tan conveniente es poner una nueva oferta?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Sí es muy conveniente poner una nueva oferta, especialmente combinando lo que los clientes ya compran juntos como la Coca cola y la Mega barda, que se pidieron juntas 238 veces. Otro par con buena afinidad es la Horchata con la Mixta normal, que se pidieron 24 veces juntas. Como los lunes por la mañana y los jueves por la mañana tienen menos ventas, con un promedio de 2.10 y 2.60 órdenes respectivamente, una promoción en esos horarios ayudaría a levantar la demanda. Ninguna de estas combinaciones tiene una promoción activa por ahora. \nRecomendación: Lanza un combo de Coca cola con Mega barda válido los lunes y jueves por la mañana para atraer más clientes en los horarios más flojos.",
+ "sql": null,
+ "explicacion_sql": "Pares de productos que más se piden en la misma orden en los últimos 180 días (sin cargos internos). «Afinidad» = cuántas veces más se piden juntos que si se eligieran al azar: mayor que 1 significa que sí tienden a ir juntos. «Ya es promoción» indica si existe una promoción activa con ambos productos. También se muestran los días y horarios más flojos, buenos para una promoción que atraiga clientes.",
+ "resultado": {
+  "columnas": [
+   "producto_1",
+   "producto_2",
+   "ordenes_juntos",
+   "porcentaje_de_ordenes",
+   "afinidad",
+   "ya_es_promocion",
+   "combinacion"
+  ],
+  "filas": [
+   [
+    "Coca cola",
+    "Mega barda",
+    238,
+    8.5,
+    1.23,
+    "no",
+    "Coca cola + Mega barda"
+   ],
+   [
+    "Barda normal",
+    "Coca cola",
+    161,
+    5.8,
+    0.98,
+    "no",
+    "Barda normal + Coca cola"
+   ],
+   [
+    "Barda normal",
+    "Mega barda",
+    158,
+    5.6,
+    0.53,
+    "no",
+    "Barda normal + Mega barda"
+   ],
+   [
+    "Jamaica",
+    "Mega barda",
+    157,
+    5.6,
+    1.14,
+    "no",
+    "Jamaica + Mega barda"
+   ],
+   [
+    "Horchata",
+    "Mega barda",
+    139,
+    5.0,
+    1.0,
+    "no",
+    "Horchata + Mega barda"
+   ],
+   [
+    "Barda normal",
+    "Horchata",
+    127,
+    4.5,
+    1.08,
+    "no",
+    "Barda normal + Horchata"
+   ],
+   [
+    "Barda normal",
+    "Jamaica",
+    125,
+    4.5,
+    1.07,
+    "no",
+    "Barda normal + Jamaica"
+   ],
+   [
+    "Mega barda",
+    "Tamarindo",
+    92,
+    3.3,
+    1.13,
+    "no",
+    "Mega barda + Tamarindo"
+   ],
+   [
+    "Barda normal",
+    "Tamarindo",
+    85,
+    3.0,
+    1.24,
+    "no",
+    "Barda normal + Tamarindo"
+   ],
+   [
+    "Delaware punch",
+    "Mega barda",
+    76,
+    2.7,
+    1.18,
+    "no",
+    "Delaware punch + Mega barda"
+   ]
+  ],
+  "n_filas": 10,
+  "error": null,
+  "ejecutada": true,
+  "herramienta": "combinaciones_frecuentes",
+  "titulo": "Productos que se piden juntos",
+  "grafica_sugerida": {
+   "tipo": "barras_horizontales",
+   "x": "combinacion",
+   "y": [
+    "ordenes_juntos"
+   ],
+   "titulo": "Lo que tus clientes más piden junto"
+  }
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "pares con más afinidad (se piden juntos más de lo normal)",
+   "columnas": [
+    "producto_1",
+    "producto_2",
+    "ordenes_juntos",
+    "afinidad",
+    "ya_es_promocion"
+   ],
+   "filas": [
+    [
+     "Horchata",
+     "Mixta normal",
+     24,
+     2.28,
+     "no"
+    ],
+    [
+     "Arizona",
+     "Bocoles",
+     22,
+     1.83,
+     "no"
+    ],
+    [
+     "Arizona",
+     "Mega mixta",
+     18,
+     1.79,
+     "no"
+    ],
+    [
+     "Coca cola",
+     "Enchiladas suizas",
+     20,
+     1.78,
+     "no"
+    ],
+    [
+     "Coca sin azucar",
+     "Pierna normal",
+     19,
+     1.75,
+     "no"
+    ],
+    [
+     "Coca sin azucar",
+     "Gordita",
+     24,
+     1.61,
+     "no"
+    ],
+    [
+     "Delaware punch",
+     "Tacos de barbacoa",
+     28,
+     1.55,
+     "no"
+    ],
+    [
+     "Coca sin azucar",
+     "Mega mixta",
+     19,
+     1.51,
+     "no"
+    ]
+   ],
+   "n_filas": 8,
+   "error": null,
+   "ejecutada": true
+  },
+  {
+   "proposito": "días y horarios más flojos (promedio de órdenes por día abierto)",
+   "columnas": [
+    "dia_semana",
+    "num_dia_semana",
+    "franja",
+    "ordenes_por_dia"
+   ],
+   "filas": [
+    [
+     "lunes",
+     1,
+     "mañana (antes de las 12)",
+     2.1
+    ],
+    [
+     "jueves",
+     4,
+     "mañana (antes de las 12)",
+     2.6
+    ],
+    [
+     "sabado",
+     6,
+     "mañana (antes de las 12)",
+     3.0
+    ],
+    [
+     "martes",
+     2,
+     "mañana (antes de las 12)",
+     3.0
+    ],
+    [
+     "viernes",
+     5,
+     "mañana (antes de las 12)",
+     3.3
+    ],
+    [
+     "miercoles",
+     3,
+     "mañana (antes de las 12)",
+     3.4
+    ]
+   ],
+   "n_filas": 6,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 4,
+  "verificadas": 4,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [],
+ "sql_ejecutadas": [
+  "WITH l AS (SELECT DISTINCT id_orden, producto FROM ventas WHERE categoria <> 'Interno' AND producto <> '--' AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 180 DAY), n AS (SELECT COUNT(DISTINCT id_orden) AS total FROM l), p AS (SELECT producto, COUNT(*) AS ordenes FROM l GROUP BY producto) SELECT a.producto AS producto_1, b.producto AS producto_2, COUNT(*) AS juntos, MAX(pa.ordenes) AS ordenes_1, MAX(pb.ordenes) AS ordenes_2, MAX(n.total) AS total FROM l a JOIN l b ON a.id_orden = b.id_orden AND a.producto < b.producto JOIN p pa ON pa.producto = a.producto JOIN p pb ON pb.producto = b.producto CROSS JOIN n GROUP BY a.producto, b.producto HAVING COUNT(*) >= 10 ORDER BY juntos DESC LIMIT 80",
+  "SELECT promocion, producto FROM promociones WHERE activa AND producto IS NOT NULL",
+  "WITH d AS (SELECT dia_semana, num_dia_semana, COUNT(DISTINCT fecha) AS dias FROM ordenes WHERE fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 180 DAY GROUP BY dia_semana, num_dia_semana) SELECT o.dia_semana, o.num_dia_semana, CASE WHEN o.hora_del_dia < 12 THEN 'mañana (antes de las 12)' WHEN o.hora_del_dia < 17 THEN 'comida (12 a 17)' ELSE 'tarde (17 en adelante)' END AS franja, ROUND(COUNT(*) * 1.0 / MAX(d.dias), 1) AS ordenes_por_dia FROM ordenes o JOIN d ON o.num_dia_semana = d.num_dia_semana WHERE NOT o.cancelada AND o.fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 180 DAY GROUP BY o.dia_semana, o.num_dia_semana, franja ORDER BY ordenes_por_dia ASC LIMIT 6"
+ ],
+ "transcripcion": {
+  "texto": "¿Qué tan conveniente es poner una nueva oferta?",
+  "idioma": "es",
+  "duracion_audio_s": 5.21,
+  "duracion_s": 3.15,
+  "error": null
+ },
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "transcribir_voz",
+   "hora": "18:20:00",
+   "duracion_s": 3.146,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "transcribir_voz",
+    "texto": "¿Qué tan conveniente es poner una nueva oferta?",
+    "idioma": "es",
+    "duracion_audio_s": 5.21,
+    "duracion_s": 3.15,
+    "error": null
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "18:20:05",
+   "duracion_s": 4.739,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.213,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 4.526,
+     "tokens_entrada": 1530,
+     "tokens_salida": 102,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": "promociones",
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Qué tan conveniente es poner una nueva oferta?",
+    "contexto": {
+     "periodo": null,
+     "producto": null,
+     "categoria": null,
+     "metrica": null
+    }
+   }
+  },
+  {
+   "agente": "Asesor de negocio",
+   "accion": "analisis_especializado",
+   "hora": "18:20:13",
+   "duracion_s": 8.15,
+   "llamadas_llm": [
+    {
+     "rol": "asesor",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.342,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "asesor",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 7.305,
+     "tokens_entrada": 986,
+     "tokens_salida": 36,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "combinaciones_frecuentes",
+    "propuesta_llm": {
+     "herramienta": "combinaciones_frecuentes",
+     "parametros": {
+      "dias": null
+     }
+    },
+    "parametros": {
+     "dias": 180,
+     "min_ordenes": 10
+    },
+    "filas": 10,
+    "supuestos": [],
+    "error_llm": null
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "18:20:13",
+   "duracion_s": 0.075,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "herramienta",
+    "tipo": "barras_horizontales",
+    "spec": {
+     "tipo": "barras_horizontales",
+     "x": "combinacion",
+     "y": [
+      "ordenes_juntos"
+     ],
+     "titulo": "Lo que tus clientes más piden junto",
+     "color": null,
+     "y_dim": null,
+     "valor": null
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "18:20:27",
+   "duracion_s": 13.981,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.335,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 13.432,
+     "tokens_entrada": 2926,
+     "tokens_salida": 164,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 4,
+     "verificadas": 4,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 76,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Promociones"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "18:20:27",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "ultima_pregunta": "¿Qué tan conveniente es poner una nueva oferta?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": "promociones",
+ "herramienta_negocio": {
+  "nombre": "combinaciones_frecuentes",
+  "titulo": "Productos que se piden juntos",
+  "parametros": {
+   "dias": 180,
+   "min_ordenes": 10
+  },
+  "supuestos": []
+ },
+ "carga_pendiente": null,
+ "duracion_s": 30.1,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.213,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 4.526,
+   "tokens_entrada": 1530,
+   "tokens_salida": 102,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "asesor",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.342,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "asesor",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 7.305,
+   "tokens_entrada": 986,
+   "tokens_salida": 36,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.335,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 13.432,
+   "tokens_entrada": 2926,
+   "tokens_salida": 164,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5744,
+ "grafica": {
+  "spec": {
+   "tipo": "barras_horizontales",
+   "x": "combinacion",
+   "y": [
+    "ordenes_juntos"
+   ],
+   "titulo": "Lo que tus clientes más piden junto",
+   "color": null,
+   "y_dim": null,
+   "valor": null
+  }
+ }
+}

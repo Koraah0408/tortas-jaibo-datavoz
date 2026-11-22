@@ -1,0 +1,295 @@
+{
+ "sesion": "JP09",
+ "turno": 1,
+ "fecha": "2026-11-21T17:09:55",
+ "entrada": {
+  "pregunta": "¿Cuál es mi ticket promedio en Rappi?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Cuál es mi ticket promedio en Rappi?",
+ "pregunta_completa": "¿Cuál es mi ticket promedio de ventas en el canal Rappi considerando todo el periodo disponible?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Tu ticket promedio en Rappi es de $183.81. En total, hemos registrado 502 órdenes en este canal, sumando una venta de $92,271. Ten en cuenta que este monto incluye una comisión de la plataforma que es un SUPUESTO, por lo que te recomiendo confirmar el dato exacto de cuánto nos descuentan para conocer tu ganancia real.\n\nRecomendación: Revisa si el margen de utilidad en Rappi es suficiente comparado con el local, considerando que la comisión reduce el ingreso final de cada pedido.",
+ "sql": "SELECT COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND canal = 'Rappi'",
+ "explicacion_sql": "Calcula el número total de órdenes, el ticket promedio y la suma vendida en el canal Rappi para todo el periodo disponible.",
+ "resultado": {
+  "sql": "SELECT COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND canal = 'Rappi'",
+  "columnas": [
+   "ordenes",
+   "ticket_promedio",
+   "total_vendido"
+  ],
+  "filas": [
+   [
+    502,
+    183.81,
+    92271.0
+   ]
+  ],
+  "n_filas": 1,
+  "truncado": false,
+  "duracion_s": 0.0464,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [],
+ "verificacion": {
+  "total_cifras": 3,
+  "verificadas": 3,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND canal = 'Rappi'",
+   "problema": null,
+   "n_filas": 1
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND canal = 'Rappi'"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "17:09:48",
+   "duracion_s": 2.35,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.35,
+     "tokens_entrada": 1527,
+     "tokens_salida": 134,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Cuál es mi ticket promedio de ventas en el canal Rappi considerando todo el periodo disponible?",
+    "contexto": {
+     "periodo": "2026-01-05 al 2026-11-15",
+     "producto": null,
+     "categoria": "Rappi",
+     "metrica": "tickets"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "17:09:50",
+   "duracion_s": 1.483,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 0.821,
+     "tokens_entrada": 2838,
+     "tokens_salida": 120,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Canales de venta y comisiones",
+      "Canales y formas de pago",
+      "Tabla ordenes (una fila por orden o ticket, incluye canceladas)",
+      "Tabla ventas (una fila por producto vendido en una orden completada)"
+     ],
+     "ejemplos": [
+      "¿Cuánto vendí por canal este mes y cuál es el ticket promedio?",
+      "¿Cuánto más caro cobro en Didi y Rappi que en el mostrador? (sobreprecio de las apps)",
+      "¿Qué productos se venden más en Rappi?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND canal = 'Rappi'",
+    "explicacion": "Calcula el número total de órdenes, el ticket promedio y la suma vendida en el canal Rappi para todo el periodo disponible.",
+    "error": null,
+    "filas": 1,
+    "consultas_apoyo": [],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "17:09:50",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 1,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "17:09:50",
+   "duracion_s": 0.115,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "reglas",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": null,
+     "y": [
+      "ordenes",
+      "ticket_promedio",
+      "total_vendido"
+     ],
+     "titulo": "Ordenes",
+     "confianza": "alta"
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "17:09:55",
+   "duracion_s": 5.503,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.825,
+     "tokens_entrada": 992,
+     "tokens_salida": 143,
+     "ok": true,
+     "error": null
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.368,
+     "tokens_entrada": 1038,
+     "tokens_salida": 119,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 2,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 3,
+     "verificadas": 3,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 0,
+    "reglas_rag": [
+     "Canales de venta y comisiones",
+     "Horario y momentos del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "17:09:55",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "2026-01-05 al 2026-11-15",
+     "categoria": "Rappi",
+     "metrica": "tickets",
+     "ultima_pregunta": "¿Cuál es mi ticket promedio de ventas en el canal Rappi considerando todo el periodo disponible?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 9.46,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.35,
+   "tokens_entrada": 1527,
+   "tokens_salida": 134,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 0.821,
+   "tokens_entrada": 2838,
+   "tokens_salida": 120,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.825,
+   "tokens_entrada": 992,
+   "tokens_salida": 143,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.368,
+   "tokens_entrada": 1038,
+   "tokens_salida": 119,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 6911,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": null,
+   "y": [
+    "ordenes",
+    "ticket_promedio",
+    "total_vendido"
+   ],
+   "titulo": "Ordenes",
+   "confianza": "alta"
+  }
+ }
+}

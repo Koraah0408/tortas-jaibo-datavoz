@@ -1,0 +1,486 @@
+{
+ "sesion": "JV06",
+ "turno": 1,
+ "fecha": "2026-11-21T18:17:25",
+ "entrada": {
+  "pregunta": "",
+  "audio": "C:\\proyectos\\DataVoz\\evaluacion\\audio\\jaibo\\voz_06.ogg",
+  "archivo": null
+ },
+ "pregunta": "¿Qué día de la semana tengo más ventas?",
+ "pregunta_completa": "¿Qué día de la semana tengo más ventas?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "El día de la semana con más ventas es el domingo, con un total de $141,401 y 842 tickets, alcanzando una venta promedio por día de $3,142.24. Posiblemente esto se deba a que las familias aprovechan el fin de semana para comer fuera o pedir a domicilio. En contraste, el lunes es el día con menor movimiento, registrando $81,610 y 461 tickets. \n\nRecomendación: Asegúrate de tener suficiente personal y inventario listo desde temprano los domingos para atender la alta demanda, y revisa si vale la pena abrir los lunes considerando que son las ventas más bajas.",
+ "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(DISTINCT id_orden) AS tickets FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+ "explicacion_sql": "Calcula el total de ventas y el número de tickets agrupados por día de la semana, ordenados cronológicamente de lunes a domingo.",
+ "resultado": {
+  "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(DISTINCT id_orden) AS tickets FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+  "columnas": [
+   "dia_semana",
+   "num_dia_semana",
+   "ventas",
+   "tickets"
+  ],
+  "filas": [
+   [
+    "lunes",
+    1,
+    81610.0,
+    461
+   ],
+   [
+    "martes",
+    2,
+    127560.0,
+    698
+   ],
+   [
+    "miercoles",
+    3,
+    136824.0,
+    773
+   ],
+   [
+    "jueves",
+    4,
+    126028.0,
+    717
+   ],
+   [
+    "viernes",
+    5,
+    135313.0,
+    761
+   ],
+   [
+    "sabado",
+    6,
+    133460.0,
+    745
+   ],
+   [
+    "domingo",
+    7,
+    141401.0,
+    842
+   ]
+  ],
+  "n_filas": 7,
+  "truncado": false,
+  "duracion_s": 0.0358,
+  "error": null,
+  "ejecutada": true
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "Ver el promedio de ventas por día de la semana normalizando por la cantidad de veces que ha ocurrido cada día en el periodo",
+   "sql": "WITH dias_conteo AS (SELECT dia_semana, num_dia_semana, COUNT(DISTINCT fecha) AS total_dias FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana) SELECT o.dia_semana, ROUND(SUM(o.monto_total) / MAX(d.total_dias), 2) AS venta_promedio_dia FROM ordenes o JOIN dias_conteo d ON o.dia_semana = d.dia_semana WHERE NOT o.cancelada GROUP BY o.dia_semana, d.num_dia_semana ORDER BY d.num_dia_semana",
+   "columnas": [
+    "dia_semana",
+    "venta_promedio_dia"
+   ],
+   "filas": [
+    [
+     "lunes",
+     2814.14
+    ],
+    [
+     "martes",
+     2834.67
+    ],
+    [
+     "miercoles",
+     3040.53
+    ],
+    [
+     "jueves",
+     2800.62
+    ],
+    [
+     "viernes",
+     3006.96
+    ],
+    [
+     "sabado",
+     2965.78
+    ],
+    [
+     "domingo",
+     3142.24
+    ]
+   ],
+   "n_filas": 7,
+   "truncado": false,
+   "duracion_s": 0.036,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 5,
+  "verificadas": 5,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [
+  {
+   "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(DISTINCT id_orden) AS tickets FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+   "problema": null,
+   "n_filas": 7
+  }
+ ],
+ "sql_ejecutadas": [
+  "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(DISTINCT id_orden) AS tickets FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+  "WITH dias_conteo AS (SELECT dia_semana, num_dia_semana, COUNT(DISTINCT fecha) AS total_dias FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana) SELECT o.dia_semana, ROUND(SUM(o.monto_total) / MAX(d.total_dias), 2) AS venta_promedio_dia FROM ordenes o JOIN dias_conteo d ON o.dia_semana = d.dia_semana WHERE NOT o.cancelada GROUP BY o.dia_semana, d.num_dia_semana ORDER BY d.num_dia_semana"
+ ],
+ "transcripcion": {
+  "texto": "¿Qué día de la semana tengo más ventas?",
+  "idioma": "es",
+  "duracion_audio_s": 2.89,
+  "duracion_s": 2.84,
+  "error": null
+ },
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "transcribir_voz",
+   "hora": "18:16:49",
+   "duracion_s": 2.845,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "transcribir_voz",
+    "texto": "¿Qué día de la semana tengo más ventas?",
+    "idioma": "es",
+    "duracion_audio_s": 2.89,
+    "duracion_s": 2.84,
+    "error": null
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "18:16:54",
+   "duracion_s": 5.338,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.222,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 5.116,
+     "tokens_entrada": 1530,
+     "tokens_salida": 102,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": null,
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Qué día de la semana tengo más ventas?",
+    "contexto": {
+     "periodo": null,
+     "producto": null,
+     "categoria": null,
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Analista SQL",
+   "accion": "generar_y_ejecutar_sql",
+   "hora": "18:17:02",
+   "duracion_s": 7.726,
+   "llamadas_llm": [
+    {
+     "rol": "analista_sql",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 7.096,
+     "tokens_entrada": 2492,
+     "tokens_salida": 331,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intento": 1,
+    "rag": {
+     "documentos": [
+      "Horario y momentos del día",
+      "Platillo del día",
+      "Compra y preparación de pan",
+      "Columnas de calendario en ventas y ordenes"
+     ],
+     "ejemplos": [
+      "¿Qué platillo del día se vende más cada día de la semana?",
+      "¿Cuántos tacos de barbacoa se venden en promedio por día entre semana y en fin de semana?",
+      "¿Qué productos se venden más en Rappi?"
+     ],
+     "productos": [],
+     "categorias": [],
+     "grupos": []
+    },
+    "sql": "SELECT dia_semana, num_dia_semana, ROUND(SUM(monto_total), 2) AS ventas, COUNT(DISTINCT id_orden) AS tickets FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana ORDER BY num_dia_semana",
+    "explicacion": "Calcula el total de ventas y el número de tickets agrupados por día de la semana, ordenados cronológicamente de lunes a domingo.",
+    "error": null,
+    "filas": 7,
+    "consultas_apoyo": [
+     {
+      "proposito": "Ver el promedio de ventas por día de la semana normalizando por la cantidad de veces que ha ocurrido cada día en el periodo",
+      "sql": "WITH dias_conteo AS (SELECT dia_semana, num_dia_semana, COUNT(DISTINCT fecha) AS total_dias FROM ordenes WHERE NOT cancelada GROUP BY dia_semana, num_dia_semana) SELECT o.dia_semana, ROUND(SUM(o.monto_total) / MAX(d.total_dias), 2) AS venta_promedio_dia FROM ordenes o JOIN dias_conteo d ON o.dia_semana = d.dia_semana WHERE NOT o.cancelada GROUP BY o.dia_semana, d.num_dia_semana ORDER BY d.num_dia_semana",
+      "error": null,
+      "filas": 7
+     }
+    ],
+    "consultas_apoyo_descartadas": []
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "supervisar_sql",
+   "hora": "18:17:02",
+   "duracion_s": 0.001,
+   "llamadas_llm": [],
+   "detalle": {
+    "decision": "continuar",
+    "filas": 7,
+    "intentos": 1,
+    "visualizador": "sí"
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "18:17:09",
+   "duracion_s": 7.163,
+   "llamadas_llm": [
+    {
+     "rol": "visualizador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 0.207,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "visualizador",
+     "proveedor": "error",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 5.437,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+    },
+    {
+     "rol": "visualizador",
+     "proveedor": "gemini",
+     "modelo": "gemini-2.5-flash",
+     "duracion_s": 1.459,
+     "tokens_entrada": 746,
+     "tokens_salida": 102,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "llm",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "dia_semana",
+     "y": [
+      "ventas"
+     ],
+     "color": null,
+     "y_dim": null,
+     "valor": null,
+     "titulo": "Ventas por día de la semana"
+    },
+    "razon": "Las barras son ideales para comparar las ventas entre los diferentes días de la semana y ver cuál destaca.",
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "18:17:25",
+   "duracion_s": 16.507,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "error",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 5.013,
+     "tokens_entrada": 0,
+     "tokens_salida": 0,
+     "ok": false,
+     "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+    },
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.5-flash-lite",
+     "duracion_s": 11.308,
+     "tokens_entrada": 1791,
+     "tokens_salida": 147,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 5,
+     "verificadas": 5,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 33,
+    "reglas_rag": [
+     "Horario y momentos del día",
+     "Platillo del día"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "18:17:25",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Qué día de la semana tengo más ventas?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": null,
+ "herramienta_negocio": null,
+ "carga_pendiente": null,
+ "duracion_s": 39.59,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.222,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 5.116,
+   "tokens_entrada": 1530,
+   "tokens_salida": 102,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "analista_sql",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 7.096,
+   "tokens_entrada": 2492,
+   "tokens_salida": 331,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 0.207,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "error",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 5.437,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleAPIError: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}"
+  },
+  {
+   "rol": "visualizador",
+   "proveedor": "gemini",
+   "modelo": "gemini-2.5-flash",
+   "duracion_s": 1.459,
+   "tokens_entrada": 746,
+   "tokens_salida": 102,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "error",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 5.013,
+   "tokens_entrada": 0,
+   "tokens_salida": 0,
+   "ok": false,
+   "error": "GoogleRateLimitError: Error calling model 'gemini-3.1-flash-lite' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.1-flash-l"
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.5-flash-lite",
+   "duracion_s": 11.308,
+   "tokens_entrada": 1791,
+   "tokens_salida": 147,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 7241,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "dia_semana",
+   "y": [
+    "ventas"
+   ],
+   "color": null,
+   "y_dim": null,
+   "valor": null,
+   "titulo": "Ventas por día de la semana",
+   "razon": "Las barras son ideales para comparar las ventas entre los diferentes días de la semana y ver cuál destaca."
+  }
+ }
+}

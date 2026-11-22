@@ -1,0 +1,460 @@
+{
+ "sesion": "JD07",
+ "turno": 1,
+ "fecha": "2026-11-21T17:02:31",
+ "entrada": {
+  "pregunta": "¿Qué tanto se comen las comisiones de las apps en el último mes?",
+  "audio": null,
+  "archivo": null
+ },
+ "pregunta": "¿Qué tanto se comen las comisiones de las apps en el último mes?",
+ "pregunta_completa": "¿Qué tanto se comen las comisiones de las apps en el último mes?",
+ "intencion": "consulta_datos",
+ "es_seguimiento": false,
+ "respuesta": "Las comisiones de las apps sí están reduciendo tu ganancia por pedido, ya que el sobreprecio que aplicas no alcanza a cubrir el costo de la comisión. En Didi, cada pedido te deja $37.94 menos que en mostrador, mientras que en Rappi pierdes $29.14 por orden. Ten en cuenta que estas cifras son estimaciones basadas en una comisión del 25% (SUPUESTO: por favor confirma este porcentaje en tus contratos actuales). Aunque los tickets en las apps son más altos, el impacto de la comisión es mayor al beneficio del sobreprecio.\n\nRecomendación: Revisa si puedes ajustar el sobreprecio en Rappi al 11% y en Didi al 5% para que, al menos, el ingreso por pedido se iguale al de mostrador.",
+ "sql": null,
+ "explicacion_sql": "Ingreso por canal de las órdenes cobradas del 2026-10-17 al 2026-11-15: venta cobrada, sobreprecio de las apps contra el precio de mostrador, comisión estimada y lo que queda después de la comisión. «Comisión que cubre el sobreprecio» es la comisión máxima con la que un pedido en la app deja lo mismo que venderlo a precio de mostrador; si la comisión real es mayor, cada pedido en la app deja menos que en mostrador. El ingreso por orden NO se compara directo entre canales porque los pedidos de app suelen ser más grandes: la comparación justa es «gana o pierde por orden vs mostrador», lo que deja de más (positivo) o de menos (negativo) cada pedido de app comparado con vender esos mismos productos en el mostrador. Supuestos: comisión de Didi de 25% (SUPUESTO: confírmala en tu contrato con la app); comisión de Rappi de 25% (SUPUESTO: confírmala en tu contrato con la app); Legacy y Automatas compran a crédito: ese dinero entra cuando paga la empresa; sin costos de ingredientes no se puede calcular la ganancia: solo el ingreso después de comisiones.",
+ "resultado": {
+  "columnas": [
+   "canal",
+   "ordenes",
+   "venta_cobrada",
+   "ticket_promedio",
+   "sobreprecio_vs_mostrador_pct",
+   "comision_pct",
+   "comision_estimada",
+   "ingreso_despues_de_comision",
+   "ingreso_por_orden",
+   "comision_que_cubre_el_sobreprecio_pct",
+   "gana_o_pierde_por_orden_vs_mostrador"
+  ],
+  "filas": [
+   [
+    "Local",
+    256,
+    43023.0,
+    168.06,
+    -0.5,
+    0.0,
+    0.0,
+    43023.0,
+    168.06,
+    null,
+    null
+   ],
+   [
+    "Didi",
+    131,
+    24609.0,
+    187.85,
+    5.0,
+    25.0,
+    6152.25,
+    18456.75,
+    140.89,
+    4.8,
+    -37.94
+   ],
+   [
+    "Legacy",
+    60,
+    11462.0,
+    191.03,
+    -1.3,
+    0.0,
+    0.0,
+    11462.0,
+    191.03,
+    null,
+    null
+   ],
+   [
+    "Rappi",
+    49,
+    9995.0,
+    203.98,
+    12.0,
+    25.0,
+    2498.75,
+    7496.25,
+    152.98,
+    10.7,
+    -29.14
+   ],
+   [
+    "Automatas",
+    20,
+    3477.0,
+    173.85,
+    0.8,
+    0.0,
+    0.0,
+    3477.0,
+    173.85,
+    null,
+    null
+   ]
+  ],
+  "n_filas": 5,
+  "error": null,
+  "ejecutada": true,
+  "herramienta": "rentabilidad_canales",
+  "titulo": "Rentabilidad por canal",
+  "grafica_sugerida": {
+   "tipo": "barras",
+   "x": "canal",
+   "y": [
+    "venta_cobrada",
+    "ingreso_despues_de_comision"
+   ],
+   "titulo": "Lo que cobras y lo que te queda después de comisiones"
+  }
+ },
+ "consultas_apoyo": [
+  {
+   "proposito": "productos más pedidos en cada canal",
+   "columnas": [
+    "canal",
+    "producto",
+    "unidades",
+    "porcentaje_de_unidades_del_canal"
+   ],
+   "filas": [
+    [
+     "Didi",
+     "Mega barda",
+     54,
+     14.3
+    ],
+    [
+     "Didi",
+     "Bocoles",
+     45,
+     11.9
+    ],
+    [
+     "Didi",
+     "Barda normal",
+     45,
+     11.9
+    ],
+    [
+     "Didi",
+     "Tacos de barbacoa",
+     40,
+     10.6
+    ],
+    [
+     "Didi",
+     "Gordita",
+     32,
+     8.5
+    ],
+    [
+     "Local",
+     "Mega barda",
+     94,
+     13.7
+    ],
+    [
+     "Local",
+     "Barda normal",
+     81,
+     11.8
+    ],
+    [
+     "Local",
+     "Bocoles",
+     77,
+     11.3
+    ],
+    [
+     "Local",
+     "Gordita",
+     74,
+     10.8
+    ],
+    [
+     "Local",
+     "Tacos de barbacoa",
+     65,
+     9.5
+    ],
+    [
+     "Rappi",
+     "Gordita",
+     21,
+     16.3
+    ],
+    [
+     "Rappi",
+     "Mega barda",
+     21,
+     16.3
+    ],
+    [
+     "Rappi",
+     "Barda normal",
+     14,
+     10.9
+    ],
+    [
+     "Rappi",
+     "Horchata",
+     8,
+     6.2
+    ],
+    [
+     "Rappi",
+     "Jamaica",
+     8,
+     6.2
+    ]
+   ],
+   "n_filas": 15,
+   "error": null,
+   "ejecutada": true
+  }
+ ],
+ "verificacion": {
+  "total_cifras": 5,
+  "verificadas": 5,
+  "no_verificadas": [],
+  "porcentaje": 100.0,
+  "ok": true
+ },
+ "intentos_sql": [],
+ "sql_ejecutadas": [
+  "SELECT canal, COUNT(*) AS ordenes, SUM(monto_total) AS venta, SUM(subtotal) AS subtotal, MIN(fecha) AS desde, MAX(fecha) AS hasta FROM ordenes WHERE NOT cancelada AND fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 30 DAY GROUP BY canal ORDER BY venta DESC",
+  "SELECT canal, producto, SUM(cantidad) AS unidades FROM ventas WHERE fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 30 DAY AND categoria <> 'Interno' AND canal IN ('Local', 'Didi', 'Rappi') GROUP BY canal, producto"
+ ],
+ "transcripcion": null,
+ "limpieza": null,
+ "reporte_pdf": null,
+ "pasos": [
+  {
+   "agente": "Orquestador",
+   "accion": "clasificar_intencion",
+   "hora": "17:02:28",
+   "duracion_s": 2.025,
+   "llamadas_llm": [
+    {
+     "rol": "orquestador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 2.024,
+     "tokens_entrada": 1533,
+     "tokens_salida": 117,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intencion": "consulta_datos",
+    "reencauzada": null,
+    "analisis": "rentabilidad_canales",
+    "es_seguimiento": false,
+    "pregunta_completa": "¿Qué tanto se comen las comisiones de las apps en el último mes?",
+    "contexto": {
+     "periodo": "último mes",
+     "producto": null,
+     "categoria": "apps",
+     "metrica": "dinero"
+    }
+   }
+  },
+  {
+   "agente": "Asesor de negocio",
+   "accion": "analisis_especializado",
+   "hora": "17:02:29",
+   "duracion_s": 1.649,
+   "llamadas_llm": [
+    {
+     "rol": "asesor",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.273,
+     "tokens_entrada": 995,
+     "tokens_salida": 44,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "herramienta": "rentabilidad_canales",
+    "propuesta_llm": {
+     "herramienta": "rentabilidad_canales",
+     "parametros": {
+      "dias": 30,
+      "comisiones": null
+     }
+    },
+    "parametros": {
+     "dias": 30,
+     "mes": null,
+     "anio": null,
+     "comisiones": {
+      "Didi": 0.25,
+      "Rappi": 0.25
+     }
+    },
+    "filas": 5,
+    "supuestos": [
+     "comisión de Didi de 25% (SUPUESTO: confírmala en tu contrato con la app)",
+     "comisión de Rappi de 25% (SUPUESTO: confírmala en tu contrato con la app)",
+     "Legacy y Automatas compran a crédito: ese dinero entra cuando paga la empresa",
+     "sin costos de ingredientes no se puede calcular la ganancia: solo el ingreso después de comisiones"
+    ],
+    "error_llm": null
+   }
+  },
+  {
+   "agente": "Visualizador",
+   "accion": "elegir_y_generar_grafica",
+   "hora": "17:02:29",
+   "duracion_s": 0.077,
+   "llamadas_llm": [],
+   "detalle": {
+    "herramienta": "generar_grafica",
+    "origen_decision": "herramienta",
+    "tipo": "barras",
+    "spec": {
+     "tipo": "barras",
+     "x": "canal",
+     "y": [
+      "venta_cobrada",
+      "ingreso_despues_de_comision"
+     ],
+     "titulo": "Lo que cobras y lo que te queda después de comisiones",
+     "color": null,
+     "y_dim": null,
+     "valor": null
+    },
+    "razon": null,
+    "error": null
+   }
+  },
+  {
+   "agente": "Narrador",
+   "accion": "explicar_y_verificar",
+   "hora": "17:02:31",
+   "duracion_s": 1.591,
+   "llamadas_llm": [
+    {
+     "rol": "narrador",
+     "proveedor": "gemini",
+     "modelo": "gemini-3.1-flash-lite",
+     "duracion_s": 1.351,
+     "tokens_entrada": 2567,
+     "tokens_salida": 173,
+     "ok": true,
+     "error": null
+    }
+   ],
+   "detalle": {
+    "intentos_redaccion": 1,
+    "datos_que_parecen_instruccion": [],
+    "verificacion": {
+     "total_cifras": 5,
+     "verificadas": 5,
+     "no_verificadas": [],
+     "porcentaje": 100.0,
+     "ok": true
+    },
+    "hechos_calculados": 97,
+    "reglas_rag": [
+     "Rentabilidad",
+     "Canales de venta y comisiones"
+    ]
+   }
+  },
+  {
+   "agente": "Orquestador",
+   "accion": "actualizar_memoria",
+   "hora": "17:02:31",
+   "duracion_s": 0.0,
+   "llamadas_llm": [],
+   "detalle": {
+    "turnos_en_memoria": 1,
+    "contexto": {
+     "periodo": "último mes",
+     "categoria": "apps",
+     "metrica": "dinero",
+     "ultima_pregunta": "¿Qué tanto se comen las comisiones de las apps en el último mes?"
+    },
+    "tarjetas_dashboard": 1
+   }
+  }
+ ],
+ "error": null,
+ "decision_supervisor": "continuar",
+ "analisis": "rentabilidad_canales",
+ "herramienta_negocio": {
+  "nombre": "rentabilidad_canales",
+  "titulo": "Rentabilidad por canal",
+  "parametros": {
+   "dias": 30,
+   "mes": null,
+   "anio": null,
+   "comisiones": {
+    "Didi": 0.25,
+    "Rappi": 0.25
+   }
+  },
+  "supuestos": [
+   "comisión de Didi de 25% (SUPUESTO: confírmala en tu contrato con la app)",
+   "comisión de Rappi de 25% (SUPUESTO: confírmala en tu contrato con la app)",
+   "Legacy y Automatas compran a crédito: ese dinero entra cuando paga la empresa",
+   "sin costos de ingredientes no se puede calcular la ganancia: solo el ingreso después de comisiones"
+  ]
+ },
+ "carga_pendiente": null,
+ "duracion_s": 5.35,
+ "llamadas_llm": [
+  {
+   "rol": "orquestador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 2.024,
+   "tokens_entrada": 1533,
+   "tokens_salida": 117,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "asesor",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.273,
+   "tokens_entrada": 995,
+   "tokens_salida": 44,
+   "ok": true,
+   "error": null
+  },
+  {
+   "rol": "narrador",
+   "proveedor": "gemini",
+   "modelo": "gemini-3.1-flash-lite",
+   "duracion_s": 1.351,
+   "tokens_entrada": 2567,
+   "tokens_salida": 173,
+   "ok": true,
+   "error": null
+  }
+ ],
+ "tokens": 5429,
+ "grafica": {
+  "spec": {
+   "tipo": "barras",
+   "x": "canal",
+   "y": [
+    "venta_cobrada",
+    "ingreso_despues_de_comision"
+   ],
+   "titulo": "Lo que cobras y lo que te queda después de comisiones",
+   "color": null,
+   "y_dim": null,
+   "valor": null
+  }
+ }
+}

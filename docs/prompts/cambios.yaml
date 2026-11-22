@@ -81,3 +81,9 @@ versiones:
     motivo: "Recomendación 4 de la revisión de la ficha (que el orquestador decida de verdad) y la defensa contra inyección prometida en la ficha corregida."
     evidencia: "tests/test_grafo.py (aclaración y ruta sin Visualizador); casos JA1–JA3 y JX6–JX7 en eval_jaibo_v4."
     sin_cambio_en_prompts_py: true
+
+  - version: 13
+    fecha: "2026-11-21 16:50"
+    cambio: "Orquestador: el análisis reporte_ventas solo cuando se pide el reporte, resumen, corte, PDF o «de todo»; «¿cuánto vendí ayer?» es una consulta normal. Además, el Analista recibe la fecha de hoy y de ayer en el mensaje (antes solo la recibía el Asesor), y el Orquestador ya no convierte fechas relativas en fechas concretas ni agrega peticiones al reescribir un seguimiento; el Asesor calcula las fechas con la pregunta original del dueño."
+    motivo: "Con las 10 preguntas del negocio, «¿Cuánto vendí ayer?» se mandaba al reporte de ventas completo y, al corregirlo, el Orquestador adivinó que ayer era el 14 de noviembre porque no sabía la fecha de hoy."
+    evidencia: "eval_jaibo_dueno (JP01 fallaba en las dos bases). Darle la fecha también al Orquestador (eval_jaibo_v5) hizo que reescribiera «mañana» como el día equivocado (JD02, JC1) y que agregara una recomendación a JM3; por eso la fecha se quedó solo en el Analista y en el Asesor (eval_jaibo_v6, eval_jaibo_real_v3)."

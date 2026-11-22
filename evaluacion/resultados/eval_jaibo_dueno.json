@@ -1,0 +1,571 @@
+{
+ "etiqueta": "eval_jaibo_dueno",
+ "fecha": "2026-11-21T16:52:13",
+ "negocio": "jaibo",
+ "base": "sintetica",
+ "hoy": "2026-11-16",
+ "proveedores": [
+  "gemini"
+ ],
+ "metricas": {
+  "exactitud_sql": {
+   "correctos": 5,
+   "total": 6,
+   "porcentaje": 83.3
+  },
+  "decisiones": {
+   "total": 4,
+   "resultado_correcto": 4,
+   "herramienta_correcta": 4,
+   "parametros_correctos": 4,
+   "porcentaje_resultado": 100.0,
+   "porcentaje_herramienta_y_parametros": 100.0,
+   "con_supuestos": 2,
+   "supuestos_declarados": 2,
+   "porcentaje_supuestos_declarados": 100.0
+  },
+  "ruta": {
+   "correctas": 10,
+   "total": 10,
+   "porcentaje": 100.0
+  },
+  "veracidad": {
+   "cifras_verificadas": 44,
+   "cifras_total": 44,
+   "porcentaje": 100.0
+  },
+  "limpieza": null,
+  "mapeo_columnas": null,
+  "grafica": {
+   "promedio": 4.4,
+   "casos": 10
+  },
+  "memoria": {
+   "correctos": 0,
+   "total": 0,
+   "porcentaje": null
+  },
+  "voz": {
+   "bien_interpretadas": 0,
+   "total": 0,
+   "similitud_promedio": null,
+   "porcentaje": null
+  },
+  "seguridad": {
+   "sentencias_no_select_ejecutadas": 0,
+   "casos_correctos": 0,
+   "casos": 0,
+   "filas_sin_cambios": true,
+   "filas_antes": {
+    "ingredientes": 13,
+    "ordenes": 5302,
+    "producto_ingredientes": 20,
+    "productos": 37,
+    "promociones": 7,
+    "ventas": 11073
+   },
+   "filas_despues": {
+    "ingredientes": 13,
+    "ordenes": 5302,
+    "producto_ingredientes": 20,
+    "productos": 37,
+    "promociones": 7,
+    "ventas": 11073
+   }
+  },
+  "tiempo": {
+   "promedio_s": 9.06,
+   "mediana_s": 8.05,
+   "maximo_s": 20.01,
+   "llamadas_llm_promedio": 3.4
+  },
+  "respaldo_modelos": {
+   "fallos_recuperados": 0,
+   "casos_sin_modelo": 0,
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ]
+  },
+  "aclaracion": {
+   "correctas": 0,
+   "total": 0,
+   "porcentaje": null
+  },
+  "confirmacion": {
+   "cargas": 0,
+   "propuestas_sin_escribir": 0,
+   "escritas_con_aprobacion": 0
+  },
+  "consumo": {
+   "llamadas_promedio": 3.4,
+   "tokens_promedio": 6068
+  },
+  "reintentos_sql": {
+   "casos_con_reintento": 0,
+   "total": 0
+  }
+ },
+ "casos": [
+  {
+   "id": "JP01",
+   "categoria": "dueno",
+   "pregunta": "¿Cuánto vendí ayer?",
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuánto vendí el 14 de noviembre de 2026?",
+   "sql": "SELECT COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-14'",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "El 14 de noviembre de 2026 tus ventas totales fueron de $2,026.00, generadas a través de 13 órdenes. La mayor parte de este movimiento provino de las ventas en el local, que sumaron $785.00 con 6 órdenes. El resto de tus ingresos se repartió entre las plataformas de entrega y los pedidos a crédito de las empresas Legacy y Automatas. Posiblemente, el flujo constante de estas empresas ayuda a mantener el volumen de órdenes durante el día.\n\nRecomendación: Analiza si puedes incentivar más pedidos a través de Rappi, ya que fue el canal con menor participación en ventas con $225.00.",
+   "duracion_s": 20.01,
+   "llamadas_llm": 4,
+   "tokens": 7140,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-14'",
+    "SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS ventas FROM ordenes WHERE NOT cancelada AND fecha = '2026-11-14' GROUP BY canal ORDER BY ventas DESC"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_dueno\\JP01\\turno_001.json",
+   "sql_correcto": false,
+   "motivo": "no coincide la columna 'vendido' (esperado [2891.0])",
+   "grafica": "barras",
+   "puntaje_grafica": 2,
+   "cifras_total": 7,
+   "cifras_verificadas": 7,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 0,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 20.13
+  },
+  {
+   "id": "JP02",
+   "categoria": "dueno",
+   "pregunta": "¿Qué producto se vendió más el mes pasado?",
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Qué producto se vendió más en octubre de 2026?",
+   "sql": "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE mes = 10 AND anio = 2026 AND categoria <> 'Interno' GROUP BY producto ORDER BY unidades DESC LIMIT 5",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "El producto más vendido en octubre de 2026 fue la Mega barda, con 191 unidades vendidas. Este platillo es el favorito de tus clientes, generando $21,010 en ventas, lo que representa una parte muy importante de tus ingresos totales. Le siguen de cerca la Barda normal con 183 unidades y los Tacos de barbacoa con 156 unidades. Es claro que las tortas estilo barda son el motor principal de tu negocio.\n\nRecomendación: Asegúrate de tener siempre listos los insumos para las tortas barda, ya que son las que más mueven tu inventario y tus ingresos.",
+   "duracion_s": 8.68,
+   "llamadas_llm": 4,
+   "tokens": 6141,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS ventas FROM ventas WHERE mes = 10 AND anio = 2026 AND categoria <> 'Interno' GROUP BY producto ORDER BY unidades DESC LIMIT 5"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_dueno\\JP02\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": "barras_horizontales",
+   "puntaje_grafica": 5,
+   "cifras_total": 5,
+   "cifras_verificadas": 5,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 0,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 8.81
+  },
+  {
+   "id": "JP03",
+   "categoria": "dueno",
+   "pregunta": "¿Cuánto pan compro para mañana?",
+   "modelos": [
+    "gemini-3.1-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuánto pan debo comprar para mañana?",
+   "sql": null,
+   "analisis": "pronostico_pan",
+   "herramienta_negocio": "pronosticar_pan",
+   "respuesta": "Para mañana martes 17 de noviembre, te sugiero comprar 7 piezas de pan normal y 10 piezas de pan mega. Este cálculo considera el promedio de ventas de los últimos martes y un ajuste por ser quincena. Ten en cuenta que incluimos un margen de seguridad del 10% como estimación, por lo que te recomiendo confirmar si este porcentaje es suficiente para tu operación. Históricamente, este método tiene un error promedio de 3 piezas por día, así que es una guía útil pero sujeta a variaciones.\n\nRecomendación: Monitorea si con estas cantidades logras cubrir la demanda sin que te sobre demasiado pan al cierre del día.",
+   "duracion_s": 9.17,
+   "llamadas_llm": 3,
+   "tokens": 5315,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "WITH d AS (SELECT DISTINCT fecha FROM ordenes) SELECT d.fecha, COALESCE(SUM(v.cantidad) FILTER (WHERE v.producto IN ('Barbacoa normal', 'Barda normal', 'Mixta normal', 'Pierna normal')), 0) AS normal, COALESCE(SUM(v.cantidad) FILTER (WHERE v.producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna')), 0) AS mega FROM d LEFT JOIN ventas v ON v.fecha = d.fecha GROUP BY d.fecha ORDER BY d.fecha"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_dueno\\JP03\\turno_001.json",
+   "resultado_correcto": true,
+   "herramienta_correcta": true,
+   "parametros_correctos": true,
+   "parametros_incorrectos": [],
+   "parametros_esperados": {
+    "fechas": [
+     "2026-11-17"
+    ]
+   },
+   "parametros_obtenidos": {
+    "fechas": [
+     "2026-11-17"
+    ],
+    "semanas": 8,
+    "margen": 0.1
+   },
+   "motivo": "coincide con la referencia",
+   "grafica": "barras",
+   "puntaje_grafica": 5,
+   "cifras_total": 5,
+   "cifras_verificadas": 5,
+   "cifras_no_verificadas": [],
+   "supuestos": [
+    "margen de seguridad de 10% (SUPUESTO: falta confirmarlo con el dueño)"
+   ],
+   "supuestos_declarados": true,
+   "agente_usado": "asesor",
+   "ruta_correcta": true,
+   "tiempo_total_s": 9.53
+  },
+  {
+   "id": "JP04",
+   "categoria": "dueno",
+   "pregunta": "¿A qué hora del día vendo más?",
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿A qué hora del día vendo más en Tortas Jaibo?",
+   "sql": "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada GROUP BY hora_del_dia ORDER BY ordenes DESC",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "Tu hora de mayor venta es a las 14:00, cuando registras 803 órdenes que suman $143,207. Este horario es el más fuerte para el negocio, seguido de cerca por las 15:00 y las 16:00, lo que confirma que tu pico de actividad ocurre durante la tarde. Posiblemente, este flujo se deba a la hora de comida de los empleados de las empresas que atendemos y los pedidos de mostrador. El resto del día, especialmente después de las 18:00, la actividad baja considerablemente.\n\nRecomendación: Asegura tener suficiente personal y producto preparado desde las 13:30 para cubrir la alta demanda de las 14:00 sin retrasos.",
+   "duracion_s": 7.41,
+   "llamadas_llm": 4,
+   "tokens": 6882,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada GROUP BY hora_del_dia ORDER BY ordenes DESC"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_dueno\\JP04\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": "lineas",
+   "puntaje_grafica": 5,
+   "cifras_total": 2,
+   "cifras_verificadas": 2,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 0,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 7.53
+  },
+  {
+   "id": "JP05",
+   "categoria": "dueno",
+   "pregunta": "¿Cuánto vendí en Didi y en Rappi en los últimos 7 días?",
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuánto vendí en Didi y en Rappi en los últimos 7 días?",
+   "sql": "SELECT canal, ROUND(SUM(monto_total), 2) AS vendido, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 7 DAY GROUP BY canal ORDER BY vendido DESC",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "En los últimos 7 días, las ventas por aplicaciones sumaron $6,748 pesos con un total de 34 órdenes. Didi fue el canal con mayor movimiento, alcanzando $4,123 pesos en 22 órdenes, mientras que Rappi generó $2,625 pesos en 12 órdenes. Esta diferencia de $1,498 pesos sugiere que Didi está captando una mayor parte de la demanda actual de tus clientes digitales. Posiblemente, la mayor actividad en Didi se deba a una mejor visibilidad o preferencia de los usuarios en tu zona.\n\nRecomendación: Revisa si los productos más vendidos en Didi tienen el mismo precio y promoción en Rappi para intentar equilibrar el volumen de órdenes entre ambas plataformas.",
+   "duracion_s": 8.7,
+   "llamadas_llm": 4,
+   "tokens": 6140,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT canal, ROUND(SUM(monto_total), 2) AS vendido, COUNT(*) AS ordenes FROM ordenes WHERE NOT cancelada AND canal IN ('Didi', 'Rappi') AND fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 7 DAY GROUP BY canal ORDER BY vendido DESC"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_dueno\\JP05\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": "barras",
+   "puntaje_grafica": 5,
+   "cifras_total": 8,
+   "cifras_verificadas": 8,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 0,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 8.82
+  },
+  {
+   "id": "JP06",
+   "categoria": "dueno",
+   "pregunta": "¿Qué promoción me recomiendas para vender más?",
+   "modelos": [
+    "gemini-3.1-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Qué promoción me recomiendas para vender más en Tortas Jaibo?",
+   "sql": null,
+   "analisis": "promociones",
+   "herramienta_negocio": "combinaciones_frecuentes",
+   "respuesta": "Para aumentar tus ventas, te recomiendo lanzar un combo de \"Mega Barda con Coca Cola\", ya que es la combinación que más piden tus clientes, con 238 órdenes registradas. También podrías crear un paquete de \"Mixta Normal con Horchata\", que aunque tiene menos volumen, presenta una afinidad alta de 2.28, lo que significa que los clientes suelen buscar mucho esa mezcla. Como tus mañanas de lunes y jueves son los momentos más flojos, con apenas 2.10 y 2.60 órdenes en promedio, estas promociones ayudarían a atraer más gente en esos horarios. Ten en cuenta que estas sugerencias se basan en el comportamiento de compra actual y convendría validar si el margen de utilidad permite el descuento.\n\nRecomendación: Implementa el combo \"Mega Barda con Coca Cola\" y promuévelo específicamente los lunes y jueves por la mañana para levantar el flujo de clientes.",
+   "duracion_s": 13.72,
+   "llamadas_llm": 4,
+   "tokens": 8807,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "WITH l AS (SELECT DISTINCT id_orden, producto FROM ventas WHERE categoria <> 'Interno' AND producto <> '--' AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 180 DAY), n AS (SELECT COUNT(DISTINCT id_orden) AS total FROM l), p AS (SELECT producto, COUNT(*) AS ordenes FROM l GROUP BY producto) SELECT a.producto AS producto_1, b.producto AS producto_2, COUNT(*) AS juntos, MAX(pa.ordenes) AS ordenes_1, MAX(pb.ordenes) AS ordenes_2, MAX(n.total) AS total FROM l a JOIN l b ON a.id_orden = b.id_orden AND a.producto < b.producto JOIN p pa ON pa.producto = a.producto JOIN p pb ON pb.producto = b.producto CROSS JOIN n GROUP BY a.producto, b.producto HAVING COUNT(*) >= 10 ORDER BY juntos DESC LIMIT 80",
+    "SELECT promocion, producto FROM promociones WHERE activa AND producto IS NOT NULL",
+    "WITH d AS (SELECT dia_semana, num_dia_semana, COUNT(DISTINCT fecha) AS dias FROM ordenes WHERE fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 180 DAY GROUP BY dia_semana, num_dia_semana) SELECT o.dia_semana, o.num_dia_semana, CASE WHEN o.hora_del_dia < 12 THEN 'mañana (antes de las 12)' WHEN o.hora_del_dia < 17 THEN 'comida (12 a 17)' ELSE 'tarde (17 en adelante)' END AS franja, ROUND(COUNT(*) * 1.0 / MAX(d.dias), 1) AS ordenes_por_dia FROM ordenes o JOIN d ON o.num_dia_semana = d.num_dia_semana WHERE NOT o.cancelada AND o.fecha > (SELECT MAX(fecha) FROM ordenes) - INTERVAL 180 DAY GROUP BY o.dia_semana, o.num_dia_semana, franja ORDER BY ordenes_por_dia ASC LIMIT 6"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_dueno\\JP06\\turno_001.json",
+   "resultado_correcto": true,
+   "herramienta_correcta": true,
+   "parametros_correctos": true,
+   "parametros_incorrectos": [],
+   "parametros_esperados": {
+    "dias": 180
+   },
+   "parametros_obtenidos": {
+    "dias": 180,
+    "min_ordenes": 10
+   },
+   "motivo": "coincide con la referencia",
+   "grafica": "barras_horizontales",
+   "puntaje_grafica": 5,
+   "cifras_total": 4,
+   "cifras_verificadas": 4,
+   "cifras_no_verificadas": [],
+   "supuestos": [],
+   "supuestos_declarados": null,
+   "agente_usado": "asesor",
+   "ruta_correcta": true,
+   "tiempo_total_s": 14.14
+  },
+  {
+   "id": "JP07",
+   "categoria": "dueno",
+   "pregunta": "Dame el reporte de ventas de ayer",
+   "modelos": [
+    "gemini-3.1-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "Dame el reporte de ventas de ayer",
+   "sql": null,
+   "analisis": "reporte_ventas",
+   "herramienta_negocio": "reporte_de_ventas",
+   "respuesta": "Ayer 15 de noviembre, Tortas Jaibo registró ventas por $2,891.00 repartidas en 17 órdenes, con un ticket promedio de $170.06. La mayor parte de la actividad ocurrió en el local, que concentró 11 de las órdenes, mientras que el efectivo fue el método de pago preferido por los clientes. Los bocoles y las tortas barda, tanto en su versión normal como mega, fueron los productos más solicitados durante la jornada. Posiblemente, el buen desempeño del local frente a las plataformas digitales se deba a la preferencia de los clientes por consumir directamente en el establecimiento.\n\nRecomendación: Aprovecha la alta demanda de bocoles y tortas barda para ofrecer un paquete de desayuno o comida que incluya una bebida, buscando elevar el ticket promedio.",
+   "duracion_s": 3.59,
+   "llamadas_llm": 1,
+   "tokens": 2165,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT COUNT(*) FILTER (WHERE NOT cancelada) AS ordenes, COALESCE(SUM(monto_total) FILTER (WHERE NOT cancelada), 0) AS vendido, COUNT(*) FILTER (WHERE cancelada) AS corregidas, COALESCE(SUM(descuento) FILTER (WHERE NOT cancelada), 0) AS descuento, COUNT(DISTINCT fecha) AS dias FROM ordenes WHERE fecha BETWEEN DATE '2026-11-15' AND DATE '2026-11-15'",
+    "SELECT metodo_pago, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND fecha BETWEEN DATE '2026-11-15' AND DATE '2026-11-15' GROUP BY metodo_pago ORDER BY vendido DESC",
+    "SELECT canal, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND fecha BETWEEN DATE '2026-11-15' AND DATE '2026-11-15' GROUP BY canal ORDER BY vendido DESC",
+    "SELECT producto, SUM(cantidad) AS unidades, ROUND(SUM(total), 2) AS venta FROM ventas WHERE categoria <> 'Interno' AND fecha BETWEEN DATE '2026-11-15' AND DATE '2026-11-15' GROUP BY producto ORDER BY unidades DESC LIMIT 10",
+    "SELECT hora_del_dia, COUNT(*) AS ordenes, ROUND(SUM(monto_total), 2) AS vendido FROM ordenes WHERE NOT cancelada AND fecha BETWEEN DATE '2026-11-15' AND DATE '2026-11-15' GROUP BY hora_del_dia ORDER BY hora_del_dia"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_dueno\\JP07\\turno_001.json",
+   "resultado_correcto": true,
+   "herramienta_correcta": true,
+   "parametros_correctos": true,
+   "parametros_incorrectos": [],
+   "parametros_esperados": {
+    "desde": "2026-11-15",
+    "hasta": "2026-11-15"
+   },
+   "parametros_obtenidos": {
+    "desde": "2026-11-15",
+    "hasta": "2026-11-15",
+    "pdf": "C:\\proyectos\\DataVoz\\reportes\\reporte_ventas_20261115.pdf"
+   },
+   "motivo": "coincide con la referencia",
+   "grafica": "barras_horizontales",
+   "puntaje_grafica": 5,
+   "cifras_total": 5,
+   "cifras_verificadas": 5,
+   "cifras_no_verificadas": [],
+   "supuestos": [],
+   "supuestos_declarados": null,
+   "agente_usado": "asesor",
+   "ruta_correcta": true,
+   "tiempo_total_s": 4.33
+  },
+  {
+   "id": "JP08",
+   "categoria": "dueno",
+   "pregunta": "¿Cuántos pedidos se cancelaron este mes?",
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuántos pedidos se cancelaron en noviembre de 2026?",
+   "sql": "SELECT COUNT(*) AS pedidos_cancelados FROM ordenes WHERE cancelada AND mes = 11 AND anio = 2026",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "En noviembre de 2026 se registraron 14 pedidos cancelados por modificación. Esto significa que esas órdenes tuvieron que ser corregidas y capturadas nuevamente, por lo que no representan ventas perdidas, sino ajustes en el proceso de captura. Posiblemente, este número refleja errores al momento de ingresar los pedidos en el sistema. Es importante mantener este indicador bajo para agilizar la atención en mostrador y plataformas.\n\nRecomendación: Revisa con tu equipo de caja si hay dudas frecuentes con algún producto o plataforma que esté causando estas correcciones constantes.",
+   "duracion_s": 4.62,
+   "llamadas_llm": 3,
+   "tokens": 5016,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT COUNT(*) AS pedidos_cancelados FROM ordenes WHERE cancelada AND mes = 11 AND anio = 2026"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_dueno\\JP08\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": null,
+   "puntaje_grafica": 5,
+   "cifras_total": 2,
+   "cifras_verificadas": 2,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 0,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 4.74
+  },
+  {
+   "id": "JP09",
+   "categoria": "dueno",
+   "pregunta": "¿Cuál es mi ticket promedio en Rappi?",
+   "modelos": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuál es mi ticket promedio de ventas en Rappi?",
+   "sql": "SELECT COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND canal = 'Rappi'",
+   "analisis": null,
+   "herramienta_negocio": null,
+   "respuesta": "Tu ticket promedio en Rappi es de $183.81. En total, hemos registrado 502 órdenes a través de esta plataforma, sumando una venta de $92,271. Ten en cuenta que este monto incluye una comisión por parte de la aplicación, la cual es un estimado que conviene confirmar para conocer tu margen real.\n\nRecomendación: Revisa si el margen neto tras la comisión de Rappi justifica mantener los precios actuales o si es necesario ajustar el menú para mejorar la rentabilidad.",
+   "duracion_s": 7.42,
+   "llamadas_llm": 4,
+   "tokens": 6744,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "SELECT COUNT(*) AS ordenes, ROUND(AVG(monto_total), 2) AS ticket_promedio, ROUND(SUM(monto_total), 2) AS total_vendido FROM ordenes WHERE NOT cancelada AND canal = 'Rappi'"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_dueno\\JP09\\turno_001.json",
+   "sql_correcto": true,
+   "motivo": "coincide con la referencia",
+   "grafica": "barras",
+   "puntaje_grafica": 2,
+   "cifras_total": 3,
+   "cifras_verificadas": 3,
+   "cifras_no_verificadas": [],
+   "reintentos_sql": 0,
+   "agente_usado": "analista",
+   "ruta_correcta": true,
+   "tiempo_total_s": 7.53
+  },
+  {
+   "id": "JP10",
+   "categoria": "dueno",
+   "pregunta": "¿Cuánto me voy a gastar en la compra del sábado?",
+   "modelos": [
+    "gemini-3.1-flash-lite"
+   ],
+   "fallo_cuota": false,
+   "respaldos_usados": 0,
+   "intencion": "consulta_datos",
+   "pregunta_completa": "¿Cuánto dinero voy a gastar en la compra de insumos para el próximo sábado?",
+   "sql": null,
+   "analisis": "compras",
+   "herramienta_negocio": "lista_de_compras",
+   "respuesta": "Para el próximo sábado, el gasto estimado en insumos es de $1,450.73. Este monto cubre principalmente la carne de res para deshebrar, que es el ingrediente con mayor costo, además de los 23 panes necesarios para la jornada. Ten en cuenta que estos cálculos son una estimación basada en precios de supermercado y porciones estándar, por lo que te sugiero confirmar los costos reales con tus proveedores locales. El método de pronóstico que usamos ha demostrado ser más preciso que simplemente repetir lo que se vendió el sábado pasado, con un error promedio de solo 3 piezas por tipo de pan.\n\nRecomendación: Revisa los precios de la carne de res con tu proveedor habitual, ya que representa casi la mitad de tu gasto total y podrías conseguir un mejor margen comprando por volumen.",
+   "duracion_s": 7.28,
+   "llamadas_llm": 3,
+   "tokens": 6335,
+   "proveedores": [
+    "gemini"
+   ],
+   "sql_ejecutadas": [
+    "WITH d AS (SELECT DISTINCT fecha FROM ordenes) SELECT d.fecha, COALESCE(SUM(v.cantidad) FILTER (WHERE v.producto IN ('Barbacoa normal', 'Barda normal', 'Mixta normal', 'Pierna normal')), 0) AS normal, COALESCE(SUM(v.cantidad) FILTER (WHERE v.producto IN ('Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna')), 0) AS mega FROM d LEFT JOIN ventas v ON v.fecha = d.fecha GROUP BY d.fecha ORDER BY d.fecha",
+    "SELECT producto, SUM(cantidad) AS u FROM ventas WHERE producto IN ('Barbacoa normal', 'Barda normal', 'Mixta normal', 'Pierna normal', 'Mega barbacoa', 'Mega barda', 'Mega mixta', 'Mega pierna') AND fecha > (SELECT MAX(fecha) FROM ventas) - INTERVAL 56 DAY GROUP BY producto",
+    "WITH f AS (SELECT MAX(fecha) AS m FROM ventas), abiertos AS (SELECT COUNT(DISTINCT fecha) AS n FROM ordenes, f WHERE fecha > f.m - INTERVAL 28 DAY), v AS (SELECT producto, SUM(cantidad) AS u FROM ventas, f WHERE categoria = 'Bebidas' AND fecha > f.m - INTERVAL 28 DAY GROUP BY producto) SELECT p.producto, p.stock, v.u * 1.0 / NULLIF(MAX(a.n), 0) AS diario FROM productos p JOIN v ON v.producto = p.producto, abiertos a WHERE p.activo AND p.stock IS NOT NULL GROUP BY p.producto, p.stock, v.u"
+   ],
+   "error": null,
+   "traza": "C:\\proyectos\\DataVoz\\evaluacion\\trazas\\eval_jaibo_dueno\\JP10\\turno_001.json",
+   "resultado_correcto": true,
+   "herramienta_correcta": true,
+   "parametros_correctos": true,
+   "parametros_incorrectos": [],
+   "parametros_esperados": {
+    "fechas": [
+     "2026-11-21"
+    ]
+   },
+   "parametros_obtenidos": {
+    "fechas": [
+     "2026-11-21"
+    ],
+    "margen": 0.1,
+    "precios": {
+     "pan_normal": 2.0,
+     "pan_mega": 4.5
+    }
+   },
+   "motivo": "coincide con la referencia",
+   "grafica": "barras_horizontales",
+   "puntaje_grafica": 5,
+   "cifras_total": 3,
+   "cifras_verificadas": 3,
+   "cifras_no_verificadas": [],
+   "supuestos": [
+    "margen de seguridad de 10% (SUPUESTO: falta confirmarlo con el dueño)",
+    "se toma «Telera» como pan normal y «Telera Doble» como pan Mega (SUPUESTO: confírmalo o pon el precio de tu panadero en costos.yaml)",
+    "ingredientes según las porciones por torta de costos.yaml (Mega = 1.35 veces la normal) (SUPUESTO: porciones estimadas, ajústalas)"
+   ],
+   "supuestos_declarados": true,
+   "agente_usado": "asesor",
+   "ruta_correcta": true,
+   "tiempo_total_s": 8.08
+  }
+ ]
+}
