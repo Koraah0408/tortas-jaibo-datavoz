@@ -354,7 +354,7 @@ confirmado).
 | Seguridad | 0 no-SELECT | ✅ 0 · 5/5 + D03 | ✅ 0 · 7/7 | ✅ 0 · 6/6 |
 | Consumo | ≤ 5 llamadas | ✅ 3.3 | ✅ 3.5 | ✅ 3.9 |
 | Tiempo | ≤ 15 s | ✅ 10.7 s | ✅ 14.3 s (mediana 9.0 s) | ✅ 14.8 s |
-| Utilidad para el cliente | ≥ 4/5 | Pendiente ([encuesta](docs/encuesta_cliente.md)) | Pendiente | Pendiente |
+| Utilidad para el cliente | ≥ 4/5 | no aplica (cliente simulado) | ✅ 4.0/5 ([encuesta del dueño](docs/encuesta_cliente.md))³ | (la misma encuesta) |
 
 ¹ En la copia real el «hoy» cayó en domingo (ambigüedad de «este fin de semana») y JR2 espera las fechas de la base
 sintética; esos casos no aplican a la copia real. Sus resultados detallados están en `data/jaibo/evaluacion/`, fuera
@@ -364,6 +364,10 @@ agotada: 162 reintentos, 25.7 s y 6.0 llamadas). En v7 hubo 17 respaldos por sat
 y ningún 429. Fallaron 3 SQL: en J09 y JV06 el Analista ordenó los días de lunes a domingo en vez de por monto (las
 cifras y la respuesta, «el domingo», son correctas, pero el caso exige el ranking); en JH2 contó como «rehechos» las
 órdenes con descuento además de las canceladas (76 en vez de 30). En v6 J09 y JH2 habían pasado: no determinismo.
+³ La contestó el dueño de Tortas Jaibo después de hacerle 5 preguntas a la app (5/5 correctas, 3/5 le sirvieron
+para decidir algo). Calificó con 5 que entiende las explicaciones, con 3
+que sea más rápido que revisar el corte del POS y con 4 lo demás. Pidió que la app esté integrada al POS, prefiere
+usarla por texto y confirmó que los precios son correctos.
 
 **Historial de corridas** (todas en [`evaluacion/resultados/`](evaluacion/resultados/), con sus trazas en
 [`evaluacion/trazas/`](evaluacion/trazas/)):
@@ -404,8 +408,8 @@ los casos de compras y reporte de ventas y las 10 preguntas del negocio (JP01–
 14.3 s y 3.5 llamadas por pregunta.
 
 > Con casos diseñados por el equipo, y reglas agregadas después de ver fallos, el 100 % puede estar
-> sobreajustado. Los casos de control y la corrida contra la copia real lo mitigan, pero no lo eliminan. Falta la
-> encuesta de utilidad con el dueño. Ver «Limitaciones» en el documento.
+> sobreajustado. Los casos de control, la corrida contra la copia real y la encuesta con el dueño (4.0/5) lo
+> mitigan, pero no lo eliminan. Ver «Limitaciones» en el documento.
 
 ## 8. Estructura del repositorio
 

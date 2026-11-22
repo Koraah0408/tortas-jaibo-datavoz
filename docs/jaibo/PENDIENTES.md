@@ -63,7 +63,7 @@
 Supuestos de `costos.yaml` confirmados, permiso del dueño, corrida contra la copia real (`eval_jaibo_real_v2`), ficha y PDF con el giro a Tortas Jaibo (trazas JD02 y J09), casos de compras (JC1, JC2) y corrida final con la cuota disponible.
 
 ## Falta
-1. **La encuesta con el dueño** (criterio «utilidad para el cliente», docs/encuesta_cliente.md). La contesta él.
+1. ~~La encuesta con el dueño~~: contestada el 22/11/2026, **4.0/5** (cumple). Pidió integrar la app al POS.
 2. **Tú:** cambiar la contraseña del POS en `DatabaseConfig.java` (no es del proyecto, pero conviene).
 3. **Confirmar por qué bajan las órdenes desde mayo de 2026:** ¿parte de la venta ya se registra en el POS nuevo?
 4. **Publicar en Streamlit Cloud** y autorizar Gmail, si no se ha hecho (pasos en docs/PUBLICAR.md y docs/jaibo/GMAIL.md). Gmail es opcional.

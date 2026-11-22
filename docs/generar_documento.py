@@ -237,9 +237,9 @@ def main() -> None:
     base = json.loads(Path(args.resultados).read_text(encoding="utf-8"))
     contenido = yaml.safe_load((DOCS / "contenido_documento.yaml").read_text(encoding="utf-8"))
     m, mb = res["metricas"], base["metricas"]
-    for x in (m, mb):
-        x["utilidad_texto"] = contenido.get("utilidad_texto")
-        x["utilidad_cumple"] = contenido.get("utilidad_cumple")
+    m["utilidad_texto"] = contenido.get("utilidad_texto")
+    m["utilidad_cumple"] = contenido.get("utilidad_cumple")
+    mb["utilidad_texto"] = "No aplica: la tienda es un cliente simulado (la encuesta se aplicó al dueño de Tortas Jaibo)"
     filas = m["seguridad"]["filas_antes"]
     from datavoz.herramientas import HERRAMIENTAS
     hoy = date.today()

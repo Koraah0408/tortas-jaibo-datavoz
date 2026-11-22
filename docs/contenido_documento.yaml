@@ -1,9 +1,9 @@
 # Texto narrativo del documento final (lo usa docs/generar_documento.py).
 repositorio: "https://github.com/Koraah0408/tortas-jaibo-datavoz (privado; acceso a solicitud)"
 proveedor: "Gemini 3.1 Flash-Lite y 3.5 Flash-Lite, capa gratuita"
-estado_cliente: "pendiente de la encuesta con el dueño"
-utilidad_texto: "Pendiente: la encuesta (docs/encuesta_cliente.md) la contesta el dueño después de usar la app"
-utilidad_cumple: "—"
+estado_cliente: "encuesta del dueño, 4.0/5"
+utilidad_texto: "4.0/5 en la encuesta del dueño (docs/encuesta_cliente.md): explicaciones 5, rapidez 3, el resto 4"
+utilidad_cumple: '<span class="ok">Sí</span>'
 n_pruebas: 187
 
 problemas:
@@ -158,16 +158,17 @@ seguridad: |
 limitaciones: |
   <ul>
     <li><b>Datos reales y encuesta.</b> La suite ya se corrió contra la copia real del POS (eval_jaibo_real_v2), pero sus
-    resultados detallados no se publican porque contienen las ventas del negocio. Falta la encuesta de utilidad con el
-    dueño.</li>
+    resultados detallados no se publican porque contienen las ventas del negocio. La encuesta de utilidad la contestó
+    una sola persona (el dueño), después de hacer 5 preguntas a la app.</li>
     <li><b>Capa gratuita.</b> En un día de muchas pruebas se agotó la cuota del modelo principal: el sistema siguió
     respondiendo con los modelos de respaldo, pero casi al doble de tiempo (25.7 s en eval_jaibo_v6 contra 14.3 s en
     eval_jaibo_v7, con la cuota disponible) y, en la copia real, 5 casos se quedaron sin
     modelo (eval_jaibo_real_v3, no se reporta como resultado).</li>
     <li><b>Suites diseñadas por el equipo.</b> Las reglas del RAG y de la revisión semántica se agregaron después de ver
     fallos de las propias suites, así que el 100 % puede estar sobreajustado; hacen falta preguntas reales del dueño.</li>
-    <li><b>Supuestos del negocio.</b> Comisiones de las apps, margen de pan, porciones y costos usan valores que el dueño
-    debe confirmar; la app los marca como SUPUESTO. Los precios de Chedraui son de referencia, no los del panadero.</li>
+    <li><b>Supuestos del negocio.</b> Comisiones de las apps, margen de pan y porciones ya los confirmó el dueño, y en la
+    encuesta dijo que los precios que usa la app son correctos. El precio del pan sigue siendo el de Chedraui como
+    referencia, porque no se tiene el del panadero.</li>
     <li><b>Pronóstico simple.</b> Promedio por día de la semana con ajuste de quincena; no considera clima, días festivos
     ni eventos. Su error se mide y se reporta (≈ 3 piezas por día en la base sintética).</li>
     <li><b>No determinismo y capa gratuita.</b> El mismo caso puede generar SQL distinto entre corridas, y las cuotas
@@ -178,6 +179,9 @@ limitaciones: |
     WhatsApp, pero falta probar con otras voces (por ejemplo, la del dueño) y con el ruido del local. Los audios no se
     suben al repositorio porque son voces de personas.</li>
     <li><b>Pendiente del nivel ideal:</b> respuesta por voz y aviso automático (por ejemplo, por WhatsApp) del pan a comprar.</li>
+    <li><b>Lo que pidió el dueño:</b> que la app esté integrada directamente al punto de venta. Hoy es una aplicación
+    aparte que lee una copia de solo lectura. También dijo que prefiere escribir a hablar, así que la voz es un
+    complemento y no la forma principal de uso.</li>
   </ul>
 
 conclusiones: |
@@ -191,7 +195,9 @@ conclusiones: |
   en dos casos (solo cambió el orden del ranking) y en uno contó de más los pedidos rehechos. Contra la <b>copia real del
   POS</b> (eval_jaibo_real_v2, solo lectura) mantuvo 96.7 % de SQL, 100 % de ruta y 99.3 % de cifras verificadas, con
   cero escrituras. En la suite base (eval_v6) cumplió todos los criterios: 19/19 de SQL, 68/68 cifras, 100 % de errores
-  de datos detectados y 3/3 cargas con confirmación del dueño. Queda pendiente la encuesta de utilidad con el dueño.</p>
+  de datos detectados y 3/3 cargas con confirmación del dueño. En la <b>encuesta de utilidad</b> el dueño le dio
+  <b>4.0/5</b> (meta ≥ 4), con 5/5 respuestas correctas a sus propias preguntas y 3/5 útiles para decidir algo; la mejor calificación fue que entiende las explicaciones sin conocimientos técnicos (5) y la más
+  baja que sea más rápido que revisar el corte del POS (3).</p>
   <p>Las lecciones principales fueron: (1) el patrón supervisor sirve sobre todo para atrapar consultas que <i>corren pero
   responden mal</i>, y para eso necesita conocimiento del negocio; (2) en las decisiones conviene que el LLM elija y el
   código calcule, porque así el resultado es verificable y los supuestos son explícitos; (3) la veracidad de la
