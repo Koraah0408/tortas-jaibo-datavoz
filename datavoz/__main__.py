@@ -25,7 +25,7 @@ def mostrar(r: dict) -> None:
         print("SQL:", " ".join(r["sql"].split()))
     res = r.get("resultado") or {}
     if res.get("columnas"):
-        print(tabla_markdown(res["columnas"], res["filas"], 10))
+        print(tabla_markdown(res["columnas"], res["filas"], 10, delimitar=False))
     if r.get("grafica"):
         print(f"📊 Gráfica: {r['grafica']['spec'].get('tipo')} · {r['grafica']['spec'].get('titulo')}")
     if r.get("reporte_pdf"):

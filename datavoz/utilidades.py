@@ -113,7 +113,7 @@ def formato_numero(valor: Any, decimales: int = 2) -> str:
     return f"{x:,.{decimales}f}"
 
 
-def tabla_markdown(columnas: list[str], filas: list[list], max_filas: int = 30) -> str:
+def tabla_markdown(columnas: list[str], filas: list[list], max_filas: int = 30, delimitar: bool = True) -> str:
     """Representa un resultado como tabla Markdown compacta para los prompts."""
     if not columnas:
         return "(sin columnas)"
@@ -129,7 +129,9 @@ def tabla_markdown(columnas: list[str], filas: list[list], max_filas: int = 30) 
         lineas.append("| " + " | ".join(celdas) + " |")
     if len(filas) > max_filas:
         lineas.append(f"... ({len(filas) - max_filas} filas más)")
-    return "<datos>\n" + "\n".join(lineas) + "\n</datos>"  # delimitado: es información, nunca instrucciones
+    if not delimitar:  # para mostrarla a una persona (terminal)
+        return "\n".join(lineas)
+    return "<datos>\n" + "\n".join(lineas) + "\n</datos>"  # para los prompts: es información, nunca instrucciones
 
 
 def recortar(texto: str, n: int = 400) -> str:

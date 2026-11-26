@@ -245,9 +245,10 @@ la app. Está pensada para que el dueño no se pierda:
 - respuestas con la recomendación destacada y la marca «cifras verificadas»;
 - un tablero que se arma solo, conversaciones guardadas, preguntas por voz y reporte PDF.
 
-Los datos y las trazas de los agentes quedan en *Detalles técnicos*, en la barra lateral. La carga de archivos
-del agente Limpiador ya no aparece en la app de Jaibo, porque las ventas vienen del POS. Ese agente sigue en el
-código, en la terminal y en la evaluación (casos D01–D02).
+Los datos y las trazas de los agentes quedan en *Detalles técnicos*, en la barra lateral. Las ventas vienen del
+POS; además, **Revisar un archivo de ventas** (barra lateral) simula la carga de un CSV o Excel: el Limpiador
+propone los cambios con ejemplos y botones **Aprobar y cargar** / **Cancelar**, y solo con la aprobación lo carga
+en una base de prueba de una conversación nueva (nunca en el POS). Las **alertas automáticas** aparecen en «Mi semana».
 
 **Terminal:**
 
@@ -267,7 +268,8 @@ s = SesionDataVoz()
 r = s.preguntar("¿Cuáles fueron los 5 productos más vendidos del año?")
 print(r["respuesta"], r["sql"], r["grafica"]["spec"])
 s.preguntar("¿Y en diciembre?")                      # usa la memoria
-s.cargar_archivo("data/ventas_sucias.csv")           # agente Limpiador
+s.cargar_archivo("data/ventas_sucias.csv")           # el Limpiador PROPONE los cambios (no escribe nada)
+s.aprobar_carga()                                    # el dueño aprueba: se aplican y se cargan
 s.exportar_reporte()                                 # PDF en reportes/
 ```
 
