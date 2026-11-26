@@ -6,12 +6,12 @@ pide **contraseña** para entrar.
 
 ## 1. Repositorio
 
-El código vive en un repositorio **privado** de GitHub. Nunca se suben `.env`, `data/jaibo/` (copia del POS, costos,
+El código vive en un repositorio **público** de GitHub (las ventas, costos y llaves nunca se suben). Nunca se suben `.env`, `data/jaibo/` (copia del POS, costos,
 reportes, permiso de Gmail), `trazas/` ni `reportes/`.
 
 ## 2. Crear la app
 
-1. Entra a <https://share.streamlit.io> con tu cuenta de GitHub y autoriza el acceso a repositorios privados.
+1. Entra a <https://share.streamlit.io> con tu cuenta de GitHub (si el repositorio fuera privado, autoriza el acceso a repositorios privados).
 2. **Create app**:
    - el repositorio;
    - la rama `main`;

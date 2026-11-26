@@ -1,5 +1,5 @@
 # Texto narrativo del documento final (lo usa docs/generar_documento.py).
-repositorio: "https://github.com/Koraah0408/tortas-jaibo-datavoz (privado; acceso a solicitud)"
+repositorio: "https://github.com/Koraah0408/tortas-jaibo-datavoz"
 proveedor: "Gemini 3.1 Flash-Lite y 3.5 Flash-Lite, capa gratuita"
 estado_cliente: "encuesta del dueño, 4.0/5"
 utilidad_texto: "4.0/5 en la encuesta del dueño (docs/encuesta_cliente.md): explicaciones 5, rapidez 3, el resto 4"

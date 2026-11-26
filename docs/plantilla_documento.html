@@ -284,7 +284,7 @@ publicada pide contraseña.</p>
   <tr><td>Datos</td><td>PostgreSQL en Supabase (POS, solo lectura) → DuckDB (copia local) · ChromaDB (RAG)</td></tr>
   <tr><td>Análisis, gráficas y reportes</td><td>pandas, NumPy, Plotly, matplotlib, fpdf2</td></tr>
   <tr><td>Voz</td><td>Whisper local (faster-whisper, CPU int8); Gemini en la versión publicada</td></tr>
-  <tr><td>Interfaz y publicación</td><td>Streamlit con tema de Tortas Jaibo; Streamlit Community Cloud con repositorio privado de GitHub</td></tr>
+  <tr><td>Interfaz y publicación</td><td>Streamlit con tema de Tortas Jaibo; Streamlit Community Cloud con repositorio público de GitHub</td></tr>
   <tr><td>Seguridad del SQL</td><td>sqlglot</td></tr>
   <tr><td>Evaluación</td><td>pytest ({{ n_pruebas }} pruebas), script propio de métricas con trazas por turno</td></tr>
 </table>
@@ -378,7 +378,7 @@ streamlit run app.py                                  # interfaz (sin POS config
 python -m pytest                                      # {{ n_pruebas }} pruebas automáticas
 python evaluacion/ejecutar_evaluacion.py --negocio jaibo --sin-cache --pausa 10   # suite de Tortas Jaibo
 python evaluacion/ejecutar_evaluacion.py --sin-cache                              # suite base</pre>
-<p class="pequeno">Repositorio privado: {{ repositorio }} · Versión publicada en Streamlit Community Cloud (con
+<p class="pequeno">Repositorio público: {{ repositorio }} · Versión publicada en Streamlit Community Cloud (con
 contraseña). Los detalles están en README.md y docs/PUBLICAR.md. El repositorio no contiene llaves, ventas reales ni
 datos personales.</p>
 </section>
